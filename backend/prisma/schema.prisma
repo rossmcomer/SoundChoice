@@ -24,3 +24,44 @@ model User {
   bookings Booking[]
   questionnaires Questionnaire[]
 }
+
+model Booking {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  eventDate  DateTime
+  startTime  DateTime
+  endTime    DateTime
+  location   String
+  status     String   @default("pending")
+  paymentStatus String @default("unpaid")
+  payment   Payment?
+}
+
+model Payment {
+  id          String   @id @default(uuid())
+  bookingId   String
+  amount      Float
+  status      String
+  method      String
+  transactionId String
+  booking     Booking  @relation(fields: [bookingId], references: [id])
+}
+
+model Questionnaire {
+  id          String   @id @default(uuid())
+  userId      String
+  bookingId   String
+  answers     Json
+  lastUpdated DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+  booking     Booking  @relation(fields: [bookingId], references: [id])
+}
+
+model Availability {
+  id          String   @id @default(uuid())
+  date        DateTime
+  startTime   DateTime
+  endTime     DateTime
+  isAvailable Boolean
+}
