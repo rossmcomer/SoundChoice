@@ -5,7 +5,6 @@ import { prisma } from '../util/db';
 import bcryptjs from 'bcryptjs';
 
 router.post('/create-account', async (req: Request, res: Response): Promise<Response> => {
-    try {
         const { email, name, password } = req.body;
 
         try {
