@@ -8,6 +8,12 @@ router.post('/create-account', async (req: Request, res: Response): Promise<Resp
         const { email, name, password } = req.body;
 
         try {
+          // Email regex to validate format
+          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+          if (!emailRegex.test(email)) {
+            return res.status(400).json({ error: 'Invalid email address' });
+          }
           // Check if email already exists
           const existingUser = await prisma.user.findUnique({
             where: {
