@@ -117,10 +117,49 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.ClientScalarFieldEnum = {
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  email: 'email',
   name: 'name',
-  email: 'email'
+  password: 'password',
+  role: 'role',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  eventDate: 'eventDate',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  location: 'location',
+  status: 'status',
+  paymentStatus: 'paymentStatus'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  bookingId: 'bookingId',
+  amount: 'amount',
+  status: 'status',
+  method: 'method',
+  transactionId: 'transactionId'
+};
+
+exports.Prisma.QuestionnaireScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  bookingId: 'bookingId',
+  answers: 'answers',
+  lastUpdated: 'lastUpdated'
+};
+
+exports.Prisma.AvailabilityScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  isAvailable: 'isAvailable'
 };
 
 exports.Prisma.SortOrder = {
@@ -128,14 +167,43 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.BookingStatus = exports.$Enums.BookingStatus = {
+  pending: 'pending',
+  confirmed: 'confirmed',
+  cancelled: 'cancelled'
+};
+
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  unpaid: 'unpaid',
+  paid: 'paid',
+  failed: 'failed'
+};
+
+exports.PaymentMethod = exports.$Enums.PaymentMethod = {
+  stripe: 'stripe',
+  paypal: 'paypal'
+};
 
 exports.Prisma.ModelName = {
-  Client: 'Client'
+  User: 'User',
+  Booking: 'Booking',
+  Payment: 'Payment',
+  Questionnaire: 'Questionnaire',
+  Availability: 'Availability'
 };
 
 /**
