@@ -8,5 +8,7 @@ module.exports = {
     DOMAIN_NAME: process.env.DOMAIN_NAME,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     DEV_WEBHOOK_SECRET: process.env.DEV_WEBHOOK_SECRET,
+    PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
+    PAYPAL_SECRET: process.env.PAYPAL_SECRET,
   }
   
