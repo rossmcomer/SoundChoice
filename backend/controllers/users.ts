@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { User } from '../types/prisma';
 import { prisma } from '../util/db';
 import bcryptjs from 'bcryptjs';
+const { tokenExtractor } = require('../util/middleware')
 
 // Email regex to validate format
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -43,7 +44,7 @@ router.post('/create-account', async (req: Request, res: Response): Promise<Resp
       }
 });
 
-router.put('/:id', async (req: Request, res: Response): Promise<Response> => {
+router.put('/:id', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
   const userId = req.params.id;  // Get the user ID from the URL parameters
   const { email, name } = req.body;  // Extract the new email and name from the request body
 
