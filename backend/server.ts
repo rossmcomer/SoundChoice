@@ -4,8 +4,12 @@ const cors = require('cors');
 const { PORT } = require('./util/config')
 const { connectToDatabase } = require ('./util/db.ts');
 
+const usersRouter = require('./controllers/users')
+
 app.use(cors());
 app.use(express.json());
+
+app.use('/api/users', usersRouter)
 
 const start = async () => {
     await connectToDatabase();
