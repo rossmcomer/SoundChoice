@@ -4,13 +4,13 @@ import { User } from '../types/prisma';
 import { prisma } from '../util/db';
 import bcryptjs from 'bcryptjs';
 
+// Email regex to validate format
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 router.post('/create-account', async (req: Request, res: Response): Promise<Response> => {
         const { email, name, password } = req.body;
 
         try {
-          // Email regex to validate format
-          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
           if (!emailRegex.test(email)) {
             return res.status(400).json({ error: 'Invalid email address' });
           }
@@ -41,6 +41,58 @@ router.post('/create-account', async (req: Request, res: Response): Promise<Resp
       } catch (error) {
         return res.status(500).json({ error: 'Failed to create user' });
       }
+});
+
+router.put('/:id', async (req: Request, res: Response): Promise<Response> => {
+  const userId = req.params.id;  // Get the user ID from the URL parameters
+  const { email, name } = req.body;  // Extract the new email and name from the request body
+
+  try {
+    // Check if the user exists
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!existingUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // If an email is provided, validate the format
+    if (email) {
+      if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Invalid email address' });
+      }
+
+      // Check if the new email is already in use by another user
+      const emailExists = await prisma.user.findUnique({
+        where: {
+          email: email,
+        },
+      });
+
+      if (emailExists && emailExists.id !== userId) {
+        return res.status(409).json({ error: 'Email is already in use' });
+      }
+    }
+
+    // Update the user with the new data (email and/or name)
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        email: email || existingUser.email,  // If no email provided, keep the existing one
+        name: name || existingUser.name,     // If no name provided, keep the existing one
+      },
+    });
+
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to update user' });
+  }
 });
 
 module.exports = router
