@@ -54,13 +54,12 @@ router.get('/:id', tokenExtractor, async (req: Request, res: Response): Promise<
         id: userId, // Find user by their unique ID
       },
       include: {
-        bookings: true,          // Include bookings associated with the user
-        questionnaires: true,     // Include questionnaires associated with the user
-        payments: {              // Include payments associated with the user's bookings
+        bookings: {             // Include bookings associated with the user
           include: {
-            booking: true,       // Include the booking details for each payment
+            payment: true,
           },
-        },
+        },         
+        questionnaires: true,     // Include questionnaires associated with the user
       },
     });
 
