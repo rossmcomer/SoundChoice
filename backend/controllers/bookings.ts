@@ -33,8 +33,12 @@ router.post('/', tokenExtractor, async (req: Request, res: Response): Promise<Re
 });
 
 // GET all bookings for a user
-router.get('/user/:userId', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
-  const { userId } = req.params;
+router.get('/', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
+  const userId = req.decodedToken?.userId
+
+  if (!userId) {
+    return res.status(400).json({ error: 'User ID not found in token' });
+  }
 
   try {
     const bookings = await prisma.booking.findMany({

@@ -17,7 +17,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/availability', availabilityRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/logout', logoutRouter)
-app.use('/api/booking', bookingsRouter)
+app.use('/api/bookings', bookingsRouter)
 
 const start = async () => {
     await connectToDatabase();

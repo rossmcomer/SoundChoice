@@ -8,7 +8,6 @@ import { prisma } from '../util/db';
 // Login user
 router.post('/', async (req: Request, res: Response): Promise<Response> => {
     const { email, password } = req.body;
-    console.log(email.toLowerCase())
   
     try {
       // Find user by username (case-insensitive)
@@ -31,7 +30,7 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
   
       // Create token payload
       const userForToken = {
-        id: user.id,
+        userId: user.id,
         name: user.name,
         email: user.email,
       };
@@ -43,7 +42,7 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
       return res.status(200).json({
         token,
         user: {
-          id: user.id,
+          userId: user.id,
           username: user.name,
           email: user.email
         },
