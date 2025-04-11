@@ -1,7 +1,7 @@
 const router = require('express').Router()
 import { Request, Response } from 'express';
 import { prisma } from '../util/db';
-import { tokenExtractor } from '../util/middleware';
+const { tokenExtractor } = require('../util/middleware')
 
 // POST new booking into Bookings table
 router.post('/', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {

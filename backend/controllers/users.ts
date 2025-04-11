@@ -1,9 +1,9 @@
 const router = require('express').Router()
 import { Request, Response } from 'express';
-import { User } from '../types/prisma';
+import { User } from '../types';
 import { prisma } from '../util/db';
 import bcryptjs from 'bcryptjs';
-import { tokenExtractor } from '../util/middleware';
+const { tokenExtractor } = require('../util/middleware')
 
 // Email regex to validate format
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

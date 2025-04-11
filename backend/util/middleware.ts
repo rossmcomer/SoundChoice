@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { DecodedToken } from '../types/token';
+import { DecodedToken } from '../types';
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('./config');
   
@@ -23,4 +23,4 @@ const tokenExtractor = (req: Request, res: Response, next: NextFunction): void =
     }
 };
   
-export { tokenExtractor };
+module.exports = { tokenExtractor }
