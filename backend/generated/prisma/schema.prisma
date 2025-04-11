@@ -33,6 +33,7 @@ model Booking {
   startTime     DateTime
   endTime       DateTime
   location      String
+  type          EventType      @default(wedding)
   paymentStatus PaymentStatus  @default(unpaid)
   payment       Payment?
   questionnaire Questionnaire?
@@ -64,6 +65,14 @@ model Availability {
   startTime   DateTime
   endTime     DateTime
   isAvailable Boolean
+}
+
+enum EventType {
+  wedding
+  corporate
+  birthday
+  barBatMitzvah
+  other
 }
 
 enum BookingStatus {

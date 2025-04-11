@@ -133,6 +133,7 @@ exports.Prisma.BookingScalarFieldEnum = {
   startTime: 'startTime',
   endTime: 'endTime',
   location: 'location',
+  type: 'type',
   paymentStatus: 'paymentStatus'
 };
 
@@ -180,6 +181,14 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.EventType = exports.$Enums.EventType = {
+  wedding: 'wedding',
+  corporate: 'corporate',
+  birthday: 'birthday',
+  barBatMitzvah: 'barBatMitzvah',
+  other: 'other'
+};
+
 exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   unpaid: 'unpaid',
   paid: 'paid',
