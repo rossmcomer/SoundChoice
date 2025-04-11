@@ -1,9 +1,10 @@
 const router = require('express').Router()
 import { Request, Response } from 'express';
 import { prisma } from '../util/db';
+import { tokenExtractor } from '../util/middleware';
 
 // POST new booking into Bookings table
-router.post('/', async (req: Request, res: Response): Promise<Response> => {
+router.post('/', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
     const { userId, eventDate, startTime, endTime, location } = req.body;
   
     // Check for missing required fields
