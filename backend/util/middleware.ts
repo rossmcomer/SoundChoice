@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
+import { DecodedToken } from '../types/token';
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('./config');
-import { DecodedToken } from '../types/token';
 
 export const generateToken = (userId: string) => {
   return jwt.sign({ id: userId }, JWT_SECRET, { expiresIn: '7d' });
@@ -27,4 +27,4 @@ const tokenExtractor = (req: Request, res: Response, next: NextFunction): void =
     }
 };
   
-  export { tokenExtractor };
+export { tokenExtractor };

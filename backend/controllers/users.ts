@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { User } from '../types/prisma';
 import { prisma } from '../util/db';
 import bcryptjs from 'bcryptjs';
-const { tokenExtractor } = require('../util/middleware')
+import { tokenExtractor } from '../util/middleware';
 
 // Email regex to validate format
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -42,6 +42,39 @@ router.post('/create-account', async (req: Request, res: Response): Promise<Resp
       } catch (error) {
         return res.status(500).json({ error: 'Failed to create user' });
       }
+});
+
+router.get('/:id', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
+  const userId = req.params.id; // Get the user ID from the URL parameters
+
+  try {
+    // Fetch the user along with related data from bookings, payments, and questionnaires
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId, // Find user by their unique ID
+      },
+      include: {
+        bookings: true,          // Include bookings associated with the user
+        questionnaires: true,     // Include questionnaires associated with the user
+        payments: {              // Include payments associated with the user's bookings
+          include: {
+            booking: true,       // Include the booking details for each payment
+          },
+        },
+      },
+    });
+
+    // If the user is not found, return a 404 error
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Return the user data along with their related information
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Failed to retrieve user data' });
+  }
 });
 
 router.put('/:id', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
