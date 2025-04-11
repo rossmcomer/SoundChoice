@@ -33,7 +33,6 @@ model Booking {
   startTime     DateTime
   endTime       DateTime
   location      String
-  status        BookingStatus  @default(pending)
   paymentStatus PaymentStatus  @default(unpaid)
   payment       Payment?
   questionnaire Questionnaire?

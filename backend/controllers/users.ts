@@ -8,6 +8,7 @@ import { tokenExtractor } from '../util/middleware';
 // Email regex to validate format
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+// Create new user account
 router.post('/create-account', async (req: Request, res: Response): Promise<Response> => {
         const { email, name, password } = req.body;
 
@@ -44,6 +45,7 @@ router.post('/create-account', async (req: Request, res: Response): Promise<Resp
       }
 });
 
+// GET all info about a user and their bookings, payments, questionnaire answers
 router.get('/:id', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
   const userId = req.params.id; // Get the user ID from the URL parameters
 
@@ -76,6 +78,7 @@ router.get('/:id', tokenExtractor, async (req: Request, res: Response): Promise<
   }
 });
 
+// Modify existing user name or email
 router.put('/:id', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
   const userId = req.params.id;  // Get the user ID from the URL parameters
   const { email, name } = req.body;  // Extract the new email and name from the request body

@@ -5,6 +5,7 @@ const bcryptjs = require('bcryptjs')
 const { JWT_SECRET } = require('../util/config')
 import { prisma } from '../util/db';
 
+// Login user
 router.post('/', async (req: Request, res: Response): Promise<Response> => {
     const { email, password } = req.body;
   
@@ -50,6 +51,6 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
       console.error('Login error:', error);
       return res.status(500).json({ error: 'Internal server error' });
     }
-  });
+});
   
-  module.exports = router;
+module.exports = router;

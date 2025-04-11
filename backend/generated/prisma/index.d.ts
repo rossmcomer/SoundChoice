@@ -2443,7 +2443,6 @@ export namespace Prisma {
     startTime: Date | null
     endTime: Date | null
     location: string | null
-    status: $Enums.BookingStatus | null
     paymentStatus: $Enums.PaymentStatus | null
   }
 
@@ -2454,7 +2453,6 @@ export namespace Prisma {
     startTime: Date | null
     endTime: Date | null
     location: string | null
-    status: $Enums.BookingStatus | null
     paymentStatus: $Enums.PaymentStatus | null
   }
 
@@ -2465,7 +2463,6 @@ export namespace Prisma {
     startTime: number
     endTime: number
     location: number
-    status: number
     paymentStatus: number
     _all: number
   }
@@ -2478,7 +2475,6 @@ export namespace Prisma {
     startTime?: true
     endTime?: true
     location?: true
-    status?: true
     paymentStatus?: true
   }
 
@@ -2489,7 +2485,6 @@ export namespace Prisma {
     startTime?: true
     endTime?: true
     location?: true
-    status?: true
     paymentStatus?: true
   }
 
@@ -2500,7 +2495,6 @@ export namespace Prisma {
     startTime?: true
     endTime?: true
     location?: true
-    status?: true
     paymentStatus?: true
     _all?: true
   }
@@ -2584,7 +2578,6 @@ export namespace Prisma {
     startTime: Date
     endTime: Date
     location: string
-    status: $Enums.BookingStatus
     paymentStatus: $Enums.PaymentStatus
     _count: BookingCountAggregateOutputType | null
     _min: BookingMinAggregateOutputType | null
@@ -2612,7 +2605,6 @@ export namespace Prisma {
     startTime?: boolean
     endTime?: boolean
     location?: boolean
-    status?: boolean
     paymentStatus?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     payment?: boolean | Booking$paymentArgs<ExtArgs>
@@ -2626,7 +2618,6 @@ export namespace Prisma {
     startTime?: boolean
     endTime?: boolean
     location?: boolean
-    status?: boolean
     paymentStatus?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking"]>
@@ -2638,7 +2629,6 @@ export namespace Prisma {
     startTime?: boolean
     endTime?: boolean
     location?: boolean
-    status?: boolean
     paymentStatus?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["booking"]>
@@ -2650,11 +2640,10 @@ export namespace Prisma {
     startTime?: boolean
     endTime?: boolean
     location?: boolean
-    status?: boolean
     paymentStatus?: boolean
   }
 
-  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventDate" | "startTime" | "endTime" | "location" | "status" | "paymentStatus", ExtArgs["result"]["booking"]>
+  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventDate" | "startTime" | "endTime" | "location" | "paymentStatus", ExtArgs["result"]["booking"]>
   export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     payment?: boolean | Booking$paymentArgs<ExtArgs>
@@ -2681,7 +2670,6 @@ export namespace Prisma {
       startTime: Date
       endTime: Date
       location: string
-      status: $Enums.BookingStatus
       paymentStatus: $Enums.PaymentStatus
     }, ExtArgs["result"]["booking"]>
     composites: {}
@@ -3115,7 +3103,6 @@ export namespace Prisma {
     readonly startTime: FieldRef<"Booking", 'DateTime'>
     readonly endTime: FieldRef<"Booking", 'DateTime'>
     readonly location: FieldRef<"Booking", 'String'>
-    readonly status: FieldRef<"Booking", 'BookingStatus'>
     readonly paymentStatus: FieldRef<"Booking", 'PaymentStatus'>
   }
     
@@ -6764,7 +6751,6 @@ export namespace Prisma {
     startTime: 'startTime',
     endTime: 'endTime',
     location: 'location',
-    status: 'status',
     paymentStatus: 'paymentStatus'
   };
 
@@ -6867,20 +6853,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'BookingStatus'
-   */
-  export type EnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'BookingStatus[]'
-   */
-  export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus[]'>
     
 
 
@@ -7037,7 +7009,6 @@ export namespace Prisma {
     startTime?: DateTimeFilter<"Booking"> | Date | string
     endTime?: DateTimeFilter<"Booking"> | Date | string
     location?: StringFilter<"Booking"> | string
-    status?: EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
@@ -7051,7 +7022,6 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrder
     location?: SortOrder
-    status?: SortOrder
     paymentStatus?: SortOrder
     user?: UserOrderByWithRelationInput
     payment?: PaymentOrderByWithRelationInput
@@ -7068,7 +7038,6 @@ export namespace Prisma {
     startTime?: DateTimeFilter<"Booking"> | Date | string
     endTime?: DateTimeFilter<"Booking"> | Date | string
     location?: StringFilter<"Booking"> | string
-    status?: EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
@@ -7082,7 +7051,6 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrder
     location?: SortOrder
-    status?: SortOrder
     paymentStatus?: SortOrder
     _count?: BookingCountOrderByAggregateInput
     _max?: BookingMaxOrderByAggregateInput
@@ -7099,7 +7067,6 @@ export namespace Prisma {
     startTime?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
     endTime?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
     location?: StringWithAggregatesFilter<"Booking"> | string
-    status?: EnumBookingStatusWithAggregatesFilter<"Booking"> | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusWithAggregatesFilter<"Booking"> | $Enums.PaymentStatus
   }
 
@@ -7352,7 +7319,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
     user: UserCreateNestedOneWithoutBookingsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
@@ -7366,7 +7332,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     questionnaire?: QuestionnaireUncheckedCreateNestedOneWithoutBookingInput
@@ -7378,7 +7343,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
@@ -7392,7 +7356,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     questionnaire?: QuestionnaireUncheckedUpdateOneWithoutBookingNestedInput
@@ -7405,7 +7368,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
   }
 
@@ -7415,7 +7377,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   }
 
@@ -7426,7 +7387,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   }
 
@@ -7707,13 +7667,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumBookingStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumBookingStatusFilter<$PrismaModel> | $Enums.BookingStatus
-  }
-
   export type EnumPaymentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
@@ -7743,7 +7696,6 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrder
     location?: SortOrder
-    status?: SortOrder
     paymentStatus?: SortOrder
   }
 
@@ -7754,7 +7706,6 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrder
     location?: SortOrder
-    status?: SortOrder
     paymentStatus?: SortOrder
   }
 
@@ -7765,18 +7716,7 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrder
     location?: SortOrder
-    status?: SortOrder
     paymentStatus?: SortOrder
-  }
-
-  export type EnumBookingStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumBookingStatusWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBookingStatusFilter<$PrismaModel>
-    _max?: NestedEnumBookingStatusFilter<$PrismaModel>
   }
 
   export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -8103,10 +8043,6 @@ export namespace Prisma {
     connect?: QuestionnaireWhereUniqueInput
   }
 
-  export type EnumBookingStatusFieldUpdateOperationsInput = {
-    set?: $Enums.BookingStatus
-  }
-
   export type EnumPaymentStatusFieldUpdateOperationsInput = {
     set?: $Enums.PaymentStatus
   }
@@ -8284,28 +8220,11 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumBookingStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumBookingStatusFilter<$PrismaModel> | $Enums.BookingStatus
-  }
-
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
-  }
-
-  export type NestedEnumBookingStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumBookingStatusWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBookingStatusFilter<$PrismaModel>
-    _max?: NestedEnumBookingStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -8404,7 +8323,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
     payment?: PaymentCreateNestedOneWithoutBookingInput
     questionnaire?: QuestionnaireCreateNestedOneWithoutBookingInput
@@ -8416,7 +8334,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
     questionnaire?: QuestionnaireUncheckedCreateNestedOneWithoutBookingInput
@@ -8482,7 +8399,6 @@ export namespace Prisma {
     startTime?: DateTimeFilter<"Booking"> | Date | string
     endTime?: DateTimeFilter<"Booking"> | Date | string
     location?: StringFilter<"Booking"> | string
-    status?: EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
   }
 
@@ -8667,7 +8583,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
     user: UserCreateNestedOneWithoutBookingsInput
     questionnaire?: QuestionnaireCreateNestedOneWithoutBookingInput
@@ -8680,7 +8595,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
     questionnaire?: QuestionnaireUncheckedCreateNestedOneWithoutBookingInput
   }
@@ -8707,7 +8621,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     questionnaire?: QuestionnaireUpdateOneWithoutBookingNestedInput
@@ -8720,7 +8633,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     questionnaire?: QuestionnaireUncheckedUpdateOneWithoutBookingNestedInput
   }
@@ -8756,7 +8668,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
     user: UserCreateNestedOneWithoutBookingsInput
     payment?: PaymentCreateNestedOneWithoutBookingInput
@@ -8769,7 +8680,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
     payment?: PaymentUncheckedCreateNestedOneWithoutBookingInput
   }
@@ -8827,7 +8737,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     payment?: PaymentUpdateOneWithoutBookingNestedInput
@@ -8840,7 +8749,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
   }
@@ -8851,7 +8759,6 @@ export namespace Prisma {
     startTime: Date | string
     endTime: Date | string
     location: string
-    status?: $Enums.BookingStatus
     paymentStatus?: $Enums.PaymentStatus
   }
 
@@ -8868,7 +8775,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment?: PaymentUpdateOneWithoutBookingNestedInput
     questionnaire?: QuestionnaireUpdateOneWithoutBookingNestedInput
@@ -8880,7 +8786,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     payment?: PaymentUncheckedUpdateOneWithoutBookingNestedInput
     questionnaire?: QuestionnaireUncheckedUpdateOneWithoutBookingNestedInput
@@ -8892,7 +8797,6 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
-    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   }
 
