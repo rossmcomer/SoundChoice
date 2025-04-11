@@ -32,4 +32,26 @@ router.post('/', tokenExtractor, async (req: Request, res: Response): Promise<Re
     }
 });
 
+// GET all bookings for a user
+router.get('/user/:userId', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
+  const { userId } = req.params;
+
+  try {
+    const bookings = await prisma.booking.findMany({
+      where: {
+        userId,
+      },
+      include: {
+        payment: true,
+        questionnaire: true,
+      }
+    });
+
+    return res.status(200).json(bookings);
+  } catch (error) {
+    console.error('Error fetching bookings for user:', error);
+    return res.status(500).json({ error: 'Failed to fetch user bookings' });
+  }
+});
+
 module.exports = router;
