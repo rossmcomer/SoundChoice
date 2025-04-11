@@ -3,7 +3,7 @@ require('dotenv').config();
 module.exports = {
     DATABASE_URL: process.env.DATABASE_URL,
     PORT: process.env.PORT || 3001,
-    JWT_SECRET: process.env.SECRET,
+    JWT_SECRET: process.env.JWT_SECRET,
     STRIPE_SECRET: process.env.STRIPE_SECRET,
     DOMAIN_NAME: process.env.DOMAIN_NAME,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,

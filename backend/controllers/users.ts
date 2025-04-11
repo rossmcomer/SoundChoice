@@ -19,7 +19,7 @@ router.post('/create-account', async (req: Request, res: Response): Promise<Resp
           // Check if email already exists
           const existingUser = await prisma.user.findUnique({
             where: {
-              email: email,
+              email: email.toLowerCase(),
             },
           });
       
@@ -33,7 +33,7 @@ router.post('/create-account', async (req: Request, res: Response): Promise<Resp
         // Create a new user
         const newUser: User = await prisma.user.create({
           data: {
-            email,
+            email: email.toLowerCase(),
             name,
             password: hashedPassword,
           },
