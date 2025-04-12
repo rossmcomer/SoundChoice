@@ -151,6 +151,7 @@ exports.Prisma.QuestionnaireScalarFieldEnum = {
   userId: 'userId',
   bookingId: 'bookingId',
   answers: 'answers',
+  type: 'type',
   lastUpdated: 'lastUpdated'
 };
 
@@ -198,6 +199,11 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
 exports.PaymentMethod = exports.$Enums.PaymentMethod = {
   stripe: 'stripe',
   paypal: 'paypal'
+};
+
+exports.QuestionnaireType = exports.$Enums.QuestionnaireType = {
+  wedding: 'wedding',
+  other: 'other'
 };
 
 exports.Prisma.ModelName = {

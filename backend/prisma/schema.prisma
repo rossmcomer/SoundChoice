@@ -54,6 +54,7 @@ model Questionnaire {
   userId      String
   bookingId   String   @unique
   answers     Json
+  type        QuestionnaireType
   lastUpdated DateTime @updatedAt
   user        User     @relation(fields: [userId], references: [id])
   booking     Booking  @relation(fields: [bookingId], references: [id])
@@ -90,4 +91,9 @@ enum PaymentStatus {
   unpaid
   paid
   failed
+}
+
+enum QuestionnaireType {
+  wedding
+  other
 }
