@@ -73,19 +73,12 @@ export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
 
 export const PaymentStatus: {
   unpaid: 'unpaid',
-  paid: 'paid',
+  deposit: 'deposit',
+  paidInFull: 'paidInFull',
   failed: 'failed'
 };
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
-
-
-export const QuestionnaireType: {
-  wedding: 'wedding',
-  other: 'other'
-};
-
-export type QuestionnaireType = (typeof QuestionnaireType)[keyof typeof QuestionnaireType]
 
 }
 
@@ -104,10 +97,6 @@ export const PaymentMethod: typeof $Enums.PaymentMethod
 export type PaymentStatus = $Enums.PaymentStatus
 
 export const PaymentStatus: typeof $Enums.PaymentStatus
-
-export type QuestionnaireType = $Enums.QuestionnaireType
-
-export const QuestionnaireType: typeof $Enums.QuestionnaireType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -3620,7 +3609,7 @@ export namespace Prisma {
     id: string | null
     bookingId: string | null
     amount: number | null
-    status: string | null
+    deposit: boolean | null
     method: $Enums.PaymentMethod | null
     transactionId: string | null
   }
@@ -3629,7 +3618,7 @@ export namespace Prisma {
     id: string | null
     bookingId: string | null
     amount: number | null
-    status: string | null
+    deposit: boolean | null
     method: $Enums.PaymentMethod | null
     transactionId: string | null
   }
@@ -3638,7 +3627,7 @@ export namespace Prisma {
     id: number
     bookingId: number
     amount: number
-    status: number
+    deposit: number
     method: number
     transactionId: number
     _all: number
@@ -3657,7 +3646,7 @@ export namespace Prisma {
     id?: true
     bookingId?: true
     amount?: true
-    status?: true
+    deposit?: true
     method?: true
     transactionId?: true
   }
@@ -3666,7 +3655,7 @@ export namespace Prisma {
     id?: true
     bookingId?: true
     amount?: true
-    status?: true
+    deposit?: true
     method?: true
     transactionId?: true
   }
@@ -3675,7 +3664,7 @@ export namespace Prisma {
     id?: true
     bookingId?: true
     amount?: true
-    status?: true
+    deposit?: true
     method?: true
     transactionId?: true
     _all?: true
@@ -3771,7 +3760,7 @@ export namespace Prisma {
     id: string
     bookingId: string
     amount: number
-    status: string
+    deposit: boolean
     method: $Enums.PaymentMethod
     transactionId: string
     _count: PaymentCountAggregateOutputType | null
@@ -3799,7 +3788,7 @@ export namespace Prisma {
     id?: boolean
     bookingId?: boolean
     amount?: boolean
-    status?: boolean
+    deposit?: boolean
     method?: boolean
     transactionId?: boolean
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -3809,7 +3798,7 @@ export namespace Prisma {
     id?: boolean
     bookingId?: boolean
     amount?: boolean
-    status?: boolean
+    deposit?: boolean
     method?: boolean
     transactionId?: boolean
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -3819,7 +3808,7 @@ export namespace Prisma {
     id?: boolean
     bookingId?: boolean
     amount?: boolean
-    status?: boolean
+    deposit?: boolean
     method?: boolean
     transactionId?: boolean
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -3829,12 +3818,12 @@ export namespace Prisma {
     id?: boolean
     bookingId?: boolean
     amount?: boolean
-    status?: boolean
+    deposit?: boolean
     method?: boolean
     transactionId?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bookingId" | "amount" | "status" | "method" | "transactionId", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bookingId" | "amount" | "deposit" | "method" | "transactionId", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     booking?: boolean | BookingDefaultArgs<ExtArgs>
   }
@@ -3854,7 +3843,7 @@ export namespace Prisma {
       id: string
       bookingId: string
       amount: number
-      status: string
+      deposit: boolean
       method: $Enums.PaymentMethod
       transactionId: string
     }, ExtArgs["result"]["payment"]>
@@ -4284,7 +4273,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Payment", 'String'>
     readonly bookingId: FieldRef<"Payment", 'String'>
     readonly amount: FieldRef<"Payment", 'Float'>
-    readonly status: FieldRef<"Payment", 'String'>
+    readonly deposit: FieldRef<"Payment", 'Boolean'>
     readonly method: FieldRef<"Payment", 'PaymentMethod'>
     readonly transactionId: FieldRef<"Payment", 'String'>
   }
@@ -4715,7 +4704,6 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     bookingId: string | null
-    type: $Enums.QuestionnaireType | null
     lastUpdated: Date | null
   }
 
@@ -4723,7 +4711,6 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     bookingId: string | null
-    type: $Enums.QuestionnaireType | null
     lastUpdated: Date | null
   }
 
@@ -4732,7 +4719,6 @@ export namespace Prisma {
     userId: number
     bookingId: number
     answers: number
-    type: number
     lastUpdated: number
     _all: number
   }
@@ -4742,7 +4728,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     bookingId?: true
-    type?: true
     lastUpdated?: true
   }
 
@@ -4750,7 +4735,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     bookingId?: true
-    type?: true
     lastUpdated?: true
   }
 
@@ -4759,7 +4743,6 @@ export namespace Prisma {
     userId?: true
     bookingId?: true
     answers?: true
-    type?: true
     lastUpdated?: true
     _all?: true
   }
@@ -4841,7 +4824,6 @@ export namespace Prisma {
     userId: string
     bookingId: string
     answers: JsonValue
-    type: $Enums.QuestionnaireType
     lastUpdated: Date
     _count: QuestionnaireCountAggregateOutputType | null
     _min: QuestionnaireMinAggregateOutputType | null
@@ -4867,7 +4849,6 @@ export namespace Prisma {
     userId?: boolean
     bookingId?: boolean
     answers?: boolean
-    type?: boolean
     lastUpdated?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -4878,7 +4859,6 @@ export namespace Prisma {
     userId?: boolean
     bookingId?: boolean
     answers?: boolean
-    type?: boolean
     lastUpdated?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -4889,7 +4869,6 @@ export namespace Prisma {
     userId?: boolean
     bookingId?: boolean
     answers?: boolean
-    type?: boolean
     lastUpdated?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -4900,11 +4879,10 @@ export namespace Prisma {
     userId?: boolean
     bookingId?: boolean
     answers?: boolean
-    type?: boolean
     lastUpdated?: boolean
   }
 
-  export type QuestionnaireOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "bookingId" | "answers" | "type" | "lastUpdated", ExtArgs["result"]["questionnaire"]>
+  export type QuestionnaireOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "bookingId" | "answers" | "lastUpdated", ExtArgs["result"]["questionnaire"]>
   export type QuestionnaireInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     booking?: boolean | BookingDefaultArgs<ExtArgs>
@@ -4929,7 +4907,6 @@ export namespace Prisma {
       userId: string
       bookingId: string
       answers: Prisma.JsonValue
-      type: $Enums.QuestionnaireType
       lastUpdated: Date
     }, ExtArgs["result"]["questionnaire"]>
     composites: {}
@@ -5360,7 +5337,6 @@ export namespace Prisma {
     readonly userId: FieldRef<"Questionnaire", 'String'>
     readonly bookingId: FieldRef<"Questionnaire", 'String'>
     readonly answers: FieldRef<"Questionnaire", 'Json'>
-    readonly type: FieldRef<"Questionnaire", 'QuestionnaireType'>
     readonly lastUpdated: FieldRef<"Questionnaire", 'DateTime'>
   }
     
@@ -6815,7 +6791,7 @@ export namespace Prisma {
     id: 'id',
     bookingId: 'bookingId',
     amount: 'amount',
-    status: 'status',
+    deposit: 'deposit',
     method: 'method',
     transactionId: 'transactionId'
   };
@@ -6828,7 +6804,6 @@ export namespace Prisma {
     userId: 'userId',
     bookingId: 'bookingId',
     answers: 'answers',
-    type: 'type',
     lastUpdated: 'lastUpdated'
   };
 
@@ -6954,6 +6929,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'PaymentMethod'
    */
   export type EnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod'>
@@ -6978,27 +6960,6 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
-   * Reference to a field of type 'QuestionnaireType'
-   */
-  export type EnumQuestionnaireTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuestionnaireType'>
-    
-
-
-  /**
-   * Reference to a field of type 'QuestionnaireType[]'
-   */
-  export type ListEnumQuestionnaireTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuestionnaireType[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -7165,7 +7126,7 @@ export namespace Prisma {
     id?: StringFilter<"Payment"> | string
     bookingId?: StringFilter<"Payment"> | string
     amount?: FloatFilter<"Payment"> | number
-    status?: StringFilter<"Payment"> | string
+    deposit?: BoolFilter<"Payment"> | boolean
     method?: EnumPaymentMethodFilter<"Payment"> | $Enums.PaymentMethod
     transactionId?: StringFilter<"Payment"> | string
     booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
@@ -7175,7 +7136,7 @@ export namespace Prisma {
     id?: SortOrder
     bookingId?: SortOrder
     amount?: SortOrder
-    status?: SortOrder
+    deposit?: SortOrder
     method?: SortOrder
     transactionId?: SortOrder
     booking?: BookingOrderByWithRelationInput
@@ -7188,7 +7149,7 @@ export namespace Prisma {
     OR?: PaymentWhereInput[]
     NOT?: PaymentWhereInput | PaymentWhereInput[]
     amount?: FloatFilter<"Payment"> | number
-    status?: StringFilter<"Payment"> | string
+    deposit?: BoolFilter<"Payment"> | boolean
     method?: EnumPaymentMethodFilter<"Payment"> | $Enums.PaymentMethod
     transactionId?: StringFilter<"Payment"> | string
     booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
@@ -7198,7 +7159,7 @@ export namespace Prisma {
     id?: SortOrder
     bookingId?: SortOrder
     amount?: SortOrder
-    status?: SortOrder
+    deposit?: SortOrder
     method?: SortOrder
     transactionId?: SortOrder
     _count?: PaymentCountOrderByAggregateInput
@@ -7215,7 +7176,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Payment"> | string
     bookingId?: StringWithAggregatesFilter<"Payment"> | string
     amount?: FloatWithAggregatesFilter<"Payment"> | number
-    status?: StringWithAggregatesFilter<"Payment"> | string
+    deposit?: BoolWithAggregatesFilter<"Payment"> | boolean
     method?: EnumPaymentMethodWithAggregatesFilter<"Payment"> | $Enums.PaymentMethod
     transactionId?: StringWithAggregatesFilter<"Payment"> | string
   }
@@ -7228,7 +7189,6 @@ export namespace Prisma {
     userId?: StringFilter<"Questionnaire"> | string
     bookingId?: StringFilter<"Questionnaire"> | string
     answers?: JsonFilter<"Questionnaire">
-    type?: EnumQuestionnaireTypeFilter<"Questionnaire"> | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFilter<"Questionnaire"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
@@ -7239,7 +7199,6 @@ export namespace Prisma {
     userId?: SortOrder
     bookingId?: SortOrder
     answers?: SortOrder
-    type?: SortOrder
     lastUpdated?: SortOrder
     user?: UserOrderByWithRelationInput
     booking?: BookingOrderByWithRelationInput
@@ -7253,7 +7212,6 @@ export namespace Prisma {
     NOT?: QuestionnaireWhereInput | QuestionnaireWhereInput[]
     userId?: StringFilter<"Questionnaire"> | string
     answers?: JsonFilter<"Questionnaire">
-    type?: EnumQuestionnaireTypeFilter<"Questionnaire"> | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFilter<"Questionnaire"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     booking?: XOR<BookingScalarRelationFilter, BookingWhereInput>
@@ -7264,7 +7222,6 @@ export namespace Prisma {
     userId?: SortOrder
     bookingId?: SortOrder
     answers?: SortOrder
-    type?: SortOrder
     lastUpdated?: SortOrder
     _count?: QuestionnaireCountOrderByAggregateInput
     _max?: QuestionnaireMaxOrderByAggregateInput
@@ -7279,7 +7236,6 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Questionnaire"> | string
     bookingId?: StringWithAggregatesFilter<"Questionnaire"> | string
     answers?: JsonWithAggregatesFilter<"Questionnaire">
-    type?: EnumQuestionnaireTypeWithAggregatesFilter<"Questionnaire"> | $Enums.QuestionnaireType
     lastUpdated?: DateTimeWithAggregatesFilter<"Questionnaire"> | Date | string
   }
 
@@ -7493,7 +7449,7 @@ export namespace Prisma {
   export type PaymentCreateInput = {
     id?: string
     amount: number
-    status: string
+    deposit: boolean
     method: $Enums.PaymentMethod
     transactionId: string
     booking: BookingCreateNestedOneWithoutPaymentInput
@@ -7503,7 +7459,7 @@ export namespace Prisma {
     id?: string
     bookingId: string
     amount: number
-    status: string
+    deposit: boolean
     method: $Enums.PaymentMethod
     transactionId: string
   }
@@ -7511,7 +7467,7 @@ export namespace Prisma {
   export type PaymentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    deposit?: BoolFieldUpdateOperationsInput | boolean
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     transactionId?: StringFieldUpdateOperationsInput | string
     booking?: BookingUpdateOneRequiredWithoutPaymentNestedInput
@@ -7521,7 +7477,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     bookingId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    deposit?: BoolFieldUpdateOperationsInput | boolean
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     transactionId?: StringFieldUpdateOperationsInput | string
   }
@@ -7530,7 +7486,7 @@ export namespace Prisma {
     id?: string
     bookingId: string
     amount: number
-    status: string
+    deposit: boolean
     method: $Enums.PaymentMethod
     transactionId: string
   }
@@ -7538,7 +7494,7 @@ export namespace Prisma {
   export type PaymentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    deposit?: BoolFieldUpdateOperationsInput | boolean
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     transactionId?: StringFieldUpdateOperationsInput | string
   }
@@ -7547,7 +7503,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     bookingId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    deposit?: BoolFieldUpdateOperationsInput | boolean
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     transactionId?: StringFieldUpdateOperationsInput | string
   }
@@ -7555,7 +7511,6 @@ export namespace Prisma {
   export type QuestionnaireCreateInput = {
     id?: string
     answers: JsonNullValueInput | InputJsonValue
-    type: $Enums.QuestionnaireType
     lastUpdated?: Date | string
     user: UserCreateNestedOneWithoutQuestionnairesInput
     booking: BookingCreateNestedOneWithoutQuestionnaireInput
@@ -7566,14 +7521,12 @@ export namespace Prisma {
     userId: string
     bookingId: string
     answers: JsonNullValueInput | InputJsonValue
-    type: $Enums.QuestionnaireType
     lastUpdated?: Date | string
   }
 
   export type QuestionnaireUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     answers?: JsonNullValueInput | InputJsonValue
-    type?: EnumQuestionnaireTypeFieldUpdateOperationsInput | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutQuestionnairesNestedInput
     booking?: BookingUpdateOneRequiredWithoutQuestionnaireNestedInput
@@ -7584,7 +7537,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     bookingId?: StringFieldUpdateOperationsInput | string
     answers?: JsonNullValueInput | InputJsonValue
-    type?: EnumQuestionnaireTypeFieldUpdateOperationsInput | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7593,14 +7545,12 @@ export namespace Prisma {
     userId: string
     bookingId: string
     answers: JsonNullValueInput | InputJsonValue
-    type: $Enums.QuestionnaireType
     lastUpdated?: Date | string
   }
 
   export type QuestionnaireUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     answers?: JsonNullValueInput | InputJsonValue
-    type?: EnumQuestionnaireTypeFieldUpdateOperationsInput | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7609,7 +7559,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     bookingId?: StringFieldUpdateOperationsInput | string
     answers?: JsonNullValueInput | InputJsonValue
-    type?: EnumQuestionnaireTypeFieldUpdateOperationsInput | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7867,6 +7816,11 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type EnumPaymentMethodFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentMethod | EnumPaymentMethodFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
@@ -7883,7 +7837,7 @@ export namespace Prisma {
     id?: SortOrder
     bookingId?: SortOrder
     amount?: SortOrder
-    status?: SortOrder
+    deposit?: SortOrder
     method?: SortOrder
     transactionId?: SortOrder
   }
@@ -7896,7 +7850,7 @@ export namespace Prisma {
     id?: SortOrder
     bookingId?: SortOrder
     amount?: SortOrder
-    status?: SortOrder
+    deposit?: SortOrder
     method?: SortOrder
     transactionId?: SortOrder
   }
@@ -7905,7 +7859,7 @@ export namespace Prisma {
     id?: SortOrder
     bookingId?: SortOrder
     amount?: SortOrder
-    status?: SortOrder
+    deposit?: SortOrder
     method?: SortOrder
     transactionId?: SortOrder
   }
@@ -7928,6 +7882,14 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumPaymentMethodWithAggregatesFilter<$PrismaModel = never> = {
@@ -7963,19 +7925,11 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type EnumQuestionnaireTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.QuestionnaireType | EnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.QuestionnaireType[] | ListEnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.QuestionnaireType[] | ListEnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumQuestionnaireTypeFilter<$PrismaModel> | $Enums.QuestionnaireType
-  }
-
   export type QuestionnaireCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     bookingId?: SortOrder
     answers?: SortOrder
-    type?: SortOrder
     lastUpdated?: SortOrder
   }
 
@@ -7983,7 +7937,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     bookingId?: SortOrder
-    type?: SortOrder
     lastUpdated?: SortOrder
   }
 
@@ -7991,7 +7944,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     bookingId?: SortOrder
-    type?: SortOrder
     lastUpdated?: SortOrder
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> =
@@ -8021,21 +7973,6 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
-  export type EnumQuestionnaireTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.QuestionnaireType | EnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.QuestionnaireType[] | ListEnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.QuestionnaireType[] | ListEnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumQuestionnaireTypeWithAggregatesFilter<$PrismaModel> | $Enums.QuestionnaireType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumQuestionnaireTypeFilter<$PrismaModel>
-    _max?: NestedEnumQuestionnaireTypeFilter<$PrismaModel>
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type AvailabilityCountOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
@@ -8058,14 +7995,6 @@ export namespace Prisma {
     startTime?: SortOrder
     endTime?: SortOrder
     isAvailable?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type BookingCreateNestedManyWithoutUserInput = {
@@ -8260,6 +8189,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type EnumPaymentMethodFieldUpdateOperationsInput = {
     set?: $Enums.PaymentMethod
   }
@@ -8284,10 +8217,6 @@ export namespace Prisma {
     connect?: BookingWhereUniqueInput
   }
 
-  export type EnumQuestionnaireTypeFieldUpdateOperationsInput = {
-    set?: $Enums.QuestionnaireType
-  }
-
   export type UserUpdateOneRequiredWithoutQuestionnairesNestedInput = {
     create?: XOR<UserCreateWithoutQuestionnairesInput, UserUncheckedCreateWithoutQuestionnairesInput>
     connectOrCreate?: UserCreateOrConnectWithoutQuestionnairesInput
@@ -8302,10 +8231,6 @@ export namespace Prisma {
     upsert?: BookingUpsertWithoutQuestionnaireInput
     connect?: BookingWhereUniqueInput
     update?: XOR<XOR<BookingUpdateToOneWithWhereWithoutQuestionnaireInput, BookingUpdateWithoutQuestionnaireInput>, BookingUncheckedUpdateWithoutQuestionnaireInput>
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8420,6 +8345,11 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedEnumPaymentMethodFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentMethod | EnumPaymentMethodFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
@@ -8443,6 +8373,14 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedEnumPaymentMethodWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentMethod | EnumPaymentMethodFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
@@ -8451,13 +8389,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentMethodFilter<$PrismaModel>
     _max?: NestedEnumPaymentMethodFilter<$PrismaModel>
-  }
-
-  export type NestedEnumQuestionnaireTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.QuestionnaireType | EnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.QuestionnaireType[] | ListEnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.QuestionnaireType[] | ListEnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumQuestionnaireTypeFilter<$PrismaModel> | $Enums.QuestionnaireType
   }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -8481,29 +8412,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedEnumQuestionnaireTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.QuestionnaireType | EnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.QuestionnaireType[] | ListEnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.QuestionnaireType[] | ListEnumQuestionnaireTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumQuestionnaireTypeWithAggregatesFilter<$PrismaModel> | $Enums.QuestionnaireType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumQuestionnaireTypeFilter<$PrismaModel>
-    _max?: NestedEnumQuestionnaireTypeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type BookingCreateWithoutUserInput = {
@@ -8543,7 +8451,6 @@ export namespace Prisma {
   export type QuestionnaireCreateWithoutUserInput = {
     id?: string
     answers: JsonNullValueInput | InputJsonValue
-    type: $Enums.QuestionnaireType
     lastUpdated?: Date | string
     booking: BookingCreateNestedOneWithoutQuestionnaireInput
   }
@@ -8552,7 +8459,6 @@ export namespace Prisma {
     id?: string
     bookingId: string
     answers: JsonNullValueInput | InputJsonValue
-    type: $Enums.QuestionnaireType
     lastUpdated?: Date | string
   }
 
@@ -8620,7 +8526,6 @@ export namespace Prisma {
     userId?: StringFilter<"Questionnaire"> | string
     bookingId?: StringFilter<"Questionnaire"> | string
     answers?: JsonFilter<"Questionnaire">
-    type?: EnumQuestionnaireTypeFilter<"Questionnaire"> | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFilter<"Questionnaire"> | Date | string
   }
 
@@ -8652,7 +8557,7 @@ export namespace Prisma {
   export type PaymentCreateWithoutBookingInput = {
     id?: string
     amount: number
-    status: string
+    deposit: boolean
     method: $Enums.PaymentMethod
     transactionId: string
   }
@@ -8660,7 +8565,7 @@ export namespace Prisma {
   export type PaymentUncheckedCreateWithoutBookingInput = {
     id?: string
     amount: number
-    status: string
+    deposit: boolean
     method: $Enums.PaymentMethod
     transactionId: string
   }
@@ -8673,7 +8578,6 @@ export namespace Prisma {
   export type QuestionnaireCreateWithoutBookingInput = {
     id?: string
     answers: JsonNullValueInput | InputJsonValue
-    type: $Enums.QuestionnaireType
     lastUpdated?: Date | string
     user: UserCreateNestedOneWithoutQuestionnairesInput
   }
@@ -8682,7 +8586,6 @@ export namespace Prisma {
     id?: string
     userId: string
     answers: JsonNullValueInput | InputJsonValue
-    type: $Enums.QuestionnaireType
     lastUpdated?: Date | string
   }
 
@@ -8736,7 +8639,7 @@ export namespace Prisma {
   export type PaymentUpdateWithoutBookingInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    deposit?: BoolFieldUpdateOperationsInput | boolean
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     transactionId?: StringFieldUpdateOperationsInput | string
   }
@@ -8744,7 +8647,7 @@ export namespace Prisma {
   export type PaymentUncheckedUpdateWithoutBookingInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
+    deposit?: BoolFieldUpdateOperationsInput | boolean
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     transactionId?: StringFieldUpdateOperationsInput | string
   }
@@ -8763,7 +8666,6 @@ export namespace Prisma {
   export type QuestionnaireUpdateWithoutBookingInput = {
     id?: StringFieldUpdateOperationsInput | string
     answers?: JsonNullValueInput | InputJsonValue
-    type?: EnumQuestionnaireTypeFieldUpdateOperationsInput | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutQuestionnairesNestedInput
   }
@@ -8772,7 +8674,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     answers?: JsonNullValueInput | InputJsonValue
-    type?: EnumQuestionnaireTypeFieldUpdateOperationsInput | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -8974,7 +8875,6 @@ export namespace Prisma {
     id?: string
     bookingId: string
     answers: JsonNullValueInput | InputJsonValue
-    type: $Enums.QuestionnaireType
     lastUpdated?: Date | string
   }
 
@@ -9015,7 +8915,6 @@ export namespace Prisma {
   export type QuestionnaireUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     answers?: JsonNullValueInput | InputJsonValue
-    type?: EnumQuestionnaireTypeFieldUpdateOperationsInput | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
     booking?: BookingUpdateOneRequiredWithoutQuestionnaireNestedInput
   }
@@ -9024,7 +8923,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     bookingId?: StringFieldUpdateOperationsInput | string
     answers?: JsonNullValueInput | InputJsonValue
-    type?: EnumQuestionnaireTypeFieldUpdateOperationsInput | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9032,7 +8930,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     bookingId?: StringFieldUpdateOperationsInput | string
     answers?: JsonNullValueInput | InputJsonValue
-    type?: EnumQuestionnaireTypeFieldUpdateOperationsInput | $Enums.QuestionnaireType
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

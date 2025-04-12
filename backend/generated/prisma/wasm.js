@@ -141,7 +141,7 @@ exports.Prisma.PaymentScalarFieldEnum = {
   id: 'id',
   bookingId: 'bookingId',
   amount: 'amount',
-  status: 'status',
+  deposit: 'deposit',
   method: 'method',
   transactionId: 'transactionId'
 };
@@ -151,7 +151,6 @@ exports.Prisma.QuestionnaireScalarFieldEnum = {
   userId: 'userId',
   bookingId: 'bookingId',
   answers: 'answers',
-  type: 'type',
   lastUpdated: 'lastUpdated'
 };
 
@@ -192,18 +191,14 @@ exports.EventType = exports.$Enums.EventType = {
 
 exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   unpaid: 'unpaid',
-  paid: 'paid',
+  deposit: 'deposit',
+  paidInFull: 'paidInFull',
   failed: 'failed'
 };
 
 exports.PaymentMethod = exports.$Enums.PaymentMethod = {
   stripe: 'stripe',
   paypal: 'paypal'
-};
-
-exports.QuestionnaireType = exports.$Enums.QuestionnaireType = {
-  wedding: 'wedding',
-  other: 'other'
 };
 
 exports.Prisma.ModelName = {
