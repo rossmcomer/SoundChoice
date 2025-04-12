@@ -46,8 +46,8 @@ router.post('/create-account', async (req: Request, res: Response): Promise<Resp
 });
 
 // GET all info about a user and their bookings, payments, questionnaire answers
-router.get('/:id', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
-  const userId = req.params.id; // Get the user ID from the URL parameters
+router.get('/', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
+  const userId = req.body; // Get the user ID from the URL parameters
 
   try {
     // Fetch the user along with related data from bookings, payments, and questionnaires
@@ -79,9 +79,8 @@ router.get('/:id', tokenExtractor, async (req: Request, res: Response): Promise<
 });
 
 // Modify existing user name or email
-router.put('/:id', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
-  const userId = req.params.id;  // Get the user ID from the URL parameters
-  const { email, name } = req.body;  // Extract the new email and name from the request body
+router.put('/', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
+  const { email, name, userId } = req.body;  // Extract the new email and name from the request body
 
   try {
     // Check if the user exists
