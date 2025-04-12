@@ -5,7 +5,8 @@ const { tokenExtractor } = require('../util/middleware')
 
 // POST new booking into Bookings table
 router.post('/', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
-    const { userId, eventDate, startTime, endTime, type, location } = req.body;
+  const userId = req.decodedToken?.userId;
+  const { eventDate, startTime, endTime, type, location } = req.body;
   
     // Check for missing required fields
     if (!userId || !eventDate || !startTime || !endTime || !location) {
