@@ -5,7 +5,8 @@ const { tokenExtractor } = require('../util/middleware')
 
 // POST new questionnaire into questionnaires table
 router.post('/', tokenExtractor, async (req: Request, res: Response) => {
-    const { userId, bookingId, answers } = req.body;
+    const userId = req.decodedToken?.userId;
+    const { bookingId, answers } = req.body;
   
     if (!userId || !bookingId || !answers) {
       return res.status(400).json({ error: 'Missing userId, bookingId, or answers' });
@@ -29,7 +30,8 @@ router.post('/', tokenExtractor, async (req: Request, res: Response) => {
 
 // PATCH existing questionnaire answers
 router.patch('/', tokenExtractor, async (req: Request, res: Response) => {
-    const { userId, bookingId, answers } = req.body;
+    const userId = req.decodedToken?.userId;
+    const { bookingId, answers } = req.body;
   
     if (!userId || !bookingId || !answers) {
       return res.status(400).json({ error: 'Missing userId, bookingId, or answers' });
