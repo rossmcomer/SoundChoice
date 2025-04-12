@@ -59,4 +59,26 @@ router.get('/', tokenExtractor, async (req: Request, res: Response): Promise<Res
   }
 });
 
+// PUT update payment status of a booking
+router.put('/update-payment-status', tokenExtractor, async (req: Request, res: Response): Promise<Response> => {
+  const { id, paymentStatus } = req.body;
+
+  // Validate inputs
+  if (!id || !['paid', 'unpaid'].includes(paymentStatus)) {
+    return res.status(400).json({ error: 'Missing or invalid id or payment status. Must be "paid" or "unpaid".' });
+  }
+
+  try {
+    const updatedBooking = await prisma.booking.update({
+      where: { id },
+      data: { paymentStatus }
+    });
+
+    return res.status(200).json(updatedBooking);
+  } catch (error) {
+    console.error('Error updating payment status:', error);
+    return res.status(500).json({ error: 'Failed to update payment status' });
+  }
+});
+
 module.exports = router;
