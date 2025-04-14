@@ -15,6 +15,7 @@ export type PaymentStatus = 'unpaid' | 'paid' | 'failed';
 // PRISMA Related Types End
 
 // JWT Related Types Begin
+
 export interface DecodedToken {
   userId: string;
   email: string;
