@@ -18,6 +18,7 @@ export type PaymentStatus = 'unpaid' | 'paid' | 'failed';
 export interface DecodedToken {
   userId: string;
   email: string;
+  role: string
 }
 
 declare global {

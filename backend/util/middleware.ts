@@ -27,4 +27,11 @@ const tokenExtractor = (
   }
 };
 
-module.exports = { tokenExtractor };
+const requireAdmin = (req: Request, res: Response, next: NextFunction) => {
+  if (req.decodedToken?.role != 'admin') {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+  next();
+};
+
+module.exports = { tokenExtractor, requireAdmin };
