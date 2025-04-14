@@ -102,4 +102,40 @@ router.post(
   }
 );
 
+// DELETE to remove an availability entry by its ID
+router.delete(
+  '/remove-availability/:id',
+  tokenExtractor,
+  requireAdmin, // Ensure the user is an admin before proceeding
+  async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params; // Get the availability entry ID from the URL parameter
+
+    try {
+      // Check if the availability entry exists
+      const availabilityEntry = await prisma.availability.findUnique({
+        where: {
+          id: id, // Convert the ID to an integer
+        },
+      });
+
+      // If the entry doesn't exist, return a 404 error
+      if (!availabilityEntry) {
+        return res.status(404).json({ error: 'Availability entry not found' });
+      }
+
+      // Delete the availability entry
+      await prisma.availability.delete({
+        where: {
+          id: id, // Use the ID from the URL parameter to delete the entry
+        },
+      });
+
+      // Return success response
+      return res.status(200).json({ message: 'Availability entry removed successfully' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Failed to remove availability entry' });
+    }
+  }
+);
   module.exports = router;
