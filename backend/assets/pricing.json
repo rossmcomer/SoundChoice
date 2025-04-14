@@ -1,6 +1,8 @@
 {
     "wedding": 1500,
     "corporatePerHr": 150,
+    "birthdayPerHr": 150,
+    "mitzvahPerHr": 150,
     "uplights": 200,
-    "addTime": 150
+    "addTimePerHr": 150
 }
