@@ -70,4 +70,36 @@ router.get(
     }
   );
 
+// POST to add a new availability entry
+router.post(
+  '/add-unavailability',
+  tokenExtractor,
+  requireAdmin, // Ensure the user is an admin before proceeding
+  async (req: Request, res: Response): Promise<Response> => {
+    const { date, startTime, endTime, isAvailable } = req.body; // Get date and availability status from the request body
+
+    if (!date || typeof isAvailable !== 'boolean') {
+      return res.status(400).json({ error: 'Missing date or availability status' });
+    }
+
+    try {
+      // Create a new availability entry
+      const newAvailability = await prisma.availability.create({
+        data: {
+          date: new Date(date), // Assuming date is provided as a string
+          startTime: new Date(startTime),
+          endTime: new Date(endTime),
+          isAvailable,
+        },
+      });
+
+      // Return success response with the new entry
+      return res.status(201).json(newAvailability);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Failed to add new availability' });
+    }
+  }
+);
+
   module.exports = router;
