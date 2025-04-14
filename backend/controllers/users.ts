@@ -179,7 +179,7 @@ router.put(
       const hashedNewPassword = await bcryptjs.hash(newPassword, 10);
 
       // Update the user's password
-      const updatedUser = await prisma.user.update({
+      await prisma.user.update({
         where: {
           id: userId,
         },
