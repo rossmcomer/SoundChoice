@@ -41,36 +41,6 @@ router.post(
   },
 );
 
-// GET all bookings for a user
-router.get(
-  '/',
-  tokenExtractor,
-  async (req: Request, res: Response): Promise<Response> => {
-    const userId = req.decodedToken?.userId;
-
-    if (!userId) {
-      return res.status(400).json({ error: 'User ID not found in token' });
-    }
-
-    try {
-      const bookings = await prisma.booking.findMany({
-        where: {
-          userId,
-        },
-        include: {
-          payment: true,
-          questionnaire: true,
-        },
-      });
-
-      return res.status(200).json(bookings);
-    } catch (error) {
-      console.error('Error fetching bookings for user:', error);
-      return res.status(500).json({ error: 'Failed to fetch user bookings' });
-    }
-  },
-);
-
 // PUT update payment status of a booking
 router.put(
   '/update-payment-status',
