@@ -13,7 +13,7 @@ const { tokenExtractor } = require('../util/middleware');
 
 router.post('/pay-deposit', tokenExtractor, async (req: Request, res: Response) => {
   const userId = req.decodedToken?.userId;
-  const { products } = req.body;
+  const { products, bookingId } = req.body;
 
   try {
     // Validate product IDs and build line items
@@ -30,7 +30,49 @@ router.post('/pay-deposit', tokenExtractor, async (req: Request, res: Response) 
           product_data: {
             name: product.name,
           },
-          unit_amount: unitPrice,
+          unit_amount: Math.round(unitPrice / 2),
+        },
+        quantity: product.quantity,
+      };
+    });
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: `${DOMAIN_NAME}/successful-deposit`,
+      cancel_url: `${DOMAIN_NAME}/cancelled-deposit`,
+      automatic_tax: { enabled: true },
+      metadata: { userId, bookingId, paymentType: 'deposit' },
+    });
+
+    res.json({ id: session.id });
+  } catch (error: any) {
+    console.error('Error creating checkout session:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post('/pay-remaining', tokenExtractor, async (req: Request, res: Response) => {
+  const userId = req.decodedToken?.userId;
+  const { products, bookingId } = req.body;
+
+  try {
+    // Validate product IDs and build line items
+    const lineItems = products.map((product: { id: string; name: string; quantity: number }) => {
+      const unitPrice = PRICE_LIST[product.id];
+
+      if (!unitPrice) {
+        throw new Error(`Invalid product ID: ${product.id}`);
+      }
+
+      return {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: product.name,
+          },
+          unit_amount: Math.round(unitPrice / 2),
         },
         quantity: product.quantity,
       };
@@ -43,7 +85,7 @@ router.post('/pay-deposit', tokenExtractor, async (req: Request, res: Response) 
       success_url: `${DOMAIN_NAME}/success`,
       cancel_url: `${DOMAIN_NAME}/cancel`,
       automatic_tax: { enabled: true },
-      metadata: { userId },
+      metadata: { userId, bookingId, paymentType: 'remainingBalance' },
     });
 
     res.json({ id: session.id });
@@ -58,6 +100,8 @@ router.post('/webhook', async (req: Request, res: Response) => {
   const sig = req.headers['stripe-signature']
 
   let event
+
+  // const session = event.data.object
 
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, DEV_WEBHOOK_SECRET)
