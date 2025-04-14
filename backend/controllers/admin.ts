@@ -6,7 +6,7 @@ const { tokenExtractor, requireAdmin } = require('../util/middleware');
 
 // GET all client e-mails from database
 router.get(
-    '/get-emails',
+    '/get-client-emails',
     tokenExtractor,
     requireAdmin,
     async (req: Request, res: Response): Promise<Response> => {
