@@ -60,11 +60,10 @@ model Questionnaire {
 }
 
 model Availability {
-  id          String   @id @default(uuid())
-  date        DateTime
-  startTime   DateTime
-  endTime     DateTime
-  isAvailable Boolean
+  id        String   @id @default(uuid())
+  date      DateTime
+  startTime DateTime
+  endTime   DateTime
 }
 
 enum EventType {

@@ -5,70 +5,107 @@ const { tokenExtractor, requireAdmin } = require('../util/middleware');
 
 // GET all client e-mails from database
 router.get(
-    '/get-client-emails',
-    tokenExtractor,
-    requireAdmin,
-    async (req: Request, res: Response): Promise<Response> => {
-      try {
-        // Fetch all users with role "client" and their emails
-        const clients = await prisma.user.findMany({
-          where: {
-            role: 'client', // Only fetch users with role "client"
-          },
-          select: {
-            email: true, // Select only the email field
-          },
-        });
-  
-        // If no clients are found, return an empty array
-        if (clients.length === 0) {
-          return res.status(200).json([]);
-        }
-  
-        // Extract and return an array of emails
-        const clientEmails = clients.map((client: { email: string; }) => client.email);
-  
-        return res.status(200).json(clientEmails);
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'Failed to retrieve client emails' });
+  '/get-client-emails',
+  tokenExtractor,
+  requireAdmin,
+  async (req: Request, res: Response): Promise<Response> => {
+    try {
+      // Fetch all users with role "client" and their emails
+      const clients = await prisma.user.findMany({
+        where: {
+          role: 'client', // Only fetch users with role "client"
+        },
+        select: {
+          email: true, // Select only the email field
+        },
+      });
+
+      // If no clients are found, return an empty array
+      if (clients.length === 0) {
+        return res.status(200).json([]);
       }
+
+      // Extract and return an array of emails
+      const clientEmails = clients.map(
+        (client: { email: string }) => client.email,
+      );
+
+      return res.status(200).json(clientEmails);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ error: 'Failed to retrieve client emails' });
     }
+  },
+);
+
+// GET all bookings from current date forward
+router.get(
+  '/all-bookings',
+  tokenExtractor,
+  requireAdmin, // Ensure the user is an admin before proceeding
+  async (req: Request, res: Response): Promise<Response> => {
+    try {
+      // Fetch simplified booking info from the database
+      const bookings = await prisma.booking.findMany({
+        select: {
+          id: true,
+          user: {
+            select: {
+              name: true
+            },
+          },
+          eventDate: true,
+          location: true,
+        },
+      });
+
+      if (!bookings.length) {
+        return res.status(404).json({ error: 'No bookings found' });
+      }
+
+      return res.status(200).json(bookings);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Failed to retrieve bookings' });
+    }
+  },
 );
 
 // GET info about a specific bookingId
 router.get(
-    '/booking-info/:bookingId',
-    tokenExtractor,
-    requireAdmin, // Ensure the user is an admin before proceeding
-    async (req: Request, res: Response): Promise<Response> => {
-      const { bookingId } = req.params; // Get the bookingId from the URL parameter
-  
-      try {
-        // Fetch the booking using bookingId
-        const booking = await prisma.booking.findUnique({
-          where: {
-            bookingId: bookingId, // Find user by their email
-          },
-          include: {
-            payment: true,
-            questionnaire: true,
-          },
-        });
-  
-        // If the booking is not found, return a 404 error
-        if (!booking) {
-          return res.status(404).json({ error: 'Booking not found' });
-        }
-  
-        // Return the booking data along with their related information
-        return res.status(200).json(booking);
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'Failed to retrieve booking data' });
+  '/booking-info/:bookingId',
+  tokenExtractor,
+  requireAdmin, // Ensure the user is an admin before proceeding
+  async (req: Request, res: Response): Promise<Response> => {
+    const { bookingId } = req.params; // Get the bookingId from the URL parameter
+
+    try {
+      // Fetch the booking using bookingId
+      const booking = await prisma.booking.findUnique({
+        where: {
+          bookingId: bookingId, // Find user by their email
+        },
+        include: {
+          payment: true,
+          questionnaire: true,
+        },
+      });
+
+      // If the booking is not found, return a 404 error
+      if (!booking) {
+        return res.status(404).json({ error: 'Booking not found' });
       }
+
+      // Return the booking data along with their related information
+      return res.status(200).json(booking);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Failed to retrieve booking data' });
     }
-  );
+  },
+);
 
 // POST to add a new availability entry
 router.post(
@@ -76,10 +113,12 @@ router.post(
   tokenExtractor,
   requireAdmin, // Ensure the user is an admin before proceeding
   async (req: Request, res: Response): Promise<Response> => {
-    const { date, startTime, endTime, isAvailable } = req.body; // Get date and availability status from the request body
+    const { date, startTime, endTime } = req.body; // Get date and availability status from the request body
 
-    if (!date || typeof isAvailable !== 'boolean') {
-      return res.status(400).json({ error: 'Missing date or availability status' });
+    if (!date) {
+      return res
+        .status(400)
+        .json({ error: 'Missing date' });
     }
 
     try {
@@ -89,7 +128,6 @@ router.post(
           date: new Date(date), // Assuming date is provided as a string
           startTime: new Date(startTime),
           endTime: new Date(endTime),
-          isAvailable,
         },
       });
 
@@ -99,7 +137,7 @@ router.post(
       console.error(error);
       return res.status(500).json({ error: 'Failed to add new availability' });
     }
-  }
+  },
 );
 
 // DELETE to remove an availability entry by its ID
@@ -131,11 +169,16 @@ router.delete(
       });
 
       // Return success response
-      return res.status(200).json({ message: 'Availability entry removed successfully' });
+      return res
+        .status(200)
+        .json({ message: 'Availability entry removed successfully' });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ error: 'Failed to remove availability entry' });
+      return res
+        .status(500)
+        .json({ error: 'Failed to remove availability entry' });
     }
-  }
+  },
 );
-  module.exports = router;
+
+module.exports = router;

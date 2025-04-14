@@ -33,7 +33,7 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
       userId: user.id,
       name: user.name,
       email: user.email,
-      role: user.role
+      role: user.role,
     };
 
     // Generate JWT
@@ -46,7 +46,7 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
         userId: user.id,
         username: user.name,
         email: user.email,
-        role: user.role
+        role: user.role,
       },
     });
   } catch (error) {

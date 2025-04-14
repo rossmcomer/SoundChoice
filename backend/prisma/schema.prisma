@@ -64,7 +64,6 @@ model Availability {
   date        DateTime
   startTime   DateTime
   endTime     DateTime
-  isAvailable Boolean
 }
 
 enum EventType {

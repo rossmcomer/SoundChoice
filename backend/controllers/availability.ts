@@ -7,12 +7,11 @@ router.get(
   '/unavailable',
   async (req: Request, res: Response): Promise<Response> => {
     try {
-      // Fetch all availability entries where isAvailable is false
+      // Fetch all availability entries
       const unavailableDates = await prisma.availability.findMany({
-        where: {
-          isAvailable: false,
-        },
-      });
+        orderBy: {
+          date: 'asc',
+      }});
 
       // Return the result
       return res.status(200).json(unavailableDates);
@@ -41,7 +40,6 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
         date: new Date(date),
         startTime: new Date(startTime),
         endTime: new Date(endTime),
-        isAvailable: false,
       },
     });
 

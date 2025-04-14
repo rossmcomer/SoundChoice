@@ -13,12 +13,10 @@ router.post(
 
     // Check for missing required fields
     if (!userId || !eventDate || !startTime || !endTime || !location) {
-      return res
-        .status(400)
-        .json({
-          error:
-            'Missing required fields: userId, eventDate, startTime, endTime, location',
-        });
+      return res.status(400).json({
+        error:
+          'Missing required fields: userId, eventDate, startTime, endTime, location',
+      });
     }
 
     try {
@@ -82,12 +80,10 @@ router.put(
 
     // Validate inputs
     if (!id || !['paid', 'unpaid'].includes(paymentStatus)) {
-      return res
-        .status(400)
-        .json({
-          error:
-            'Missing or invalid id or payment status. Must be "paid" or "unpaid".',
-        });
+      return res.status(400).json({
+        error:
+          'Missing or invalid id or payment status. Must be "paid" or "unpaid".',
+      });
     }
 
     try {

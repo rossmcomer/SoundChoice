@@ -143,4 +143,57 @@ router.put(
   },
 );
 
+// PUT endpoint to allow user to modify existing user password
+router.put(
+  '/modify-password',
+  tokenExtractor,
+  async (req: Request, res: Response): Promise<Response> => {
+    const userId = req.decodedToken?.userId;  // Get the userId from the token
+    const { currentPassword, newPassword } = req.body; // Get the current and new passwords from the request body
+
+    // Validate the provided new password (example: minimum 8 characters)
+    if (!newPassword || newPassword.length < 8) {
+      return res.status(400).json({ error: 'Password must be at least 8 characters long' });
+    }
+
+    try {
+      // Check if the user exists
+      const existingUser = await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+      });
+
+      if (!existingUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Compare current password with the stored hash
+      const isPasswordValid = await bcryptjs.compare(currentPassword, existingUser.password);
+
+      if (!isPasswordValid) {
+        return res.status(400).json({ error: 'Current password is incorrect' });
+      }
+
+      // Hash the new password
+      const hashedNewPassword = await bcryptjs.hash(newPassword, 10);
+
+      // Update the user's password
+      const updatedUser = await prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          password: hashedNewPassword, // Set the new hashed password
+        },
+      });
+
+      return res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Failed to update password' });
+    }
+  },
+);
+
 module.exports = router;
