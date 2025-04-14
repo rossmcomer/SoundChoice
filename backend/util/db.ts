@@ -1,4 +1,4 @@
-const { PrismaClient } = require ('../generated/prisma');
+const { PrismaClient } = require('../generated/prisma');
 
 const prisma = new PrismaClient();
 
@@ -13,7 +13,7 @@ const connectToDatabase = async () => {
 };
 
 const disconnectFromDatabase = async () => {
-  await prisma.$disconnect()
+  await prisma.$disconnect();
 };
 
 export { prisma, connectToDatabase, disconnectFromDatabase };

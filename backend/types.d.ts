@@ -16,9 +16,9 @@ export type PaymentStatus = 'unpaid' | 'paid' | 'failed';
 
 // JWT Related Types Begin
 export interface DecodedToken {
-    userId: string;
-    email: string;
-};
+  userId: string;
+  email: string;
+}
 
 declare global {
   namespace Express {

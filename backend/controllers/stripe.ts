@@ -1,13 +1,13 @@
 const {
-    STRIPE_SECRET,
-    STRIPE_WEBHOOK_SECRET,
-    DEV_WEBHOOK_SECRET,
-    DOMAIN_NAME
-  } = require('../util/config')
-const stripe = require('stripe')(STRIPE_SECRET)
-const router = require('express').Router()
+  STRIPE_SECRET,
+  STRIPE_WEBHOOK_SECRET,
+  DEV_WEBHOOK_SECRET,
+  DOMAIN_NAME,
+} = require('../util/config');
+const stripe = require('stripe')(STRIPE_SECRET);
+const router = require('express').Router();
 import { Request, Response } from 'express';
-  
+
 // router.post('/create-checkout-session', async (req: Request, res: Response) => {
 //   const { products, oktaUserId } = req.body
 
@@ -132,6 +132,5 @@ import { Request, Response } from 'express';
 //       console.log(`Unhandled event type ${event.type}`)
 //   }
 // })
-  
-  module.exports = router
-  
+
+module.exports = router;
