@@ -90,5 +90,5 @@ enum PaymentStatus {
   depositReceived
   remainingPaymentFailed
   paidInFull
-  failed
+  depositFailed
 }
