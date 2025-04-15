@@ -188,7 +188,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
           await prisma.booking.update({
             where: { id: bookingId },
             data: {
-              paymentStatus: 'unpaid',
+              paymentStatus: 'depositFailed',
             },
           });
         }
@@ -197,13 +197,11 @@ router.post('/webhook', async (req: Request, res: Response) => {
           await prisma.booking.update({
             where: { id: bookingId },
             data: {
-              paymentStatus: 'unpaid',
+              paymentStatus: 'remainingPaymentFailed',
             },
           });
-        }
+        }      
         
-        
-
         console.warn(`Payment failed for booking ${bookingId}`);
         res.status(200).send();
       } catch (err) {
