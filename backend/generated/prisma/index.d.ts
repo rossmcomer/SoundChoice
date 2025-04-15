@@ -73,7 +73,8 @@ export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
 
 export const PaymentStatus: {
   unpaid: 'unpaid',
-  deposit: 'deposit',
+  depositReceived: 'depositReceived',
+  remainingPaymentFailed: 'remainingPaymentFailed',
   paidInFull: 'paidInFull',
   failed: 'failed'
 };

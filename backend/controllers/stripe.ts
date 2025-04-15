@@ -9,6 +9,7 @@ const router = require('express').Router();
 import { Request, Response } from 'express';
 import { prisma } from '../util/db';
 import { PRICE_LIST } from '../assets/priceList'
+import Stripe from 'stripe';
 const { tokenExtractor } = require('../util/middleware');
 
 router.post('/pay-deposit', tokenExtractor, async (req: Request, res: Response) => {
@@ -82,8 +83,8 @@ router.post('/pay-remaining', tokenExtractor, async (req: Request, res: Response
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${DOMAIN_NAME}/success`,
-      cancel_url: `${DOMAIN_NAME}/cancel`,
+      success_url: `${DOMAIN_NAME}/successful-paid-in-full`,
+      cancel_url: `${DOMAIN_NAME}/cancelled-pay-second-half`,
       automatic_tax: { enabled: true },
       metadata: { userId, bookingId, paymentType: 'remainingBalance' },
     });
@@ -97,84 +98,126 @@ router.post('/pay-remaining', tokenExtractor, async (req: Request, res: Response
 
 // Webhook that follows stripe payments
 router.post('/webhook', async (req: Request, res: Response) => {
-  const sig = req.headers['stripe-signature']
+  const sig = req.headers['stripe-signature'] as string;
 
-  let event
-
-  // const session = event.data.object
+  let event;
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, DEV_WEBHOOK_SECRET)
-  } catch (err) {
-    res.status(400).send(`Webhook Error: ${err.message}`)
-    return
+    event = stripe.webhooks.constructEvent(req.body, sig, DEV_WEBHOOK_SECRET);
+  } catch (err: any) {
+    console.error('Webhook Error:', err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
   switch (event.type) {
-    case 'checkout.session.completed':
-      const checkoutSessionCompleted = event.data.object
+    case 'checkout.session.completed': {
+      const session = event.data.object as Stripe.Checkout.Session;
 
-      const orderDate = new Date(checkoutSessionCompleted.created * 1000)
-      const totalAmount = checkoutSessionCompleted.amount_total / 100
-      const salesTax = checkoutSessionCompleted.total_details.amount_tax / 100
-      const oktaUserId = checkoutSessionCompleted.metadata.oktaUserId
+      const userId = session.metadata?.userId;
+      const bookingId = session.metadata?.bookingId;
+      const paymentType = session.metadata?.paymentType;
+      const transactionId = session.payment_intent as string;
+      const amountTotal = session.amount_total ? session.amount_total / 100 : 0;
 
-      try {
-        // Save to orders table
-        const newOrder = await prisma.booking.create({
-          orderDate: orderDate,
-          totalAmount: totalAmount,
-          salesTax: salesTax,
-          oktaUserId: oktaUserId,
-        })
-
-        // Retrieve line items from the session to save in order_details table
-        const lineItems = await stripe.checkout.sessions.listLineItems(
-          checkoutSessionCompleted.id,
-        )
-
-        // Save each item in order_details table
-        for (const item of lineItems.data) {
-          const description = item.description
-
-          const match = description.match(/^(.+?)(?: \(Size: (\w+)\))?$/)
-
-          if (match) {
-            const productName = match[1]
-            const size = match[2] || null
-
-            const product = await Product.findOne({
-              where: {
-                name: productName,
-                size: size !== null ? size : null,
-              },
-            })
-
-            if (product) {
-              await OrderDetail.create({
-                orderId: newOrder.id,
-                productId: product.id,
-                quantity: item.quantity,
-                unitPrice: item.price.unit_amount / 100,
-                salesTax: item.amount_tax / 100,
-              })
-
-              product.unitsInStock -= item.quantity
-              await product.save()
-            }
-          }
-        }
-
-        res.send()
-      } catch (error) {
-        console.error('Error saving order to database:', error)
-        res.status(500).send('Internal Server Error')
+      if (!userId || !bookingId || !paymentType) {
+        console.error('Missing metadata in session');
+        return res.status(400).send('Missing metadata');
       }
 
-      break
+      try {
+        if (paymentType === 'deposit') {
+          const booking = await prisma.booking.findUnique({ where: { id: bookingId } });
+
+          if (!booking) {
+            console.error('Booking not found for ID:', bookingId);
+            return res.status(404).send('Booking not found');
+          }
+
+          // 1. Create new availability record
+          await prisma.availability.create({
+            data: {
+              date: booking.eventDate,
+              startTime: booking.startTime,
+              endTime: booking.endTime,
+            },
+          });
+
+          // 2. Update booking's payment status
+          await prisma.booking.update({
+            where: { id: bookingId },
+            data: {
+              paymentStatus: 'depositReceived',
+            },
+          });
+
+          // 3. Create new payment record
+          await prisma.payment.create({
+            data: {
+              bookingId,
+              amount: amountTotal,
+              deposit: true,
+              method: 'stripe',
+              transactionId,
+            },
+          });
+        }
+
+        res.status(200).send();
+      } catch (err) {
+        console.error('Webhook processing failed:', err);
+        res.status(500).send('Internal Server Error');
+      }
+
+      break;
+    }
+
+    case 'payment_intent.payment_failed': {
+      const paymentIntent = event.data.object as Stripe.PaymentIntent;
+      const metadata = paymentIntent.metadata;
+      const bookingId = metadata?.bookingId;
+      const paymentType = metadata?.paymentType;
+
+      if (!bookingId) {
+        console.warn('Payment failed but no bookingId found in metadata.');
+        return res.status(400).send('Missing bookingId');
+      }
+
+      try {
+        if (paymentType === 'deposit') {
+          // Set paymentStatus to 'failed'
+          await prisma.booking.update({
+            where: { id: bookingId },
+            data: {
+              paymentStatus: 'unpaid',
+            },
+          });
+        }
+        else if (paymentType === 'remainingBalance'){
+          // Set paymentStatus to 'failed'
+          await prisma.booking.update({
+            where: { id: bookingId },
+            data: {
+              paymentStatus: 'unpaid',
+            },
+          });
+        }
+        
+        
+
+        console.warn(`Payment failed for booking ${bookingId}`);
+        res.status(200).send();
+      } catch (err) {
+        console.error('Failed to update booking status on payment failure:', err);
+        res.status(500).send('Internal Server Error');
+      }
+
+      break;
+    }
+
     default:
-      console.log(`Unhandled event type ${event.type}`)
+      console.log(`Unhandled event type ${event.type}`);
+      res.status(200).send();
   }
-})
+});
 
 module.exports = router;

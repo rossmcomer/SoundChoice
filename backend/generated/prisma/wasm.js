@@ -190,7 +190,8 @@ exports.EventType = exports.$Enums.EventType = {
 
 exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   unpaid: 'unpaid',
-  deposit: 'deposit',
+  depositReceived: 'depositReceived',
+  remainingPaymentFailed: 'remainingPaymentFailed',
   paidInFull: 'paidInFull',
   failed: 'failed'
 };
