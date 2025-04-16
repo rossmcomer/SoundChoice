@@ -12,7 +12,7 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 router.post(
   '/create-account',
   async (req: Request, res: Response): Promise<Response> => {
-    const { email, name, password } = req.body;
+    const { email, name, phone, password } = req.body;
 
     try {
       if (!emailRegex.test(email)) {
@@ -37,7 +37,8 @@ router.post(
         data: {
           email: email.toLowerCase(),
           name,
-          password: hashedPassword,
+          phone,
+          password: hashedPassword
         },
       });
 
