@@ -7,15 +7,25 @@
   --color6: #daa520;
   --white-soft: #f8f8f8;
   --black-soft: #222222;
-  --grey-soft: #949494;
+  --grey-soft: #979797;
   --purple-royal: #222097;
   --dividier-light: rgba(235, 235, 235, 0.64);
   --divider-medium: rgba(84, 84, 84, 0.48);
   --divider-dark: rgba(60, 60, 60, 0.29);
-  --text-shadow-small: rgba(0, 0, 0, 0.432) 1px 4px 20px;
-  --box-shadow-main: #00000046 1px 1px 10px;
+  --text-shadow-small: rgba(0, 0, 0, 0.431) 1px 1px 10px;
+  --text-shadow-medium: rgba(0, 0, 0, 0.431) 2px 2px 20px;
+  --text-shadow-large: rgba(0, 0, 0, 0.431) 4px 4px 40px;
+  --box-shadow-small: rgba(0, 0, 0, 0.275) 1px 1px 10px;
+  --box-shadow-medium: rgba(0, 0, 0, 0.275) 2px 2px 20px;
+  --box-shadow-large: rgba(0, 0, 0, 0.275) 4px 4px 40px;
   --border-bold-black: 2px solid #222222;
   --border-bold-white: 2px solid #f8f8f8;
+  --transition-default: 
+      color 0.3s ease-in-out,
+      background-color 0.3s ease-in-out,
+      border-color 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
 }
 
 *,
@@ -28,8 +38,10 @@
 
 body {
   min-height: 100vh;
+  min-width: 300px;
+  width: 100%;
   color: var(--black-soft);
-  background: var(--color4);
+  background-color: var(--color4);
   transition:
     color 0.5s,
     background-color 0.5s;
