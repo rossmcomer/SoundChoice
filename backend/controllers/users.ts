@@ -8,6 +8,9 @@ const { tokenExtractor } = require('../util/middleware');
 // Email regex to validate format
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+// Phone regex to validate format
+const e164Regex = /^\+?[1-9]\d{1,14}$/;
+
 // Create new user account
 router.post(
   '/create-account',
@@ -18,6 +21,11 @@ router.post(
       if (!emailRegex.test(email)) {
         return res.status(400).json({ error: 'Invalid email address' });
       }
+
+      if (!phone || !e164Regex.test(phone)) {
+        return res.status(400).json({ error: 'Invalid or missing phone number.' });
+      }
+      
       // Check if email already exists
       const existingUser = await prisma.user.findUnique({
         where: {
@@ -142,6 +150,42 @@ router.put(
       return res.status(500).json({ error: 'Failed to update user' });
     }
   },
+);
+
+// PUT endpoint to update user's phone number
+router.put(
+  '/update-phone',
+  tokenExtractor,
+  async (req: Request, res: Response): Promise<Response> => {
+    const userId = req.decodedToken?.userId;
+    const { phone } = req.body;
+
+    if (!phone || !e164Regex.test(phone)) {
+      return res.status(400).json({ error: 'Invalid or missing phone number.' });
+    }
+
+    try {
+      // Check if the user exists
+      const existingUser = await prisma.user.findUnique({
+        where: { id: userId },
+      });
+
+      if (!existingUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Update the user's phone number
+      const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: { phone },
+      });
+
+      return res.status(200).json(updatedUser);
+    } catch (error) {
+      console.error('Failed to update phone number:', error);
+      return res.status(500).json({ error: 'Failed to update phone number' });
+    }
+  }
 );
 
 // PUT endpoint to allow user to modify existing user password
