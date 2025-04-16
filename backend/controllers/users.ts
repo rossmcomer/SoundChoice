@@ -23,7 +23,9 @@ router.post(
       }
 
       if (!phone || !e164Regex.test(phone)) {
-        return res.status(400).json({ error: 'Invalid or missing phone number.' });
+        return res
+          .status(400)
+          .json({ error: 'Invalid or missing phone number.' });
       }
 
       // Check if email already exists
@@ -46,7 +48,7 @@ router.post(
           email: email.toLowerCase(),
           name,
           phone,
-          password: hashedPassword
+          password: hashedPassword,
         },
       });
 
@@ -68,16 +70,15 @@ router.get(
       // Fetch the user along with related data from bookings, payments, and questionnaires
       const user = await prisma.user.findUnique({
         where: {
-          id: userId, // Find user by their unique ID
+          id: userId,
         },
         include: {
           bookings: {
-            // Include bookings associated with the user
             include: {
               payment: true,
             },
           },
-          questionnaires: true, // Include questionnaires associated with the user
+          questionnaires: true,
         },
       });
 
@@ -118,7 +119,7 @@ router.patch(
       console.error('Error updating name:', error);
       return res.status(500).json({ error: 'Failed to update name' });
     }
-  }
+  },
 );
 
 // Modify existing user email
@@ -157,7 +158,7 @@ router.patch(
       console.error('Error updating email:', error);
       return res.status(500).json({ error: 'Failed to update email' });
     }
-  }
+  },
 );
 
 // Modify existing phone number
@@ -169,7 +170,9 @@ router.patch(
     const { phone } = req.body;
 
     if (!phone || !e164Regex.test(phone)) {
-      return res.status(400).json({ error: 'Invalid or missing phone number.' });
+      return res
+        .status(400)
+        .json({ error: 'Invalid or missing phone number.' });
     }
 
     try {
@@ -193,7 +196,7 @@ router.patch(
       console.error('Failed to update phone number:', error);
       return res.status(500).json({ error: 'Failed to update phone number' });
     }
-  }
+  },
 );
 
 // PUT endpoint to allow user to modify existing user password
@@ -201,12 +204,14 @@ router.put(
   '/modify-password',
   tokenExtractor,
   async (req: Request, res: Response): Promise<Response> => {
-    const userId = req.decodedToken?.userId;  // Get the userId from the token
+    const userId = req.decodedToken?.userId; // Get the userId from the token
     const { currentPassword, newPassword } = req.body; // Get the current and new passwords from the request body
 
     // Validate the provided new password (example: minimum 8 characters)
     if (!newPassword || newPassword.length < 8) {
-      return res.status(400).json({ error: 'Password must be at least 8 characters long' });
+      return res
+        .status(400)
+        .json({ error: 'Password must be at least 8 characters long' });
     }
 
     try {
@@ -222,7 +227,10 @@ router.put(
       }
 
       // Compare current password with the stored hash
-      const isPasswordValid = await bcryptjs.compare(currentPassword, existingUser.password);
+      const isPasswordValid = await bcryptjs.compare(
+        currentPassword,
+        existingUser.password,
+      );
 
       if (!isPasswordValid) {
         return res.status(400).json({ error: 'Current password is incorrect' });

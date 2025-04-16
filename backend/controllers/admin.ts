@@ -53,7 +53,7 @@ router.get(
           id: true,
           user: {
             select: {
-              name: true
+              name: true,
             },
           },
           eventDate: true,
@@ -125,7 +125,9 @@ router.patch(
 
     // Prevent empty update
     if (Object.keys(updateData).length === 0) {
-      return res.status(400).json({ error: 'No valid fields provided to update' });
+      return res
+        .status(400)
+        .json({ error: 'No valid fields provided to update' });
     }
 
     try {
@@ -151,9 +153,7 @@ router.post(
     const { date, startTime, endTime } = req.body; // Get date and availability status from the request body
 
     if (!date) {
-      return res
-        .status(400)
-        .json({ error: 'Missing date' });
+      return res.status(400).json({ error: 'Missing date' });
     }
 
     try {

@@ -8,93 +8,131 @@ const stripe = require('stripe')(STRIPE_SECRET);
 const router = require('express').Router();
 import { Request, Response } from 'express';
 import { prisma } from '../util/db';
-import { PRICE_LIST } from '../assets/priceList'
+import { PRICE_LIST } from '../assets/priceList';
 import Stripe from 'stripe';
 const { tokenExtractor } = require('../util/middleware');
 
-router.post('/pay-deposit', tokenExtractor, async (req: Request, res: Response) => {
-  const userId = req.decodedToken?.userId;
-  const { products, eventDate, startTime, endTime, location, type } = req.body;
+router.post(
+  '/pay-deposit',
+  tokenExtractor,
+  async (req: Request, res: Response) => {
+    const userId = req.decodedToken?.userId;
+    const { products, eventDate, startTime, endTime, location, type } =
+      req.body;
 
-  try {
-    // Validate product IDs and build line items
-    const lineItems = products.map((product: { id: string; name: string; quantity: number }) => {
-      const unitPrice = PRICE_LIST[product.id];
+    try {
+      // Validate product IDs and build line items
+      const lineItems = products.map(
+        (product: { id: string; name: string; quantity: number }) => {
+          const unitPrice = PRICE_LIST[product.id];
 
-      if (!unitPrice) {
-        throw new Error(`Invalid product ID: ${product.id}`);
-      }
+          if (!unitPrice) {
+            throw new Error(`Invalid product ID: ${product.id}`);
+          }
 
-      return {
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: product.name,
-          },
-          unit_amount: Math.round(unitPrice / 2),
+          return {
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: product.name,
+              },
+              unit_amount: Math.round(unitPrice / 2),
+            },
+            quantity: product.quantity,
+          };
         },
-        quantity: product.quantity,
-      };
-    });
+      );
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: `${DOMAIN_NAME}/successful-deposit`,
-      cancel_url: `${DOMAIN_NAME}/cancelled-deposit`,
-      automatic_tax: { enabled: true },
-      metadata: { userId, eventDate, startTime, endTime, location, type, paymentType: 'deposit' },
-    });
-
-    res.json({ id: session.id });
-  } catch (error: any) {
-    console.error('Error creating checkout session:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-router.post('/pay-remaining', tokenExtractor, async (req: Request, res: Response) => {
-  const userId = req.decodedToken?.userId;
-  const { products, bookingId, eventDate, startTime, endTime, location, type } = req.body;
-
-  try {
-    // Validate product IDs and build line items
-    const lineItems = products.map((product: { id: string; name: string; quantity: number }) => {
-      const unitPrice = PRICE_LIST[product.id];
-
-      if (!unitPrice) {
-        throw new Error(`Invalid product ID: ${product.id}`);
-      }
-
-      return {
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: product.name,
-          },
-          unit_amount: Math.round(unitPrice / 2),
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: `${DOMAIN_NAME}/successful-deposit`,
+        cancel_url: `${DOMAIN_NAME}/cancelled-deposit`,
+        automatic_tax: { enabled: true },
+        metadata: {
+          userId,
+          eventDate,
+          startTime,
+          endTime,
+          location,
+          type,
+          paymentType: 'deposit',
         },
-        quantity: product.quantity,
-      };
-    });
+      });
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: `${DOMAIN_NAME}/successful-paid-in-full`,
-      cancel_url: `${DOMAIN_NAME}/cancelled-pay-second-half`,
-      automatic_tax: { enabled: true },
-      metadata: { userId, bookingId, eventDate, startTime, endTime, location, type, paymentType: 'remainingBalance' },
-    });
+      res.json({ id: session.id });
+    } catch (error: any) {
+      console.error('Error creating checkout session:', error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+);
 
-    res.json({ id: session.id });
-  } catch (error: any) {
-    console.error('Error creating checkout session:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
+router.post(
+  '/pay-remaining',
+  tokenExtractor,
+  async (req: Request, res: Response) => {
+    const userId = req.decodedToken?.userId;
+    const {
+      products,
+      bookingId,
+      eventDate,
+      startTime,
+      endTime,
+      location,
+      type,
+    } = req.body;
+
+    try {
+      // Validate product IDs and build line items
+      const lineItems = products.map(
+        (product: { id: string; name: string; quantity: number }) => {
+          const unitPrice = PRICE_LIST[product.id];
+
+          if (!unitPrice) {
+            throw new Error(`Invalid product ID: ${product.id}`);
+          }
+
+          return {
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: product.name,
+              },
+              unit_amount: Math.round(unitPrice / 2),
+            },
+            quantity: product.quantity,
+          };
+        },
+      );
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: `${DOMAIN_NAME}/successful-paid-in-full`,
+        cancel_url: `${DOMAIN_NAME}/cancelled-pay-second-half`,
+        automatic_tax: { enabled: true },
+        metadata: {
+          userId,
+          bookingId,
+          eventDate,
+          startTime,
+          endTime,
+          location,
+          type,
+          paymentType: 'remainingBalance',
+        },
+      });
+
+      res.json({ id: session.id });
+    } catch (error: any) {
+      console.error('Error creating checkout session:', error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+);
 
 // Webhook that follows stripe payments
 router.post('/webhook', async (req: Request, res: Response) => {
@@ -191,10 +229,11 @@ router.post('/webhook', async (req: Request, res: Response) => {
             console.error('Error creating questionnaire');
             return res.status(404).send('Booking not found');
           }
-        }
-        else if (paymentType === 'remainingBalance') {
+        } else if (paymentType === 'remainingBalance') {
           if (!bookingId) {
-            console.error('Missing bookingId in metadata for remaining balance');
+            console.error(
+              'Missing bookingId in metadata for remaining balance',
+            );
             return res.status(400).send('Missing bookingId');
           }
           // 1. Update payment status of booking
@@ -250,7 +289,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
       try {
         if (paymentType === 'deposit') {
           // Set paymentStatus to 'failed'
-           const bookingUpdate = await prisma.booking.update({
+          const bookingUpdate = await prisma.booking.update({
             where: { id: bookingId },
             data: {
               paymentStatus: 'depositFailed',
@@ -261,8 +300,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
             console.error('Error updating booking paymentStatus');
             return res.status(404).send('Booking not found');
           }
-        }
-        else if (paymentType === 'remainingBalance'){
+        } else if (paymentType === 'remainingBalance') {
           // Set paymentStatus to 'failed'
           const bookingUpdate = await prisma.booking.update({
             where: { id: bookingId },
@@ -275,12 +313,15 @@ router.post('/webhook', async (req: Request, res: Response) => {
             console.error('Error updating booking paymentStatus');
             return res.status(404).send('Booking not found');
           }
-        }      
+        }
 
         console.warn(`Payment failed for booking ${bookingId}`);
         res.status(200).send();
       } catch (err) {
-        console.error('Failed to update booking status on payment failure:', err);
+        console.error(
+          'Failed to update booking status on payment failure:',
+          err,
+        );
         res.status(500).send('Internal Server Error');
       }
 

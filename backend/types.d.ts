@@ -10,9 +10,19 @@ export type Questionnaire = Prisma.Questionnaire;
 export type Availability = Prisma.Availability;
 
 export type PaymentMethod = 'stripe' | 'paypal';
-export type PaymentStatus = 'unpaid' | 'depositReceived' | 'remainingPaymentFailed' | 'paidInFull' | 'depositFailed';
-export type EventType = 'wedding' | 'corporate' | 'birthday' | 'barBatMitzvah' | 'other'
-export type BookingStatus = 'pending' | 'confirmed' | 'cancelled'
+export type PaymentStatus =
+  | 'unpaid'
+  | 'depositReceived'
+  | 'remainingPaymentFailed'
+  | 'paidInFull'
+  | 'depositFailed';
+export type EventType =
+  | 'wedding'
+  | 'corporate'
+  | 'birthday'
+  | 'barBatMitzvah'
+  | 'other';
+export type BookingStatus = 'pending' | 'confirmed' | 'cancelled';
 
 // PRISMA Related Types End
 

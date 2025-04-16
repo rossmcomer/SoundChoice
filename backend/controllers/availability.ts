@@ -11,7 +11,8 @@ router.get(
       const unavailableDates = await prisma.availability.findMany({
         orderBy: {
           date: 'asc',
-      }});
+        },
+      });
 
       // Return the result
       return res.status(200).json(unavailableDates);

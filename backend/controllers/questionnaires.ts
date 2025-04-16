@@ -48,9 +48,7 @@ router.patch('/:id', tokenExtractor, async (req: Request, res: Response) => {
     });
 
     if (!questionnaire) {
-      return res
-        .status(404)
-        .json({ error: 'Questionnaire not found' });
+      return res.status(404).json({ error: 'Questionnaire not found' });
     }
 
     await prisma.questionnaire.update({
