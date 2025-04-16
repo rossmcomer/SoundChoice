@@ -149,7 +149,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
           }
 
           // 2. Create new availability record
-          await prisma.availability.create({
+          const newAvailability = await prisma.availability.create({
             data: {
               date: newBooking.eventDate,
               startTime: newBooking.startTime,
@@ -157,8 +157,13 @@ router.post('/webhook', async (req: Request, res: Response) => {
             },
           });
 
+          if (!newAvailability) {
+            console.error('Error creating unavailability record');
+            return res.status(404).send('Booking not found');
+          }
+
           // 3. Create new payment record
-          await prisma.payment.create({
+          const newPaymentRecord = await prisma.payment.create({
             data: {
               bookingId: newBooking.bookingId,
               amount: amountTotal,
@@ -167,6 +172,25 @@ router.post('/webhook', async (req: Request, res: Response) => {
               transactionId,
             },
           });
+
+          if (!newPaymentRecord) {
+            console.error('Error creating payment record');
+            return res.status(404).send('Booking not found');
+          }
+
+          // 3. Create new questionnaire
+          const newQuestionnaire = await prisma.questionnaire.create({
+            data: {
+              userId,
+              bookingId: newBooking.bookingId,
+              answers: {},
+            },
+          });
+
+          if (!newQuestionnaire) {
+            console.error('Error creating questionnaire');
+            return res.status(404).send('Booking not found');
+          }
         }
         else if (paymentType === 'remainingBalance') {
           if (!bookingId) {
@@ -187,7 +211,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
           }
 
           // 2. Create new payment record
-          await prisma.payment.create({
+          const newPaymentRecord = await prisma.payment.create({
             data: {
               bookingId,
               amount: amountTotal,
@@ -196,6 +220,11 @@ router.post('/webhook', async (req: Request, res: Response) => {
               transactionId,
             },
           });
+
+          if (!newPaymentRecord) {
+            console.error('Error creating payment record');
+            return res.status(404).send('Booking not found');
+          }
         }
 
         res.status(200).send();
@@ -221,21 +250,31 @@ router.post('/webhook', async (req: Request, res: Response) => {
       try {
         if (paymentType === 'deposit') {
           // Set paymentStatus to 'failed'
-          await prisma.booking.update({
+           const bookingUpdate = await prisma.booking.update({
             where: { id: bookingId },
             data: {
               paymentStatus: 'depositFailed',
             },
           });
+
+          if (!bookingUpdate) {
+            console.error('Error updating booking paymentStatus');
+            return res.status(404).send('Booking not found');
+          }
         }
         else if (paymentType === 'remainingBalance'){
           // Set paymentStatus to 'failed'
-          await prisma.booking.update({
+          const bookingUpdate = await prisma.booking.update({
             where: { id: bookingId },
             data: {
               paymentStatus: 'remainingPaymentFailed',
             },
           });
+
+          if (!bookingUpdate) {
+            console.error('Error updating booking paymentStatus');
+            return res.status(404).send('Booking not found');
+          }
         }      
 
         console.warn(`Payment failed for booking ${bookingId}`);
