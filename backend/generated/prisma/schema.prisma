@@ -18,6 +18,7 @@ model User {
   id             String          @id @default(uuid())
   email          String          @unique
   name           String
+  phone          String
   password       String
   role           String          @default("client")
   createdAt      DateTime        @default(now())
@@ -90,5 +91,5 @@ enum PaymentStatus {
   depositReceived
   remainingPaymentFailed
   paidInFull
-  failed
+  depositFailed
 }

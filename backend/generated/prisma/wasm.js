@@ -121,6 +121,7 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  phone: 'phone',
   password: 'password',
   role: 'role',
   createdAt: 'createdAt'
@@ -193,7 +194,7 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   depositReceived: 'depositReceived',
   remainingPaymentFailed: 'remainingPaymentFailed',
   paidInFull: 'paidInFull',
-  failed: 'failed'
+  depositFailed: 'depositFailed'
 };
 
 exports.PaymentMethod = exports.$Enums.PaymentMethod = {
