@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const { PORT } = require('./util/config');
+const { PORT, DOMAIN_NAME, DOMAIN_NAME_DEV } = require('./util/config');
 const { connectToDatabase } = require('./util/db.ts');
 
 const usersRouter = require('./controllers/users');
@@ -15,6 +15,7 @@ const adminRouter = require('./controllers/admin');
 
 app.use(cookieParser());
 app.use(cors({
+  origin: [DOMAIN_NAME, DOMAIN_NAME_DEV],
   credentials: true,
 }));
 app.use(express.json());
