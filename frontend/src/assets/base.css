@@ -1,10 +1,10 @@
-/* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --color1: #FFD300;
-  --color2: #FFE568;
+  --color1: #FFFCEB;
+  --color2: #FFF7D1;
   --color3: #FFEE9D;
-  --color4: #FFF7D1;
-  --color5: #FFFCEB;
+  --color4: #FFE568;
+  --color5: #FFD300;  
+  --color6: #daa520;
   --white-soft: #f8f8f8;
   --black-soft: #222222;
   --grey-soft: #949494;
@@ -12,6 +12,10 @@
   --dividier-light: rgba(235, 235, 235, 0.64);
   --divider-medium: rgba(84, 84, 84, 0.48);
   --divider-dark: rgba(60, 60, 60, 0.29);
+  --text-shadow-small: rgba(0, 0, 0, 0.432) 1px 4px 20px;
+  --box-shadow-main: #00000046 1px 1px 10px;
+  --border-bold-black: 2px solid #222222;
+  --border-bold-white: 2px solid #f8f8f8;
 }
 
 *,
@@ -25,7 +29,7 @@
 body {
   min-height: 100vh;
   color: var(--black-soft);
-  background: var(--color2);
+  background: var(--color4);
   transition:
     color 0.5s,
     background-color 0.5s;
