@@ -25,7 +25,7 @@ router.post(
       if (!phone || !e164Regex.test(phone)) {
         return res.status(400).json({ error: 'Invalid or missing phone number.' });
       }
-      
+
       // Check if email already exists
       const existingUser = await prisma.user.findUnique({
         where: {
@@ -95,65 +95,73 @@ router.get(
   },
 );
 
-// Modify existing user name or email
-router.put(
-  '/',
+// Modify existing user name
+router.patch(
+  '/update-name',
   tokenExtractor,
   async (req: Request, res: Response): Promise<Response> => {
     const userId = req.decodedToken?.userId;
-    const { email, name } = req.body;
+    const { name } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ error: 'Name is required' });
+    }
 
     try {
-      // Check if the user exists
-      const existingUser = await prisma.user.findUnique({
-        where: {
-          id: userId,
-        },
-      });
-
-      if (!existingUser) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-
-      // If an email is provided, validate the format
-      if (email) {
-        if (!emailRegex.test(email)) {
-          return res.status(400).json({ error: 'Invalid email address' });
-        }
-
-        // Check if the new email is already in use by another user
-        const emailExists = await prisma.user.findUnique({
-          where: {
-            email: email,
-          },
-        });
-
-        if (emailExists && emailExists.id !== userId) {
-          return res.status(409).json({ error: 'Email is already in use' });
-        }
-      }
-
-      // Update the user with the new data (email and/or name)
       const updatedUser = await prisma.user.update({
-        where: {
-          id: userId,
-        },
-        data: {
-          email: email || existingUser.email, // If no email provided, keep the existing one
-          name: name || existingUser.name, // If no name provided, keep the existing one
-        },
+        where: { id: userId },
+        data: { name },
       });
 
       return res.status(200).json(updatedUser);
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'Failed to update user' });
+      console.error('Error updating name:', error);
+      return res.status(500).json({ error: 'Failed to update name' });
     }
-  },
+  }
 );
 
-// PUT endpoint to update user's phone number
-router.put(
+// Modify existing user email
+router.patch(
+  '/update-email',
+  tokenExtractor,
+  async (req: Request, res: Response): Promise<Response> => {
+    const userId = req.decodedToken?.userId;
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Invalid email address' });
+    }
+
+    try {
+      const emailExists = await prisma.user.findUnique({
+        where: { email },
+      });
+
+      if (emailExists && emailExists.id !== userId) {
+        return res.status(409).json({ error: 'Email is already in use' });
+      }
+
+      const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: { email },
+      });
+
+      return res.status(200).json(updatedUser);
+    } catch (error) {
+      console.error('Error updating email:', error);
+      return res.status(500).json({ error: 'Failed to update email' });
+    }
+  }
+);
+
+// Modify existing phone number
+router.patch(
   '/update-phone',
   tokenExtractor,
   async (req: Request, res: Response): Promise<Response> => {
