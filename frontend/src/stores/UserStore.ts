@@ -1,9 +1,27 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { getUserData } from '@/services/usersService'
+import type { User } from '@/types'
 
-export const userStore = defineStore('user', () => {
-  const user = ref({})
+export const useUserStore = defineStore('UserStore', () => {
+    const user = ref<User | null>(null)
+
+    const fetchUser = async () => {
+        try {
+            const data = await getUserData()
+            setUser(data)
+        } catch (err) {
+            console.error('Failed to fetch user:', err)
+        }
+    }
   
+    const setUser = (userData: any) => {
+        user.value = userData
+    }
 
-  return { user }
+    const clearUser = () => {
+        user.value = null
+    }
+
+  return { user, fetchUser, setUser, clearUser }
 })

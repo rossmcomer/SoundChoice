@@ -2,7 +2,7 @@ import axios from '../util/apiClient'
 
 const baseUrl = '/users'
 
-const createAccount = async (userData: {
+export const createAccount = async (userData: {
   name: string
   email: string
   phone: string
@@ -12,14 +12,14 @@ const createAccount = async (userData: {
   return response.data
 }
 
-const getUserData = async (token: string) => {
+export const getUserData = async (token: string) => {
   const response = await axios.get(`${baseUrl}/`, {
     headers: { Authorization: `Bearer ${token}` },
   })
   return response.data
 }
 
-const updateName = async (name: string, token: string) => {
+export const updateName = async (name: string, token: string) => {
   const response = await axios.patch(
     `${baseUrl}/update-name`,
     { name },
@@ -30,7 +30,7 @@ const updateName = async (name: string, token: string) => {
   return response.data
 }
 
-const updateEmail = async (email: string, token: string) => {
+export const updateEmail = async (email: string, token: string) => {
   const response = await axios.patch(
     `${baseUrl}/update-email`,
     { email },
@@ -41,7 +41,7 @@ const updateEmail = async (email: string, token: string) => {
   return response.data
 }
 
-const updatePhone = async (phone: string, token: string) => {
+export const updatePhone = async (phone: string, token: string) => {
   const response = await axios.patch(
     `${baseUrl}/update-phone`,
     { phone },
@@ -52,7 +52,7 @@ const updatePhone = async (phone: string, token: string) => {
   return response.data
 }
 
-const updatePassword = async (currentPassword: string, newPassword: string, token: string) => {
+export const updatePassword = async (currentPassword: string, newPassword: string, token: string) => {
   const response = await axios.put(
     `${baseUrl}/modify-password`,
     { currentPassword, newPassword },
