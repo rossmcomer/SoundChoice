@@ -130,6 +130,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
 
       try {
         if (paymentType === 'deposit') {
+          // 1. Create new booking
           const newBooking = await prisma.booking.create({
             data: {
               userId,
@@ -147,7 +148,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
             return res.status(404).send('Booking not found');
           }
 
-          // 1. Create new availability record
+          // 2. Create new availability record
           await prisma.availability.create({
             data: {
               date: newBooking.eventDate,
@@ -172,39 +173,25 @@ router.post('/webhook', async (req: Request, res: Response) => {
             console.error('Missing bookingId in metadata for remaining balance');
             return res.status(400).send('Missing bookingId');
           }
-          const newBooking = await prisma.booking.create({
+          // 1. Update payment status of booking
+          const booking = await prisma.booking.update({
+            where: { bookingId },
             data: {
-              userId,
-              bookingId,
-              eventDate: new Date(eventDate),
-              startTime: new Date(startTime),
-              endTime: new Date(endTime),
-              location,
-              type: paymentType,
               paymentStatus: 'depositReceived',
             },
           });
 
-          if (!newBooking) {
-            console.error('Error creating booking', newBooking.bookingId);
+          if (!booking) {
+            console.error('Error updating booking paymentStatus');
             return res.status(404).send('Booking not found');
           }
 
-          // 1. Create new availability record
-          await prisma.availability.create({
-            data: {
-              date: newBooking.eventDate,
-              startTime: newBooking.startTime,
-              endTime: newBooking.endTime,
-            },
-          });
-
-          // 3. Create new payment record
+          // 2. Create new payment record
           await prisma.payment.create({
             data: {
-              bookingId: newBooking.bookingId,
+              bookingId,
               amount: amountTotal,
-              deposit: true,
+              deposit: false,
               method: 'stripe',
               transactionId,
             },
@@ -223,6 +210,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
     case 'payment_intent.payment_failed': {
       const paymentIntent = event.data.object as Stripe.PaymentIntent;
       const metadata = paymentIntent.metadata;
+      const bookingId = metadata?.bookingId;
       const paymentType = metadata?.paymentType;
       const eventDate = metadata?.eventDate
       const startTime = metadata?.startTime
