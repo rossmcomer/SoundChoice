@@ -42,7 +42,7 @@ router.post(
 );
 
 // PUT update payment status of a booking
-router.put(
+router.patch(
   '/update-payment-status',
   tokenExtractor,
   async (req: Request, res: Response): Promise<Response> => {
