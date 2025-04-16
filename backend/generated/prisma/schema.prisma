@@ -75,12 +75,6 @@ enum EventType {
   other
 }
 
-enum BookingStatus {
-  pending
-  confirmed
-  cancelled
-}
-
 enum PaymentMethod {
   stripe
   paypal

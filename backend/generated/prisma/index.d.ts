@@ -54,15 +54,6 @@ export namespace $Enums {
 export type EventType = (typeof EventType)[keyof typeof EventType]
 
 
-export const BookingStatus: {
-  pending: 'pending',
-  confirmed: 'confirmed',
-  cancelled: 'cancelled'
-};
-
-export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
-
-
 export const PaymentMethod: {
   stripe: 'stripe',
   paypal: 'paypal'
@@ -86,10 +77,6 @@ export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 export type EventType = $Enums.EventType
 
 export const EventType: typeof $Enums.EventType
-
-export type BookingStatus = $Enums.BookingStatus
-
-export const BookingStatus: typeof $Enums.BookingStatus
 
 export type PaymentMethod = $Enums.PaymentMethod
 
