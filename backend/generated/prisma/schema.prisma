@@ -36,13 +36,13 @@ model Booking {
   location      String
   type          EventType      @default(wedding)
   paymentStatus PaymentStatus  @default(unpaid)
-  payment       Payment?
+  payment       Payment[]
   questionnaire Questionnaire?
 }
 
 model Payment {
   id            String        @id @default(uuid())
-  bookingId     String        @unique
+  bookingId     String
   amount        Float
   deposit       Boolean
   method        PaymentMethod

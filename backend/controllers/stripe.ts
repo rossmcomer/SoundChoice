@@ -14,7 +14,7 @@ const { tokenExtractor } = require('../util/middleware');
 
 router.post('/pay-deposit', tokenExtractor, async (req: Request, res: Response) => {
   const userId = req.decodedToken?.userId;
-  const { products, bookingId } = req.body;
+  const { products, eventDate, startTime, endTime, location, type } = req.body;
 
   try {
     // Validate product IDs and build line items
@@ -44,7 +44,7 @@ router.post('/pay-deposit', tokenExtractor, async (req: Request, res: Response) 
       success_url: `${DOMAIN_NAME}/successful-deposit`,
       cancel_url: `${DOMAIN_NAME}/cancelled-deposit`,
       automatic_tax: { enabled: true },
-      metadata: { userId, bookingId, paymentType: 'deposit' },
+      metadata: { userId, eventDate, startTime, endTime, location, type, paymentType: 'deposit' },
     });
 
     res.json({ id: session.id });
@@ -56,7 +56,7 @@ router.post('/pay-deposit', tokenExtractor, async (req: Request, res: Response) 
 
 router.post('/pay-remaining', tokenExtractor, async (req: Request, res: Response) => {
   const userId = req.decodedToken?.userId;
-  const { products, bookingId } = req.body;
+  const { products, bookingId, eventDate, startTime, endTime, location, type } = req.body;
 
   try {
     // Validate product IDs and build line items
@@ -86,7 +86,7 @@ router.post('/pay-remaining', tokenExtractor, async (req: Request, res: Response
       success_url: `${DOMAIN_NAME}/successful-paid-in-full`,
       cancel_url: `${DOMAIN_NAME}/cancelled-pay-second-half`,
       automatic_tax: { enabled: true },
-      metadata: { userId, bookingId, paymentType: 'remainingBalance' },
+      metadata: { userId, bookingId, eventDate, startTime, endTime, location, type, paymentType: 'remainingBalance' },
     });
 
     res.json({ id: session.id });
@@ -114,46 +114,95 @@ router.post('/webhook', async (req: Request, res: Response) => {
       const session = event.data.object as Stripe.Checkout.Session;
 
       const userId = session.metadata?.userId;
-      const bookingId = session.metadata?.bookingId;
       const paymentType = session.metadata?.paymentType;
+      const bookingId = session.metadata?.bookingId;
+      const eventDate = session.metadata?.eventDate;
+      const startTime = session.metadata?.startTime;
+      const endTime = session.metadata?.endTime;
+      const location = session.metadata?.location;
       const transactionId = session.payment_intent as string;
       const amountTotal = session.amount_total ? session.amount_total / 100 : 0;
 
-      if (!userId || !bookingId || !paymentType) {
+      if (!userId || !paymentType || !eventDate || !startTime || !endTime) {
         console.error('Missing metadata in session');
         return res.status(400).send('Missing metadata');
       }
 
       try {
         if (paymentType === 'deposit') {
-          const booking = await prisma.booking.findUnique({ where: { id: bookingId } });
+          const newBooking = await prisma.booking.create({
+            data: {
+              userId,
+              eventDate: new Date(eventDate),
+              startTime: new Date(startTime),
+              endTime: new Date(endTime),
+              location,
+              type: paymentType,
+              paymentStatus: 'depositReceived',
+            },
+          });
 
-          if (!booking) {
-            console.error('Booking not found for ID:', bookingId);
+          if (!newBooking) {
+            console.error('Error creating booking');
             return res.status(404).send('Booking not found');
           }
 
           // 1. Create new availability record
           await prisma.availability.create({
             data: {
-              date: booking.eventDate,
-              startTime: booking.startTime,
-              endTime: booking.endTime,
-            },
-          });
-
-          // 2. Update booking's payment status
-          await prisma.booking.update({
-            where: { id: bookingId },
-            data: {
-              paymentStatus: 'depositReceived',
+              date: newBooking.eventDate,
+              startTime: newBooking.startTime,
+              endTime: newBooking.endTime,
             },
           });
 
           // 3. Create new payment record
           await prisma.payment.create({
             data: {
+              bookingId: newBooking.bookingId,
+              amount: amountTotal,
+              deposit: true,
+              method: 'stripe',
+              transactionId,
+            },
+          });
+        }
+        else if (paymentType === 'remainingBalance') {
+          if (!bookingId) {
+            console.error('Missing bookingId in metadata for remaining balance');
+            return res.status(400).send('Missing bookingId');
+          }
+          const newBooking = await prisma.booking.create({
+            data: {
+              userId,
               bookingId,
+              eventDate: new Date(eventDate),
+              startTime: new Date(startTime),
+              endTime: new Date(endTime),
+              location,
+              type: paymentType,
+              paymentStatus: 'depositReceived',
+            },
+          });
+
+          if (!newBooking) {
+            console.error('Error creating booking', newBooking.bookingId);
+            return res.status(404).send('Booking not found');
+          }
+
+          // 1. Create new availability record
+          await prisma.availability.create({
+            data: {
+              date: newBooking.eventDate,
+              startTime: newBooking.startTime,
+              endTime: newBooking.endTime,
+            },
+          });
+
+          // 3. Create new payment record
+          await prisma.payment.create({
+            data: {
+              bookingId: newBooking.bookingId,
               amount: amountTotal,
               deposit: true,
               method: 'stripe',
@@ -174,13 +223,11 @@ router.post('/webhook', async (req: Request, res: Response) => {
     case 'payment_intent.payment_failed': {
       const paymentIntent = event.data.object as Stripe.PaymentIntent;
       const metadata = paymentIntent.metadata;
-      const bookingId = metadata?.bookingId;
       const paymentType = metadata?.paymentType;
-
-      if (!bookingId) {
-        console.warn('Payment failed but no bookingId found in metadata.');
-        return res.status(400).send('Missing bookingId');
-      }
+      const eventDate = metadata?.eventDate
+      const startTime = metadata?.startTime
+      const endTime = metadata?.endTime
+      const location = metadata?.location
 
       try {
         if (paymentType === 'deposit') {
@@ -201,7 +248,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
             },
           });
         }      
-        
+
         console.warn(`Payment failed for booking ${bookingId}`);
         res.status(200).send();
       } catch (err) {
