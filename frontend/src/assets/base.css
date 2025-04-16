@@ -1,9 +1,9 @@
 :root {
-  --color1: #FFFCEB;
-  --color2: #FFF7D1;
-  --color3: #FFEE9D;
-  --color4: #FFE568;
-  --color5: #FFD300;  
+  --color1: #fffceb;
+  --color2: #fff7d1;
+  --color3: #ffee9d;
+  --color4: #ffe568;
+  --color5: #ffd300;
   --color6: #daa520;
   --white-soft: #f8f8f8;
   --black-soft: #222222;
@@ -20,12 +20,9 @@
   --box-shadow-large: rgba(0, 0, 0, 0.275) 4px 4px 40px;
   --border-bold-black: 2px solid #222222;
   --border-bold-white: 2px solid #f8f8f8;
-  --transition-default: 
-      color 0.3s ease-in-out,
-      background-color 0.3s ease-in-out,
-      border-color 0.3s ease-in-out,
-      box-shadow 0.3s ease-in-out,
-      transform 0.3s ease-in-out;
+  --transition-default:
+    color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 *,

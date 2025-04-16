@@ -199,8 +199,8 @@ router.patch(
   },
 );
 
-// PUT endpoint to allow user to modify existing user password
-router.put(
+// PATCH endpoint to allow user to modify existing user password
+router.patch(
   '/modify-password',
   tokenExtractor,
   async (req: Request, res: Response): Promise<Response> => {

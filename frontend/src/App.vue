@@ -5,7 +5,6 @@ import NavBar from './components/NavBar.vue'
 
 <template>
   <header>
-
     <div class="wrapper">
       <NavBar msg="You did it!" />
       <nav>
@@ -33,5 +32,4 @@ nav a.router-link-exact-active {
 nav a.router-link-exact-active:hover {
   background-color: transparent;
 }
-
 </style>
