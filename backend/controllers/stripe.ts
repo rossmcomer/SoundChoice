@@ -212,10 +212,11 @@ router.post('/webhook', async (req: Request, res: Response) => {
       const metadata = paymentIntent.metadata;
       const bookingId = metadata?.bookingId;
       const paymentType = metadata?.paymentType;
-      const eventDate = metadata?.eventDate
-      const startTime = metadata?.startTime
-      const endTime = metadata?.endTime
-      const location = metadata?.location
+
+      if (!bookingId) {
+        console.error('Missing bookingId in metadata');
+        return res.status(400).send('Missing bookingId');
+      }
 
       try {
         if (paymentType === 'deposit') {
