@@ -31,11 +31,12 @@ router.post('/', tokenExtractor, async (req: Request, res: Response) => {
 });
 
 // PATCH existing questionnaire answers
-router.patch('/', tokenExtractor, async (req: Request, res: Response) => {
+router.patch('/:id', tokenExtractor, async (req: Request, res: Response) => {
   const userId = req.decodedToken?.userId;
-  const { bookingId, answers } = req.body;
+  const { answers } = req.body;
+  const { id } = req.params;
 
-  if (!userId || !bookingId || !answers) {
+  if (!userId || !answers || !id) {
     return res
       .status(400)
       .json({ error: 'Missing userId, bookingId, or answers' });
@@ -43,17 +44,17 @@ router.patch('/', tokenExtractor, async (req: Request, res: Response) => {
 
   try {
     const questionnaire = await prisma.questionnaire.findFirst({
-      where: { userId, bookingId },
+      where: { id },
     });
 
     if (!questionnaire) {
       return res
         .status(404)
-        .json({ error: 'Questionnaire not found for that user and booking' });
+        .json({ error: 'Questionnaire not found' });
     }
 
     await prisma.questionnaire.update({
-      where: { id: questionnaire.id }, // assumes id is a unique field
+      where: { id },
       data: { answers },
     });
 

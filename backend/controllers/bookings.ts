@@ -43,10 +43,11 @@ router.post(
 
 // PUT update payment status of a booking
 router.patch(
-  '/update-payment-status',
+  '/update-payment-status/:id',
   tokenExtractor,
   async (req: Request, res: Response): Promise<Response> => {
-    const { id, paymentStatus } = req.body;
+    const { paymentStatus } = req.body;
+    const { id } = req.params;
 
     // Validate inputs
     if (!id || !['paid', 'unpaid'].includes(paymentStatus)) {
