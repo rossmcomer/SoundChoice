@@ -39,6 +39,13 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
     // Generate JWT
     const token = jwt.sign(userForToken, JWT_SECRET, { expiresIn: '7d' });
 
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
     // Return token and user info
     return res.status(200).json({
       token,

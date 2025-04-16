@@ -22,7 +22,6 @@ export type EventType =
   | 'birthday'
   | 'barBatMitzvah'
   | 'other';
-export type BookingStatus = 'pending' | 'confirmed' | 'cancelled';
 
 // PRISMA Related Types End
 

@@ -6,17 +6,15 @@ const { JWT_SECRET } = require('./config');
 const tokenExtractor = (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ): void => {
-  const authorization = req.get('authorization');
+  const token = req.cookies.token; // Access token from cookies
 
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    const token = authorization.substring(7); // Extract the token
-
+  if (token) {
     try {
       const decodedToken = jwt.verify(token, JWT_SECRET) as DecodedToken; // Verify the token and cast the decoded payload
       req.decodedToken = decodedToken; // Store the decoded token in request for later use
-      next(); // Proceed to the next middleware or route handler
+      next();
     } catch (error) {
       res.status(401).json({ error: 'Token is invalid or expired' });
       return;
