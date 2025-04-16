@@ -107,6 +107,41 @@ router.get(
   },
 );
 
+// PATCH update selected fields of a specific bookingId
+router.patch(
+  '/bookings/:bookingId',
+  tokenExtractor,
+  requireAdmin,
+  async (req: Request, res: Response): Promise<Response> => {
+    const { bookingId } = req.params;
+    const { startTime, endTime, location, type } = req.body;
+
+    // Build a dynamic update object
+    const updateData: any = {};
+    if (startTime) updateData.startTime = new Date(startTime);
+    if (endTime) updateData.endTime = new Date(endTime);
+    if (location) updateData.location = location;
+    if (type) updateData.type = type;
+
+    // Prevent empty update
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({ error: 'No valid fields provided to update' });
+    }
+
+    try {
+      const updatedBooking = await prisma.booking.update({
+        where: { bookingId },
+        data: updateData,
+      });
+
+      return res.status(200).json(updatedBooking);
+    } catch (error) {
+      console.error('Error updating booking:', error);
+      return res.status(500).json({ error: 'Failed to update booking' });
+    }
+  },
+);
+
 // POST to add a new availability entry
 router.post(
   '/add-unavailability',
