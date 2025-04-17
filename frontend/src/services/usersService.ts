@@ -12,14 +12,6 @@ export const createAccount = async (userData: {
   return response.data;
 };
 
-// GET all data about a user and their bookings/questionnaires/payments
-export const getUserData = async () => {
-  const response = await axios.get(baseUrl, {
-    withCredentials: true,
-  });
-  return response.data;
-};
-
 // PATCH user name
 export const updateName = async (name: string) => {
   const response = await axios.patch(
