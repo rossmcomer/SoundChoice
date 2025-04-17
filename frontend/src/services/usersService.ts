@@ -62,7 +62,6 @@ export const updatePassword = async (currentPassword: string, newPassword: strin
 
 export default {
   createAccount,
-  getUserData,
   updateName,
   updateEmail,
   updatePhone,
