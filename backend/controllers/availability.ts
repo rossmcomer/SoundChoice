@@ -14,6 +14,7 @@ router.get(
         },
       });
 
+      // return dates in ISO 8601 string format
       return res.status(200).json(unavailableDates);
     } catch (error) {
       console.error('Error fetching unavailable dates:', error);

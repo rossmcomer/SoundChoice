@@ -1,10 +1,10 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { getUnavailableDates } from '@/services/availabilityService';
-import type { UnavailableDate } from '@/types';
+import type { Availability } from '@/types';
 
 export const useAvailabilityStore = defineStore('AvailabilityStore', () => {
-  const unavailableDates = ref<UnavailableDate[]>([]);
+  const unavailableDates = ref<Availability[]>([]);
 
   const fetchDates = async () => {
     try {

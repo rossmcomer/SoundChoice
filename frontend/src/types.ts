@@ -49,13 +49,9 @@ export interface Questionnaire {
 
 export interface Availability {
   id: string;
-  date: string; // Date will be returned as an ISO string
+  date: string;
   startTime: string;
   endTime: string;
-}
-
-export interface UnavailableDate {
-  date: string;
 }
 
 export type EventType = 'wedding' | 'corporate' | 'birthday' | 'barBatMitzvah' | 'other';
