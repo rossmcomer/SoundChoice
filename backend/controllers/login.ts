@@ -48,7 +48,6 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
 
     // Return token and user info
     return res.status(200).json({
-      token,
       user: {
         userId: user.id,
         username: user.name,

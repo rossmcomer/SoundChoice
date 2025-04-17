@@ -14,7 +14,7 @@ export const createAccount = async (userData: {
 
 export const getUserData = async () => {
     const response = await axios.get(`${baseUrl}/`, {
-      withCredentials: true, // No need to send token manually, cookies are sent automatically
+      withCredentials: true,
     });
     return response.data;
   };
@@ -24,7 +24,7 @@ export const getUserData = async () => {
       `${baseUrl}/update-name`,
       { name },
       {
-        withCredentials: true, // Send cookies automatically
+        withCredentials: true,
       }
     );
     return response.data;
@@ -35,7 +35,7 @@ export const getUserData = async () => {
       `${baseUrl}/update-email`,
       { email },
       {
-        withCredentials: true, // Send cookies automatically
+        withCredentials: true,
       }
     );
     return response.data;
@@ -46,7 +46,7 @@ export const getUserData = async () => {
       `${baseUrl}/update-phone`,
       { phone },
       {
-        withCredentials: true, // Send cookies automatically
+        withCredentials: true,
       }
     );
     return response.data;
@@ -57,7 +57,7 @@ export const getUserData = async () => {
       `${baseUrl}/modify-password`,
       { currentPassword, newPassword },
       {
-        withCredentials: true, // Send cookies automatically
+        withCredentials: true,
       }
     );
     return response.data;
