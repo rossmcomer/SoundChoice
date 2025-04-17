@@ -159,7 +159,8 @@ router.post('/webhook', async (req: Request, res: Response) => {
       const endTime = session.metadata?.endTime;
       const location = session.metadata?.location;
       const transactionId = session.payment_intent as string;
-      const amountTotal = session.amount_total ? session.amount_total / 100 : 0;
+      const sessionAmount = session.amount_total ? session.amount_total / 100 : 0;
+      const totalAmount = session.amount_total ? session.amount_total * 2  : 0;
 
       if (!userId || !paymentType || !eventDate || !startTime || !endTime) {
         console.error('Missing metadata in session');
@@ -176,6 +177,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
               startTime: new Date(startTime),
               endTime: new Date(endTime),
               location,
+              totalAmount,
               type: paymentType,
               paymentStatus: 'depositReceived',
             },
@@ -204,7 +206,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
           const newPaymentRecord = await prisma.payment.create({
             data: {
               bookingId: newBooking.bookingId,
-              amount: amountTotal,
+              amount: sessionAmount,
               deposit: true,
               method: 'stripe',
               transactionId,
@@ -253,7 +255,7 @@ router.post('/webhook', async (req: Request, res: Response) => {
           const newPaymentRecord = await prisma.payment.create({
             data: {
               bookingId,
-              amount: amountTotal,
+              amount: sessionAmount,
               deposit: false,
               method: 'stripe',
               transactionId,
@@ -287,20 +289,11 @@ router.post('/webhook', async (req: Request, res: Response) => {
       }
 
       try {
-        if (paymentType === 'deposit') {
-          // Set paymentStatus to 'failed'
-          const bookingUpdate = await prisma.booking.update({
-            where: { id: bookingId },
-            data: {
-              paymentStatus: 'depositFailed',
-            },
-          });
-
-          if (!bookingUpdate) {
-            console.error('Error updating booking paymentStatus');
-            return res.status(404).send('Booking not found');
-          }
-        } else if (paymentType === 'remainingBalance') {
+        if (paymentType === 'deposit') {          
+            return res.status(404).send('Booking failed');
+        } 
+        
+        else if (paymentType === 'remainingBalance') {
           // Set paymentStatus to 'failed'
           const bookingUpdate = await prisma.booking.update({
             where: { id: bookingId },
