@@ -10,8 +10,7 @@ export const useUserStore = defineStore('UserStore', () => {
     const loginUser = async (email: string, password: string) => {
       try {
         const data = await login(email, password);
-        user.value = data.user
-        return data;
+        user.value = data
       } catch (err) {
         console.error('Login failed:', err);
         throw err;
