@@ -12,6 +12,7 @@ export const createAccount = async (userData: {
   return response.data;
 };
 
+// GET all data about a user and their bookings/questionnaires/payments
 export const getUserData = async () => {
   const response = await axios.get(baseUrl, {
     withCredentials: true,
@@ -19,6 +20,7 @@ export const getUserData = async () => {
   return response.data;
 };
 
+// PATCH user name
 export const updateName = async (name: string) => {
   const response = await axios.patch(
     `${baseUrl}/update-name`,
@@ -30,6 +32,7 @@ export const updateName = async (name: string) => {
   return response.data;
 };
 
+// PATCH user email
 export const updateEmail = async (email: string) => {
   const response = await axios.patch(
     `${baseUrl}/update-email`,
@@ -41,6 +44,7 @@ export const updateEmail = async (email: string) => {
   return response.data;
 };
 
+// PATCH user phone
 export const updatePhone = async (phone: string) => {
   const response = await axios.patch(
     `${baseUrl}/update-phone`,
@@ -52,6 +56,7 @@ export const updatePhone = async (phone: string) => {
   return response.data;
 };
 
+// PATCH user password
 export const updatePassword = async (currentPassword: string, newPassword: string) => {
   const response = await axios.put(
     `${baseUrl}/modify-password`,
