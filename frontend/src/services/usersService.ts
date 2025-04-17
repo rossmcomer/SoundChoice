@@ -13,55 +13,55 @@ export const createAccount = async (userData: {
 }
 
 export const getUserData = async () => {
-    const response = await axios.get(`${baseUrl}/`, {
+  const response = await axios.get(`${baseUrl}/`, {
+    withCredentials: true,
+  })
+  return response.data
+}
+
+export const updateName = async (name: string) => {
+  const response = await axios.patch(
+    `${baseUrl}/update-name`,
+    { name },
+    {
       withCredentials: true,
-    });
-    return response.data;
-  };
-  
-  export const updateName = async (name: string) => {
-    const response = await axios.patch(
-      `${baseUrl}/update-name`,
-      { name },
-      {
-        withCredentials: true,
-      }
-    );
-    return response.data;
-  };
-  
-  export const updateEmail = async (email: string) => {
-    const response = await axios.patch(
-      `${baseUrl}/update-email`,
-      { email },
-      {
-        withCredentials: true,
-      }
-    );
-    return response.data;
-  };
-  
-  export const updatePhone = async (phone: string) => {
-    const response = await axios.patch(
-      `${baseUrl}/update-phone`,
-      { phone },
-      {
-        withCredentials: true,
-      }
-    );
-    return response.data;
-  };
-  
-  export const updatePassword = async (currentPassword: string, newPassword: string) => {
-    const response = await axios.put(
-      `${baseUrl}/modify-password`,
-      { currentPassword, newPassword },
-      {
-        withCredentials: true,
-      }
-    );
-    return response.data;
-  };
+    },
+  )
+  return response.data
+}
+
+export const updateEmail = async (email: string) => {
+  const response = await axios.patch(
+    `${baseUrl}/update-email`,
+    { email },
+    {
+      withCredentials: true,
+    },
+  )
+  return response.data
+}
+
+export const updatePhone = async (phone: string) => {
+  const response = await axios.patch(
+    `${baseUrl}/update-phone`,
+    { phone },
+    {
+      withCredentials: true,
+    },
+  )
+  return response.data
+}
+
+export const updatePassword = async (currentPassword: string, newPassword: string) => {
+  const response = await axios.put(
+    `${baseUrl}/modify-password`,
+    { currentPassword, newPassword },
+    {
+      withCredentials: true,
+    },
+  )
+  return response.data
+}
 
 export default {
   createAccount,

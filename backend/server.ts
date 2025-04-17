@@ -14,10 +14,12 @@ const questionsRouter = require('./controllers/questionnaires');
 const adminRouter = require('./controllers/admin');
 
 app.use(cookieParser());
-app.use(cors({
-  origin: [DOMAIN_NAME, DOMAIN_NAME_DEV],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: [DOMAIN_NAME, DOMAIN_NAME_DEV],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 app.use('/api/users', usersRouter);

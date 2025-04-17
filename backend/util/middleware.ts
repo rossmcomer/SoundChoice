@@ -6,7 +6,7 @@ const { JWT_SECRET } = require('./config');
 const tokenExtractor = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const token = req.cookies.token; // Access token from cookies
 
