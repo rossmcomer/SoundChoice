@@ -26,6 +26,7 @@ export interface Booking {
   startTime: string;
   endTime: string;
   location: string;
+  totalAmount: number;
   type: EventType;
   paymentStatus: PaymentStatus;
   payment?: Payment[];
@@ -51,6 +52,10 @@ export interface Availability {
   date: string; // Date will be returned as an ISO string
   startTime: string;
   endTime: string;
+}
+
+export interface UnavailableDate {
+  date: string;
 }
 
 export type EventType = 'wedding' | 'corporate' | 'birthday' | 'barBatMitzvah' | 'other';

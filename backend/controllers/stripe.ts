@@ -159,8 +159,10 @@ router.post('/webhook', async (req: Request, res: Response) => {
       const endTime = session.metadata?.endTime;
       const location = session.metadata?.location;
       const transactionId = session.payment_intent as string;
-      const sessionAmount = session.amount_total ? session.amount_total / 100 : 0;
-      const totalAmount = session.amount_total ? session.amount_total * 2  : 0;
+      const sessionAmount = session.amount_total
+        ? session.amount_total / 100
+        : 0;
+      const totalAmount = session.amount_total ? session.amount_total * 2 : 0;
 
       if (!userId || !paymentType || !eventDate || !startTime || !endTime) {
         console.error('Missing metadata in session');
@@ -289,11 +291,9 @@ router.post('/webhook', async (req: Request, res: Response) => {
       }
 
       try {
-        if (paymentType === 'deposit') {          
-            return res.status(404).send('Booking failed');
-        } 
-        
-        else if (paymentType === 'remainingBalance') {
+        if (paymentType === 'deposit') {
+          return res.status(404).send('Booking failed');
+        } else if (paymentType === 'remainingBalance') {
           // Set paymentStatus to 'failed'
           const bookingUpdate = await prisma.booking.update({
             where: { id: bookingId },
