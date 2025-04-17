@@ -43,7 +43,13 @@ export interface Availability {
   endTime: string;
 }
 
-export type EventType = 'wedding' | 'corporate' | 'birthday' | 'barBatMitzvah' | 'other';
+export type EventType =
+  | 'wedding'
+  | 'corporate'
+  | 'birthday'
+  | 'barBatMitzvah'
+  | 'other';
+
 export type PaymentStatus =
   | 'unpaid'
   | 'depositReceived'
