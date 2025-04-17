@@ -47,7 +47,7 @@ export type EventType = 'wedding' | 'corporate' | 'birthday' | 'barBatMitzvah' |
 export type PaymentStatus =
   | 'unpaid'
   | 'depositReceived'
+  | 'depositFailed'
   | 'remainingPaymentFailed'
-  | 'paidInFull'
-  | 'depositFailed';
+  | 'paidInFull';
 export type PaymentMethod = 'stripe' | 'paypal';
