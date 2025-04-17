@@ -5,4 +5,4 @@ export const PRICE_LIST: Record<string, number> = {
   mitzvahPerHr: 15000,
   uplights: 20000,
   addTimePerHr: 15000,
-}
+};

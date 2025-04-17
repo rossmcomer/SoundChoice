@@ -1,6 +1,6 @@
-import axios from '../util/apiClient'
+import axios from '../util/apiClient';
 
-const baseUrl = '/login'
+const baseUrl = '/login';
 
 export const login = async (email: string, password: string) => {
   const response = await axios.post(
@@ -9,8 +9,8 @@ export const login = async (email: string, password: string) => {
     {
       withCredentials: true,
     },
-  )
-  return response.data
-}
+  );
+  return response.data;
+};
 
-export default { login }
+export default { login };

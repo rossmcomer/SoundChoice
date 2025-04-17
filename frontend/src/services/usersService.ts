@@ -1,23 +1,23 @@
-import axios from '../util/apiClient'
+import axios from '../util/apiClient';
 
-const baseUrl = '/users'
+const baseUrl = '/users';
 
 export const createAccount = async (userData: {
-  name: string
-  email: string
-  phone: string
-  password: string
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
 }) => {
-  const response = await axios.post(`${baseUrl}/create-account`, userData)
-  return response.data
-}
+  const response = await axios.post(`${baseUrl}/create-account`, userData);
+  return response.data;
+};
 
 export const getUserData = async () => {
   const response = await axios.get(`${baseUrl}/`, {
     withCredentials: true,
-  })
-  return response.data
-}
+  });
+  return response.data;
+};
 
 export const updateName = async (name: string) => {
   const response = await axios.patch(
@@ -26,9 +26,9 @@ export const updateName = async (name: string) => {
     {
       withCredentials: true,
     },
-  )
-  return response.data
-}
+  );
+  return response.data;
+};
 
 export const updateEmail = async (email: string) => {
   const response = await axios.patch(
@@ -37,9 +37,9 @@ export const updateEmail = async (email: string) => {
     {
       withCredentials: true,
     },
-  )
-  return response.data
-}
+  );
+  return response.data;
+};
 
 export const updatePhone = async (phone: string) => {
   const response = await axios.patch(
@@ -48,9 +48,9 @@ export const updatePhone = async (phone: string) => {
     {
       withCredentials: true,
     },
-  )
-  return response.data
-}
+  );
+  return response.data;
+};
 
 export const updatePassword = async (currentPassword: string, newPassword: string) => {
   const response = await axios.put(
@@ -59,9 +59,9 @@ export const updatePassword = async (currentPassword: string, newPassword: strin
     {
       withCredentials: true,
     },
-  )
-  return response.data
-}
+  );
+  return response.data;
+};
 
 export default {
   createAccount,
@@ -70,4 +70,4 @@ export default {
   updateEmail,
   updatePhone,
   updatePassword,
-}
+};
