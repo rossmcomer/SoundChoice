@@ -4,7 +4,6 @@ import { defineStore } from 'pinia';
 
 import availabilityService from '@/services/availabilityService';
 
-
 export const useAvailabilityStore = defineStore('AvailabilityStore', () => {
   const unavailableDates = ref<Availability[]>([]);
 

@@ -4,7 +4,7 @@ import { PRODUCTS } from '@/assets/PRODUCTS';
 import type { Product } from '@/types';
 
 export const useProductsStore = defineStore('ProductsStore', () => {
-    const products = ref<Product[]>(PRODUCTS);
-  
-    return { products };
+  const products = ref<Product[]>(PRODUCTS);
+
+  return { products };
 });

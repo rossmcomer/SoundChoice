@@ -44,16 +44,11 @@ export interface Availability {
 }
 
 export type Product = {
-    name: string;
-    price: number;
+  name: string;
+  price: number;
 };
 
-export type EventType =
-  | 'wedding'
-  | 'corporate'
-  | 'birthday'
-  | 'barBatMitzvah'
-  | 'other';
+export type EventType = 'wedding' | 'corporate' | 'birthday' | 'barBatMitzvah' | 'other';
 
 export type PaymentStatus =
   | 'unpaid'

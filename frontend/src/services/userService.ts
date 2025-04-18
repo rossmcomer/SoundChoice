@@ -14,10 +14,10 @@ export const createAccount = async (userData: {
 };
 
 export const getUserData = async () => {
-    const response = await axios.get(baseUrl, {
-      withCredentials: true,
-    });
-    return response.data;
+  const response = await axios.get(baseUrl, {
+    withCredentials: true,
+  });
+  return response.data;
 };
 
 // PATCH user name
