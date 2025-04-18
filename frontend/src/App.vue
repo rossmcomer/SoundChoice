@@ -4,6 +4,7 @@ import NavBar from './components/NavBar.vue';
 import { storeToRefs } from 'pinia';
 
 import { useUserStore } from '@/stores/UserStore';
+import AppLoader from '@/components/AppLoader.vue';
 
 const { user } = storeToRefs(useUserStore());
 </script>
@@ -26,6 +27,7 @@ const { user } = storeToRefs(useUserStore());
   </header>
 
   <RouterView />
+  <AppLoader />
 </template>
 
 <style scoped>
