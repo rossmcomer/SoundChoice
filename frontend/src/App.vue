@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
 import NavBar from './components/NavBar.vue';
+import { storeToRefs } from 'pinia';
+
+import { useUserStore } from '@/stores/UserStore';
+
+const { user } = storeToRefs(useUserStore());
 </script>
 
 <template>
@@ -10,6 +15,12 @@ import NavBar from './components/NavBar.vue';
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/pricing">Pricing</RouterLink>
+        <RouterLink to="/testimonials">Testimonials</RouterLink>
+        <RouterLink to="/media">Media</RouterLink>
+        <RouterLink to="/login">Login</RouterLink>
+        <RouterLink to="/profile">Profile</RouterLink>
+        <RouterLink to="/logout">Logout</RouterLink>
       </nav>
     </div>
   </header>

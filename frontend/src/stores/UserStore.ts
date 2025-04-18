@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia';
 
-import usersService from '@/services/usersService';
+import userService from '@/services/userService';
 import loginService from '@/services/loginService';
 import logoutService from '@/services/logoutService';
 
@@ -14,7 +14,7 @@ export const useUserStore = defineStore('UserStore', () => {
     const loginUser = async (email: string, password: string) => {
       try {
         await loginService.login(email, password);
-        const data = await usersService.getUserData();
+        const data = await userService.getUserData();
         user.value = data
       } catch (err) {
         console.error('Login failed:', err);
