@@ -1,7 +1,8 @@
-import axios from '../util/apiClient';
+import axios from '@/util/apiClient';
 
 const baseUrl = '/users';
 
+// Create new account
 export const createAccount = async (userData: {
   name: string;
   email: string;
@@ -10,6 +11,13 @@ export const createAccount = async (userData: {
 }) => {
   const response = await axios.post(`${baseUrl}/create-account`, userData);
   return response.data;
+};
+
+export const getUserData = async () => {
+    const response = await axios.get(baseUrl, {
+      withCredentials: true,
+    });
+    return response.data;
 };
 
 // PATCH user name
@@ -62,6 +70,7 @@ export const updatePassword = async (currentPassword: string, newPassword: strin
 
 export default {
   createAccount,
+  getUserData,
   updateName,
   updateEmail,
   updatePhone,

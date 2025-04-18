@@ -1,4 +1,4 @@
-import axios from '../util/apiClient';
+import axios from '@/util/apiClient';
 
 const baseUrl = `/availability`;
 
