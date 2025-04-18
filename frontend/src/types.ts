@@ -43,6 +43,11 @@ export interface Availability {
   endTime: string;
 }
 
+export type Product = {
+    name: string;
+    price: number;
+};
+
 export type EventType =
   | 'wedding'
   | 'corporate'
@@ -56,4 +61,5 @@ export type PaymentStatus =
   | 'depositFailed'
   | 'remainingPaymentFailed'
   | 'paidInFull';
+
 export type PaymentMethod = 'stripe' | 'paypal';

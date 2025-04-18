@@ -1,8 +1,10 @@
-export const PRODUCTS: Record<string, number> = {
-    wedding: 150000,
-    corporatePerHr: 15000,
-    birthdayPerHr: 15000,
-    mitzvahPerHr: 15000,
-    uplights: 20000,
-    addTimePerHr: 15000,
-};
+import type { Product } from '@/types';
+
+export const PRODUCTS: Product[] = [
+    { name: 'wedding', price: 150000 },
+    { name: 'corporatePerHr', price: 15000 },
+    { name: 'birthdayPerHr', price: 15000 },
+    { name: 'mitzvahPerHr', price: 15000 },
+    { name: 'uplights', price: 20000 },
+    { name: 'addTimePerHr', price: 15000 },
+];
