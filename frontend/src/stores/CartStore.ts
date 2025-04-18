@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
+
 import { PRODUCTS } from '@/assets/PRODUCTS';
 
 type CartItemKey = keyof typeof PRODUCTS;
