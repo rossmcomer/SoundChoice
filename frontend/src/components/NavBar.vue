@@ -5,7 +5,8 @@ import {
   FwbNavbarLink,
   FwbNavbarLogo,
 } from 'flowbite-vue'
-import SCLogo from '@/assets/SoundChoice-Logo/SC-Logo-Cropped.png'
+import SCLogoPhones from '@/assets/SoundChoice-Logo/SC-Logo-Small.png'
+import SCLogoText from '@/assets/SoundChoice-Logo/SC-Logo-Text-Only.png'
 </script>
 
 <template>
@@ -14,7 +15,8 @@ import SCLogo from '@/assets/SoundChoice-Logo/SC-Logo-Cropped.png'
 <nav class="navBar !mt-0">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto h-25">
     <a href="/" class="flex h-full pl-5 py-1 items-start">
-        <img :src="SCLogo" class="h-full" alt="SoundChoice Logo" />
+        <img :src="SCLogoPhones" class="h-full" alt="SoundChoice Logo Headphones" />
+        <img :src="SCLogoText" class="h-full" alt="SoundChoice Logo Text" />
     </a>
     <button data-collapse-toggle="navbar-hamburger" type="button" class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-hamburger" aria-expanded="false">
       <span class="sr-only">Open main menu</span>
