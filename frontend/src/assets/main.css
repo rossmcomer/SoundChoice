@@ -2,8 +2,6 @@
 @import 'tailwindcss';
 
 #app {
-  margin: 0 auto;
-  padding: 2rem;
 }
 
 /* Specifiy styles for screens with hover */

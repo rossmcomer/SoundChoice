@@ -38,7 +38,7 @@ body {
   min-width: 300px;
   width: 100%;
   color: var(--black-soft);
-  background-color: var(--color4);
+  background-color: var(--grey-soft);
   transition:
     color 0.5s,
     background-color 0.5s;

@@ -12,17 +12,7 @@ const { user } = storeToRefs(useUserStore());
 <template>
   <header>
     <div class="wrapper">
-      <NavBar msg="You did it!" />
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/pricing">Pricing</RouterLink>
-        <RouterLink to="/testimonials">Testimonials</RouterLink>
-        <RouterLink to="/media">Media</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/profile">Profile</RouterLink>
-        <RouterLink to="/logout">Logout</RouterLink>
-      </nav>
+      <NavBar />
     </div>
   </header>
 
