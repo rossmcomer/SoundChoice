@@ -1,13 +1,6 @@
 <script setup lang="ts">
-import {
-  FwbNavbar,
-  FwbNavbarCollapse,
-  FwbNavbarLink,
-  FwbNavbarLogo,
-} from 'flowbite-vue'
 import SCLogoPhones from '@/assets/SoundChoice-Logo/SC-Logo-Small.png'
 import SCLogoText from '@/assets/SoundChoice-Logo/SC-Logo-Text-Only.png'
-import avatarDefault from '@/assets/avatar-default.png'
 
 </script>
 
