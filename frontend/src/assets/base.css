@@ -25,14 +25,6 @@
     box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
-}
-
 body {
   min-height: 100vh;
   min-width: 300px;
