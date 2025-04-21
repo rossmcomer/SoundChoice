@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import SCLogoPhones from '@/assets/SoundChoice-Logo/SC-Logo-Small.png'
 import SCLogoText from '@/assets/SoundChoice-Logo/SC-Logo-Text-Only.png'
+import { useUserStore } from '@/stores/UserStore'
 
 const isOpen = ref(false)
 const toggleMenu = () => {
   isOpen.value = !isOpen.value
 }
+
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
 </script>
 
 <template>
@@ -84,15 +88,15 @@ const toggleMenu = () => {
               Media
             </router-link>
           </li>
-          <li>
+          <li v-if="!user">
             <router-link
               to="/login"
               class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
             >
-              Login/Signup
+              Login / Signup
             </router-link>
           </li>
-          <li>
+          <li v-else>
             <router-link
               to="/logout"
               class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
