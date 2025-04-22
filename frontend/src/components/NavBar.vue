@@ -63,7 +63,7 @@ const user = computed(() => userStore.user);
         id="navbar-sticky"
       >
         <ul
-          class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
+          class="flex w-full flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
         >
           <li>
             <router-link
@@ -128,12 +128,6 @@ const user = computed(() => userStore.user);
     padding: 0 !important;
     background-color: transparent !important;
   }
-
-  .bookNowBtn:focus {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    box-shadow: 0 0 0 1px var(--color6);
-  }
 }
 
 nav {
@@ -157,4 +151,14 @@ nav a.router-link-exact-active:hover {
   background-color: var(--color6);
   color: var(--black-soft);
 }
+.bookNowBtn:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 1px var(--color6);
+}
+
+.toggleMenu:focus {
+    color: var(--color6);
+    cursor: pointer;
+  }
 </style>
