@@ -3,10 +3,18 @@ import { RouterView } from 'vue-router';
 import NavBar from './components/NavBar.vue';
 import { storeToRefs } from 'pinia';
 
+import { useGlobalStore } from '@/stores/GlobalStore';
 import { useUserStore } from '@/stores/UserStore';
 import AppLoader from '@/components/AppLoader.vue';
 
+const global = useGlobalStore();
+
 const { user } = storeToRefs(useUserStore());
+
+
+global.startLoading();
+
+global.stopLoading();
 </script>
 
 <template>
