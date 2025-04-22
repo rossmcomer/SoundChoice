@@ -1,6 +1,9 @@
 @import './base.css';
 @import 'tailwindcss';
 
+#app {
+    min-width: 360px;
+}
 /* Specifiy styles for screens with hover */
 @media (hover: hover) {
 }

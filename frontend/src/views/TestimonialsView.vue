@@ -9,7 +9,7 @@ import { testimonials } from '@/assets/testimonials';
     <div
       v-for="(testimonial, index) in testimonials"
       :key="index"
-      class="bg-white p-6 rounded-lg shadow divide-y divide-gray-200 w-full max-w-[500px] border-2 border-black"
+      class="bg-[rgba(255,255,255,0.7)] p-6 rounded-lg shadow divide-y divide-gray-200 w-full max-w-[500px] border-2 border-black"
     >
       <div class="flex items-center mb-4">
         <div class="flex items-center space-x-1">
@@ -26,7 +26,7 @@ import { testimonials } from '@/assets/testimonials';
             ></path>
           </svg>
         </div>
-        <span class="ml-2 text-sm text-gray-600">{{ testimonial.starsLabel }}</span>
+        <span class="ml-2 text-sm text-gray-600">"{{ testimonial.starsLabel }}"</span>
       </div>
       <p class="text-gray-800 mb-2">{{ testimonial.message }}</p>
       <p class="text-sm text-gray-500">- {{ testimonial.author }}</p>
