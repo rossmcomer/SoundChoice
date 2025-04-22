@@ -7,7 +7,7 @@
   --color6: #daa520;
   --white-soft: #f8f8f8;
   --black-soft: #222222;
-  --grey-soft: #979797;
+  --grey-soft: #757575;
   --purple-royal: #222097;
   --dividier-light: rgba(235, 235, 235, 0.64);
   --divider-medium: rgba(84, 84, 84, 0.48);
@@ -25,6 +25,13 @@
   --transition-default:
     color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out,
     box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+@font-face {
+  font-family: 'RoyaleSmith';
+  src: url('@/assets/fonts/RoyaleSmithDemoRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {

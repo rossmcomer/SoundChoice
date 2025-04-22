@@ -1,3 +1,7 @@
 <script lang="ts"></script>
-<template></template>
+<template>
+    <div class="flex justify-center mt-5">
+    <h1 class="text-6xl">Pricing</h1>
+  </div>
+</template>
 <style></style>
