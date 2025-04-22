@@ -22,5 +22,4 @@ const { user } = storeToRefs(useUserStore());
   <AppLoader />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
