@@ -138,6 +138,7 @@ const user = computed(() => userStore.user);
 
 nav {
   width: 100%;
+  z-index: 100;
   font-size: 12px;
   text-align: center;
   color: var(--white-soft);

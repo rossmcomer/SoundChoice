@@ -16,8 +16,11 @@ const { user } = storeToRefs(useUserStore());
     </div>
   </header>
 
-  <RouterView />
+  <main class="pt-16">
+    <RouterView />
+  </main>
   <AppLoader />
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
