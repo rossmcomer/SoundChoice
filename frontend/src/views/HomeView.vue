@@ -7,7 +7,7 @@
 
     <div class="h-full flex flex-col place-items-center justify-start pt-20 relative z-10">
       <video
-        class="w-4/5 h-auto max-w-3xl rounded-lg shadow-lg mb-8 border-2 border-yellow-600"
+        class="w-4/5 h-auto max-w-3xl rounded-lg shadow-lg mb-8 border-2 border-black"
         autoplay
         muted
         controls
@@ -20,7 +20,7 @@
 </template>
 <style scoped>
 .scaleAnimation {
-  background-image: url('../assets/SoundChoice-Logo/SoundChoice-DJ-Services.svg');
+  background-image: url('../assets/Waves-sunny.svg');
   z-index: -1;
   background-position: center;
   background-repeat: no-repeat;
