@@ -2,10 +2,10 @@
 import { testimonials } from '@/assets/testimonials';
 </script>
 <template>
-  <div class="flex justify-center mt-5">
+  <div class="flex justify-center mt-5 pb-7">
     <h1 class="text-6xl">Testimonials</h1>
   </div>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center p-7">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center px-7">
     <div
       v-for="(testimonial, index) in testimonials"
       :key="index"

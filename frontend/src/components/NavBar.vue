@@ -76,15 +76,15 @@ const user = computed(() => userStore.user);
             <router-link to="/about" class="block py-2 px-3 nav-link-md"> About </router-link>
           </li>
           <li>
-            <router-link to="/pricing" class="block py-2 px-3 nav-link-md"> Pricing </router-link>
-          </li>
-          <li>
             <router-link to="/testimonials" class="block py-2 px-3 nav-link-md">
               Testimonials
             </router-link>
           </li>
           <li>
             <router-link to="/media" class="block py-2 px-3 nav-link-md"> Media </router-link>
+          </li>
+          <li>
+            <router-link to="/pricing" class="block py-2 px-3 nav-link-md"> Pricing </router-link>
           </li>
           <li v-if="!user">
             <router-link to="/login-sign-up" class="block py-2 px-3 nav-link-md">

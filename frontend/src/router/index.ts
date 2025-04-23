@@ -22,16 +22,6 @@ const router = createRouter({
       component: AboutView,
     },
     {
-      path: '/pricing',
-      name: 'pricing',
-      component: PricingView,
-    },
-    {
-      path: '/booking',
-      name: 'booking',
-      component: BookingView,
-    },
-    {
       path: '/testimonials',
       name: 'testimonials',
       component: TestimonialsView,
@@ -40,6 +30,16 @@ const router = createRouter({
       path: '/media',
       name: 'media',
       component: MediaView,
+    },
+    {
+      path: '/pricing',
+      name: 'pricing',
+      component: PricingView,
+    },
+    {
+      path: '/booking',
+      name: 'booking',
+      component: BookingView,
     },
     {
       path: '/login-sign-up',

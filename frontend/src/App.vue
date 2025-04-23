@@ -24,7 +24,7 @@ global.stopLoading();
     </div>
   </header>
 
-  <main class="pt-24">
+  <main class="pt-24 h-screen">
     <RouterView />
   </main>
   <AppLoader />
