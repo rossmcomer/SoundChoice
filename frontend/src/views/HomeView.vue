@@ -1,11 +1,21 @@
 <script setup lang="ts">
-
 </script>
+
 <template>
   <div class="relative h-full overflow-hidden">
-    <div class="absolute inset-0 bg-cover bg-center scaleAnimation"></div>
+    <!-- Background video -->
+    <video
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+      <source src="@/assets/movies/movie1-loop.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
 
-    <div class="h-full flex flex-col place-items-center justify-start pt-20 relative z-10">
+    <div class="h-full flex flex-col place-items-center justify-start pt-[25vh] md:justify-center md:pt-0 relative z-10">
       <video
         class="w-4/5 h-auto max-w-3xl rounded-lg shadow-lg mb-8 border-2 border-black"
         autoplay
@@ -18,8 +28,9 @@
     </div>
   </div>
 </template>
+
 <style scoped>
-.scaleAnimation {
+/* .scaleAnimation {
   background-image: url('../assets/Waves-sunny.svg');
   z-index: -1;
   background-position: center;
@@ -35,5 +46,5 @@
   50% {
     transform: scale(1.05);
   }
-}
+} */
 </style>

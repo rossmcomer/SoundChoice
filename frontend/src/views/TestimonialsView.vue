@@ -26,7 +26,7 @@ import { testimonials } from '@/assets/testimonials';
             ></path>
           </svg>
         </div>
-        <span class="ml-2 text-sm text-gray-600">"{{ testimonial.starsLabel }}"</span>
+        <span class="ml-2 text-sm text-gray-600 font-bold">"{{ testimonial.starsLabel }}"</span>
       </div>
       <p class="text-gray-800 mb-2">{{ testimonial.message }}</p>
       <p class="text-sm text-gray-500">- {{ testimonial.author }}</p>
