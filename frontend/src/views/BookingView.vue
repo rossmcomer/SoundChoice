@@ -1,14 +1,28 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import '@vuepic/vue-datepicker/dist/main.css'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import { ref, computed, onMounted } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
+import { useAvailabilityStore } from '@/stores/AvailabilityStore';
 
 const userStore = useUserStore();
-const user = computed(() => userStore.user);</script>
+const availabilityStore = useAvailabilityStore();
+
+const user = computed(() => userStore.user);
+const date = ref();
+
+const today = new Date()
+
+onMounted(() => {
+  availabilityStore.fetchDates()
+})
+</script>
+
 <template>
     <div class="flex justify-center mt-5 py-7">
         <h1 class="text-6xl">Booking</h1>
     </div>
-    <div class="flex place-content-center">
+    <!-- <div class="flex place-content-center">
     <div v-if="!user"
     class="flex flex-col place-items-center justify-center my-8">
         <div class="text-center mb-4">Please login/create an account to proceed with booking.</div>
@@ -21,7 +35,8 @@ const user = computed(() => userStore.user);</script>
         </button>
     </div>
     <div v-else></div>
-    </div>
+    </div> -->
+    <VueDatePicker v-model="date" :min-date="today" :disabled-dates="availabilityStore.unavailableDates.map(d => new Date(d.date))" inline auto-apply></VueDatePicker>
 </template>
 <style>
 @media (hover: hover) {

@@ -1,5 +1,6 @@
 @import './base.css';
 @import 'tailwindcss';
+@import 'flowbite/src/themes/default';
 
 #app {
     min-width: 344px;
