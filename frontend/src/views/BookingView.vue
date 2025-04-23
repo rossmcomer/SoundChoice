@@ -37,7 +37,7 @@ onMounted(() => {
     <div v-else></div>
     </div> -->
     <div>Pick A Day For Your Event! Date not available? Please contact us @</div>
-    <VueDatePicker v-model="date" :min-date="today" :disabled-dates="availabilityStore.unavailableDates.map(d => new Date(d.date))" inline auto-apply></VueDatePicker>
+    <VueDatePicker v-model="date" :min-date="today" :disabled-dates="availabilityStore.unavailableDates.map(d => new Date(d.date))" inline auto-apply dark></VueDatePicker>
 </template>
 <style>
 @media (hover: hover) {
