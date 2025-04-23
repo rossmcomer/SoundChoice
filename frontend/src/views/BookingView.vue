@@ -5,7 +5,7 @@ import { useUserStore } from '@/stores/UserStore';
 const userStore = useUserStore();
 const user = computed(() => userStore.user);</script>
 <template>
-    <div class="flex justify-center mt-5 pb-7">
+    <div class="flex justify-center mt-5 py-7">
         <h1 class="text-6xl">Booking</h1>
     </div>
     <div class="flex place-content-center">
