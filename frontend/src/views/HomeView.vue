@@ -3,7 +3,6 @@
 
 <template>
   <div class="relative h-full overflow-hidden">
-    <!-- Background video -->
     <video
       class="absolute inset-0 w-full h-full object-cover z-0"
       autoplay
