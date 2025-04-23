@@ -4,10 +4,10 @@ import { ref } from 'vue'
 const pricingPlans = ref([
   {
     name: 'Wedding',
-    price: '$59',
+    price: '$1500',
     description: 'Perfect for any wedding.',
     features: {
-      users: '1 User',
+      users: '5 hours',
       components: 'All UI components',
       access: 'Lifetime access',
       updates: 'Free updates',
@@ -19,8 +19,8 @@ const pricingPlans = ref([
     }
   },
   {
-    name: 'Corporate / Birthday / Mitzvah',
-    price: '$199',
+    name: 'Classic',
+    price: '$150/hr',
     description: 'Perfect for any corporate event, birthday, or mitzvah.',
     features: {
       users: '5 Users',
@@ -36,8 +36,8 @@ const pricingPlans = ref([
   },
   {
     name: 'Uplight Package',
-    price: '$256',
-    description: 'Perfect for using in a Professional website or a client project.',
+    price: '$200',
+    description: 'Custom color uplights for any event.',
     features: {
       users: 'Unlimited Users',
       components: 'All UI components',
@@ -53,7 +53,7 @@ const pricingPlans = ref([
   {
     name: 'Extra Hours',
     price: '$150/hr',
-    description: 'Perfect for using in a Professional website or a client project.',
+    description: 'Add additional time for any event.',
     features: {
       users: 'Unlimited Users',
       components: 'All UI components',
@@ -73,30 +73,14 @@ const pricingPlans = ref([
     <h1 class="text-6xl">Pricing</h1>
   </div>
   <section
-    class="relative z-10 overflow-hidden bg-white dark:bg-dark pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
+    class="relative z-10 overflow-hidden dark:bg-dark pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
   >
     <div class="container mx-auto">
-      <div class="-mx-4 flex flex-wrap">
-        <div class="w-full px-4">
-          <div class="mx-auto mb-[60px] max-w-[510px] text-center">
-            <span class="mb-2 block text-lg font-semibold text-primary"> Pricing Table </span>
-            <h2
-              class="mb-3 text-3xl leading-[1.208] font-bold text-dark dark:text-white sm:text-4xl md:text-[40px]"
-            >
-              Our Pricing Plan
-            </h2>
-            <p class="text-base text-body-color dark:text-dark-6">
-              There are many variations of passages of Lorem Ipsum available but the majority have
-              suffered alteration in some form.
-            </p>
-          </div>
-        </div>
-      </div>
       <div class="-mx-4 flex flex-wrap justify-center">
         <div
           v-for="(plan, index) in pricingPlans"
           :key="index"
-          class="w-full px-4 md:w-1/2 lg:w-1/3"
+          class="w-full px-4 md:w-1/2 lg:w-1/4"
         >
           <div
             class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-2 border-stroke dark:border-dark-3 bg-white dark:bg-dark-2 py-10 px-8 shadow-pricing sm:p-12 lg:py-10 lg:px-6 xl:p-[50px]"

@@ -2,7 +2,13 @@
 import { testimonials } from '@/assets/testimonials';
 </script>
 <template>
-  <div class="flex justify-center mt-5 py-7">
+  <div class="relative min-h-full">
+  <video class="absolute inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
+      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="relative z-10 pt-10">
+  <div class="flex justify-center py-7">
     <h1 class="text-6xl">Testimonials</h1>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center px-7">
@@ -32,5 +38,7 @@ import { testimonials } from '@/assets/testimonials';
       <p class="text-sm text-gray-500">- {{ testimonial.author }}</p>
     </div>
   </div>
+</div>
+</div>
 </template>
 <style></style>
