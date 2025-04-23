@@ -150,13 +150,13 @@ nav a.router-link-exact-active:hover {
   color: var(--black-soft);
 }
 .btnMain:focus {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    box-shadow: 0 0 0 1px var(--color6);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 1px var(--color6);
 }
 
 .toggleMenu:focus {
-    color: var(--color6);
-    cursor: pointer;
-  }
+  color: var(--color6);
+  cursor: pointer;
+}
 </style>

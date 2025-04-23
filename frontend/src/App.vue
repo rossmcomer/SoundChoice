@@ -11,7 +11,6 @@ const global = useGlobalStore();
 
 const { user } = storeToRefs(useUserStore());
 
-
 global.startLoading();
 
 global.stopLoading();
@@ -37,4 +36,5 @@ main {
 
 h1 {
   font-family: 'RoyaleSmith';
-}</style>
+}
+</style>
