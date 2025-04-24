@@ -9,10 +9,10 @@ const pricingPlans = ref([
     features: {
       users: '5 hours',
       increment: 'All included',
-      access: 'Lifetime access',
-      updates: 'Free updates',
-      projects: 'Use on 1 (one) project',
-      support: '3 Months support',
+      music: 'Custom playlist',
+      microphones: 'Microphones',
+      speakers: 'Speakers',
+      lighting: 'Dancefloor lighting',
     },
   },
   {
@@ -20,12 +20,12 @@ const pricingPlans = ref([
     price: '$150',
     description: 'Perfect for any corporate event, birthday, or mitzvah.',
     features: {
-      users: '5 Users',
+      users: 'Per hour',
       increment: '/hr',
-      access: 'Lifetime access',
-      updates: 'Free updates',
-      projects: 'Use on 3 (Three) project',
-      support: '4 Months support',
+      music: 'Custom playlist',
+      microphones: 'Microphones',
+      speakers: 'Speakers',
+      lighting: 'Dancefloor lighting',
     },
   },
   {
@@ -33,12 +33,12 @@ const pricingPlans = ref([
     price: '$200',
     description: 'Custom color uplights for any event.',
     features: {
-      users: 'Unlimited Users',
-      increment: 'All included',
-      access: 'Lifetime access',
-      updates: 'Free updates',
-      projects: 'Use on Unlimited project',
-      support: '12 Months support',
+      users: '',
+      increment: '',
+      music: '',
+      microphones: '',
+      speakers: '',
+      lighting: '',
     },
   },
   {
@@ -46,12 +46,12 @@ const pricingPlans = ref([
     price: '$150',
     description: 'Add additional time for any event.',
     features: {
-      users: 'Unlimited Users',
+      users: '',
       increment: '/hr',
-      access: 'Lifetime access',
-      updates: 'Free updates',
-      projects: 'Use on Unlimited project',
-      support: '12 Months support',
+      music: '',
+      microphones: '',
+      speakers: '',
+      lighting: '',
     },
   },
 ]);
@@ -60,7 +60,7 @@ const pricingPlans = ref([
   <div class="relative min-h-full">
   <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
       <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
+      Your browser does not lighting the video tag.
   </video>
   <div class="relative z-10 pt-10">
   <div class="flex justify-center mt-5 py-7">
@@ -74,7 +74,7 @@ const pricingPlans = ref([
         <div
           v-for="(plan, index) in pricingPlans"
           :key="index"
-          class="w-full px-4 md:w-1/2 lg:w-1/4"
+          class="w-4/5 px-4 md:w-1/2 lg:w-1/4"
         >
           <div
             class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-2 border-stroke dark:border-dark-3 bg-[rgba(136,136,136,0.3)] dark:bg-dark-2 py-10 px-8 shadow-lg sm:p-12 lg:py-10 lg:px-6 xl:p-[50px]"
@@ -93,10 +93,10 @@ const pricingPlans = ref([
             </p>
             <div class="mb-9 flex flex-col gap-[14px]">
               <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.users }}</p>
-              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.access }}</p>
-              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.updates }}</p>
-              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.projects }}</p>
-              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.support }}</p>
+              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.music }}</p>
+              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.microphones }}</p>
+              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.speakers }}</p>
+              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.lighting }}</p>
             </div>
             <div>
               <span class="absolute right-0 top-7 z-[-1]">
