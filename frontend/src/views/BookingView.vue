@@ -36,6 +36,13 @@ onMounted(() => {
     </div>
     <div v-else></div>
     </div> -->
+    <div>Resevere your special date in 5 easy steps!</div>
+    <div>Step 1: Create an account and login.</div>
+    <div>Step 2: Click "Book Now!"</div>
+    <div>Step 3: Choose your date, time, location, and event type.</div>
+    <div>Step 4: Add uplights and any additional time.</div>
+    <div>Step 5: Pay your deposit equal to 50% of the total cost.</div>
+    <div>Done!</div>
   <div>Pick A Day For Your Event! Date not available? Please contact us @</div>
   <VueDatePicker
     v-model="date"
