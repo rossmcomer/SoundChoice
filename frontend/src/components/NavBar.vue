@@ -109,7 +109,7 @@ const user = computed(() => userStore.user);
   }
 
   .btnMain:hover {
-    background-color: var(--grey-soft);
+    background-color: var(--black-soft);
     box-shadow: 0 0 0 2px var(--color6);
     color: var(--white-soft);
     cursor: pointer;

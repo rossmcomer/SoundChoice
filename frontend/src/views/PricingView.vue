@@ -29,7 +29,7 @@ const pricingPlans = ref([
     },
   },
   {
-    name: 'Uplight Package',
+    name: 'Uplights',
     price: '$200',
     description: 'Custom color uplights for any event.',
     features: {
@@ -77,7 +77,7 @@ const pricingPlans = ref([
           class="w-4/5 px-4 md:w-1/2 lg:w-1/4"
         >
           <div
-            class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-2 border-stroke dark:border-dark-3 bg-[rgba(136,136,136,0.3)] dark:bg-dark-2 py-10 px-8 shadow-lg sm:p-12 lg:py-10 lg:px-6 xl:p-[50px]"
+            class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-[rgb(34,34,34)] border-2 border-stroke bg-[rgba(136,136,136,0.3)] dark:bg-dark-2 py-10 px-8 shadow-lg sm:p-12 lg:py-10 lg:px-6 xl:p-[50px]"
           >
             <span class="mb-3 block text-lg font-bold"
             style="color: var(--black-soft)">{{ plan.name }}</span>

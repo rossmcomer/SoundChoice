@@ -15,9 +15,8 @@ import { testimonials } from '@/assets/testimonials';
     <div
   v-for="(testimonial, index) in testimonials"
   :key="index"
-  class="flex flex-col justify-between bg-[rgba(136,136,136,0.3)] p-6 rounded-xl shadow-lg w-full max-w-[500px] min-h-[300px]"
+  class="flex flex-col justify-between bg-[rgba(136,136,136,0.3)] p-6 border-[rgb(34,34,34)] border-2 rounded-xl shadow-lg w-full max-w-[500px] min-h-[300px]"
 >
-  <!-- Header -->
   <div class="flex items-center mb-4">
     <div class="flex items-center space-x-1">
       <svg
@@ -37,13 +36,9 @@ import { testimonials } from '@/assets/testimonials';
       "{{ testimonial.starsLabel }}"
     </span>
   </div>
-
-  <!-- Message -->
   <div class="flex-1">
     <p class="text-gray-800 mb-4 font-medium">{{ testimonial.message }}</p>
   </div>
-
-  <!-- Divider + Author always on bottom -->
   <div class="border-t border-gray-400 pt-2">
     <p class="text-sm text-gray-700">- {{ testimonial.author }}</p>
   </div>
