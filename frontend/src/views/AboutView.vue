@@ -9,9 +9,7 @@
         <h1 class="text-6xl">About</h1>
       </div>
       <div class="flex flex-col items-center p-4 sm:p-10">
-        <div
-          class="flex flex-col md:flex-row md:items-stretch rounded-xl gap-6 w-full max-w-5xl"
-        >
+        <div class="flex flex-col md:flex-row md:items-stretch rounded-xl gap-6 w-full max-w-5xl">
           <div class="relative w-[150px] self-center md:self-start mt-4 sm:mt-0 shadow-lg">
             <div
               class="absolute -inset-0 border-2 border-black rotate-5 z-0 rounded-sm shadow-lg"
