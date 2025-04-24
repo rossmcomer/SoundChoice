@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const pricingPlans = ref([
   {
@@ -8,31 +8,25 @@ const pricingPlans = ref([
     description: 'Perfect for any wedding.',
     features: {
       users: '5 hours',
-      components: 'All UI components',
+      increment: 'All included',
       access: 'Lifetime access',
       updates: 'Free updates',
       projects: 'Use on 1 (one) project',
-      support: '3 Months support'
+      support: '3 Months support',
     },
-    button: {
-      text: 'Choose Personal'
-    }
   },
   {
     name: 'Classic',
-    price: '$150/hr',
+    price: '$150',
     description: 'Perfect for any corporate event, birthday, or mitzvah.',
     features: {
       users: '5 Users',
-      components: 'All UI components',
+      increment: '/hr',
       access: 'Lifetime access',
       updates: 'Free updates',
       projects: 'Use on 3 (Three) project',
-      support: '4 Months support'
+      support: '4 Months support',
     },
-    button: {
-      text: 'Choose Business'
-    }
   },
   {
     name: 'Uplight Package',
@@ -40,40 +34,40 @@ const pricingPlans = ref([
     description: 'Custom color uplights for any event.',
     features: {
       users: 'Unlimited Users',
-      components: 'All UI components',
+      increment: 'All included',
       access: 'Lifetime access',
       updates: 'Free updates',
       projects: 'Use on Unlimited project',
-      support: '12 Months support'
+      support: '12 Months support',
     },
-    button: {
-      text: 'Choose Professional'
-    }
   },
   {
     name: 'Extra Hours',
-    price: '$150/hr',
+    price: '$150',
     description: 'Add additional time for any event.',
     features: {
       users: 'Unlimited Users',
-      components: 'All UI components',
+      increment: '/hr',
       access: 'Lifetime access',
       updates: 'Free updates',
       projects: 'Use on Unlimited project',
-      support: '12 Months support'
+      support: '12 Months support',
     },
-    button: {
-      text: 'Choose Professional'
-    }
-  }
-])
+  },
+]);
 </script>
 <template>
+  <div class="relative min-h-full">
+  <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
+      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+  </video>
+  <div class="relative z-10 pt-10">
   <div class="flex justify-center mt-5 py-7">
     <h1 class="text-6xl">Pricing</h1>
   </div>
   <section
-    class="relative z-10 overflow-hidden dark:bg-dark pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
+    class="relative z-10 text-gray-800 overflow-hidden dark:bg-dark pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
   >
     <div class="container mx-auto">
       <div class="-mx-4 flex flex-wrap justify-center">
@@ -83,41 +77,27 @@ const pricingPlans = ref([
           class="w-full px-4 md:w-1/2 lg:w-1/4"
         >
           <div
-            class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-2 border-stroke dark:border-dark-3 bg-white dark:bg-dark-2 py-10 px-8 shadow-pricing sm:p-12 lg:py-10 lg:px-6 xl:p-[50px]"
+            class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-2 border-stroke dark:border-dark-3 bg-[rgba(136,136,136,0.3)] dark:bg-dark-2 py-10 px-8 shadow-lg sm:p-12 lg:py-10 lg:px-6 xl:p-[50px]"
           >
-            <span class="mb-3 block text-lg font-semibold text-primary">{{ plan.name }}</span>
-            <h2 class="mb-5 text-[42px] font-bold"
-            style="color: var(--black-soft);">
+            <span class="mb-3 block text-lg font-bold"
+            style="color: var(--black-soft)">{{ plan.name }}</span>
+            <h2 class="mb-5 text-[42px] font-bold" style="color: var(--black-soft)">
               <span>{{ plan.price }}</span>
-              <span class="text-base font-medium text-body-color dark:text-dark-6"></span>
+              <span class="text-base font-medium text-body-color dark:text-dark-6"
+              v-if="plan.features.increment === '/hr' ">{{ plan.features.increment }}</span>
             </h2>
             <p
-              class="mb-8 border-b border-stroke dark:border-dark-3 pb-8 text-base text-body-color dark:text-dark-6"
+              class="h-20 mb-8 border-b border-stroke dark:border-dark-3 pb-8 text-base text-body-color dark:text-dark-6 font-semibold"
             >
               {{ plan.description }}
             </p>
             <div class="mb-9 flex flex-col gap-[14px]">
               <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.users }}</p>
-              <p class="text-base text-body-color dark:text-dark-6">
-                {{ plan.features.components }}
-              </p>
               <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.access }}</p>
               <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.updates }}</p>
               <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.projects }}</p>
               <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.support }}</p>
             </div>
-            <a
-              href="javascript:void(0)"
-              :class="{
-                ' border-primary bg-primary text-white hover:bg-opacity-90':
-                  plan.name === 'Business',
-                'border-stroke dark:border-dark-3 bg-transparent text-primary hover:border-primary hover:bg-primary hover:text-white':
-                  plan.name !== 'Business'
-              }"
-              class="block w-full rounded-md border p-3 text-center text-base font-medium transition"
-            >
-              {{ plan.button.text }}
-            </a>
             <div>
               <span class="absolute right-0 top-7 z-[-1]">
                 <svg
@@ -382,6 +362,9 @@ const pricingPlans = ref([
         </div>
       </div>
     </div>
+    
   </section>
+</div>
+</div>
 </template>
 <style></style>

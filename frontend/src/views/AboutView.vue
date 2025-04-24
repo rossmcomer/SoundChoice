@@ -1,6 +1,6 @@
 <template>
   <div class="relative min-h-full">
-    <video class="absolute inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
+    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
       <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
@@ -10,10 +10,10 @@
       </div>
       <div class="flex flex-col items-center p-4 sm:p-10">
         <div
-          class="flex flex-col md:flex-row md:items-stretch bg-[rgba(136,136,136,0.3)] p-4 sm:p-10 rounded-xl shadow-xl gap-6 w-full max-w-5xl"
+          class="flex flex-col md:flex-row md:items-stretch p-4 sm:p-10 rounded-xl gap-6 w-full max-w-5xl"
         >
-          <div class="relative w-[150px] self-center md:self-start mt-4 sm:mt-0">
-            <div class="absolute -inset-0 border-2 border-black rotate-5 z-0 rounded-sm"></div>
+          <div class="relative w-[150px] self-center md:self-start mt-4 sm:mt-0 shadow-lg">
+            <div class="absolute -inset-0 border-2 border-black rotate-5 z-0 rounded-sm shadow-lg"></div>
             <img
               class="relative z-10 w-full h-auto rounded-sm shadow-lg border-2 border-black"
               src="@/assets/profile-pic.png"
@@ -21,7 +21,7 @@
             />
           </div>
           <div
-            class="flex-1 font-medium bg-[rgba(0,0,0,0.2)] p-8 space-y-4 rounded-xl shadow-lg text-black min-h-[250px]"
+            class="flex-1 font-medium bg-[rgba(136,136,136,0.3)] p-8 space-y-4 rounded-xl shadow-lg text-black min-h-[250px]"
           >
             <p>
               &nbsp;&nbsp;&nbsp;&nbsp;SoundChoice founder/operator Kyle Beller has been DJing
