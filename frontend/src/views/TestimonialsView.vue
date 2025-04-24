@@ -28,9 +28,8 @@ import { testimonials } from '@/assets/testimonials';
     coverflow-effect-scale="0.8"
     autoplay-delay="3000"
     autoplay-disable-on-interaction="true"
-    rewind="true"
+    loop="true"
     style="--swiper-theme-color: var(--black-soft);"
-    
   >
     <swiper-slide
       v-for="(testimonial, index) in testimonials"
