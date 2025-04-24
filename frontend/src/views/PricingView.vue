@@ -7,7 +7,7 @@ const pricingPlans = ref([
     price: '$1500',
     description: 'Perfect for any wedding.',
     features: {
-      users: '5 hours',
+      rate: '5 hours',
       increment: 'All included',
       music: 'Custom playlist',
       microphones: 'Microphones',
@@ -20,7 +20,7 @@ const pricingPlans = ref([
     price: '$150',
     description: 'Perfect for any corporate event, birthday, or mitzvah.',
     features: {
-      users: 'Per hour',
+      rate: 'Per hour',
       increment: '/hr',
       music: 'Custom playlist',
       microphones: 'Microphones',
@@ -33,7 +33,7 @@ const pricingPlans = ref([
     price: '$200',
     description: 'Custom color uplights for any event.',
     features: {
-      users: '',
+      rate: '',
       increment: '',
       music: '',
       microphones: '',
@@ -46,7 +46,7 @@ const pricingPlans = ref([
     price: '$150',
     description: 'Add additional time for any event.',
     features: {
-      users: '',
+      rate: '',
       increment: '/hr',
       music: '',
       microphones: '',
@@ -63,11 +63,11 @@ const pricingPlans = ref([
       Your browser does not lighting the video tag.
   </video>
   <div class="relative z-10 pt-10">
-  <div class="flex justify-center mt-5 py-7">
+  <div class="flex justify-center py-7">
     <h1 class="text-6xl">Pricing</h1>
   </div>
   <section
-    class="relative z-10 text-gray-800 overflow-hidden dark:bg-dark pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
+    class="relative z-10 text-gray-800 overflow-hidden dark:bg-dark p-4 sm:p-10"
   >
     <div class="container mx-auto">
       <div class="-mx-4 flex flex-wrap justify-center">
@@ -91,8 +91,9 @@ const pricingPlans = ref([
             >
               {{ plan.description }}
             </p>
-            <div class="mb-9 flex flex-col gap-[14px]">
-              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.users }}</p>
+            <div v-if="plan.features.rate !== ''"
+            class="flex flex-col gap-[14px]">
+              <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.rate }}</p>
               <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.music }}</p>
               <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.microphones }}</p>
               <p class="text-base text-body-color dark:text-dark-6">{{ plan.features.speakers }}</p>
@@ -117,7 +118,7 @@ const pricingPlans = ref([
                       y2="172"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stop-color="#222222" stop-opacity="0.09" />
+                      <stop stop-color="#222222" stop-opacity="0.2" />
                       <stop offset="1" stop-color="#C4C4C4" stop-opacity="0" />
                     </linearGradient>
                   </defs>
