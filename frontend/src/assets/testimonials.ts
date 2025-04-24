@@ -51,7 +51,7 @@ export const testimonials = [
     stars: 5,
     starsLabel: '10/10',
     message:
-      'Amazing job! From the pre-wedding communication to the day of the wedding, everything went flawless and our DJ Kyle… made our day too special! We would highly recommend, and are so happy we chose',
+      'Amazing job! From the pre-wedding communication to the day of the wedding, everything went flawless and our DJ Kyle… made our day too special! We would highly recommend, and are so happy we chose [SoundChoice].',
     author: 'Christine Norton, reviewed 11/22/2023',
   },
 ];
