@@ -15,7 +15,7 @@ import { testimonials } from '@/assets/testimonials';
     <div
   v-for="(testimonial, index) in testimonials"
   :key="index"
-  class="flex flex-col justify-between bg-[rgba(136,136,136,0.3)] p-6 border-[rgb(34,34,34)] border-2 rounded-xl shadow-lg w-full max-w-[500px] min-h-[300px]"
+  class="flex flex-col justify-between p-6 border-[rgb(34,34,34)] border-2 rounded-xl shadow-lg w-full max-w-[500px] min-h-[300px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
 >
   <div class="flex items-center mb-4">
     <div class="flex items-center space-x-1">
