@@ -27,7 +27,7 @@ import { testimonials } from '@/assets/testimonials';
           coverflow-effect-slide-shadows="false"
           coverflow-effect-scale="0.8"
           autoplay-delay="3000"
-          autoplay-disable-on-interaction="true"
+          autoplay-disable-on-interaction="false"
           loop="true"
           style="--swiper-theme-color: var(--black-soft); --swiper-pagination-bottom: 8%"
         >
