@@ -6,10 +6,15 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue(({
+      template: {
+        compilerOptions: {
+          isCustomElement: tag => ['swiper-container', 'swiper-slide'].includes(tag)
+        }
+      }
+    })),
     vueJsx(),
     vueDevTools(),
     tailwindcss(),

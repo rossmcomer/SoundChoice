@@ -7,7 +7,7 @@ import { testimonials } from '@/assets/testimonials';
       <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    <div class="relative z-10 pt-10">
+    <div class="relative z-10 pt-10 justify-items-center">
       <div class="flex justify-center py-7">
         <h1 class="text-6xl">Testimonials</h1>
       </div>
@@ -46,20 +46,25 @@ import { testimonials } from '@/assets/testimonials';
           </div>
         </div>
       </div> -->
+      <div class="swiperWrapper">
       <swiper-container
-    class="mySwiper py-4 sm:py-10"
+    class="mySwiper pt-4 sm:py-10"
+    initial-slide="4"
     pagination="true"
     effect="coverflow"
     grab-cursor="true"
     centered-slides="true"
     slides-per-view="auto"
-    coverflow-effect-rotate="50"
+    coverflow-effect-rotate="0"
     coverflow-effect-stretch="0"
     coverflow-effect-depth="100"
     coverflow-effect-modifier="1"
     coverflow-effect-slide-shadows="true"
-    autoplay-delay="2500"
-    style="--swiper-theme-color: black;"
+    coverflow-effect-scale="0.8"
+    autoplay-delay="3000"
+    autoplay-disable-on-interaction="true"
+    rewind="true"
+    style="--swiper-theme-color: var(--black-soft);"
     
   >
     <swiper-slide
@@ -94,6 +99,7 @@ import { testimonials } from '@/assets/testimonials';
           </div>
     </swiper-slide>
   </swiper-container>
+</div>
     </div>
   </div>
 </template>
