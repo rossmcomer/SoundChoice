@@ -30,7 +30,7 @@ export const testimonials = [
     stars: 5,
     starsLabel: 'Five Stars',
     message:
-      'We chose [DJ Kyle] because they were one of the few DJ’s we could find who used actual turntables… Kyle was our DJ for the night and we have nothing but the highest praise for him. He was wonderful on our wedding day- we used him for ceremony and reception. Kyle was professional, fun, and extremely flexible which made our night the dancing party I always wanted. The music was perfect, he really worked with and read the crowd to keep the energy high and he was on point with all of the key elements of the night (speeches, cake cutting, etc). And from the beginning the planning process… was so smooth, he is super easy to communicate with and will work with you every step of the way to make your day exactly what you want.',
+      'We chose [DJ Kyle] because they were one of the few DJ’s we could find who used actual turntables… We have nothing but the highest praise for him... He was wonderful... we used him for ceremony and reception. Kyle was professional, fun, and extremely flexible which made our night the dancing party I always wanted. The music was perfect, he really worked with and read the crowd to keep the energy high and he was on point with all of the key elements of the night (speeches, cake cutting, etc). And from the beginning the planning process… was so smooth, he is super easy to communicate with and will work with you every step of the way to make your day exactly what you want.',
     author: 'Dena D',
   },
   {

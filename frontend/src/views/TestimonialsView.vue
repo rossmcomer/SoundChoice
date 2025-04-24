@@ -2,18 +2,18 @@
 import { testimonials } from '@/assets/testimonials';
 </script>
 <template>
-  <div class="relative min-h-full">
+  <div class="relative h-full">
     <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
       <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    <div class="relative z-10 pt-10">
-      <div class="flex justify-center py-7">
+    <div class="relative flex flex-col h-full z-10">
+      <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Testimonials</h1>
       </div>
-      <div class="swiperWrapper">
+      <div class="flex-1 flex">
       <swiper-container
-    class="mySwiper pt-4 sm:py-10"
+    class="mySwiper px-2 sm:px-0 pt-4 sm:py-10"
     initial-slide="4"
     pagination="true"
     effect="coverflow"
@@ -24,17 +24,17 @@ import { testimonials } from '@/assets/testimonials';
     coverflow-effect-stretch="0"
     coverflow-effect-depth="100"
     coverflow-effect-modifier="1"
-    coverflow-effect-slide-shadows="true"
+    coverflow-effect-slide-shadows="false"
     coverflow-effect-scale="0.8"
     autoplay-delay="3000"
     autoplay-disable-on-interaction="true"
     loop="true"
-    style="--swiper-theme-color: var(--black-soft);"
+    style="--swiper-theme-color: var(--black-soft); --swiper-pagination-bottom: 8%"
   >
     <swiper-slide
       v-for="(testimonial, index) in testimonials"
       :key="index"
-      class="flex flex-col justify-between p-6 border-[rgb(34,34,34)] border-2 rounded-xl shadow-lg w-full max-w-[500px] min-h-[300px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+      class="flex flex-col justify-between p-6 border-[rgb(34,34,34)] border-2 rounded-xl shadow-lg w-full max-w-[500px] sm:max-h-fit max-h-[561px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
     >
     <div class="flex items-center mb-4">
             <div class="flex items-center space-x-1">
@@ -56,7 +56,7 @@ import { testimonials } from '@/assets/testimonials';
             </span>
           </div>
           <div class="flex-1">
-            <p class="text-gray-800 mb-4 font-medium h-[275px]">{{ testimonial.message }}</p>
+            <p class="text-gray-800 mb-4 sm:mb-0 font-medium min-h-[275px] h-auto">{{ testimonial.message }}</p>
           </div>
           <div class="border-t border-gray-400 pt-2">
             <p class="text-sm text-gray-700">- {{ testimonial.author }}</p>
@@ -67,13 +67,9 @@ import { testimonials } from '@/assets/testimonials';
     </div>
   </div>
 </template>
-<style>
+<style scoped>
+
 swiper-container {
   width: 100%;
 }
-
-/* swiper-slide.swiper-slide-next,
-swiper-slide.swiper-slide-prev {
-  align-self: center;
-} */
 </style>

@@ -62,17 +62,17 @@ const pricingPlans = ref([
       <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
       Your browser does not lighting the video tag.
     </video>
-    <div class="relative z-10 pt-10">
-      <div class="flex justify-center py-7">
+    <div class="relative h-full z-10">
+      <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Pricing</h1>
       </div>
-      <section class="relative z-10 text-gray-800 overflow-hidden dark:bg-dark p-4 sm:p-10">
+      <section class="relative z-10 text-gray-800 overflow-hidden p-4 sm:p-10">
         <div class="container mx-auto">
           <div class="-mx-4 flex flex-wrap justify-center">
             <div
               v-for="(plan, index) in pricingPlans"
               :key="index"
-              class="w-4/5 px-4 md:w-1/2 lg:w-1/4"
+              class="w-4/5 sm:px-4 md:w-1/2 lg:w-1/4"
             >
               <div
                 class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-[rgb(34,34,34)] border-2 border-stroke py-10 px-8 shadow-lg sm:p-12 lg:py-10 lg:px-6 xl:p-[50px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
