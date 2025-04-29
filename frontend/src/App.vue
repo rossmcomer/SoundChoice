@@ -50,6 +50,8 @@ h1 {
 .btnMain {
   background-color: var(--color6);
   color: var(--black-soft);
+  box-shadow: 0 0 0 2px var(--color6);
+  transition: var(--transition-default)
 }
 
 .btnMain:focus {

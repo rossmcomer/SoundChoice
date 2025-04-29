@@ -24,7 +24,7 @@ const user = computed(() => userStore.user);
         <button
           type="button"
           @click="$router.push('/booking')"
-          class="btnMain focus:ring-4 focus:outline-none font-medium rounded-lg text-xs px-2 py-1 text-center md:text-sm md:px-4 md:py-2 sm:text-sm sm:px-2 sm:py-1"
+          class="btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-xs px-2 py-1 text-center md:text-sm md:px-4 md:py-2 sm:text-sm sm:px-2 sm:py-1"
         >
           Book Now!
         </button>
@@ -108,6 +108,10 @@ const user = computed(() => userStore.user);
     transform: scale(1.25);
   }
 
+  nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+
   .toggleMenu:hover {
     color: var(--color6);
     cursor: pointer;
@@ -132,10 +136,6 @@ nav {
 
 nav a.router-link-exact-active {
   color: var(--color6);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
 }
 
 .toggleMenu:focus {
