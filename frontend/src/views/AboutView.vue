@@ -21,7 +21,7 @@
             />
           </div>
           <div
-            class="flex-1 font-medium p-8 space-y-4 rounded-xl shadow-lg text-gray-800 min-h-[250px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+            class="flex-1 font-medium p-8 space-y-4 border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 min-h-[250px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
           >
             <p>
               &nbsp;&nbsp;&nbsp;&nbsp;SoundChoice founder/operator Kyle Beller has been DJing
