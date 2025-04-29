@@ -11,7 +11,7 @@ import { testimonials } from '@/assets/testimonials';
       <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Testimonials</h1>
       </div>
-      <div class="flex-1 flex">
+      <div class="flex-1 flex min-h-[700px]">
         <swiper-container
           class="mySwiper px-2 sm:px-0 pt-4 sm:py-10"
           initial-slide="4"
