@@ -22,7 +22,7 @@ const user = computed(() => userStore.user);
       class="h-full flex flex-col place-items-center justify-start pt-[25vh] md:justify-center md:pt-0 relative z-10"
     >
       <video
-        class="w-4/5 h-auto max-w-3xl rounded-lg shadow-lg mb-8 border-2 border-[rgb(34,34,34)]"
+        class="w-4/5 h-auto max-w-3xl rounded-xl shadow-lg mb-8 border-3 border-[rgb(34,34,34)]"
         autoplay
         muted
         controls
