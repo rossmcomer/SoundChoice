@@ -19,24 +19,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex justify-center mt-5 py-7">
-    <h1 class="text-6xl">Booking</h1>
-  </div>
-  <!-- <div class="flex place-content-center">
-    <div v-if="!user"
-    class="flex flex-col place-items-center justify-center my-8">
-        <div class="text-center mb-4">Please login/create an account to proceed with booking.</div>
-        <button
-          type="button"
-          @click="$router.push('/login-sign-up')"
-          class="btnMain focus:ring-4 focus:outline-none font-medium rounded-lg text-xs px-2 py-1 text-center md:text-sm md:px-4 md:py-2 sm:text-sm sm:px-2 sm:py-1"
-        >
-        Proceed to login.
-        </button>
-    </div>
-    <div v-else></div>
-    </div> -->
-  <div>Resevere your special date in 5 easy steps!</div>
+  <div class="relative h-full">
+    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
+      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="relative h-full z-10">
+      <div class="flex justify-center pb-7 pt-17">
+        <h1 class="text-6xl">Booking</h1>
+      </div>
+      <div>Resevere your special date in 5 easy steps!</div>
   <div>Step 1: Create an account and login.</div>
   <div>Step 2: Click "Book Now!"</div>
   <div>Step 3: Choose your date, time, location, and event type.</div>
@@ -199,6 +191,23 @@ onMounted(() => {
       </label>
     </li>
   </ul>
+    </div>
+  </div>
+  <!-- <div class="flex place-content-center">
+    <div v-if="!user"
+    class="flex flex-col place-items-center justify-center my-8">
+        <div class="text-center mb-4">Please login/create an account to proceed with booking.</div>
+        <button
+          type="button"
+          @click="$router.push('/login-sign-up')"
+          class="btnMain focus:ring-4 focus:outline-none font-medium rounded-lg text-xs px-2 py-1 text-center md:text-sm md:px-4 md:py-2 sm:text-sm sm:px-2 sm:py-1"
+        >
+        Proceed to login.
+        </button>
+    </div>
+    <div v-else></div>
+    </div> -->
+  
 </template>
 <style>
 @media (hover: hover) {
