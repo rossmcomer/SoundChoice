@@ -108,13 +108,6 @@ const user = computed(() => userStore.user);
     transform: scale(1.25);
   }
 
-  .btnMain:hover {
-    background-color: var(--black-soft);
-    box-shadow: 0 0 0 2px var(--color6);
-    color: var(--white-soft);
-    cursor: pointer;
-  }
-
   .toggleMenu:hover {
     color: var(--color6);
     cursor: pointer;
@@ -143,16 +136,6 @@ nav a.router-link-exact-active {
 
 nav a.router-link-exact-active:hover {
   background-color: transparent;
-}
-
-.btnMain {
-  background-color: var(--color6);
-  color: var(--black-soft);
-}
-.btnMain:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 1px var(--color6);
 }
 
 .toggleMenu:focus {

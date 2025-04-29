@@ -5,10 +5,3 @@
 #app {
   min-width: 344px;
 }
-/* Specifiy styles for screens with hover */
-@media (hover: hover) {
-}
-
-/* Specifiy styles for large screens */
-@media (min-width: 1024px) {
-}
