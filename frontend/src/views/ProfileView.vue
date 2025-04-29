@@ -1,5 +1,14 @@
 <template>
-<form class="max-w-sm mx-auto">
+  <div class="relative h-full">
+    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
+      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="relative h-full z-10">
+      <div class="flex justify-center pb-7 pt-17">
+        <h1 class="text-6xl">Profile</h1>
+      </div>
+      <form class="max-w-sm mx-auto">
   <div class="mb-5">
       <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Base input</label>
       <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -256,6 +265,9 @@
       </div>
     </div>
   </div>
+    </div>
+  </div>
+
 </template>
 <script setup lang="ts"></script>
 <style></style>
