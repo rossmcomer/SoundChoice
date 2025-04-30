@@ -221,23 +221,4 @@ onMounted(() => {
     </div> -->
 </template>
 <style>
-@media (hover: hover) {
-  .btnMain:hover {
-    background-color: var(--grey-soft);
-    box-shadow: 0 0 0 2px var(--color6);
-    color: var(--black-soft);
-    cursor: pointer;
-  }
-}
-
-.btnMain {
-  background-color: var(--color6);
-  color: var(--black-soft);
-}
-
-.btnMain:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 1px var(--color6);
-}
 </style>
