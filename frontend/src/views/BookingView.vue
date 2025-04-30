@@ -28,13 +28,16 @@ onMounted(() => {
       <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Booking</h1>
       </div>
-      <div>Resevere your special date in 5 easy steps!</div>
-      <div>Step 1: Create an account and login.</div>
-      <div>Step 2: Click "Book Now!"</div>
-      <div>Step 3: Choose your date, time, location, and event type.</div>
-      <div>Step 4: Add uplights and any additional time.</div>
-      <div>Step 5: Pay your deposit equal to 50% of the total cost.</div>
-      <div>Done!</div>
+      <div class="flex flex-col items-center p-4 sm:p-10">
+      <div class="flex-1 sm:max-w-xl font-medium p-8 space-y-4 border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 min-h-[250px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent">
+        <div class="sm:text-2xl text-xl text-center font-bold pb-4">Reserve your special date in 5 easy steps!</div>
+        <div class="sm:text-lg"><b>Step 1:</b> Create an account and login.</div>
+        <div class="sm:text-lg"><b>Step 2:</b> Click "Book Now!"</div>
+        <div class="sm:text-lg"><b>Step 3:</b> Choose your date, time, location, and event type.</div>
+        <div class="sm:text-lg"><b>Step 4:</b> Add uplights and any additional time.</div>
+        <div class="sm:text-lg"><b>Step 5:</b> Pay your deposit equal to 50% of the total cost.</div>
+        <div class="sm:text-2xl text-xl text-center font-bold">Done!</div>
+      </div>
       <div>Pick A Day For Your Event! Date not available? Please contact us @</div>
       <VueDatePicker
         v-model="date"
@@ -203,6 +206,7 @@ onMounted(() => {
           </label>
         </li>
       </ul>
+    </div>
     </div>
   </div>
   <!-- <div class="flex place-content-center">
