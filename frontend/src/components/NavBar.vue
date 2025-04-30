@@ -109,8 +109,8 @@ const user = computed(() => userStore.user);
   }
 
   nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
+    background-color: transparent;
+  }
 
   .toggleMenu:hover {
     color: var(--color6);

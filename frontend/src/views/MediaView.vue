@@ -11,8 +11,7 @@ import { ref, onMounted } from 'vue';
       <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Media</h1>
       </div>
-      <div class="flex flex-col items-center p-4 sm:p-10">          
-      </div>
+      <div class="flex flex-col items-center p-4 sm:p-10"></div>
     </div>
   </div>
 </template>
