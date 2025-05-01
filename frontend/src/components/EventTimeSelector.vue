@@ -18,7 +18,7 @@ const endTime = defineModel<string>('endTime')
           class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
         >
           <svg
-            class="w-4 h-4 text-gray-400"
+            class="w-4 h-4 text-[var(--color6)]"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -35,7 +35,7 @@ const endTime = defineModel<string>('endTime')
           type="time"
           id="start-time"
           v-model="startTime"
-          class="bg-[var(--black-soft)] leading-none text-[var(--color6)] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          class="bg-[var(--black-soft)] leading-none text-[var(--white-soft)] font-medium rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
           min="09:00"
           max="18:00"
           value="00:00"

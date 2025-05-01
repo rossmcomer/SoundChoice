@@ -34,7 +34,7 @@ const user = computed(() => userStore.user);
       <button
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"
-        class="font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+        class="focus:outline-none focus:ring-2 focus:ring-[var(--color6)] font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center bg-[var(--black-soft)] text-[var(--color6)] cursor-pointer"
         type="button"
       >
         Get Started<svg
@@ -108,37 +108,4 @@ const user = computed(() => userStore.user);
 </template>
 
 <style scoped>
-button {
-  color: var(--color6);
-  background-color: var(--black-soft) !important;
-}
-
-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--color6);
-}
-
-@media (hover: hover) {
-  button:hover {
-    cursor: pointer;
-    background-color: var(--color6);
-  }
-}
-/* .scaleAnimation {
-  background-image: url('../assets/Waves-sunny.svg');
-  z-index: -1;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  animation: scalePulse 20s ease-in-out infinite;
-}
-
-@keyframes scalePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-} */
 </style>
