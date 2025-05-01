@@ -19,9 +19,9 @@ const date = ref<Date | null>(null);
 const eventType = ref<string>('');
 const startTime = ref<string>('00:00');
 const endTime = ref<string>('00:00');
-const uplights = ref<boolean>(false)
-const addHours = ref<boolean>(false)
-const additionalHours = ref<number>(1)
+const uplights = ref<boolean>(false);
+const addHours = ref<boolean>(false);
+const additionalHours = ref<number>(1);
 
 const today = new Date();
 
@@ -64,7 +64,6 @@ onMounted(() => {
         <EventTimeSelector v-model:startTime="startTime" v-model:endTime="endTime" />
         <UplightingSelector v-model="uplights" />
         <AdditionalHours v-model:addHours="addHours" v-model:additionalHours="additionalHours" />
-        
       </div>
     </div>
   </div>

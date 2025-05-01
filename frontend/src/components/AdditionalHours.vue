@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const addHours = defineModel<boolean>('addHours')
-const additionalHours = defineModel<number>('additionalHours')
+const addHours = defineModel<boolean>('addHours');
+const additionalHours = defineModel<number>('additionalHours');
 
 function increment() {
-  additionalHours.value = (additionalHours.value ?? 1) + 1
+  additionalHours.value = (additionalHours.value ?? 1) + 1;
 }
 
 function decrement() {
   if ((additionalHours.value ?? 1) > 1) {
-    additionalHours.value!--
+    additionalHours.value!--;
   }
 }
 </script>
@@ -34,6 +34,21 @@ function decrement() {
           <div class="block">
             <div class="w-full text-lg font-semibold">Yes</div>
           </div>
+          <svg
+            class="w-5 h-5 ms-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
         </label>
       </li>
       <li>
@@ -51,6 +66,21 @@ function decrement() {
           <div class="block">
             <div class="w-full text-lg font-semibold">No</div>
           </div>
+          <svg
+            class="w-5 h-5 ms-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </label>
       </li>
     </ul>
@@ -60,7 +90,9 @@ function decrement() {
         type="button"
         @click="decrement"
         class="w-10 h-10 rounded-full bg-[var(--black-soft)] text-[var(--white-soft)] text-xl font-bold cursor-pointer"
-      >–</button>
+      >
+        –
+      </button>
       <span class="text-xl font-semibold text-[var(--black-soft)]">
         {{ additionalHours ?? 1 }} hour{{ (additionalHours ?? 1) > 1 ? 's' : '' }}
       </span>
@@ -68,7 +100,9 @@ function decrement() {
         type="button"
         @click="increment"
         class="w-10 h-10 rounded-full bg-[var(--black-soft)] text-[var(--white-soft)] text-xl font-bold cursor-pointer"
-      >+</button>
+      >
+        +
+      </button>
     </div>
   </div>
 </template>
