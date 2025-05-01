@@ -1,11 +1,5 @@
 <script setup lang="ts">
-defineProps<{
-  modelValue: boolean
-}>()
-
-defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-}>()
+const uplights = defineModel<boolean>('uplights')
 </script>
 <template>
     <div class="sm:max-w-sm w-[261px]">
@@ -18,12 +12,12 @@ defineEmits<{
             type="radio"
             id="uplighting-yes"
             class="hidden peer"
-            :checked="modelValue === true"
-            @change="$emit('update:modelValue', true)"
+            :checked="uplights === true"
+            @change="uplights = true"
           />
           <label
             for="uplighting-yes"
-            class="inline-flex items-center justify-between w-full p-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border peer-checked:border-green-500 peer-checked:text-green-500 hover:ring-2"
+            class="inline-flex items-center justify-between w-full p-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border peer-checked:border-green-500 peer-checked:text-green-500 hover:ring-2 transition-[var(--transition-default)]"
           >
             <div class="block">
               <div class="w-full text-lg font-semibold">Yes</div>
@@ -50,12 +44,12 @@ defineEmits<{
             type="radio"
             id="uplighting-no"
             class="hidden peer"
-            :checked="modelValue === false"
-            @change="$emit('update:modelValue', false)"
+            :checked="uplights === false"
+            @change="uplights = false"
           />
           <label
             for="uplighting-no"
-            class="inline-flex items-center justify-between w-full p-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border peer-checked:border-red-500 peer-checked:text-red-500 hover:ring-2"
+            class="inline-flex items-center justify-between w-full p-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border peer-checked:border-red-500 peer-checked:text-red-500 hover:ring-2 transition-[var(--transition-default)]"
           >
             <div class="block">
               <div class="w-full text-lg font-semibold">No</div>
