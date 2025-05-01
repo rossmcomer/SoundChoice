@@ -4,13 +4,14 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import { ref, computed, onMounted } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
 import { useAvailabilityStore } from '@/stores/AvailabilityStore';
+import EventTypeDropdown from '@/components/EventTypeDropdown.vue';
 
 const userStore = useUserStore();
 const availabilityStore = useAvailabilityStore();
 
 const user = computed(() => userStore.user);
-const date = ref();
-const eventType= ref();
+const date = ref<Date | null>(null);
+const eventType= ref<string>('');
 
 const today = new Date();
 
@@ -65,22 +66,7 @@ onMounted(() => {
         ></VueDatePicker>
         </div>
 
-        <form class="max-w-sm mx-auto">
-          <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Select an option</label
-          >
-          <select
-            id="eventType"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option selected>Choose Event Type</option>
-            <option value="wedding">Wedding</option>
-            <option value="corporate">Corporate</option>
-            <option value="birthday">Birthday</option>
-            <option value="barBatMitzvah">Mitzvah</option>
-            <option value="other">Other</option>
-          </select>
-        </form>
+        <EventTypeDropdown v-model="eventType"/>
 
         <form class="max-w-[16rem] mx-auto grid grid-cols-2 gap-4">
           <div>
