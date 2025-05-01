@@ -89,7 +89,7 @@ function decrement() {
       <button
         type="button"
         @click="decrement"
-        class="w-10 h-10 rounded-full bg-[var(--black-soft)] text-[var(--white-soft)] text-xl font-bold cursor-pointer"
+        class="w-10 h-10 rounded-lg bg-[var(--black-soft)] text-[var(--white-soft)] text-xl font-bold cursor-pointer pb-1"
       >
         –
       </button>
@@ -99,7 +99,7 @@ function decrement() {
       <button
         type="button"
         @click="increment"
-        class="w-10 h-10 rounded-full bg-[var(--black-soft)] text-[var(--white-soft)] text-xl font-bold cursor-pointer"
+        class="w-10 h-10 rounded-lg bg-[var(--black-soft)] text-[var(--white-soft)] text-xl font-bold cursor-pointer pb-1 pl-0.5"
       >
         +
       </button>
