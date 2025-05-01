@@ -34,7 +34,7 @@ const selectOption = (option: Option) => {
     </label>
     <button
       @click="toggleDropdown"
-      class="font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex justify-center items-center w-[175px] bg-[var(--black-soft)] text-[var(--color6)] shadow-sm cursor-pointer"
+      class="font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex justify-center items-center w-[160px] bg-[var(--black-soft)] text-[var(--color6)] shadow-sm cursor-pointer"
       type="button"
     >
     {{ options.find(o => o.value === modelValue)?.label || 'Choose Event Type' }}
@@ -44,7 +44,7 @@ const selectOption = (option: Option) => {
     </button>
     <div
       v-show="isOpen"
-      class="z-10 mt-2 divide-y divide-[var(--divider-medium)] rounded-lg shadow-sm w-[175px] absolute left-1/2 -translate-x-1/2 text-center bg-[var(--black-soft)] text-[var(--color6)]"
+      class="z-10 mt-2 divide-y divide-[var(--divider-medium)] rounded-lg shadow-sm w-[160px] absolute left-1/2 -translate-x-1/2 text-center bg-[var(--black-soft)] text-[var(--color6)]"
     >
       <ul class="py-2 text-sm text-center">
         <li
