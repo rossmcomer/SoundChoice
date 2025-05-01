@@ -1,22 +1,16 @@
-<!-- components/EventTimeSelector.vue -->
 <script setup lang="ts">
-
-const startTime = defineModel<string>('startTime')
-const endTime = defineModel<string>('endTime')
+const startTime = defineModel<string>('startTime');
+const endTime = defineModel<string>('endTime');
 </script>
 
 <template>
-<form class="max-w-[16rem] mx-auto grid grid-cols-2 gap-4">
+  <form class="max-w-[16rem] mx-auto grid grid-cols-2 gap-4">
     <div>
-      <label
-        for="start-time"
-        class="block mb-2 text-sm font-medium text-[var(--black-soft)]"
+      <label for="start-time" class="block mb-2 text-sm font-medium text-[var(--black-soft)]"
         >Start time:</label
       >
       <div class="relative">
-        <div
-          class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
-        >
+        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
           <svg
             class="w-4 h-4 text-[var(--color6)]"
             aria-hidden="true"
@@ -44,17 +38,13 @@ const endTime = defineModel<string>('endTime')
       </div>
     </div>
     <div>
-      <label
-        for="end-time"
-        class="block mb-2 text-sm font-medium text-[var(--black-soft)]"
+      <label for="end-time" class="block mb-2 text-sm font-medium text-[var(--black-soft)]"
         >End time:</label
       >
       <div class="relative">
-        <div
-          class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
-        >
+        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
           <svg
-            class="w-4 h-4 text-gray-500 dark:text-gray-400"
+            class="w-4 h-4 text-[var(--color6)]"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -71,7 +61,7 @@ const endTime = defineModel<string>('endTime')
           type="time"
           id="end-time"
           v-model="endTime"
-          class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="bg-[var(--black-soft)] leading-none text-[var(--white-soft)] font-medium rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
           min="09:00"
           max="18:00"
           value="00:00"
@@ -80,4 +70,9 @@ const endTime = defineModel<string>('endTime')
       </div>
     </div>
   </form>
+  <h2 class="text-[var(--black-soft)] italic">
+    Important: Wedding pricing includes 5 hours by default! If you would like to add additional
+    hours, please specify as the final cost will reflect that.
+  </h2>
 </template>
+<style scoped></style>

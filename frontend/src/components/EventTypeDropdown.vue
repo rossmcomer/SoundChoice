@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 interface Option {
-  value: string
-  label: string
+  value: string;
+  label: string;
 }
 
 const options = [
@@ -12,19 +12,19 @@ const options = [
   { value: 'birthday', label: 'Birthday' },
   { value: 'barBatMitzvah', label: 'Mitzvah' },
   { value: 'other', label: 'Other' },
-]
+];
 
-const modelValue = defineModel<string>()
-const isOpen = ref(false)
+const modelValue = defineModel<string>();
+const isOpen = ref(false);
 
 const toggleDropdown = () => {
-  isOpen.value = !isOpen.value
-}
+  isOpen.value = !isOpen.value;
+};
 
 const selectOption = (option: Option) => {
-  modelValue.value = option.value
-  isOpen.value = false
-}
+  modelValue.value = option.value;
+  isOpen.value = false;
+};
 </script>
 
 <template>
@@ -37,9 +37,20 @@ const selectOption = (option: Option) => {
       class="focus:outline-none focus:ring-2 focus:ring-[var(--color6)] font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex justify-center items-center w-[160px] bg-[var(--black-soft)] text-[var(--white-soft)] shadow-sm cursor-pointer"
       type="button"
     >
-    {{ options.find(o => o.value === modelValue)?.label || 'Choose Event Type' }}
-      <svg class="w-2.5 h-2.5 ml-2 text-[var(--color6)]" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      {{ options.find((o) => o.value === modelValue)?.label || 'Choose Event Type' }}
+      <svg
+        class="w-2.5 h-2.5 ml-2 text-[var(--color6)]"
+        viewBox="0 0 10 6"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1L5 5L9 1"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     </button>
     <div
@@ -59,5 +70,4 @@ const selectOption = (option: Option) => {
     </div>
   </div>
 </template>
-<style scoped>
-</style>
+<style scoped></style>

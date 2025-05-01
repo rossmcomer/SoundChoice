@@ -107,5 +107,4 @@ const user = computed(() => userStore.user);
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -4,6 +4,7 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import { ref, computed, onMounted } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
 import { useAvailabilityStore } from '@/stores/AvailabilityStore';
+import BookingInstructionsCard from '@/components/BookingInstructionsCards.vue';
 import EventTypeDropdown from '@/components/EventTypeDropdown.vue';
 import EventTimeSelector from '@/components/EventTimeSelector.vue';
 
@@ -13,9 +14,9 @@ const availabilityStore = useAvailabilityStore();
 const user = computed(() => userStore.user);
 
 const date = ref<Date | null>(null);
-const eventType= ref<string>('');
-const startTime = ref<string>('00:00')
-const endTime = ref<string>('00:00')
+const eventType = ref<string>('');
+const startTime = ref<string>('00:00');
+const endTime = ref<string>('00:00');
 
 const today = new Date();
 
@@ -35,23 +36,7 @@ onMounted(() => {
         <h1 class="text-6xl">Booking</h1>
       </div>
       <div class="flex flex-col items-center p-4 sm:p-10">
-        <div
-          class="flex-1 sm:max-w-xl font-medium p-8 space-y-4 border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 min-h-[250px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
-        >
-          <div class="sm:text-2xl text-xl text-center font-bold pb-4">
-            Reserve your special date in 5 easy steps!
-          </div>
-          <div class="sm:text-lg"><b>Step 1:</b> Create an account and login.</div>
-          <div class="sm:text-lg"><b>Step 2:</b> Click "Book Now!"</div>
-          <div class="sm:text-lg">
-            <b>Step 3:</b> Choose your date, time, location, and event type.
-          </div>
-          <div class="sm:text-lg"><b>Step 4:</b> Add uplights and any additional time.</div>
-          <div class="sm:text-lg">
-            <b>Step 5:</b> Pay your deposit equal to 50% of the total cost.
-          </div>
-          <div class="sm:text-2xl text-xl text-center font-bold">Done!</div>
-        </div>
+        <BookingInstructionsCard />
         <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10">
           Pick A Day For Your Event!
         </div>
@@ -59,18 +44,18 @@ onMounted(() => {
           Date not available? Please contact us!
         </div>
         <div class="flex justify-center">
-        <VueDatePicker
-          v-model="date"
-          :min-date="today"
-          :disabled-dates="availabilityStore.unavailableDates.map((d) => new Date(d.date))"
-          inline
-          auto-apply
-          dark
-          :enable-time-picker="false"
-        ></VueDatePicker>
+          <VueDatePicker
+            v-model="date"
+            :min-date="today"
+            :disabled-dates="availabilityStore.unavailableDates.map((d) => new Date(d.date))"
+            inline
+            auto-apply
+            dark
+            :enable-time-picker="false"
+          ></VueDatePicker>
         </div>
 
-        <EventTypeDropdown v-model="eventType"/>
+        <EventTypeDropdown v-model="eventType" />
         <EventTimeSelector v-model:startTime="startTime" v-model:endTime="endTime" />
 
         <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">
@@ -162,7 +147,7 @@ onMounted(() => {
     </div> -->
 </template>
 <style>
-.dp__theme_dark{
+.dp__theme_dark {
   --dp-primary-color: #daa520;
   --dp-primary-text-color: var(--black-soft);
   --dp-background-color: var(--black-soft);
