@@ -8,6 +8,7 @@ import BookingInstructionsCard from '@/components/BookingInstructionsCards.vue';
 import EventTypeDropdown from '@/components/EventTypeDropdown.vue';
 import EventTimeSelector from '@/components/EventTimeSelector.vue';
 import UplightingSelector from '@/components/UplightingSelector.vue';
+import AdditionalHours from '@/components/AdditionalHours.vue';
 
 const userStore = useUserStore();
 const availabilityStore = useAvailabilityStore();
@@ -19,6 +20,8 @@ const eventType = ref<string>('');
 const startTime = ref<string>('00:00');
 const endTime = ref<string>('00:00');
 const uplights = ref<boolean>(false)
+const addHours = ref<boolean>(false)
+const additionalHours = ref<number>(1)
 
 const today = new Date();
 
@@ -60,6 +63,7 @@ onMounted(() => {
         <EventTypeDropdown v-model="eventType" />
         <EventTimeSelector v-model:startTime="startTime" v-model:endTime="endTime" />
         <UplightingSelector v-model="uplights" />
+        <AdditionalHours v-model:addHours="addHours" v-model:additionalHours="additionalHours" />
         
       </div>
     </div>
