@@ -16,7 +16,7 @@ function decrement() {
 <template>
   <div class="sm:max-w-sm w-[261px]">
     <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-5">
-      Would you like to add additional hours beyond the included 5?
+      Have you added additional hours beyond the included 5?
     </h3>
     <ul class="grid w-full gap-6 md:grid-cols-2">
       <li>

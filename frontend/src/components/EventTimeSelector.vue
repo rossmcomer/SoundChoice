@@ -70,9 +70,5 @@ const endTime = defineModel<string>('endTime');
       </div>
     </div>
   </form>
-  <h2 class="text-[var(--black-soft)] italic">
-    Important: Wedding pricing includes 5 hours by default! If you would like to add additional
-    hours, please specify as the final cost will reflect that.
-  </h2>
 </template>
 <style scoped></style>
