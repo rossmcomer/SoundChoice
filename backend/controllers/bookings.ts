@@ -9,7 +9,7 @@ router.post(
   tokenExtractor,
   async (req: Request, res: Response): Promise<Response> => {
     const userId = req.decodedToken?.userId;
-    const { eventDate, startTime, endTime, type, location } = req.body;
+    const { eventDate, startTime, endTime, type, location, totalAmount, addUplights, addedTime } = req.body;
 
     // Check for missing required fields
     if (!userId || !eventDate || !startTime || !endTime || !location) {
@@ -29,6 +29,9 @@ router.post(
           endTime: new Date(endTime),
           location,
           type,
+          totalAmount,
+          addUplights,
+          addedTime,
           paymentStatus: 'unpaid',
         },
       });

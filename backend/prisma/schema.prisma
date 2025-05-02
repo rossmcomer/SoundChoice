@@ -35,6 +35,8 @@ model Booking {
   endTime    DateTime
   location   String
   totalAmount Float
+  addUplights    Boolean
+  addedHours Int @default(0)
   type       EventType @default(wedding)
   paymentStatus PaymentStatus @default(unpaid)
   payment   Payment[]
