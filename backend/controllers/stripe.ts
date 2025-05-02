@@ -17,7 +17,7 @@ router.post(
   tokenExtractor,
   async (req: Request, res: Response) => {
     const userId = req.decodedToken?.userId;
-    const { products, eventDate, startTime, endTime, location, type } =
+    const { products, eventDate, startTime, endTime, location, type, addUplights, addedHours } =
       req.body;
 
     try {
@@ -57,6 +57,8 @@ router.post(
           endTime,
           location,
           type,
+          addUplights,
+          addedHours,
           paymentType: 'deposit',
         },
       });
@@ -158,6 +160,8 @@ router.post('/webhook', async (req: Request, res: Response) => {
       const startTime = session.metadata?.startTime;
       const endTime = session.metadata?.endTime;
       const location = session.metadata?.location;
+      const addUplights = session.metadata?.addUplights;
+      const addedHours = session.metadata?.addedHours;
       const transactionId = session.payment_intent as string;
       const sessionAmount = session.amount_total
         ? session.amount_total / 100
@@ -180,6 +184,8 @@ router.post('/webhook', async (req: Request, res: Response) => {
               endTime: new Date(endTime),
               location,
               totalAmount,
+              addUplights,
+              addedHours,
               type: paymentType,
               paymentStatus: 'depositReceived',
             },
