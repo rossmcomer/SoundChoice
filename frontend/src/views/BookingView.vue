@@ -75,10 +75,6 @@ const additionalHours = ref<number>(1);
 
         <EventTypeDropdown v-model="eventType" />
         <EventTimeSelector v-model:startTime="startTime" v-model:endTime="endTime" />
-        <h2 v-if="eventType === 'wedding'" class="text-[var(--black-soft)] italic">
-          Important: Wedding pricing includes 5 hours by default! If you would like to add
-          additional hours, please specify below. The cost is $150 for each added hour.
-        </h2>
         <UplightingSelector v-model="uplights" />
         <AdditionalHours
           v-if="eventType === 'wedding'"

@@ -22,6 +22,7 @@ onMounted(() => {
         </div>
         <div class="flex justify-center">
           <VueDatePicker
+            class="shadow-lg"
             v-model="date"
             :min-date="today"
             :disabled-dates="availabilityStore.unavailableDates.map((d) => new Date(d.date))"

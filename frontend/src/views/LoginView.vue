@@ -103,7 +103,7 @@ const handleSubmit = async () => {
             class="fixed inset-0 bg-[rgba(34,34,34,0.7)] flex items-center justify-center z-50"
             @click.self="showModal = false"
           >
-            <div class="bg-white rounded-lg p-6 w-full max-w-md relative">
+            <div class="relative bg-white rounded-lg p-6 w-full max-w-md border-[rgb(34,34,34)] border-2">
               <h1 class="text-center text-xl pt-4" style="color: var(--color6)">Create Account</h1>
               <form @submit.prevent="handleSubmit" class="px-2 pt-4">
                 <div class="relative z-50 mb-5 group">

@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
+import {
+  updateName,
+  updateEmail,
+  updatePhone,
+  updatePassword,
+} from '@/services/userService';
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
