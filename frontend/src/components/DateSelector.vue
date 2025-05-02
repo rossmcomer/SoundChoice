@@ -7,7 +7,7 @@ import { useAvailabilityStore } from '@/stores/AvailabilityStore';
 const availabilityStore = useAvailabilityStore();
 
 const today = new Date();
-const date = defineModel<string>('startTime');
+const date = defineModel<Date | null>();
 
 onMounted(() => {
   availabilityStore.fetchDates();

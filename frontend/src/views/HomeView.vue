@@ -34,7 +34,7 @@ const user = computed(() => userStore.user);
       <button
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"
-        class="focus:outline-none focus:ring-2 focus:ring-[var(--color6)] font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center bg-[var(--black-soft)] text-[var(--color6)] cursor-pointer"
+        class="focus:outline-none focus:ring-2 focus:ring-[var(--color6)] font-medium rounded-lg text-sm px-5 py-2.5 shadow-md text-center inline-flex items-center bg-[var(--black-soft)] text-[var(--color6)] cursor-pointer"
         type="button"
       >
         Get Started<svg
