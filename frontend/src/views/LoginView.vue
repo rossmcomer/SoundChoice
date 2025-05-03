@@ -111,9 +111,9 @@ const handleSignUpSubmit = async () => {
           Submit
         </button>
         <div class="text-sm text-gray-500 flex mt-4">
-          <div>(Don't have an account?&nbsp;</div>
+          <div>( Don't have an account?&nbsp;</div>
           <a class="cursor-pointer text-blue-800 text-md font-medium hover:scale-105" @click="showModal = true">Sign up!</a>
-          <div>)</div>
+          <div>&nbsp)</div>
 
           <div
             v-if="showModal"

@@ -1,44 +1,55 @@
 <script setup lang="ts">
-// import { ref, computed, onMounted } from 'vue';
-// import type { User, Booking, Payment } from '@/types';
-// import { useUserStore } from '@/stores/UserStore';
-// import { updateName, updateEmail, updatePhone, updatePassword } from '@/services/userService';
-// import weddingQuestions from '@/assets/wedding-questionnaire.json';
-// import nonWeddingQuestions from '@/assets/non-wedding-questionnaire.json';
-// import questionnaireService from '@/services/questionnaireService';
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import type { User, Booking, Payment } from '@/types';
+import { useUserStore } from '@/stores/UserStore';
+import { updateName, updateEmail, updatePhone, updatePassword } from '@/services/userService';
+import weddingQuestions from '@/assets/wedding-questionnaire.json';
+import nonWeddingQuestions from '@/assets/non-wedding-questionnaire.json';
+import questionnaireService from '@/services/questionnaireService';
 
-// interface AnswerMap {
-//   [bookingId: string]: {
-//     [question: string]: string;
-//   };
-// }
+const router = useRouter();
 
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
 
-// const answers = ref<AnswerMap>({});
+interface AnswerMap {
+  [bookingId: string]: {
+    [question: string]: string;
+  };
+}
 
+const answers = ref<AnswerMap>({});
 
-// function getQuestions(type: string): string[] {
-//   return type === 'wedding' ? weddingQuestions : nonWeddingQuestions;
-// }
+function getQuestions(type: string): string[] {
+  return type === 'wedding' ? weddingQuestions : nonWeddingQuestions;
+}
 
-// async function submitQuestionnaire(bookingId: string) {
-//   const data = answers.value[bookingId];
-//   if (!data) return;
-//   try {
-//     await questionnaireService.saveAnswers({ bookingId, answers: data });
-//     alert('Answers saved successfully!');
-//   } catch (error) {
-//     console.error('Failed to save answers:', error);
-//     alert('Failed to save answers. Please try again.');
-//   }
-// }
+async function submitQuestionnaire(bookingId: string) {
+  const data = answers.value[bookingId];
+  if (!data) return;
+  try {
+    await questionnaireService.saveAnswers({ bookingId, answers: data });
+    alert('Answers saved successfully!');
+  } catch (error) {
+    console.error('Failed to save answers:', error);
+    alert('Failed to save answers. Please try again.');
+  }
+}
 
-// const userStore = useUserStore();
-// const user = computed(() => userStore.user);
+const handleLogout = async () => {
+  try {
+    await userStore.logoutUser();
+    router.push('/login-sign-up'); 
+  } catch (err) {
+    console.error('Logout failed:', err);
+    alert('Failed to log out');
+  }
+};
 
 </script>
 <template>
-  <!-- <div class="relative h-full">
+  <div class="relative h-full">
     <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
       <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
       Your browser does not support the video tag.
@@ -55,6 +66,7 @@
             <p class="font-medium">Email:</p>
             <p class="font-medium">Phone:</p>
           </div>
+          <button @click="handleLogout" class="bg-[var(--black-soft)] cursor-pointer">Logout</button>
           <form class="max-w-sm mx-auto">
             <div class="mb-5">
               <label
@@ -220,6 +232,6 @@
         </button>
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
 <style></style>
