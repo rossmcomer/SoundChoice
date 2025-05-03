@@ -26,15 +26,15 @@ function getQuestions(type: string): string[] {
 }
 
 async function submitQuestionnaire(bookingId: string) {
-  const data = answers.value[bookingId];
-  if (!data) return;
-  try {
-    await questionnaireService.saveAnswers({ bookingId, answers: data });
-    alert('Answers saved successfully!');
-  } catch (error) {
-    console.error('Failed to save answers:', error);
-    alert('Failed to save answers. Please try again.');
-  }
+  // const data = answers.value[bookingId];
+  // if (!data) return;
+  // try {
+  //   await questionnaireService.saveAnswers({ bookingId, answers: data });
+  //   alert('Answers saved successfully!');
+  // } catch (error) {
+  //   console.error('Failed to save answers:', error);
+  //   alert('Failed to save answers. Please try again.');
+  // }
 }
 
 const handleLogout = async () => {
@@ -62,11 +62,11 @@ const handleLogout = async () => {
         <div class="sm:max-w-4/5 sm:w-2xl w-full px-4">
     
           <div class="text-[var(--black-soft)]">
-            <p class="font-medium">Name:</p>
-            <p class="font-medium">Email:</p>
-            <p class="font-medium">Phone:</p>
+            <p><b>Name:</b> {{ user.name }}</p>
+            <p><b>Email:</b> {{ user.email }}</p>
+            <p><b>Phone:</b> {{ user.phone }}</p>
           </div>
-          <button @click="handleLogout" class="bg-[var(--black-soft)] cursor-pointer">Logout</button>
+          <button @click="handleLogout" class="bg-[var(--black-soft)] text-[var(--color6)] hover:bg-[var(--color6)] hover:text-[var(--black-soft)] hover:shadow-md flex justify-center items-center w-4/5 sm:w-auto focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-2 py-1 text-center sm:text-sm sm:px-4 sm:py-2 cursor-pointer transition-[var(--transition-default)]">Logout</button>
           <form class="max-w-sm mx-auto">
             <div class="mb-5">
               <label
@@ -105,6 +105,9 @@ const handleLogout = async () => {
               />
             </div>
           </form>
+          <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-10">
+          Bookings
+        </div>
           <div id="accordion-nested-parent" data-accordion="collapse">
             <div v-for="(booking, index) in user.bookings" :key="index">
               
@@ -206,7 +209,7 @@ const handleLogout = async () => {
       </div>
       <div v-else class="flex flex-col place-items-center justify-center my-8">
         <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-10">
-          Please login to view your profile.
+          Please sign in to view your profile.
         </div>
         <button
           type="button"

@@ -12,7 +12,7 @@ export const createAccount = async (userData: {
   const response = await axios.post(`${baseUrl}/create-account`, userData);
   return response.data;
 };
-
+// Pull user info
 export const getUserData = async () => {
   const response = await axios.get(baseUrl, {
     withCredentials: true,

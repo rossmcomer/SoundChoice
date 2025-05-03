@@ -32,9 +32,14 @@ export const useUserStore = defineStore('UserStore', () => {
     }
   };
 
-  const setUser = (dummyUser: User) => {
-    user.value = dummyUser;
-  };
+  const fetchUser = async () => {
+    try {
+      const response = await userService.getUserData()
+      user.value = response
+    } catch (err) {
+      console.error('Error fetching user data', err);
+    }
+  }
 
-  return { user, loginUser, logoutUser, setUser };
+  return { user, loginUser, logoutUser, fetchUser };
 });
