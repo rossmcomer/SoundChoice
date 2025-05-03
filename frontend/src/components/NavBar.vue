@@ -67,6 +67,7 @@ const user = computed(() => userStore.user);
           <li>
             <router-link
               to="/"
+              @click="toggleMenu"
               class="block py-2 px-3 text-white rounded-sm nav-link-md"
               aria-current="page"
             >
@@ -74,26 +75,26 @@ const user = computed(() => userStore.user);
             </router-link>
           </li>
           <li>
-            <router-link to="/about" class="block py-2 px-3 nav-link-md"> About </router-link>
+            <router-link to="/about" @click="toggleMenu" class="block py-2 px-3 nav-link-md"> About </router-link>
           </li>
           <li>
-            <router-link to="/testimonials" class="block py-2 px-3 nav-link-md">
+            <router-link to="/testimonials" @click="toggleMenu" class="block py-2 px-3 nav-link-md">
               Testimonials
             </router-link>
           </li>
           <li>
-            <router-link to="/media" class="block py-2 px-3 nav-link-md"> Media </router-link>
+            <router-link to="/media" @click="toggleMenu" class="block py-2 px-3 nav-link-md"> Media </router-link>
           </li>
           <li>
-            <router-link to="/pricing" class="block py-2 px-3 nav-link-md"> Pricing </router-link>
+            <router-link to="/pricing" @click="toggleMenu" class="block py-2 px-3 nav-link-md"> Pricing </router-link>
           </li>
           <li v-if="!user">
-            <router-link to="/login-sign-up" class="block py-2 px-3 nav-link-md">
+            <router-link to="/login-sign-up" @click="toggleMenu" class="block py-2 px-3 nav-link-md">
               Login / Signup
             </router-link>
           </li>
           <li v-else>
-            <router-link to="/profile" class="block py-2 px-3 nav-link-md">
+            <router-link to="/profile" @click="toggleMenu" class="block py-2 px-3 nav-link-md">
               Profile
             </router-link>
           </li>
