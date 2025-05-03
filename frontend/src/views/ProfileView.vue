@@ -60,13 +60,16 @@ const handleLogout = async () => {
       </div>
       <div v-if="user" class="flex flex-col items-center my-8">
         <div class="sm:max-w-4/5 sm:w-2xl w-full px-4">
-    
-          <div class="text-[var(--black-soft)]">
-            <p><b>Name:</b> {{ user.name }}</p>
-            <p><b>Email:</b> {{ user.email }}</p>
-            <p><b>Phone:</b> {{ user.phone }}</p>
+          <div class="flex justify-between">
+            <div class="text-[var(--black-soft)]">
+              <p><b>Name:</b> {{ user.name }}</p>
+              <p><b>Email:</b> {{ user.email }}</p>
+              <p><b>Phone:</b> {{ user.phone }}</p>
+            </div>
+            <div class="flex items-center">
+              <button @click="handleLogout" class="bg-[var(--black-soft)] text-[var(--color6)] hover:bg-[var(--color6)] hover:text-[var(--black-soft)] hover:shadow-md flex justify-center items-center w-auto focus:ring-4 focus:outline-none font-medium rounded-lg text-sm text-center px-4 py-2 cursor-pointer transition-[var(--transition-default)] h-min">Logout</button>
+            </div>
           </div>
-          <button @click="handleLogout" class="bg-[var(--black-soft)] text-[var(--color6)] hover:bg-[var(--color6)] hover:text-[var(--black-soft)] hover:shadow-md flex justify-center items-center w-4/5 sm:w-auto focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-2 py-1 text-center sm:text-sm sm:px-4 sm:py-2 cursor-pointer transition-[var(--transition-default)]">Logout</button>
           <form class="max-w-sm mx-auto">
             <div class="mb-5">
               <label
