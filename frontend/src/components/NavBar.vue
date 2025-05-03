@@ -3,6 +3,9 @@ import { ref, computed } from 'vue';
 import SCLogoPhones from '@/assets/SoundChoice-Logo/SC-Logo-Small.png';
 import SCLogoText from '@/assets/SoundChoice-Logo/SC-Logo-Text-Only.png';
 import { useUserStore } from '@/stores/UserStore';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const isOpen = ref(false);
 const toggleMenu = () => {
@@ -11,6 +14,16 @@ const toggleMenu = () => {
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
+
+const handleLogout = async () => {
+  try {
+    await userStore.logoutUser();
+    router.push('/login-sign-up'); 
+  } catch (err) {
+    console.error('Logout failed:', err);
+    alert('Failed to log out');
+  }
+};
 </script>
 
 <template>
@@ -92,7 +105,9 @@ const user = computed(() => userStore.user);
             </router-link>
           </li>
           <li v-else>
-            <router-link to="/logout" class="block py-2 px-3 nav-link-md"> Logout </router-link>
+            <button @click="handleLogout" class="block py-2 px-3 nav-link-md cursor-pointer">
+              Logout
+            </button>
           </li>
         </ul>
       </div>

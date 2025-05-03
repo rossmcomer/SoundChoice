@@ -6,7 +6,9 @@ const endTime = defineModel<string>('endTime');
 <template>
   <form class="max-w-[16rem] mx-auto grid grid-cols-2 gap-4">
     <div>
-      <label for="start-time" class="block mb-2 text-md font-medium text-[var(--black-soft)] text-center"
+      <label
+        for="start-time"
+        class="block mb-2 text-md font-medium text-[var(--black-soft)] text-center"
         >Start time:</label
       >
       <div class="relative shadow-md">
@@ -38,7 +40,9 @@ const endTime = defineModel<string>('endTime');
       </div>
     </div>
     <div>
-      <label for="end-time" class="block mb-2 text-md font-medium text-[var(--black-soft)] text-center"
+      <label
+        for="end-time"
+        class="block mb-2 text-md font-medium text-[var(--black-soft)] text-center"
         >End time:</label
       >
       <div class="relative shadow-md">
@@ -71,5 +75,4 @@ const endTime = defineModel<string>('endTime');
     </div>
   </form>
 </template>
-<style scoped>
-</style>
+<style scoped></style>

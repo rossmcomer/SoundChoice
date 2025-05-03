@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
-import {
-  createAccount,
-  updateName,
-  updateEmail,
-  updatePhone,
-  updatePassword,
-} from '@/services/userService';
+import { createAccount } from '@/services/userService';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
+const loginForm = ref({
+  email: '',
+  password: ''
+});
+
 const showModal = ref(false);
-const form = ref({
+const signUpForm = ref({
   email: '',
   password: '',
   confirmPassword: '',
@@ -21,18 +23,31 @@ const form = ref({
   phone: '',
 });
 
-const handleSubmit = async () => {
-  if (form.value.password !== form.value.confirmPassword) {
+const handleLogin = async () => {
+  try {
+    await userStore.loginUser({
+      email: loginForm.value.email,
+      password: loginForm.value.password
+    });
+    router.push('/'); 
+  } catch (err) {
+    console.error(err);
+    alert('Failed to login');
+  }
+};
+
+const handleSignUpSubmit = async () => {
+  if (signUpForm.value.password !== signUpForm.value.confirmPassword) {
     alert('Passwords do not match');
     return;
   }
 
   try {
     await createAccount({
-      email: form.value.email,
-      password: form.value.password,
-      name: form.value.name,
-      phone: form.value.phone,
+      email: signUpForm.value.email,
+      password: signUpForm.value.password,
+      name: signUpForm.value.name,
+      phone: signUpForm.value.phone,
     });
     showModal.value = false;
   } catch (err) {
@@ -56,9 +71,10 @@ const handleSubmit = async () => {
         <h1 class="text-6xl">Signup</h1>
       </div>
 
-      <form class="max-w-sm mx-auto px-2 pt-4 sm:py-10">
+      <form @submit.prevent="handleLogin" class="max-w-sm mx-auto px-2 pt-4 sm:py-10">
         <div class="relative w-full mb-5 group">
           <input
+            v-model="loginForm.email"
             type="email"
             name="floating_email"
             id="floating_email"
@@ -74,6 +90,7 @@ const handleSubmit = async () => {
         </div>
         <div class="relative z-0 w-full mb-5 group">
           <input
+            v-model="loginForm.password"
             type="password"
             name="floating_password"
             id="floating_password"
@@ -95,7 +112,7 @@ const handleSubmit = async () => {
         </button>
         <div class="text-sm text-gray-500 flex mt-4">
           <div>(Don't have an account?&nbsp;</div>
-          <a class="cursor-pointer text-blue-800 text-md" @click="showModal = true">Sign up!</a>
+          <a class="cursor-pointer text-blue-800 text-md font-medium hover:scale-105" @click="showModal = true">Sign up!</a>
           <div>)</div>
 
           <div
@@ -103,12 +120,14 @@ const handleSubmit = async () => {
             class="fixed inset-0 bg-[rgba(34,34,34,0.7)] flex items-center justify-center z-50"
             @click.self="showModal = false"
           >
-            <div class="relative bg-white rounded-lg p-6 w-full max-w-md border-[rgb(34,34,34)] border-2">
+            <div
+              class="relative bg-white rounded-lg p-6 w-full max-w-md border-[rgb(34,34,34)] border-2"
+            >
               <h1 class="text-center text-xl pt-4" style="color: var(--color6)">Create Account</h1>
-              <form @submit.prevent="handleSubmit" class="px-2 pt-4">
+              <form @submit.prevent="handleSignUpSubmit" class="px-2 pt-4">
                 <div class="relative z-50 mb-5 group">
                   <input
-                    v-model="form.email"
+                    v-model="signUpForm.email"
                     type="email"
                     id="email"
                     required
@@ -123,7 +142,7 @@ const handleSubmit = async () => {
                 </div>
                 <div class="relative z-50 mb-5 group">
                   <input
-                    v-model="form.password"
+                    v-model="signUpForm.password"
                     type="password"
                     id="password"
                     required
@@ -139,7 +158,7 @@ const handleSubmit = async () => {
 
                 <div class="relative z-50 mb-5 group">
                   <input
-                    v-model="form.confirmPassword"
+                    v-model="signUpForm.confirmPassword"
                     type="password"
                     id="confirmPassword"
                     required
@@ -154,7 +173,7 @@ const handleSubmit = async () => {
                 </div>
                 <div class="relative z-50 mb-5 group">
                   <input
-                    v-model="form.name"
+                    v-model="signUpForm.name"
                     type="text"
                     id="name"
                     required
@@ -169,7 +188,7 @@ const handleSubmit = async () => {
                 </div>
                 <div class="relative z-50 mb-5 group">
                   <input
-                    v-model="form.phone"
+                    v-model="signUpForm.phone"
                     type="tel"
                     id="phone"
                     required

@@ -69,9 +69,9 @@ const selectOption = (option: Option) => {
       </ul>
     </div>
     <h2 v-if="eventType === 'wedding'" class="text-[var(--black-soft)] italic w-[261px] mt-4">
-          Important: Wedding pricing includes 5 hours by default! If you would like to add
-          additional hours, please specify below. The cost is $150 for each added hour.
-        </h2>
+      <b>Important:</b> Wedding pricing includes 5 hours by default! If you would like to add
+      additional hours, please specify below. The cost is $150 for each added hour.
+    </h2>
   </div>
 </template>
 <style scoped></style>

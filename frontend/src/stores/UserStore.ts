@@ -11,9 +11,9 @@ export const useUserStore = defineStore('UserStore', () => {
   const router = useRouter();
   const user = ref<User | null>(null);
 
-  const loginUser = async (email: string, password: string) => {
+  const loginUser = async ({ email, password }: { email: string; password: string }) => {
     try {
-      await loginService.login(email, password);
+      await loginService.login({email, password});
       const data = await userService.getUserData();
       user.value = data;
     } catch (err) {
@@ -32,5 +32,9 @@ export const useUserStore = defineStore('UserStore', () => {
     }
   };
 
-  return { user, loginUser, logoutUser };
+  const setUser = (dummyUser: User) => {
+    user.value = dummyUser;
+  };
+
+  return { user, loginUser, logoutUser, setUser };
 });

@@ -24,10 +24,10 @@ export interface Booking {
 
 export interface Payment {
   id: string;
+  bookingId: string;
   amount: number;
   deposit: boolean;
   method: PaymentMethod;
-  transactionId: string;
 }
 
 export interface Questionnaire {

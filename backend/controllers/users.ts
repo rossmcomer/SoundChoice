@@ -9,7 +9,7 @@ const { tokenExtractor } = require('../util/middleware');
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 // Phone regex to validate format
-const e164Regex = /^\+?[1-9]\d{1,14}$/;
+const phonePatternRegex = /^\d{3}-\d{3}-\d{4}$/;
 
 // Create new user account
 router.post(
@@ -22,7 +22,7 @@ router.post(
         return res.status(400).json({ error: 'Invalid email address' });
       }
 
-      if (!phone || !e164Regex.test(phone)) {
+      if (!phone || !phonePatternRegex.test(phone)) {
         return res
           .status(400)
           .json({ error: 'Invalid or missing phone number.' });
@@ -51,7 +51,7 @@ router.post(
           password: hashedPassword,
         },
       });
-
+      console.log('New user successfully created')
       return res.status(201).json(newUser);
     } catch (error) {
       return res.status(500).json({ error: 'Failed to create user' });
@@ -169,7 +169,7 @@ router.patch(
     const userId = req.decodedToken?.userId;
     const { phone } = req.body;
 
-    if (!phone || !e164Regex.test(phone)) {
+    if (!phone || !phonePatternRegex.test(phone)) {
       return res
         .status(400)
         .json({ error: 'Invalid or missing phone number.' });
