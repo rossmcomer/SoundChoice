@@ -74,13 +74,13 @@ const additionalHours = ref<number>(1);
         <BookingInstructionsCard />
         <DateSelector v-model="date" />
         <EventTypeDropdown v-model:eventType="eventType" />
-        <EventTimeSelector v-model:startTime="startTime" v-model:endTime="endTime" />
-        <UplightingSelector v-model="uplights" />
+        <EventTimeSelector v-model:startTime="startTime" />
         <AdditionalHours
           v-if="eventType === 'wedding'"
           v-model:addHours="addHours"
           v-model:additionalHours="additionalHours"
         />
+        <UplightingSelector v-model:uplights="uplights" />
       </div>
     </div>
   </div>
