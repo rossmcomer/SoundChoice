@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, watch } from 'vue';
 import type { EventType } from '@/types';
 import { useUserStore } from '@/stores/UserStore';
 import BookingInstructionsCard from '@/components/BookingInstructionsCards.vue';
@@ -20,6 +20,35 @@ const endTime = ref<string>('00:00');
 const uplights = ref<boolean>(false);
 const addHours = ref<boolean>(false);
 const additionalHours = ref<number>(1);
+
+function parseTime(timeStr: string): Date {
+  const [hours, minutes] = timeStr.split(':').map(Number);
+  const now = new Date();
+  now.setHours(hours, minutes, 0, 0);
+  return now;
+}
+
+function formatTime(date: Date): string {
+  return date.toTimeString().slice(0, 5); // 'HH:mm'
+}
+
+watch([startTime, eventType, addHours, additionalHours], () => {
+  const start = parseTime(startTime.value);
+  let totalHours = 0;
+
+  if (eventType.value === 'wedding') {
+    totalHours = 5;
+    if (addHours.value) {
+      totalHours += additionalHours.value;
+    }
+  } else {
+    totalHours = additionalHours.value ?? 0;
+  }
+
+  const newEnd = new Date(start);
+  newEnd.setHours(start.getHours() + totalHours);
+  endTime.value = formatTime(newEnd);
+});
 </script>
 
 <template>
@@ -81,6 +110,7 @@ const additionalHours = ref<number>(1);
           v-model:addHours="addHours"
           v-model:additionalHours="additionalHours"
         />
+        <div class="text-[var(--black-soft)]">End Time: {{ endTime }}</div>
         <UplightingSelector v-model:uplights="uplights" />
       </div>
     </div>

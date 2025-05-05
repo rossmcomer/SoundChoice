@@ -40,13 +40,12 @@ async function submitQuestionnaire(bookingId: string) {
 const handleLogout = async () => {
   try {
     await userStore.logoutUser();
-    router.push('/login-sign-up'); 
+    router.push('/login-sign-up');
   } catch (err) {
     console.error('Logout failed:', err);
     alert('Failed to log out');
   }
 };
-
 </script>
 <template>
   <div class="relative h-full">
@@ -67,7 +66,12 @@ const handleLogout = async () => {
               <p><b>Phone:</b> {{ user.phone }}</p>
             </div>
             <div class="flex items-center">
-              <button @click="handleLogout" class="bg-[var(--black-soft)] text-[var(--color6)] hover:bg-[var(--color6)] hover:text-[var(--black-soft)] hover:shadow-md flex justify-center items-center w-auto focus:ring-4 focus:outline-none font-medium rounded-lg text-sm text-center px-4 py-2 cursor-pointer transition-[var(--transition-default)] h-min">Logout</button>
+              <button
+                @click="handleLogout"
+                class="bg-[var(--black-soft)] text-[var(--color6)] hover:bg-[var(--color6)] hover:text-[var(--black-soft)] hover:shadow-md flex justify-center items-center w-auto focus:ring-4 focus:outline-none font-medium rounded-lg text-sm text-center px-4 py-2 cursor-pointer transition-[var(--transition-default)] h-min"
+              >
+                Logout
+              </button>
             </div>
           </div>
           <form class="max-w-sm mx-auto">
@@ -109,11 +113,10 @@ const handleLogout = async () => {
             </div>
           </form>
           <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-10">
-          Bookings
-        </div>
+            Bookings
+          </div>
           <div id="accordion-nested-parent" data-accordion="collapse">
             <div v-for="(booking, index) in user.bookings" :key="index">
-              
               <h2 :id="`accordion-heading-${index}`">
                 <button
                   class="...accordion classes..."
@@ -131,16 +134,13 @@ const handleLogout = async () => {
                 :aria-labelledby="`accordion-heading-${index}`"
               >
                 <div class="p-5 border ...">
-                  
                   <p>Start Time: {{ booking.startTime }}</p>
                   <p>End Time: {{ booking.endTime }}</p>
                   <p>Total Amount: ${{ booking.totalAmount }}</p>
                   <p>Type: {{ booking.type }}</p>
                   <p>Payment Status: {{ booking.paymentStatus }}</p>
 
-                  
                   <div id="accordion-nested-collapse" data-accordion="collapse">
-                    
                     <h2 :id="`nested-payment-heading-${index}`">
                       <button
                         class="...accordion classes..."
@@ -166,7 +166,6 @@ const handleLogout = async () => {
                       </div>
                     </div>
 
-                    
                     <h2 :id="`nested-question-heading-${index}`">
                       <button
                         class="...accordion classes..."

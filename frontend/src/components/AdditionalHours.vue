@@ -2,16 +2,22 @@
 import type { EventType } from '@/types';
 import HourStepper from './HourStepper.vue';
 
-const eventType = defineModel<EventType |''>('eventType');
+const eventType = defineModel<EventType | ''>('eventType');
 const addHours = defineModel<boolean>('addHours');
 const additionalHours = defineModel<number>('additionalHours');
-
 </script>
 
 <template>
   <div v-if="eventType === 'wedding'" class="sm:max-w-sm w-[261px]">
+    <h2 class="text-xl text-[var(--black-soft)] italic w-[261px] mt-4">
+      <b>Important:</b>
+    </h2>
+    <h2 class="text-[var(--black-soft)] italic w-[261px] mt-4">
+      Wedding pricing includes <b>5 hours</b> by default! If you would like to add
+      additional hours, please specify below. The cost is $150 for each added hour.
+    </h2>
     <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-5">
-      Have you added additional hours beyond the included 5?
+      Additional Hours
     </h3>
     <ul class="grid w-full gap-6 md:grid-cols-2">
       <li>
@@ -81,11 +87,8 @@ const additionalHours = defineModel<number>('additionalHours');
     </ul>
     <HourStepper v-if="addHours" v-model:additionalHours="additionalHours" />
   </div>
-    <div v-else class="sm:max-w-sm w-[261px]">
-      <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-5">
-        Total Hours
-      </h3>
-      <HourStepper v-model:additionalHours="additionalHours" />
-    </div>
-
+  <div v-else class="sm:max-w-sm w-[261px]">
+    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-5">Total Hours</h3>
+    <HourStepper v-model:additionalHours="additionalHours" />
+  </div>
 </template>

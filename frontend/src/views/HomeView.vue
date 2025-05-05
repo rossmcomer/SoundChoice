@@ -14,7 +14,7 @@ const user = computed(() => userStore.user);
 
 <template>
   <div class="relative h-full overflow-hidden">
-    <BackgroundVideo/>
+    <BackgroundVideo />
     <div
       class="h-full flex flex-col place-items-center justify-start pt-[25vh] md:justify-center md:pt-0 relative z-10"
     >

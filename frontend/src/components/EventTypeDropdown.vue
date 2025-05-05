@@ -15,7 +15,7 @@ const options: Option[] = [
   { value: 'other', label: 'Other' },
 ];
 
-const eventType = defineModel<EventType |''>('eventType');
+const eventType = defineModel<EventType | ''>('eventType');
 const isOpen = ref(false);
 
 const toggleDropdown = () => {
@@ -69,10 +69,6 @@ const selectOption = (option: Option) => {
         </li>
       </ul>
     </div>
-    <h2 v-if="eventType === 'wedding'" class="text-[var(--black-soft)] italic w-[261px] mt-4">
-      <b>Important:</b> Wedding pricing includes 5 hours by default! If you would like to add
-      additional hours, please specify below. The cost is $150 for each added hour.
-    </h2>
   </div>
 </template>
 <style scoped></style>

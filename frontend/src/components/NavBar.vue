@@ -11,7 +11,6 @@ const toggleMenu = () => {
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
-
 </script>
 
 <template>
@@ -75,7 +74,9 @@ const user = computed(() => userStore.user);
             </router-link>
           </li>
           <li>
-            <router-link to="/about" @click="toggleMenu" class="block py-2 px-3 nav-link-md"> About </router-link>
+            <router-link to="/about" @click="toggleMenu" class="block py-2 px-3 nav-link-md">
+              About
+            </router-link>
           </li>
           <li>
             <router-link to="/testimonials" @click="toggleMenu" class="block py-2 px-3 nav-link-md">
@@ -83,13 +84,21 @@ const user = computed(() => userStore.user);
             </router-link>
           </li>
           <li>
-            <router-link to="/media" @click="toggleMenu" class="block py-2 px-3 nav-link-md"> Media </router-link>
+            <router-link to="/media" @click="toggleMenu" class="block py-2 px-3 nav-link-md">
+              Media
+            </router-link>
           </li>
           <li>
-            <router-link to="/pricing" @click="toggleMenu" class="block py-2 px-3 nav-link-md"> Pricing </router-link>
+            <router-link to="/pricing" @click="toggleMenu" class="block py-2 px-3 nav-link-md">
+              Pricing
+            </router-link>
           </li>
           <li v-if="!user">
-            <router-link to="/login-sign-up" @click="toggleMenu" class="block py-2 px-3 nav-link-md">
+            <router-link
+              to="/login-sign-up"
+              @click="toggleMenu"
+              class="block py-2 px-3 nav-link-md"
+            >
               Login / Signup
             </router-link>
           </li>

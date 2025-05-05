@@ -3,7 +3,7 @@ const startTime = defineModel<string>('startTime');
 </script>
 
 <template>
-  <form class="max-w-[16rem] mx-auto grid grid-cols-2 gap-4">
+  <form class="max-w-[16rem] mx-auto">
     <div>
       <label
         for="start-time"

@@ -11,7 +11,7 @@ const user = computed(() => userStore.user);
 
 const loginForm = ref({
   email: '',
-  password: ''
+  password: '',
 });
 
 const showModal = ref(false);
@@ -27,9 +27,9 @@ const handleLogin = async () => {
   try {
     await userStore.loginUser({
       email: loginForm.value.email,
-      password: loginForm.value.password
+      password: loginForm.value.password,
     });
-    router.push('/'); 
+    router.push('/');
   } catch (err) {
     console.error(err);
     alert('Failed to login');
@@ -112,7 +112,11 @@ const handleSignUpSubmit = async () => {
         </button>
         <div class="text-sm text-gray-500 flex mt-4">
           <div>( Don't have an account?&nbsp;</div>
-          <a class="cursor-pointer text-blue-800 text-md font-medium hover:scale-105" @click="showModal = true">Sign up!</a>
+          <a
+            class="cursor-pointer text-blue-800 text-md font-medium hover:scale-105"
+            @click="showModal = true"
+            >Sign up!</a
+          >
           <div>&nbsp)</div>
 
           <div

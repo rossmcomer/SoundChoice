@@ -13,7 +13,7 @@ export const useUserStore = defineStore('UserStore', () => {
 
   const loginUser = async ({ email, password }: { email: string; password: string }) => {
     try {
-      await loginService.login({email, password});
+      await loginService.login({ email, password });
       const data = await userService.getUserData();
       user.value = data;
     } catch (err) {
@@ -34,12 +34,12 @@ export const useUserStore = defineStore('UserStore', () => {
 
   const fetchUser = async () => {
     try {
-      const response = await userService.getUserData()
-      user.value = response
+      const response = await userService.getUserData();
+      user.value = response;
     } catch (err) {
       console.error('Error fetching user data', err);
     }
-  }
+  };
 
   return { user, loginUser, logoutUser, fetchUser };
 });
