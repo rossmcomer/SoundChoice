@@ -2,7 +2,7 @@
 import { onMounted, ref, computed } from 'vue';
 import { initFlowbite } from 'flowbite';
 import { useUserStore } from '@/stores/UserStore';
-import bgVideo from '@/components/bgVideo.vue';
+import BackgroundVideo from '@/components/BackgroundVideo.vue';
 
 onMounted(() => {
   initFlowbite();
@@ -14,7 +14,7 @@ const user = computed(() => userStore.user);
 
 <template>
   <div class="relative h-full overflow-hidden">
-    <bgVideo/>
+    <BackgroundVideo/>
     <div
       class="h-full flex flex-col place-items-center justify-start pt-[25vh] md:justify-center md:pt-0 relative z-10"
     >
