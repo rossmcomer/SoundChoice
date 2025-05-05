@@ -1,22 +1,15 @@
 <script setup lang="ts">
+import type { EventType } from '@/types';
 import HourStepper from './HourStepper.vue';
 
+const eventType = defineModel<EventType |''>('eventType');
 const addHours = defineModel<boolean>('addHours');
 const additionalHours = defineModel<number>('additionalHours');
 
-function increment() {
-  additionalHours.value = (additionalHours.value ?? 1) + 1;
-}
-
-function decrement() {
-  if ((additionalHours.value ?? 1) > 1) {
-    additionalHours.value!--;
-  }
-}
 </script>
 
 <template>
-  <div class="sm:max-w-sm w-[261px]">
+  <div v-if="eventType === 'wedding'" class="sm:max-w-sm w-[261px]">
     <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-5">
       Have you added additional hours beyond the included 5?
     </h3>
@@ -88,4 +81,11 @@ function decrement() {
     </ul>
     <HourStepper v-if="addHours" v-model:additionalHours="additionalHours" />
   </div>
+    <div v-else class="sm:max-w-sm w-[261px]">
+      <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-5">
+        Total Hours
+      </h3>
+      <HourStepper v-model:additionalHours="additionalHours" />
+    </div>
+
 </template>

@@ -76,7 +76,8 @@ const additionalHours = ref<number>(1);
         <EventTypeDropdown v-model:eventType="eventType" />
         <EventTimeSelector v-model:startTime="startTime" />
         <AdditionalHours
-          v-if="eventType === 'wedding'"
+          v-if="eventType !== ''"
+          v-model:eventType="eventType"
           v-model:addHours="addHours"
           v-model:additionalHours="additionalHours"
         />
