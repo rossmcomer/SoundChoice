@@ -73,7 +73,7 @@ const additionalHours = ref<number>(1);
       <div class="flex flex-col items-center p-4 sm:p-10">
         <BookingInstructionsCard />
         <DateSelector v-model="date" />
-        <EventTypeDropdown v-model="eventType" />
+        <EventTypeDropdown v-model:eventType="eventType" />
         <EventTimeSelector v-model:startTime="startTime" v-model:endTime="endTime" />
         <UplightingSelector v-model="uplights" />
         <AdditionalHours

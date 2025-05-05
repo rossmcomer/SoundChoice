@@ -15,7 +15,7 @@ const options: Option[] = [
   { value: 'other', label: 'Other' },
 ];
 
-const modelValue = defineModel<EventType |''>();
+const eventType = defineModel<EventType |''>('eventType');
 const isOpen = ref(false);
 
 const toggleDropdown = () => {
@@ -23,7 +23,7 @@ const toggleDropdown = () => {
 };
 
 const selectOption = (option: Option) => {
-  modelValue.value = option.value;
+  eventType.value = option.value;
   isOpen.value = false;
 };
 </script>
@@ -38,7 +38,7 @@ const selectOption = (option: Option) => {
       class="focus:outline-none focus:ring-2 focus:ring-[var(--color6)] font-medium rounded-lg text-sm px-2 py-2.5 mt-4 text-center inline-flex justify-center items-center w-[160px] bg-[var(--black-soft)] text-[var(--white-soft)] shadow-md cursor-pointer"
       type="button"
     >
-      {{ options.find((o) => o.value === modelValue)?.label || 'Choose Event Type' }}
+      {{ options.find((o) => o.value === eventType)?.label || 'Choose Event Type' }}
       <svg
         class="w-2.5 h-2.5 ml-2 text-[var(--color6)]"
         viewBox="0 0 10 6"
@@ -69,7 +69,7 @@ const selectOption = (option: Option) => {
         </li>
       </ul>
     </div>
-    <h2 v-if="modelValue === 'wedding'" class="text-[var(--black-soft)] italic w-[261px] mt-4">
+    <h2 v-if="eventType === 'wedding'" class="text-[var(--black-soft)] italic w-[261px] mt-4">
       <b>Important:</b> Wedding pricing includes 5 hours by default! If you would like to add
       additional hours, please specify below. The cost is $150 for each added hour.
     </h2>
