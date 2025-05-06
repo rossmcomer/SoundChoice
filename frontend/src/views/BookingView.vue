@@ -137,6 +137,8 @@ watch(eventType, (newType) => {
               v-model:additionalHours="additionalHours"
             />
             <UplightingSelector v-model:uplights="uplights" />
+              <h3 class="sm:text-2xl text-xl text-left font-bold text-gray-800 pt-4">Total Cost:</h3>
+              <h3 class="sm:text-2xl text-xl text-left font-bold text-gray-800 pt-4 mb-5">Deposit Due:</h3>
           </div>
         </div>
         <div></div>

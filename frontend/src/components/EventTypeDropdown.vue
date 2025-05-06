@@ -30,12 +30,12 @@ const selectOption = (option: Option) => {
 
 <template>
   <div class="relative text-center w-full flex flex-col max-w-sm mx-auto items-center mb-2">
-    <label class="sm:text-2xl text-xl text-center font-bold text-gray-800">
+    <label class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-5">
       Select Your Event Type!
     </label>
     <button
       @click="toggleDropdown"
-      class="focus:outline-none focus:ring-2 focus:ring-[var(--color6)] font-medium rounded-lg text-sm px-2 py-2.5 mt-4 text-center inline-flex justify-center items-center w-[160px] bg-[var(--black-soft)] text-[var(--white-soft)] shadow-md cursor-pointer"
+      class="focus:outline-none focus:ring-2 focus:ring-[var(--color6)] font-medium rounded-lg text-lg px-2 py-2.5 text-center inline-flex justify-center items-center w-[160px] bg-[var(--black-soft)] text-[var(--white-soft)] shadow-md cursor-pointer"
       type="button"
     >
       {{ options.find((o) => o.value === eventType)?.label || 'Choose Event Type' }}

@@ -12,11 +12,11 @@ const eventType = defineModel<EventType | ''>('eventType');
     <div class="w-full flex flex-col items-center">
       <label
         for="start-time"
-        class="block mb-2 text-md font-medium text-[var(--black-soft)] text-center"
+        class="block mb-2 text-lg font-medium text-[var(--black-soft)] text-center"
         >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
       >
-      <div class="relative shadow-md w-[125px] mb-2">
-        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+      <div class="relative shadow-md w-[125px] mb-4">
+        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-4 pointer-events-none">
           <svg
             class="w-4 h-4 text-[var(--color6)]"
             aria-hidden="true"
@@ -42,11 +42,11 @@ const eventType = defineModel<EventType | ''>('eventType');
           required
         />
       </div>
-      <div class="text-center mb-2">
-        <div class="text-md font-medium text-[var(--black-soft)]">
+      <div class="text-center">
+        <div class="text-lg font-medium text-[var(--black-soft)]">
           End Time ({{ timeZoneAbbr }}):
         </div>
-        <div class="text-md font-medium text-[var(--black-soft)]">{{ endTime }}</div>
+        <div class="text-lg font-medium text-[var(--black-soft)]">{{ endTime }}</div>
       </div>
       <div v-if="eventType === 'wedding'">
         <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px]">

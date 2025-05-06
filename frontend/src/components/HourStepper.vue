@@ -20,13 +20,13 @@ function decrement() {
 }
 </script>
 <template>
-  <div class="flex items-center justify-center gap-4">
+  <div class="flex items-center justify-center gap-4 mt-4">
     <button
       type="button"
       @click="decrement"
       :disabled="!addHours"
       :class="[
-        'w-10 h-10 rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
+        'w-8 h-8 rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
         addHours
           ? 'cursor-pointer'
           : 'cursor-not-allowed'
@@ -34,7 +34,7 @@ function decrement() {
     >
       –
     </button>
-    <span class="text-xl font-semibold text-[var(--black-soft)]">
+    <span class="text-lg font-semibold text-[var(--black-soft)]">
       {{ additionalHours ?? 1 }} hour{{ (additionalHours ?? 1) != 1 ? 's' : '' }}
     </span>
     <button
@@ -42,7 +42,7 @@ function decrement() {
       @click="increment"
       :disabled="!addHours"
       :class="[
-        'w-10 h-10 rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
+        'w-8 h-8 rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
         addHours
           ? 'cursor-pointer'
           : 'cursor-not-allowed'

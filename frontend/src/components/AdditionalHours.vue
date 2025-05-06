@@ -9,10 +9,10 @@ const additionalHours = defineModel<number>('additionalHours');
 
 <template>
   <div v-if="eventType === 'wedding'" class="sm:max-w-sm w-[261px]">
-    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-4 lg:mt-0 mb-4">
+    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-4 lg:mt-0 mb-5">
       Additional Hours?
     </h3>
-    <ul class="grid w-full gap-6 md:grid-cols-2 mb-2">
+    <ul class="grid w-full gap-6 sm:grid-cols-2 mb-2">
       <li>
         <input
           type="radio"
