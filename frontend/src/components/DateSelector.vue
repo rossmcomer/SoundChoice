@@ -34,10 +34,15 @@ onMounted(() => {
   </div>
 </template>
 <style>
+.dp__main {
+  width: auto;
+}
+
 .dp__theme_dark {
   --dp-primary-color: #daa520;
   --dp-primary-text-color: var(--black-soft);
   --dp-background-color: var(--black-soft);
   --dp-text-color: var(--white-soft);
+  --dp-border-radius: 8px;
 }
 </style>

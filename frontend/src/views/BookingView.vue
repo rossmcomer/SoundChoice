@@ -8,6 +8,7 @@ import EventTypeDropdown from '@/components/EventTypeDropdown.vue';
 import EventTimeSelector from '@/components/EventTimeSelector.vue';
 import UplightingSelector from '@/components/UplightingSelector.vue';
 import AdditionalHours from '@/components/AdditionalHours.vue';
+import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 
 const userStore = useUserStore();
 
@@ -16,10 +17,11 @@ const user = computed(() => userStore.user);
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');
 const startTime = ref<string>('00:00');
-const endTime = ref<string>('00:00');
+const endTime = ref<string>('');
 const uplights = ref<boolean>(false);
 const addHours = ref<boolean>(false);
 const additionalHours = ref<number>(1);
+const timeZoneAbbr = useTimeZoneAbbr();
 
 function parseTime(timeStr: string): Date {
   const [hours, minutes] = timeStr.split(':').map(Number);
@@ -29,7 +31,11 @@ function parseTime(timeStr: string): Date {
 }
 
 function formatTime(date: Date): string {
-  return date.toTimeString().slice(0, 5); // 'HH:mm'
+  return date.toLocaleTimeString([], {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
 }
 
 watch([startTime, eventType, addHours, additionalHours], () => {
@@ -101,17 +107,30 @@ watch([startTime, eventType, addHours, additionalHours], () => {
       </div>
       <div class="flex flex-col items-center p-4 sm:p-10">
         <BookingInstructionsCard />
-        <DateSelector v-model="date" />
-        <EventTypeDropdown v-model:eventType="eventType" />
-        <EventTimeSelector v-model:startTime="startTime" />
-        <AdditionalHours
-          v-if="eventType !== ''"
-          v-model:eventType="eventType"
-          v-model:addHours="addHours"
-          v-model:additionalHours="additionalHours"
-        />
-        <div class="text-[var(--black-soft)]">End Time: {{ endTime }}</div>
-        <UplightingSelector v-model:uplights="uplights" />
+        <div class="flex flex-col items-center md:grid md:grid-cols-3 md:gap-6 md:items-start">
+          <div class="w-full flex flex-col justify-center">
+            <DateSelector v-model="date" />
+          </div>
+          <div class="w-full flex flex-col items-center">
+            <EventTypeDropdown v-model:eventType="eventType" />
+            <EventTimeSelector v-model:startTime="startTime" />
+            <div class="mt-4 text-center">
+              <div class="mb-2 text-md font-medium text-[var(--black-soft)]">
+                End Time ({{ timeZoneAbbr }}):
+              </div>
+              <div class="text-md font-medium text-[var(--black-soft)]">{{ endTime }}</div>
+            </div>
+          </div>
+          <div class="w-full flex flex-col items-center">
+            <AdditionalHours
+              v-if="eventType !== ''"
+              v-model:eventType="eventType"
+              v-model:addHours="addHours"
+              v-model:additionalHours="additionalHours"
+            />
+            <UplightingSelector v-model:uplights="uplights" />
+          </div>
+        </div>
       </div>
     </div>
   </div>

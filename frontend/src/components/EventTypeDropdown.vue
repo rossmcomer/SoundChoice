@@ -29,7 +29,7 @@ const selectOption = (option: Option) => {
 </script>
 
 <template>
-  <div class="relative text-center w-full max-w-sm mx-auto py-4 justify-items-center">
+  <div class="relative text-center w-full max-w-sm mx-auto sm:pt-10 justify-items-center">
     <label class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10">
       Select Your Event Type!
     </label>

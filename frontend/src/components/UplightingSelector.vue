@@ -2,7 +2,7 @@
 const uplights = defineModel<boolean>('uplights');
 </script>
 <template>
-  <div class="sm:max-w-sm w-[261px]">
+  <div class="sm:max-w-sm w-[261px] mx-auto">
     <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-5">
       Would you like to add the additional uplighting package for only $200 extra?
     </h3>

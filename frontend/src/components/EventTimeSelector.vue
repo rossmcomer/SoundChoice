@@ -1,16 +1,19 @@
 <script setup lang="ts">
 const startTime = defineModel<string>('startTime');
+import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
+
+const timeZoneAbbr = useTimeZoneAbbr();
 </script>
 
 <template>
-  <form class="max-w-[16rem] mx-auto">
-    <div>
+  <form class="max-w-[10rem] mx-auto">
+    <div class="w-full flex flex-col items-center">
       <label
         for="start-time"
         class="block mb-2 text-md font-medium text-[var(--black-soft)] text-center"
-        >Start time:</label
+        >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
       >
-      <div class="relative shadow-md">
+      <div class="relative shadow-md w-[125px]">
         <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
           <svg
             class="w-4 h-4 text-[var(--color6)]"
