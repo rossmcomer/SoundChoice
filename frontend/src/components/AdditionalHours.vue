@@ -87,7 +87,7 @@ const additionalHours = defineModel<number>('additionalHours');
     </ul>
     <HourStepper v-if="addHours" v-model:additionalHours="additionalHours" />
   </div>
-  <div v-else class="sm:max-w-sm w-[261px] mx-auto pt-10">
+  <div v-else class="sm:max-w-sm w-[261px] mx-auto">
     <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-5">Total Hours</h3>
     <HourStepper v-model:additionalHours="additionalHours" />
   </div>

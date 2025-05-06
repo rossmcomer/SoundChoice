@@ -107,7 +107,9 @@ watch([startTime, eventType, addHours, additionalHours], () => {
       </div>
       <div class="flex flex-col items-center p-4 sm:p-10">
         <BookingInstructionsCard />
-        <div class="flex flex-col items-center md:grid md:grid-cols-3 md:gap-6 md:items-start">
+        <div
+          class="flex flex-col p-4 items-center md:grid md:grid-cols-3 md:gap-2 md:items-start rounded-xl shadow-lg border-3 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+        >
           <div class="w-full flex flex-col justify-center">
             <DateSelector v-model="date" />
           </div>

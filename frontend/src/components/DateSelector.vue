@@ -14,7 +14,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10">
+  <div class="sm:text-2xl text-xl text-center font-bold text-gray-800">
     Pick A Day For Your Event!
   </div>
   <div class="sm:text-sm text-center pb-4 text-gray-800">
