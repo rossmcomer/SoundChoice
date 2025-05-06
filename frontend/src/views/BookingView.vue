@@ -119,6 +119,7 @@ watch([startTime, eventType, addHours, additionalHours], () => {
               v-model:startTime="startTime"
               v-model:timeZoneAbbr="timeZoneAbbr"
               v-model:endTime="endTime"
+              v-model:eventType="eventType"
             />
           </div>
           <div class="w-full flex flex-col items-center">

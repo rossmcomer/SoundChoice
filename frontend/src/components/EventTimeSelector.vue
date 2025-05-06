@@ -54,7 +54,7 @@ const eventType = defineModel<EventType | ''>('eventType');
         </h2>
         <h2 class="text-[var(--black-soft)] text-justify italic w-[261px]">
           Wedding pricing includes <b>5 hours</b> by default! If you would like to add additional
-          hours, please specify below. The cost is $150 for each added hour.
+          hours, please specify. The cost is $150 for each added hour.
         </h2>
       </div>
     </div>
