@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const startTime = defineModel<string>('startTime');
-import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
+const timeZoneAbbr = defineModel<string>('timeZoneAbbr');
+const endTime = defineModel<string>('endTime')
 
-const timeZoneAbbr = useTimeZoneAbbr();
 </script>
 
 <template>
@@ -40,6 +40,12 @@ const timeZoneAbbr = useTimeZoneAbbr();
           required
         />
       </div>
+      <div class="mt-4 text-center">
+              <div class="mb-2 text-md font-medium text-[var(--black-soft)]">
+                End Time ({{ timeZoneAbbr }}):
+              </div>
+              <div class="text-md font-medium text-[var(--black-soft)]">{{ endTime }}</div>
+            </div>
     </div>
   </form>
 </template>

@@ -16,8 +16,8 @@ const user = computed(() => userStore.user);
 
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');
-const startTime = ref<string>('00:00');
-const endTime = ref<string>('');
+const startTime = ref<string>('12:00');
+const endTime = ref<string>('-');
 const uplights = ref<boolean>(false);
 const addHours = ref<boolean>(false);
 const additionalHours = ref<number>(1);
@@ -113,15 +113,9 @@ watch([startTime, eventType, addHours, additionalHours], () => {
           <div class="w-full flex flex-col justify-center">
             <DateSelector v-model="date" />
           </div>
-          <div class="w-full flex flex-col items-center">
+          <div class="w-full flex flex-1 flex-col items-center">
             <EventTypeDropdown v-model:eventType="eventType" />
-            <EventTimeSelector v-model:startTime="startTime" />
-            <div class="mt-4 text-center">
-              <div class="mb-2 text-md font-medium text-[var(--black-soft)]">
-                End Time ({{ timeZoneAbbr }}):
-              </div>
-              <div class="text-md font-medium text-[var(--black-soft)]">{{ endTime }}</div>
-            </div>
+            <EventTimeSelector v-model:startTime="startTime" v-model:timeZoneAbbr="timeZoneAbbr" v-model:endTime="endTime" />
           </div>
           <div class="w-full flex flex-col items-center">
             <AdditionalHours
