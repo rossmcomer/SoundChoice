@@ -115,7 +115,11 @@ watch([startTime, eventType, addHours, additionalHours], () => {
           </div>
           <div class="w-full flex flex-1 flex-col items-center">
             <EventTypeDropdown v-model:eventType="eventType" />
-            <EventTimeSelector v-model:startTime="startTime" v-model:timeZoneAbbr="timeZoneAbbr" v-model:endTime="endTime" />
+            <EventTimeSelector
+              v-model:startTime="startTime"
+              v-model:timeZoneAbbr="timeZoneAbbr"
+              v-model:endTime="endTime"
+            />
           </div>
           <div class="w-full flex flex-col items-center">
             <AdditionalHours

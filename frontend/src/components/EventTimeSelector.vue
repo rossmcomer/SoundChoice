@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { EventType } from '@/types';
+
 const startTime = defineModel<string>('startTime');
 const timeZoneAbbr = defineModel<string>('timeZoneAbbr');
-const endTime = defineModel<string>('endTime')
-
+const endTime = defineModel<string>('endTime');
+const eventType = defineModel<EventType | ''>('eventType');
 </script>
 
 <template>
@@ -13,7 +15,7 @@ const endTime = defineModel<string>('endTime')
         class="block mb-2 text-md font-medium text-[var(--black-soft)] text-center"
         >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
       >
-      <div class="relative shadow-md w-[125px]">
+      <div class="relative shadow-md w-[125px] mb-2">
         <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
           <svg
             class="w-4 h-4 text-[var(--color6)]"
@@ -40,12 +42,21 @@ const endTime = defineModel<string>('endTime')
           required
         />
       </div>
-      <div class="mt-4 text-center">
-              <div class="mb-2 text-md font-medium text-[var(--black-soft)]">
-                End Time ({{ timeZoneAbbr }}):
-              </div>
-              <div class="text-md font-medium text-[var(--black-soft)]">{{ endTime }}</div>
-            </div>
+      <div class="text-center mb-2">
+        <div class="text-md font-medium text-[var(--black-soft)]">
+          End Time ({{ timeZoneAbbr }}):
+        </div>
+        <div class="text-md font-medium text-[var(--black-soft)]">{{ endTime }}</div>
+      </div>
+      <div v-if="eventType === 'wedding'">
+        <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px]">
+          <b>Important:</b>
+        </h2>
+        <h2 class="text-[var(--black-soft)] text-justify italic w-[261px]">
+          Wedding pricing includes <b>5 hours</b> by default! If you would like to add additional
+          hours, please specify below. The cost is $150 for each added hour.
+        </h2>
+      </div>
     </div>
   </form>
 </template>
