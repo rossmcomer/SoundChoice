@@ -3,7 +3,7 @@ const uplights = defineModel<boolean>('uplights');
 </script>
 <template>
   <div class="sm:max-w-sm w-[261px] mx-auto">
-    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-5">
+    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4 mb-5">
       Additional Uplighting?
     </h3>
     <ul class="grid w-full gap-6 md:grid-cols-2">

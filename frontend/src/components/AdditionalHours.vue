@@ -9,7 +9,7 @@ const additionalHours = defineModel<number>('additionalHours');
 
 <template>
   <div v-if="eventType === 'wedding'" class="sm:max-w-sm w-[261px]">
-    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-2">
+    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-4 lg:mt-0 mb-4">
       Additional Hours?
     </h3>
     <ul class="grid w-full gap-6 md:grid-cols-2 mb-2">
@@ -23,7 +23,7 @@ const additionalHours = defineModel<number>('additionalHours');
         />
         <label
           for="add-hours-yes"
-          class="inline-flex items-center justify-between w-full py-2 px-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer peer-checked:border-2 peer-checked:border-green-500 peer-checked:text-green-500 hover:border-green-500 hover:ring-2 transition-[var(--transition-default)] shadow-md"
+          class="inline-flex items-center justify-between w-full py-2 px-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border-2 border-transparent peer-checked:border-2 peer-checked:border-green-500 peer-checked:text-green-500 hover:border-green-500 hover:ring-2 transition-[var(--transition-default)] shadow-md"
         >
           <div class="block">
             <div class="w-full text-lg font-semibold">Yes</div>
@@ -55,7 +55,7 @@ const additionalHours = defineModel<number>('additionalHours');
         />
         <label
           for="add-hours-no"
-          class="inline-flex items-center justify-between w-full py-2 px-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer peer-checked:border-2 peer-checked:border-red-500 peer-checked:text-red-500 hover:border-red-500 hover:ring-2 transition-[var(--transition-default)] shadow-md"
+          class="inline-flex items-center justify-between w-full py-2 px-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border-2 border-transparent peer-checked:border-2 peer-checked:border-red-500 peer-checked:text-red-500 hover:border-red-500 hover:ring-2 transition-[var(--transition-default)] shadow-md"
         >
           <div class="block">
             <div class="w-full text-lg font-semibold">No</div>
@@ -81,7 +81,7 @@ const additionalHours = defineModel<number>('additionalHours');
     <HourStepper v-model:additionalHours="additionalHours" v-model:addHours="addHours" />
   </div>
   <div v-else class="sm:max-w-sm w-[261px] mx-auto">
-    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-5">Total Hours</h3>
-    <HourStepper v-model:additionalHours="additionalHours" />
+    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-4">Total Hours</h3>
+    <HourStepper v-model:additionalHours="additionalHours" v-model:addHours="addHours" />
   </div>
 </template>

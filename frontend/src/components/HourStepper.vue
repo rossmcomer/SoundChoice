@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
 const additionalHours = defineModel<number>('additionalHours');
-const addHours = defineModel<number>('addHours');
+const addHours = defineModel<boolean>('addHours');
 
 watch(addHours, (newVal) => {
   if (!newVal) {

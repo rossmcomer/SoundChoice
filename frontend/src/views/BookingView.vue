@@ -38,6 +38,7 @@ function formatTime(date: Date): string {
   });
 }
 
+// Calculate end time based off of start time and additional hours
 watch([startTime, eventType, addHours, additionalHours], () => {
   const start = parseTime(startTime.value);
   let totalHours = 0;
@@ -54,6 +55,13 @@ watch([startTime, eventType, addHours, additionalHours], () => {
   const newEnd = new Date(start);
   newEnd.setHours(start.getHours() + totalHours);
   endTime.value = formatTime(newEnd);
+});
+
+// Require user to declare total hours if eventType is not a wedding
+watch(eventType, (newType) => {
+  if (newType !== 'wedding') {
+    addHours.value = true;
+  }
 });
 </script>
 
@@ -108,7 +116,7 @@ watch([startTime, eventType, addHours, additionalHours], () => {
       <div class="flex flex-col items-center p-4 sm:p-10">
         <BookingInstructionsCard />
         <div
-          class="flex flex-col p-4 items-center md:grid md:grid-cols-3 md:gap-2 md:items-start rounded-xl shadow-lg border-3 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+          class="flex flex-col flex-1 p-8 min-w-[310px] max-w-xl lg:max-w-[1000px] items-center w-full lg:grid lg:grid-cols-3 lg:gap-2 lg:items-start rounded-xl shadow-lg border-3 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
         >
           <div class="w-full flex flex-col justify-center">
             <DateSelector v-model="date" />
@@ -122,9 +130,8 @@ watch([startTime, eventType, addHours, additionalHours], () => {
               v-model:eventType="eventType"
             />
           </div>
-          <div class="w-full flex flex-col items-center">
+          <div class="w-full h-full flex flex-1 flex-col items-center">
             <AdditionalHours
-              v-if="eventType !== ''"
               v-model:eventType="eventType"
               v-model:addHours="addHours"
               v-model:additionalHours="additionalHours"
@@ -132,6 +139,7 @@ watch([startTime, eventType, addHours, additionalHours], () => {
             <UplightingSelector v-model:uplights="uplights" />
           </div>
         </div>
+        <div></div>
       </div>
     </div>
   </div>
