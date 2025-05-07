@@ -165,8 +165,11 @@ watch(eventType, (newType) => {
               v-model:endTime="endTime"
             />
 
-            <UplightingSelector class="flex-1" v-model:uplights="uplights" />
-          </div>
+            <UplightingSelector
+  class="flex-1 flex flex-col"
+  :class="eventType === 'wedding' ? 'justify-end' : 'justify-start'"
+  v-model:uplights="uplights"
+/>          </div>
         </div>
         <div class="w-[261px]">
           <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4">Total Cost:</h3>

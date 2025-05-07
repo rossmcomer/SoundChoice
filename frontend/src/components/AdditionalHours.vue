@@ -84,7 +84,7 @@ const additionalHours = defineModel<number>('additionalHours');
       v-model:eventType="eventType"
     />
     <div>
-      <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px] mt-3">
+      <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px] mt-4">
         <b>Important:</b>
       </h2>
       <h2 class="text-[var(--black-soft)] text-justify italic w-[261px]">

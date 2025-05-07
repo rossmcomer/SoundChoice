@@ -2,7 +2,7 @@
 const uplights = defineModel<boolean>('uplights');
 </script>
 <template>
-  <div class="sm:max-w-sm w-[261px] mx-auto place-items-center">
+  <div class="sm:max-w-sm w-[261px] place-items-center">
     <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-4 lg:mt-0 mb-4">
       Additional Uplighting?
     </h3>

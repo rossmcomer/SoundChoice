@@ -17,7 +17,7 @@ const eventType = defineModel<EventType | ''>('eventType');
           class="block mb-4 sm:text-2xl text-xl font-bold text-[var(--black-soft)] text-center"
           >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
         >
-        <div class="relative shadow-md w-[190px] mb-4 lg:mb-0">
+        <div class="relative shadow-md w-[190px] mb-4">
           <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3 pointer-events-none">
             <svg
               class="w-5 h-5 text-[var(--color6)]"
