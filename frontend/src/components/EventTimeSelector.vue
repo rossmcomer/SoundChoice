@@ -8,14 +8,14 @@ const eventType = defineModel<EventType | ''>('eventType');
 </script>
 
 <template>
-  <form class="max-w-[10rem] mx-auto">
+  <form class="max-w-[190px] mx-auto">
     <div class="w-full flex flex-col items-center">
       <label
         for="start-time"
         class="block mb-2 text-xl font-medium text-[var(--black-soft)] text-center"
         >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
       >
-      <div class="relative shadow-md w-[125px] mb-4">
+      <div class="relative shadow-md w-[190px] mb-4">
         <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-4 pointer-events-none">
           <svg
             class="w-4 h-4 text-[var(--color6)]"
@@ -36,7 +36,7 @@ const eventType = defineModel<EventType | ''>('eventType');
           step="900"
           id="start-time"
           v-model="startTime"
-          class="bg-[var(--black-soft)] leading-none text-[var(--white-soft)] font-medium rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-3"
+          class="bg-[var(--black-soft)] place-items-center leading-none text-[var(--white-soft)] font-medium rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-3"
           min="09:00"
           max="18:00"
           value="00:00"
@@ -48,15 +48,6 @@ const eventType = defineModel<EventType | ''>('eventType');
           End Time ({{ timeZoneAbbr }}):
         </div>
         <div class="text-lg font-medium text-[var(--black-soft)]">{{ endTime }}</div>
-      </div>
-      <div v-if="eventType === 'wedding'">
-        <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px]">
-          <b>Important:</b>
-        </h2>
-        <h2 class="text-[var(--black-soft)] text-justify italic w-[261px]">
-          Wedding pricing includes <b>5 hours</b> by default! If you would like to add additional
-          hours, please specify. The cost is $150 for each added hour.
-        </h2>
       </div>
     </div>
   </form>

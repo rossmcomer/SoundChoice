@@ -17,9 +17,9 @@ const productsStore = useProductsStore();
 const user = computed(() => userStore.user);
 const products = computed(() => productsStore.products)
 
-console.log(products )
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');
+const location = ref<string>('');
 const startTime = ref<string>('12:00');
 const endTime = ref<string>('-');
 const uplights = ref<boolean>(false);
@@ -127,6 +127,21 @@ watch(eventType, (newType) => {
           </div>
           <div class="w-full h-full flex flex-1 flex-col items-center">
             <EventTypeDropdown class='flex-1' v-model:eventType="eventType" />
+            <div class="mb-4">
+  <label
+    for="location-input"
+    class="block mb-2 text-xl text-center font-medium text-[var(--black-soft)]"
+  >
+    Event Location:
+  </label>
+  <input
+    type="text"
+    id="location-input"
+    v-model="location"
+    placeholder="Location/Address"
+    class="bg-[var(--black-soft)] text-[var(--white-soft)] text-sm rounded-lg block h-[48px] w-[190px] p-2.5 "
+  />
+</div>
             <EventTimeSelector
             class="flex-2"
               v-model:startTime="startTime"
