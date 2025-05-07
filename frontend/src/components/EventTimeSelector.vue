@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { EventType } from '@/types';
+import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
 
 const startTime = defineModel<string>('startTime');
 const timeZoneAbbr = defineModel<string>('timeZoneAbbr');
@@ -8,11 +9,12 @@ const eventType = defineModel<EventType | ''>('eventType');
 </script>
 
 <template>
-  <form class="max-w-[190px] mx-auto">
+  <form class="mx-auto">
     <div class="w-full flex flex-col items-center">
+      <div class="flex-1">
       <label
         for="start-time"
-        class="block mb-2 text-xl font-medium text-[var(--black-soft)] text-center"
+        class="block mb-2 sm:text-2xl text-xl font-bold text-[var(--black-soft)] text-center"
         >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
       >
       <div class="relative shadow-md w-[190px] mb-4">
@@ -36,19 +38,16 @@ const eventType = defineModel<EventType | ''>('eventType');
           step="900"
           id="start-time"
           v-model="startTime"
-          class="bg-[var(--black-soft)] place-items-center leading-none text-[var(--white-soft)] font-medium rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-3"
+          class="bg-[var(--black-soft)] pl-15 focus:outline-none focus:ring-2 focus:ring-[var(--color6)] leading-none text-[var(--white-soft)] font-medium rounded-lg block w-full p-3"
           min="09:00"
           max="18:00"
           value="00:00"
           required
         />
       </div>
-      <div class="text-center">
-        <div class="text-xl font-medium text-[var(--black-soft)]">
-          End Time ({{ timeZoneAbbr }}):
-        </div>
-        <div class="text-lg font-medium text-[var(--black-soft)]">{{ endTime }}</div>
-      </div>
+    </div>
+        <EndTimeDisplay v-if="eventType === 'wedding'" class="flex-1" v-model:timeZoneAbbr="timeZoneAbbr"
+              v-model:endTime="endTime"/>
     </div>
   </form>
 </template>

@@ -10,6 +10,7 @@ import EventTimeSelector from '@/components/EventTimeSelector.vue';
 import UplightingSelector from '@/components/UplightingSelector.vue';
 import AdditionalHours from '@/components/AdditionalHours.vue';
 import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
+import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
 
 const userStore = useUserStore();
 const productsStore = useProductsStore();
@@ -127,10 +128,10 @@ watch(eventType, (newType) => {
           </div>
           <div class="w-full h-full flex flex-1 flex-col items-center">
             <EventTypeDropdown class='flex-1' v-model:eventType="eventType" />
-            <div class="mb-4">
+            <div class="mb-4 lg:mb-0 flex-1">
   <label
     for="location-input"
-    class="block mb-2 text-xl text-center font-medium text-[var(--black-soft)]"
+    class="block mb-2 sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)]"
   >
     Event Location:
   </label>
@@ -139,11 +140,11 @@ watch(eventType, (newType) => {
     id="location-input"
     v-model="location"
     placeholder="Location/Address"
-    class="bg-[var(--black-soft)] text-[var(--white-soft)] text-sm rounded-lg block h-[48px] w-[190px] p-2.5 "
+    class="bg-[var(--black-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--color6)] text-[var(--white-soft)] text-sm rounded-lg block h-[48px] w-[190px] p-2.5 "
   />
 </div>
             <EventTimeSelector
-            class="flex-2"
+            class="flex-1"
               v-model:startTime="startTime"
               v-model:timeZoneAbbr="timeZoneAbbr"
               v-model:endTime="endTime"
@@ -151,12 +152,15 @@ watch(eventType, (newType) => {
             />
           </div>
           <div class="w-full h-full flex flex-col items-center">
+            <div class="flex-1">
             <AdditionalHours
-            class="flex-1"
               v-model:eventType="eventType"
               v-model:addHours="addHours"
               v-model:additionalHours="additionalHours"
             />
+            <EndTimeDisplay v-if="eventType !== 'wedding'" v-model:timeZoneAbbr="timeZoneAbbr"
+              v-model:endTime="endTime"/>
+            </div>
             <UplightingSelector
             class="flex-2" v-model:uplights="uplights" />
           </div>
