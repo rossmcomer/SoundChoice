@@ -17,6 +17,7 @@ const productsStore = useProductsStore();
 const user = computed(() => userStore.user);
 const products = computed(() => productsStore.products)
 
+console.log(products )
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');
 const startTime = ref<string>('12:00');
@@ -124,29 +125,33 @@ watch(eventType, (newType) => {
           <div class="w-full flex flex-col justify-center">
             <DateSelector v-model="date" />
           </div>
-          <div class="w-full flex flex-1 flex-col items-center">
-            <EventTypeDropdown v-model:eventType="eventType" />
+          <div class="w-full h-full flex flex-1 flex-col items-center">
+            <EventTypeDropdown class='flex-1' v-model:eventType="eventType" />
             <EventTimeSelector
+            class="flex-2"
               v-model:startTime="startTime"
               v-model:timeZoneAbbr="timeZoneAbbr"
               v-model:endTime="endTime"
               v-model:eventType="eventType"
             />
           </div>
-          <div class="w-full h-full flex flex-1 flex-col items-center">
+          <div class="w-full h-full flex flex-col items-center">
             <AdditionalHours
+            class="flex-1"
               v-model:eventType="eventType"
               v-model:addHours="addHours"
               v-model:additionalHours="additionalHours"
             />
-            <UplightingSelector v-model:uplights="uplights" />
-            <div class="w-[261px]">
-              <h3 class="sm:text-2xl text-xl text-right font-bold text-gray-800 pt-4">Total Cost:</h3>
-              <h3 class="sm:text-2xl text-xl text-right font-bold text-gray-800 pt-4 mb-5">Deposit Due:</h3>
-            </div>
+            <UplightingSelector
+            class="flex-2" v-model:uplights="uplights" />
           </div>
+          
         </div>
-        <div></div>
+        <div class="w-[261px]">
+              <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4">Total Cost:</h3>
+              <div class="text-[var(--black-soft)] text-center italic w-[261px]">50% of total payment is required to reserve date.</div>
+              <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4 mb-5">Deposit Due:</h3>
+            </div>
       </div>
     </div>
   </div>

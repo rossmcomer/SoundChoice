@@ -3,6 +3,9 @@ import { onMounted, ref, computed } from 'vue';
 import { initFlowbite } from 'flowbite';
 import { useUserStore } from '@/stores/UserStore';
 import BackgroundVideo from '@/components/BackgroundVideo.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 onMounted(() => {
   initFlowbite();
@@ -10,6 +13,11 @@ onMounted(() => {
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
+
+function handleLogout() {
+  userStore.logoutUser()
+  router.push('/login-sign-up')
+}
 </script>
 
 <template>
@@ -92,11 +100,12 @@ const user = computed(() => userStore.user);
             >
           </li>
           <li v-else>
-            <router-link
-              to="/logout"
-              class="block px-4 py-2 hover:bg-[var(--color6)] hover:text-[var(--black-soft)]"
-              >Logout</router-link
-            >
+            <button
+    @click="handleLogout"
+    class="block w-full text-center px-4 py-2 hover:bg-[var(--color6)] hover:text-[var(--black-soft)] cursor-pointer"
+  >
+    Logout
+  </button>
           </li>
         </ul>
       </div>

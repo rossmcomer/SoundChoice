@@ -33,9 +33,10 @@ const eventType = defineModel<EventType | ''>('eventType');
         </div>
         <input
           type="time"
+          step="900"
           id="start-time"
           v-model="startTime"
-          class="bg-[var(--black-soft)] leading-none text-[var(--white-soft)] font-medium rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
+          class="bg-[var(--black-soft)] leading-none text-[var(--white-soft)] font-medium rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-3"
           min="09:00"
           max="18:00"
           value="00:00"

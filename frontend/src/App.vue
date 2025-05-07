@@ -30,7 +30,7 @@ global.stopLoading();
   <main class="pt-17 h-screen">
     <RouterView />
   </main>
-  <!-- <AppLoader /> -->
+  <AppLoader />
 </template>
 
 <style>
