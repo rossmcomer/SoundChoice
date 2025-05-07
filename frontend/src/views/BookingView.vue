@@ -153,7 +153,7 @@ watch(eventType, (newType) => {
           </div>
           <div class="w-full h-full flex flex-col items-center">
             
-            <AdditionalHours class="flex-1"
+            <AdditionalHours :class="eventType === 'wedding' ? 'flex-3' : 'flex-1'"
               v-model:eventType="eventType"
               v-model:addHours="addHours"
               v-model:additionalHours="additionalHours"
