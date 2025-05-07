@@ -14,10 +14,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-4">
-    Pick A Day!
-  </div>
-  
+  <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-4">Pick A Day!</div>
+
   <div class="flex justify-center">
     <VueDatePicker
       class="shadow-lg"

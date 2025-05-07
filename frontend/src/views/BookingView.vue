@@ -16,7 +16,7 @@ const userStore = useUserStore();
 const productsStore = useProductsStore();
 
 const user = computed(() => userStore.user);
-const products = computed(() => productsStore.products)
+const products = computed(() => productsStore.products);
 
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');
@@ -127,24 +127,24 @@ watch(eventType, (newType) => {
             <DateSelector v-model="date" />
           </div>
           <div class="w-full h-full flex flex-1 flex-col items-center">
-            <EventTypeDropdown class='flex-1' v-model:eventType="eventType" />
+            <EventTypeDropdown class="flex-1" v-model:eventType="eventType" />
             <div class="mb-4 lg:mb-0 flex-1">
-  <label
-    for="location-input"
-    class="block mb-4 sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)]"
-  >
-    Event Location:
-  </label>
-  <input
-    type="text"
-    id="location-input"
-    v-model="location"
-    placeholder="Location/Address"
-    class="bg-[var(--black-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--color6)] text-[var(--white-soft)] text-sm rounded-lg block h-[48px] w-[190px] p-2.5 "
-  />
-</div>
+              <label
+                for="location-input"
+                class="block mb-4 sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)]"
+              >
+                Event Location:
+              </label>
+              <input
+                type="text"
+                id="location-input"
+                v-model="location"
+                placeholder="Location/Address"
+                class="bg-[var(--black-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--color6)] text-[var(--white-soft)] text-sm rounded-lg block h-[48px] w-[190px] p-2.5"
+              />
+            </div>
             <EventTimeSelector
-            class="flex-1"
+              class="flex-1"
               v-model:startTime="startTime"
               v-model:timeZoneAbbr="timeZoneAbbr"
               v-model:endTime="endTime"
@@ -152,25 +152,31 @@ watch(eventType, (newType) => {
             />
           </div>
           <div class="w-full h-full flex flex-col items-center">
-            
-            <AdditionalHours :class="eventType === 'wedding' ? 'flex-3' : 'flex-1'"
+            <AdditionalHours
+              :class="eventType === 'wedding' ? 'flex-3' : 'flex-1'"
               v-model:eventType="eventType"
               v-model:addHours="addHours"
               v-model:additionalHours="additionalHours"
             />
-            <EndTimeDisplay v-if="eventType !== 'wedding'" class="flex-1" v-model:timeZoneAbbr="timeZoneAbbr"
-              v-model:endTime="endTime"/>
-            
-            <UplightingSelector
-            class="flex-1" v-model:uplights="uplights" />
+            <EndTimeDisplay
+              v-if="eventType !== 'wedding'"
+              class="flex-1"
+              v-model:timeZoneAbbr="timeZoneAbbr"
+              v-model:endTime="endTime"
+            />
+
+            <UplightingSelector class="flex-1" v-model:uplights="uplights" />
           </div>
-          
         </div>
         <div class="w-[261px]">
-              <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4">Total Cost:</h3>
-              <div class="text-[var(--black-soft)] text-center italic w-[261px]">50% of total payment is required to reserve date.</div>
-              <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4 mb-5">Deposit Due:</h3>
-            </div>
+          <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4">Total Cost:</h3>
+          <div class="text-[var(--black-soft)] text-center italic w-[261px]">
+            50% of total payment is required to reserve date.
+          </div>
+          <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4 mb-5">
+            Deposit Due:
+          </h3>
+        </div>
       </div>
     </div>
   </div>

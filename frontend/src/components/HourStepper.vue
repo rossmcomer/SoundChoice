@@ -31,7 +31,7 @@ function decrement() {
       :class="[
         eventType !== 'wedding' ? 'w-12 h-12' : 'w-8 h-8',
         'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
-        addHours ? 'cursor-pointer' : 'cursor-not-allowed'
+        addHours ? 'cursor-pointer' : 'cursor-not-allowed',
       ]"
     >
       –
@@ -46,7 +46,7 @@ function decrement() {
       :class="[
         eventType !== 'wedding' ? 'w-12 h-12' : 'w-8 h-8',
         'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
-        addHours ? 'cursor-pointer' : 'cursor-not-allowed'
+        addHours ? 'cursor-pointer' : 'cursor-not-allowed',
       ]"
     >
       +

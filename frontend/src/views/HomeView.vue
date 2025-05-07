@@ -15,8 +15,8 @@ const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
 function handleLogout() {
-  userStore.logoutUser()
-  router.push('/login-sign-up')
+  userStore.logoutUser();
+  router.push('/login-sign-up');
 }
 </script>
 
@@ -101,11 +101,11 @@ function handleLogout() {
           </li>
           <li v-else>
             <button
-    @click="handleLogout"
-    class="block w-full text-center px-4 py-2 hover:bg-[var(--color6)] hover:text-[var(--black-soft)] cursor-pointer"
-  >
-    Logout
-  </button>
+              @click="handleLogout"
+              class="block w-full text-center px-4 py-2 hover:bg-[var(--color6)] hover:text-[var(--black-soft)] cursor-pointer"
+            >
+              Logout
+            </button>
           </li>
         </ul>
       </div>

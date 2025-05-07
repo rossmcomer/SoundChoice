@@ -29,7 +29,9 @@ const selectOption = (option: Option) => {
 </script>
 
 <template>
-  <div class="relative text-center w-full flex flex-col max-w-sm mx-auto items-center mb-2 lg:mb-0 lg:mt-0 mt-4">
+  <div
+    class="relative text-center w-full flex flex-col max-w-sm mx-auto items-center mb-2 lg:mb-0 lg:mt-0 mt-4"
+  >
     <label class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-4">
       Select Your Event Type!
     </label>

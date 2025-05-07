@@ -78,19 +78,27 @@ const additionalHours = defineModel<number>('additionalHours');
         </label>
       </li>
     </ul>
-    <HourStepper v-model:additionalHours="additionalHours" v-model:addHours="addHours" v-model:eventType="eventType"/>
+    <HourStepper
+      v-model:additionalHours="additionalHours"
+      v-model:addHours="addHours"
+      v-model:eventType="eventType"
+    />
     <div>
-        <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px] mt-3">
-          <b>Important:</b>
-        </h2>
-        <h2 class="text-[var(--black-soft)] text-justify italic w-[261px]">
-          Wedding pricing includes <b>5 hours</b> by default! If you would like to add additional
-          hours, please specify. The cost is $150 for each added hour.
-        </h2>
-      </div>
+      <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px] mt-3">
+        <b>Important:</b>
+      </h2>
+      <h2 class="text-[var(--black-soft)] text-justify italic w-[261px]">
+        Wedding pricing includes <b>5 hours</b> by default! If you would like to add additional
+        hours, please specify. The cost is $150 for each added hour.
+      </h2>
+    </div>
   </div>
   <div v-else class="sm:max-w-sm w-[190px] mx-auto mb-4 lg:mb-0">
     <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-0 mb-4">Total Hours:</h3>
-    <HourStepper v-model:additionalHours="additionalHours" v-model:addHours="addHours" v-model:eventType="eventType"/>
+    <HourStepper
+      v-model:additionalHours="additionalHours"
+      v-model:addHours="addHours"
+      v-model:eventType="eventType"
+    />
   </div>
 </template>
