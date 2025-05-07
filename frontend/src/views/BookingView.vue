@@ -131,7 +131,7 @@ watch(eventType, (newType) => {
             <div class="mb-4 lg:mb-0 flex-1">
   <label
     for="location-input"
-    class="block mb-2 sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)]"
+    class="block mb-4 sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)]"
   >
     Event Location:
   </label>
@@ -152,17 +152,17 @@ watch(eventType, (newType) => {
             />
           </div>
           <div class="w-full h-full flex flex-col items-center">
-            <div class="flex-1">
-            <AdditionalHours
+            
+            <AdditionalHours class="flex-1"
               v-model:eventType="eventType"
               v-model:addHours="addHours"
               v-model:additionalHours="additionalHours"
             />
-            <EndTimeDisplay v-if="eventType !== 'wedding'" v-model:timeZoneAbbr="timeZoneAbbr"
+            <EndTimeDisplay v-if="eventType !== 'wedding'" class="flex-1" v-model:timeZoneAbbr="timeZoneAbbr"
               v-model:endTime="endTime"/>
-            </div>
+            
             <UplightingSelector
-            class="flex-2" v-model:uplights="uplights" />
+            class="flex-1" v-model:uplights="uplights" />
           </div>
           
         </div>

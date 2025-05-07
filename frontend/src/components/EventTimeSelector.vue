@@ -11,16 +11,16 @@ const eventType = defineModel<EventType | ''>('eventType');
 <template>
   <form class="mx-auto">
     <div class="w-full flex flex-col items-center">
-      <div class="flex-1">
+      <div class="flex-1 flex flex-col items-center">
       <label
         for="start-time"
-        class="block mb-2 sm:text-2xl text-xl font-bold text-[var(--black-soft)] text-center"
+        class="block mb-4 sm:text-2xl text-xl font-bold text-[var(--black-soft)] text-center"
         >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
       >
-      <div class="relative shadow-md w-[190px] mb-4">
-        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-4 pointer-events-none">
+      <div class="relative shadow-md w-[190px] mb-4 lg:mb-0">
+        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3 pointer-events-none">
           <svg
-            class="w-4 h-4 text-[var(--color6)]"
+            class="w-5 h-5 text-[var(--color6)]"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -38,7 +38,7 @@ const eventType = defineModel<EventType | ''>('eventType');
           step="900"
           id="start-time"
           v-model="startTime"
-          class="bg-[var(--black-soft)] pl-15 focus:outline-none focus:ring-2 focus:ring-[var(--color6)] leading-none text-[var(--white-soft)] font-medium rounded-lg block w-full p-3"
+          class="bg-[var(--black-soft)] pl-15 focus:outline-none focus:ring-2 focus:ring-[var(--color6)] leading-none text-[var(--white-soft)] font-medium rounded-lg block w-full h-[48px] p-2.5"
           min="09:00"
           max="18:00"
           value="00:00"

@@ -23,13 +23,13 @@ function decrement() {
 }
 </script>
 <template>
-  <div class="flex items-center justify-center gap-4 mt-4">
+  <div class="flex items-center justify-between gap-2 mt-4">
     <button
       type="button"
       @click="decrement"
       :disabled="!addHours"
       :class="[
-        eventType !== 'wedding' ? 'w-10 h-10' : 'w-8 h-8',
+        eventType !== 'wedding' ? 'w-12 h-12' : 'w-8 h-8',
         'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
         addHours ? 'cursor-pointer' : 'cursor-not-allowed'
       ]"
@@ -44,7 +44,7 @@ function decrement() {
       @click="increment"
       :disabled="!addHours"
       :class="[
-        eventType !== 'wedding' ? 'w-10 h-10' : 'w-8 h-8',
+        eventType !== 'wedding' ? 'w-12 h-12' : 'w-8 h-8',
         'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
         addHours ? 'cursor-pointer' : 'cursor-not-allowed'
       ]"

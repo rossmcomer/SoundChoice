@@ -2,11 +2,11 @@
 const uplights = defineModel<boolean>('uplights');
 </script>
 <template>
-  <div class="sm:max-w-sm w-[261px] mx-auto">
-    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4 mb-5">
+  <div class="sm:max-w-sm w-[261px] mx-auto place-items-center">
+    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4 lg:pt-0 mb-4">
       Additional Uplighting?
     </h3>
-    <ul class="grid w-full gap-6 sm:grid-cols-2">
+    <ul class="grid gap-2 grid-cols-2 w-[190px]">
       <li>
         <input
           type="radio"
@@ -17,7 +17,7 @@ const uplights = defineModel<boolean>('uplights');
         />
         <label
           for="uplighting-yes"
-          class="inline-flex items-center justify-between w-full py-2 px-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border-2 border-transparent peer-checked:border-2 peer-checked:border-green-500 peer-checked:text-green-500 hover:border-green-500 hover:ring-2 transition-[var(--transition-default)] shadow-md"
+          class="h-[48px] inline-flex items-center justify-between w-full py-2.5 px-4 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border-2 border-transparent peer-checked:border-2 peer-checked:border-green-500 peer-checked:text-green-500 hover:border-green-500 hover:ring-2 transition-[var(--transition-default)] shadow-md"
         >
           <div class="block">
             <div class="w-full text-lg font-semibold">Yes</div>
@@ -49,7 +49,7 @@ const uplights = defineModel<boolean>('uplights');
         />
         <label
           for="uplighting-no"
-          class="inline-flex items-center justify-between w-full py-2 px-5 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border-2 border-transparent peer-checked:border-2 peer-checked:border-red-500 peer-checked:text-red-500 hover:border-red-500 hover:ring-2 transition-[var(--transition-default)] shadow-md"
+          class="h-[48px] inline-flex items-center justify-between w-full py-2.5 px-4 bg-[var(--black-soft)] leading-none text-[var(--white-soft)] rounded-lg cursor-pointer border-2 border-transparent peer-checked:border-2 peer-checked:border-red-500 peer-checked:text-red-500 hover:border-red-500 hover:ring-2 transition-[var(--transition-default)] shadow-md"
         >
           <div class="block">
             <div class="w-full text-lg font-semibold">No</div>
