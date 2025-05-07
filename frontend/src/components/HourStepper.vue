@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { watch } from 'vue';
+import type { EventType } from '@/types';
+
+const eventType = defineModel<EventType | ''>('eventType');
 const additionalHours = defineModel<number>('additionalHours');
 const addHours = defineModel<boolean>('addHours');
 
@@ -26,10 +29,9 @@ function decrement() {
       @click="decrement"
       :disabled="!addHours"
       :class="[
-        'w-8 h-8 rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
-        addHours
-          ? 'cursor-pointer'
-          : 'cursor-not-allowed'
+        eventType !== 'wedding' ? 'w-10 h-10' : 'w-8 h-8',
+        'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
+        addHours ? 'cursor-pointer' : 'cursor-not-allowed'
       ]"
     >
       –
@@ -42,10 +44,9 @@ function decrement() {
       @click="increment"
       :disabled="!addHours"
       :class="[
-        'w-8 h-8 rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
-        addHours
-          ? 'cursor-pointer'
-          : 'cursor-not-allowed'
+        eventType !== 'wedding' ? 'w-10 h-10' : 'w-8 h-8',
+        'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
+        addHours ? 'cursor-pointer' : 'cursor-not-allowed'
       ]"
     >
       +

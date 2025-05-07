@@ -78,10 +78,10 @@ const additionalHours = defineModel<number>('additionalHours');
         </label>
       </li>
     </ul>
-    <HourStepper v-model:additionalHours="additionalHours" v-model:addHours="addHours" />
+    <HourStepper v-model:additionalHours="additionalHours" v-model:addHours="addHours" v-model:eventType="eventType"/>
   </div>
   <div v-else class="sm:max-w-sm w-[261px] mx-auto">
     <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-4">Total Hours</h3>
-    <HourStepper v-model:additionalHours="additionalHours" v-model:addHours="addHours" />
+    <HourStepper v-model:additionalHours="additionalHours" v-model:addHours="addHours" v-model:eventType="eventType"/>
   </div>
 </template>
