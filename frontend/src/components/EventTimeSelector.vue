@@ -12,7 +12,7 @@ const eventType = defineModel<EventType | ''>('eventType');
     <div class="w-full flex flex-col items-center">
       <label
         for="start-time"
-        class="block mb-2 text-lg font-medium text-[var(--black-soft)] text-center"
+        class="block mb-2 text-xl font-medium text-[var(--black-soft)] text-center"
         >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
       >
       <div class="relative shadow-md w-[125px] mb-4">
@@ -43,7 +43,7 @@ const eventType = defineModel<EventType | ''>('eventType');
         />
       </div>
       <div class="text-center">
-        <div class="text-lg font-medium text-[var(--black-soft)]">
+        <div class="text-xl font-medium text-[var(--black-soft)]">
           End Time ({{ timeZoneAbbr }}):
         </div>
         <div class="text-lg font-medium text-[var(--black-soft)]">{{ endTime }}</div>

@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue';
 import type { EventType } from '@/types';
 import { useUserStore } from '@/stores/UserStore';
+import { useProductsStore } from '@/stores/ProductsStore';
 import BookingInstructionsCard from '@/components/BookingInstructionsCards.vue';
 import DateSelector from '@/components/DateSelector.vue';
 import EventTypeDropdown from '@/components/EventTypeDropdown.vue';
@@ -11,8 +12,10 @@ import AdditionalHours from '@/components/AdditionalHours.vue';
 import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 
 const userStore = useUserStore();
+const productsStore = useProductsStore();
 
 const user = computed(() => userStore.user);
+const products = computed(() => productsStore.products)
 
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');
@@ -137,8 +140,10 @@ watch(eventType, (newType) => {
               v-model:additionalHours="additionalHours"
             />
             <UplightingSelector v-model:uplights="uplights" />
-              <h3 class="sm:text-2xl text-xl text-left font-bold text-gray-800 pt-4">Total Cost:</h3>
-              <h3 class="sm:text-2xl text-xl text-left font-bold text-gray-800 pt-4 mb-5">Deposit Due:</h3>
+            <div class="w-[261px]">
+              <h3 class="sm:text-2xl text-xl text-right font-bold text-gray-800 pt-4">Total Cost:</h3>
+              <h3 class="sm:text-2xl text-xl text-right font-bold text-gray-800 pt-4 mb-5">Deposit Due:</h3>
+            </div>
           </div>
         </div>
         <div></div>
