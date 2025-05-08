@@ -11,6 +11,7 @@ import AdditionalHours from '@/components/AdditionalHours.vue';
 import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
 import CartTable from '@/components/CartTable.vue';
+import { loadStripe } from '@stripe/stripe-js';
 
 const userStore = useUserStore();
 
@@ -149,11 +150,11 @@ watch(eventType, (newType) => {
               v-model:eventType="eventType"
             />
             <EndTimeDisplay
-        v-if="eventType === 'wedding'"
-        class="flex-1"
-        v-model:timeZoneAbbr="timeZoneAbbr"
-        v-model:endTime="endTime"
-      />
+              v-if="eventType === 'wedding'"
+              class="flex-1"
+              v-model:timeZoneAbbr="timeZoneAbbr"
+              v-model:endTime="endTime"
+            />
           </div>
           <div class="w-full h-full flex flex-col items-center">
             <AdditionalHours
@@ -170,16 +171,19 @@ watch(eventType, (newType) => {
             />
 
             <UplightingSelector
-  class="flex-1 flex flex-col"
-  :class="eventType === 'wedding' ? 'justify-end' : 'justify-start'"
-  v-model:uplights="uplights"
-/>          </div>
+              class="flex-1 flex flex-col"
+              :class="eventType === 'wedding' ? 'justify-end' : 'justify-start'"
+              v-model:uplights="uplights"
+            />
+          </div>
         </div>
         <div class="flex flex-col items-center">
-          <CartTable v-model:eventType="eventType"
-              v-model:addHours="addHours"
-              v-model:additionalHours="additionalHours"
-              v-model:uplights="uplights"/>
+          <CartTable
+            v-model:eventType="eventType"
+            v-model:addHours="addHours"
+            v-model:additionalHours="additionalHours"
+            v-model:uplights="uplights"
+          />
           <div class="text-[var(--black-soft)] text-center italic w-[261px]">
             50% of total payment is required to reserve date.
           </div>

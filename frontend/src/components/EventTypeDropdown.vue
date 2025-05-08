@@ -11,7 +11,7 @@ const toggleDropdown = () => {
 };
 
 const eventOptions = computed(() =>
-PRODUCTS.filter(p => p.value !== 'uplights' && p.value !== 'addTime')
+  PRODUCTS.filter((p) => p.value !== 'uplights' && p.value !== 'addTime'),
 );
 
 const selectOption = (option: { value: string; label: string }) => {
@@ -22,7 +22,10 @@ const selectOption = (option: { value: string; label: string }) => {
 
 <template>
   <div
-    class="relative text-center w-full flex flex-col max-w-sm mx-auto items-center mb-2 lg:mb-0 lg:mt-0 mt-4"
+    :class="[
+      'relative text-center w-full flex flex-col max-w-sm mx-auto items-center mt-4 lg:mt-0 mb-2',
+      eventType === 'wedding' ? 'lg:mb-2' : 'lg:mb-0',
+    ]"
   >
     <label class="sm:text-2xl text-xl text-center font-bold text-gray-800 mb-2">
       Select Your Event Type!
