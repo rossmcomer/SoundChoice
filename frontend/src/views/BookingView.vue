@@ -2,7 +2,6 @@
 import { ref, computed, watch } from 'vue';
 import type { EventType } from '@/types';
 import { useUserStore } from '@/stores/UserStore';
-import { useProductsStore } from '@/stores/ProductsStore';
 import BookingInstructionsCard from '@/components/BookingInstructionsCard.vue';
 import DateSelector from '@/components/DateSelector.vue';
 import EventTypeDropdown from '@/components/EventTypeDropdown.vue';
@@ -14,10 +13,8 @@ import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
 import CartTable from '@/components/CartTable.vue';
 
 const userStore = useUserStore();
-const productsStore = useProductsStore();
 
 const user = computed(() => userStore.user);
-const products = productsStore.products;
 
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');

@@ -1,33 +1,32 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useProductsStore } from '@/stores/ProductsStore';
 import type { EventType } from '@/types';
+import { PRODUCTS } from '@/assets/PRODUCTS';
 
 const eventType = defineModel<EventType | ''>('eventType');
 const addHours = defineModel<boolean>('addHours');
 const additionalHours = defineModel<number>('additionalHours');
 const uplights = defineModel<boolean>('uplights');
 
-const productsStore = useProductsStore();
-const products = productsStore.products;
 
 const getBaseCost = () => {
   if (eventType.value === 'wedding') {
-    return products.find(p => p.name === 'wedding')?.price || 0;
+    return PRODUCTS.find(p => p.name === 'wedding')?.price || 0;
   }
   return 0;
 };
 
 const getAddHourCost = () => {
-  if (addHours.value && additionalHours.value > 0) {
-    const hourlyRate = products.find(p => p.name === 'addTimePerHr')?.price || 0;
-    return additionalHours.value * hourlyRate;
+  const hours = additionalHours.value ?? 0;
+  if (addHours.value && hours > 0) {
+    const hourlyRate = PRODUCTS.find(p => p.name === 'addTimePerHr')?.price || 0;
+    return hours * hourlyRate;
   }
   return 0;
 };
 
 const getUplightCost = () => {
-  return uplights.value ? (products.find(p => p.name === 'uplights')?.price || 0) : 0;
+  return uplights.value ? (PRODUCTS.find(p => p.name === 'uplights')?.price || 0) : 0;
 };
 
 const totalCost = computed(() =>
@@ -35,7 +34,7 @@ const totalCost = computed(() =>
 );
 
 const formatPrice = (cents: number) =>
-  `$${(cents / 100).toFixed(2)}`;
+  `$${(cents / 100)}`;
 </script>
 <template>
     <div class="mt-8 border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 p-4 bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent max-w-xl">
