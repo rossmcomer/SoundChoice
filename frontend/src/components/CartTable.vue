@@ -38,7 +38,7 @@ const formatPrice = (cents: number) =>
   `$${(cents / 100).toFixed(2)}`;
 </script>
 <template>
-    <div class="mt-8 border border-gray-300 rounded-lg p-4 bg-white shadow-md max-w-md mx-auto">
+    <div class="mt-8 border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 p-4 bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent max-w-xl">
       <h2 class="text-2xl font-bold text-center mb-4 text-[var(--black-soft)]">Cost Summary</h2>
   
       <table class="w-full text-left text-sm">
@@ -60,7 +60,7 @@ const formatPrice = (cents: number) =>
             <td>{{ uplights ? 'Yes' : 'No' }}</td>
             <td>{{ uplights ? formatPrice(getUplightCost()) : '$0' }}</td>
           </tr>
-          <tr class="border-t border-gray-300 font-bold text-[var(--color6)]">
+          <tr class="border-t border-gray-500 font-bold text-[var(--black-soft)]">
             <td class="py-2">Total:</td>
             <td></td>
             <td>{{ formatPrice(totalCost) }}</td>
