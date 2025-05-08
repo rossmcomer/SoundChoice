@@ -175,7 +175,7 @@ watch(eventType, (newType) => {
   v-model:uplights="uplights"
 />          </div>
         </div>
-        <div>
+        <div class="flex flex-col items-center">
           <CartTable v-model:eventType="eventType"
               v-model:addHours="addHours"
               v-model:additionalHours="additionalHours"

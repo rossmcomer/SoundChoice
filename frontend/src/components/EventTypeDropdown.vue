@@ -1,19 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import type { EventType } from '@/types';
-
-interface Option {
-  value: EventType;
-  label: string;
-}
-
-const options: Option[] = [
-  { value: 'wedding', label: 'Wedding' },
-  { value: 'corporate', label: 'Corporate' },
-  { value: 'birthday', label: 'Birthday' },
-  { value: 'barBatMitzvah', label: 'Mitzvah' },
-  { value: 'other', label: 'Other' },
-];
+import { PRODUCTS } from '@/assets/PRODUCTS';
 
 const eventType = defineModel<EventType | ''>('eventType');
 const isOpen = ref(false);
@@ -22,8 +10,12 @@ const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
 };
 
-const selectOption = (option: Option) => {
-  eventType.value = option.value;
+const eventOptions = computed(() =>
+PRODUCTS.filter(p => p.value !== 'uplights' && p.value !== 'addTime')
+);
+
+const selectOption = (option: { value: string; label: string }) => {
+  eventType.value = option.value as EventType;
   isOpen.value = false;
 };
 </script>
@@ -40,7 +32,7 @@ const selectOption = (option: Option) => {
       class="focus:outline-none focus:ring-2 focus:ring-[var(--color6)] font-medium rounded-lg text-lg px-2 py-2.5 text-center inline-flex justify-center items-center w-[190px] bg-[var(--black-soft)] text-[var(--white-soft)] shadow-md cursor-pointer"
       type="button"
     >
-      {{ options.find((o) => o.value === eventType)?.label || 'Choose Event Type' }}
+      {{ eventOptions.find((o) => o.value === eventType)?.label || 'Choose Event Type' }}
       <svg
         class="w-2.5 h-2.5 ml-2 text-[var(--color6)]"
         viewBox="0 0 10 6"
@@ -62,7 +54,7 @@ const selectOption = (option: Option) => {
     >
       <ul class="py-2 text-sm text-center">
         <li
-          v-for="option in options"
+          v-for="option in eventOptions"
           :key="option.value"
           @click="selectOption(option)"
           class="cursor-pointer block px-4 py-2 hover:bg-[var(--color6)] hover:text-[var(--black-soft)]"
@@ -73,4 +65,3 @@ const selectOption = (option: Option) => {
     </div>
   </div>
 </template>
-<style scoped></style>

@@ -43,10 +43,12 @@ export interface Availability {
   endTime: string;
 }
 
-export type Product = {
+export interface Product {
   name: string;
   price: number;
-};
+  value: string;
+  label: string;
+}
 
 export type EventType = 'wedding' | 'corporate' | 'birthday' | 'barBatMitzvah' | 'other';
 
