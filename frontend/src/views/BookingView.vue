@@ -11,6 +11,7 @@ import UplightingSelector from '@/components/UplightingSelector.vue';
 import AdditionalHours from '@/components/AdditionalHours.vue';
 import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
+import CartTable from '@/components/CartTable.vue';
 
 const userStore = useUserStore();
 const productsStore = useProductsStore();
@@ -121,7 +122,7 @@ watch(eventType, (newType) => {
       <div class="flex flex-col items-center p-4 sm:p-10">
         <BookingInstructionsCard />
         <div
-          class="flex flex-col flex-1 p-8 w-full min-w-[310px] sm:min-w-[534px] max-w-xl sm:max-w-[534px] lg:max-w-[950px] items-center lg:grid lg:grid-cols-3 lg:gap-2 lg:items-start rounded-xl shadow-lg border-3 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+          class="flex flex-col flex-1 p-8 w-full min-w-[310px] sm:min-w-[534px] max-w-[453.625px] sm:max-w-[534px] lg:max-w-[950px] items-center lg:grid lg:grid-cols-3 lg:gap-2 lg:items-start rounded-xl shadow-lg border-3 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
         >
           <div class="w-full flex flex-col justify-center">
             <DateSelector v-model="date" />
@@ -177,14 +178,14 @@ watch(eventType, (newType) => {
   v-model:uplights="uplights"
 />          </div>
         </div>
-        <div class="w-[261px]">
-          <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4">Total Cost:</h3>
+        <div>
+          <CartTable v-model:eventType="eventType"
+              v-model:addHours="addHours"
+              v-model:additionalHours="additionalHours"
+              v-model:uplights="uplights"/>
           <div class="text-[var(--black-soft)] text-center italic w-[261px]">
             50% of total payment is required to reserve date.
           </div>
-          <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-4 mb-5">
-            Deposit Due:
-          </h3>
         </div>
       </div>
     </div>
