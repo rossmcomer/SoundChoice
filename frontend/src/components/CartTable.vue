@@ -41,32 +41,32 @@ const formatPrice = (cents: number) =>
 });
 </script>
 <template>
-    <div class="mt-8 border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 p-4 bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent max-w-xl">
+    <div class="mt-8 min-w-[310px] border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 p-4 bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent max-w-xl">
       <h2 class="text-2xl font-bold text-center mb-4 text-[var(--black-soft)]">Cost Summary</h2>
   
-      <table class="w-full text-left text-sm min-w-[300px]">
+      <table class="w-full text-left text-sm ">
         <tbody>
           <tr>
-            <td class="font-semibold py-2 px-4">Event Type:</td>
-            <td class="px-4">{{ selectedEventLabel || '—' }}</td>
-            <td class="px-4">
+            <td class="font-semibold py-2 px-2">Event Type:</td>
+            <td class="px-2">{{ selectedEventLabel || '—' }}</td>
+            <td class="px-2">
               {{ eventType === 'wedding' ? formatPrice(getBaseCost()) : '$0' }}
             </td>
           </tr>
           <tr>
-            <td class="font-semibold py-2 px-4">Added Hours:</td>
-            <td class="px-4">{{ addHours ? additionalHours + ' hour(s)' : '—' }}</td>
-            <td class="px-4">{{ addHours ? formatPrice(getAddHourCost()) : '$0' }}</td>
+            <td class="font-semibold py-2 px-2">Added Hours:</td>
+            <td class="px-2">{{ addHours ? additionalHours + ' hour(s)' : '—' }}</td>
+            <td class="px-2">{{ addHours ? formatPrice(getAddHourCost()) : '$0' }}</td>
           </tr>
           <tr>
-            <td class="font-semibold py-2 px-4">Uplighting:</td>
-            <td class="px-4">{{ uplights ? 'Yes' : 'No' }}</td>
-            <td class="px-4">{{ uplights ? formatPrice(getUplightCost()) : '$0' }}</td>
+            <td class="font-semibold py-2 px-2">Uplighting:</td>
+            <td class="px-2">{{ uplights ? 'Yes' : 'No' }}</td>
+            <td class="px-2">{{ uplights ? formatPrice(getUplightCost()) : '$0' }}</td>
           </tr>
           <tr class="border-t border-gray-500 font-bold text-[var(--black-soft)]">
-            <td class="py-2 px-4">Total:</td>
-            <td class="px-4"></td>
-            <td class="px-4">{{ formatPrice(totalCost) }}</td>
+            <td class="py-2 px-2">Total:</td>
+            <td class="px-2"></td>
+            <td class="px-2">{{ formatPrice(totalCost) }}</td>
           </tr>
         </tbody>
       </table>
