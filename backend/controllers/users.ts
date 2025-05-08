@@ -51,7 +51,7 @@ router.post(
           password: hashedPassword,
         },
       });
-      console.log('New user successfully created')
+      console.log('New user successfully created');
       return res.status(201).json(newUser);
     } catch (error) {
       return res.status(500).json({ error: 'Failed to create user' });

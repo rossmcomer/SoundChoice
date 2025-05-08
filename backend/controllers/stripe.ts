@@ -17,8 +17,16 @@ router.post(
   tokenExtractor,
   async (req: Request, res: Response) => {
     const userId = req.decodedToken?.userId;
-    const { products, eventDate, startTime, endTime, location, type, addUplights, addedHours } =
-      req.body;
+    const {
+      products,
+      eventDate,
+      startTime,
+      endTime,
+      location,
+      type,
+      addUplights,
+      addedHours,
+    } = req.body;
 
     try {
       // Validate product IDs and build line items
