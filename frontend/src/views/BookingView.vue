@@ -3,7 +3,7 @@ import { ref, computed, watch } from 'vue';
 import type { EventType } from '@/types';
 import { useUserStore } from '@/stores/UserStore';
 import { useProductsStore } from '@/stores/ProductsStore';
-import BookingInstructionsCard from '@/components/BookingInstructionsCards.vue';
+import BookingInstructionsCard from '@/components/BookingInstructionsCard.vue';
 import DateSelector from '@/components/DateSelector.vue';
 import EventTypeDropdown from '@/components/EventTypeDropdown.vue';
 import EventTimeSelector from '@/components/EventTimeSelector.vue';
@@ -16,7 +16,7 @@ const userStore = useUserStore();
 const productsStore = useProductsStore();
 
 const user = computed(() => userStore.user);
-const products = computed(() => productsStore.products);
+const products = productsStore.products;
 
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');
@@ -121,17 +121,17 @@ watch(eventType, (newType) => {
       <div class="flex flex-col items-center p-4 sm:p-10">
         <BookingInstructionsCard />
         <div
-          class="flex flex-col flex-1 p-8 min-w-[310px] max-w-xl lg:max-w-[1000px] items-center w-full lg:grid lg:grid-cols-3 lg:gap-2 lg:items-start rounded-xl shadow-lg border-3 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+          class="flex flex-col flex-1 p-8 w-full min-w-[310px] sm:min-w-[534px] max-w-xl sm:max-w-[534px] lg:max-w-[950px] items-center lg:grid lg:grid-cols-3 lg:gap-2 lg:items-start rounded-xl shadow-lg border-3 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
         >
           <div class="w-full flex flex-col justify-center">
             <DateSelector v-model="date" />
           </div>
           <div class="w-full h-full flex flex-1 flex-col items-center">
             <EventTypeDropdown class="flex-1" v-model:eventType="eventType" />
-            <div class="mb-4 lg:mb-0 flex-1">
+            <div :class="['mb-2 flex-1', { 'lg:mb-0': eventType !== 'wedding' }]">
               <label
                 for="location-input"
-                class="block mb-4 sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)]"
+                class="block mb-2 sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)]"
               >
                 Event Location:
               </label>
@@ -139,7 +139,7 @@ watch(eventType, (newType) => {
                 type="text"
                 id="location-input"
                 v-model="location"
-                placeholder="Location/Address"
+                placeholder="Venue Address"
                 class="bg-[var(--black-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--color6)] text-[var(--white-soft)] text-sm rounded-lg block h-[48px] w-[190px] p-2.5"
               />
             </div>
@@ -150,6 +150,12 @@ watch(eventType, (newType) => {
               v-model:endTime="endTime"
               v-model:eventType="eventType"
             />
+            <EndTimeDisplay
+        v-if="eventType === 'wedding'"
+        class="flex-1"
+        v-model:timeZoneAbbr="timeZoneAbbr"
+        v-model:endTime="endTime"
+      />
           </div>
           <div class="w-full h-full flex flex-col items-center">
             <AdditionalHours

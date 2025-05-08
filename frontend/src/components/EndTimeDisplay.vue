@@ -4,7 +4,7 @@ const endTime = defineModel<string>('endTime');
 </script>
 <template>
   <div class="text-center">
-    <div class="sm:text-2xl text-xl font-bold text-[var(--black-soft)] mb-4">
+    <div class="sm:text-2xl text-xl font-bold text-[var(--black-soft)] mb-2">
       End Time ({{ timeZoneAbbr }}):
     </div>
     <div

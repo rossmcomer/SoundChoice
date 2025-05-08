@@ -1,23 +1,18 @@
 <script setup lang="ts">
-import type { EventType } from '@/types';
-import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
-
 const startTime = defineModel<string>('startTime');
 const timeZoneAbbr = defineModel<string>('timeZoneAbbr');
-const endTime = defineModel<string>('endTime');
-const eventType = defineModel<EventType | ''>('eventType');
 </script>
 
 <template>
   <form class="mx-auto">
     <div class="w-full flex flex-col items-center">
-      <div class="flex-1 flex flex-col items-center">
+      <div class="flex flex-col items-center">
         <label
           for="start-time"
-          class="block mb-4 sm:text-2xl text-xl font-bold text-[var(--black-soft)] text-center"
+          class="block mb-2 sm:text-2xl text-xl font-bold text-[var(--black-soft)] text-center"
           >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
         >
-        <div class="relative shadow-md w-[190px] mb-4">
+        <div class="relative shadow-md w-[190px] mb-2">
           <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3 pointer-events-none">
             <svg
               class="w-5 h-5 text-[var(--color6)]"
@@ -46,12 +41,6 @@ const eventType = defineModel<EventType | ''>('eventType');
           />
         </div>
       </div>
-      <EndTimeDisplay
-        v-if="eventType === 'wedding'"
-        class="flex-1"
-        v-model:timeZoneAbbr="timeZoneAbbr"
-        v-model:endTime="endTime"
-      />
     </div>
   </form>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mb-10 flex-1 sm:max-w-xl font-medium p-8 space-y-4 border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 min-h-[250px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+    class="mb-10 flex-1 sm:min-w-[534px] sm:max-w-xl font-medium p-8 space-y-4 border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 min-h-[250px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
   >
     <div class="sm:text-2xl text-xl text-center font-bold pb-4">
       Reserve your special date in 5 easy steps!

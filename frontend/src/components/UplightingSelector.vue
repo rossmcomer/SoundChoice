@@ -3,7 +3,7 @@ const uplights = defineModel<boolean>('uplights');
 </script>
 <template>
   <div class="sm:max-w-sm w-[261px] place-items-center">
-    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-4 lg:mt-0 mb-4">
+    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-4 lg:mt-0 mb-2">
       Additional Uplighting?
     </h3>
     <ul class="grid gap-2 grid-cols-2 w-[190px]">

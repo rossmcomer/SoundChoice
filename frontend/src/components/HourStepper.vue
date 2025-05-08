@@ -23,7 +23,7 @@ function decrement() {
 }
 </script>
 <template>
-  <div class="flex items-center justify-between gap-2 mt-4">
+  <div class="flex items-center justify-between gap-2 mt-2">
     <button
       type="button"
       @click="decrement"

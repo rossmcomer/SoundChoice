@@ -9,7 +9,7 @@ const additionalHours = defineModel<number>('additionalHours');
 
 <template>
   <div v-if="eventType === 'wedding'" class="sm:max-w-sm w-[261px] place-items-center">
-    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-4 lg:mt-0 mb-4">
+    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-4 lg:mt-0 mb-2">
       Additional Hours?
     </h3>
     <ul class="grid w-[190px] gap-2 grid-cols-2 mb-2">
@@ -94,7 +94,7 @@ const additionalHours = defineModel<number>('additionalHours');
     </div>
   </div>
   <div v-else class="sm:max-w-sm w-[190px] mx-auto mb-4 lg:mb-0">
-    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-0 mb-4">Total Hours:</h3>
+    <h3 class="sm:text-2xl text-xl text-center font-bold text-gray-800 mt-0 mb-2">Total Hours:</h3>
     <HourStepper
       v-model:additionalHours="additionalHours"
       v-model:addHours="addHours"
