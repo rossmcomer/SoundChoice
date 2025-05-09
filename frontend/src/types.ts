@@ -60,3 +60,24 @@ export type PaymentStatus =
   | 'paidInFull';
 
 export type PaymentMethod = 'stripe' | 'paypal';
+
+export interface ProductItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+export interface CheckoutRequestBody {
+  products:ProductItem[];
+  eventDate: Date;
+  startTime: string;
+  endTime: string;
+  type: string;
+  location: string;
+  addedHours: number;
+  addUplights: boolean;
+}
+
+export interface CheckoutSessionResponse {
+  id: string;
+}

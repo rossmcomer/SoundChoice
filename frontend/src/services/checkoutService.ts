@@ -1,24 +1,17 @@
 import axios from '../util/apiClient';
 const baseUrl = '/stripe';
 
-interface CheckoutRequestBody {
-  eventType: string;
-  addHours: boolean;
-  additionalHours: number;
-  uplights: boolean;
-  total: number;
-}
-
-interface CheckoutSessionResponse {
-  id: string;
-}
+import type { CheckoutRequestBody, CheckoutSessionResponse } from '@/types'
 
 const checkoutDeposit = async (body: CheckoutRequestBody): Promise<CheckoutSessionResponse> => {
   const headers = {
     'Content-Type': 'application/json',
   };
 
-  const response = await axios.post(`${baseUrl}/pay-deposit`, body, { headers });
+  const response = await axios.post(`${baseUrl}/pay-deposit`, body, {
+    headers,
+    withCredentials: true,
+  });
   return response.data;
 };
 
@@ -29,7 +22,10 @@ const checkoutRemainingBalance = async (
     'Content-Type': 'application/json',
   };
 
-  const response = await axios.post(`${baseUrl}/pay-remaining`, body, { headers });
+  const response = await axios.post(`${baseUrl}/pay-remaining`, body, {
+    headers,
+    withCredentials: true,
+  });
   return response.data;
 };
 

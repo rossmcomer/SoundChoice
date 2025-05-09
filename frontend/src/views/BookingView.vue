@@ -11,10 +11,9 @@ import AdditionalHours from '@/components/AdditionalHours.vue';
 import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
 import CartTable from '@/components/CartTable.vue';
-import { loadStripe } from '@stripe/stripe-js';
+import DepositCheckoutButton from '@/components/DepositCheckoutButton.vue';
 
 const userStore = useUserStore();
-
 const user = computed(() => userStore.user);
 
 const date = ref<Date | null>(null);
@@ -146,15 +145,13 @@ watch(eventType, (newType) => {
               class="flex-1"
               v-model:startTime="startTime"
               v-model:timeZoneAbbr="timeZoneAbbr"
-              v-model:endTime="endTime"
-              v-model:eventType="eventType"
             />
             <EndTimeDisplay
-              v-if="eventType === 'wedding'"
-              class="flex-1"
-              v-model:timeZoneAbbr="timeZoneAbbr"
-              v-model:endTime="endTime"
-            />
+        v-if="eventType === 'wedding'"
+        class="flex-1"
+        v-model:timeZoneAbbr="timeZoneAbbr"
+        v-model:endTime="endTime"
+      />
           </div>
           <div class="w-full h-full flex flex-col items-center">
             <AdditionalHours
@@ -171,22 +168,26 @@ watch(eventType, (newType) => {
             />
 
             <UplightingSelector
-              class="flex-1 flex flex-col"
-              :class="eventType === 'wedding' ? 'justify-end' : 'justify-start'"
-              v-model:uplights="uplights"
-            />
-          </div>
+  class="flex-1 flex flex-col"
+  :class="eventType === 'wedding' ? 'justify-end' : 'justify-start'"
+  v-model:uplights="uplights"
+/>          </div>
         </div>
         <div class="flex flex-col items-center">
-          <CartTable
-            v-model:eventType="eventType"
-            v-model:addHours="addHours"
-            v-model:additionalHours="additionalHours"
-            v-model:uplights="uplights"
-          />
-          <div class="text-[var(--black-soft)] text-center italic w-[261px]">
-            50% of total payment is required to reserve date.
-          </div>
+          <CartTable v-model:eventType="eventType"
+              v-model:addHours="addHours"
+              v-model:additionalHours="additionalHours"
+              v-model:uplights="uplights"
+              /> 
+          <DepositCheckoutButton v-model:eventType="eventType"
+              v-model:addHours="addHours"
+              v-model:additionalHours="additionalHours"
+              v-model:uplights="uplights"
+              v-model:location="location"
+              v-model:startTime="startTime"
+              v-model:timeZoneAbbr="timeZoneAbbr"
+              v-model:endTime="endTime"
+              v-model:date="date"/>         
         </div>
       </div>
     </div>
