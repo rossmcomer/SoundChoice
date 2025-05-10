@@ -74,7 +74,7 @@ const selectedEventLabel = computed(() => {
       </tbody>
     </table>
     <div class="text-[var(--black-soft)] text-center italic w-[261px]">
-            50% of total payment is required to reserve date.
-          </div>
+      50% of total payment is required to reserve date.
+    </div>
   </div>
 </template>

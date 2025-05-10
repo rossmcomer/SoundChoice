@@ -1,7 +1,7 @@
 import axios from '../util/apiClient';
 const baseUrl = '/stripe';
 
-import type { CheckoutRequestBody, CheckoutSessionResponse } from '@/types'
+import type { CheckoutRequestBody, CheckoutSessionResponse } from '@/types';
 
 const checkoutDeposit = async (body: CheckoutRequestBody): Promise<CheckoutSessionResponse> => {
   const headers = {

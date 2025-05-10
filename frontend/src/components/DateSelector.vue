@@ -26,6 +26,7 @@ onMounted(() => {
       auto-apply
       dark
       :enable-time-picker="false"
+      no-today
     ></VueDatePicker>
   </div>
   <div class="sm:text-sm text-center pt-1 text-gray-800">

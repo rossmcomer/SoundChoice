@@ -12,9 +12,21 @@ import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
 import CartTable from '@/components/CartTable.vue';
 import DepositCheckoutButton from '@/components/DepositCheckoutButton.vue';
+import { useProductStore } from '@/stores/ProductStore';
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
+
+const productsStore = useProductStore();
+const products = computed(() => productsStore.products);
+
+watch(
+  products,
+  (val) => {
+    console.log('Fetched products:', val);
+  },
+  { immediate: true },
+);
 
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');
@@ -147,11 +159,11 @@ watch(eventType, (newType) => {
               v-model:timeZoneAbbr="timeZoneAbbr"
             />
             <EndTimeDisplay
-        v-if="eventType === 'wedding'"
-        class="flex-1"
-        v-model:timeZoneAbbr="timeZoneAbbr"
-        v-model:endTime="endTime"
-      />
+              v-if="eventType === 'wedding'"
+              class="flex-1"
+              v-model:timeZoneAbbr="timeZoneAbbr"
+              v-model:endTime="endTime"
+            />
           </div>
           <div class="w-full h-full flex flex-col items-center">
             <AdditionalHours
@@ -168,26 +180,31 @@ watch(eventType, (newType) => {
             />
 
             <UplightingSelector
-  class="flex-1 flex flex-col"
-  :class="eventType === 'wedding' ? 'justify-end' : 'justify-start'"
-  v-model:uplights="uplights"
-/>          </div>
+              class="flex-1 flex flex-col"
+              :class="eventType === 'wedding' ? 'justify-end' : 'justify-start'"
+              v-model:uplights="uplights"
+            />
+          </div>
         </div>
         <div class="flex flex-col items-center">
-          <CartTable v-model:eventType="eventType"
-              v-model:addHours="addHours"
-              v-model:additionalHours="additionalHours"
-              v-model:uplights="uplights"
-              /> 
-          <DepositCheckoutButton v-model:eventType="eventType"
-              v-model:addHours="addHours"
-              v-model:additionalHours="additionalHours"
-              v-model:uplights="uplights"
-              v-model:location="location"
-              v-model:startTime="startTime"
-              v-model:timeZoneAbbr="timeZoneAbbr"
-              v-model:endTime="endTime"
-              v-model:date="date"/>         
+          <CartTable
+            v-model:eventType="eventType"
+            v-model:addHours="addHours"
+            v-model:additionalHours="additionalHours"
+            v-model:uplights="uplights"
+          />
+          <DepositCheckoutButton
+            v-model:eventType="eventType"
+            v-model:addHours="addHours"
+            v-model:additionalHours="additionalHours"
+            v-model:uplights="uplights"
+            v-model:location="location"
+            v-model:startTime="startTime"
+            v-model:timeZoneAbbr="timeZoneAbbr"
+            v-model:endTime="endTime"
+            v-model:date="date"
+            :products="products"
+          />
         </div>
       </div>
     </div>

@@ -44,6 +44,7 @@ export interface Availability {
 }
 
 export interface Product {
+  id: number;
   name: string;
   price: number;
   value: string;
@@ -62,13 +63,14 @@ export type PaymentStatus =
 export type PaymentMethod = 'stripe' | 'paypal';
 
 export interface ProductItem {
-  name: string;
+  id: number;
+  label: string;
   price: number;
   quantity: number;
 }
 
 export interface CheckoutRequestBody {
-  products:ProductItem[];
+  products: ProductItem[];
   eventDate: Date;
   startTime: string;
   endTime: string;

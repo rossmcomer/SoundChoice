@@ -5,19 +5,19 @@ import NavBar from './components/NavBar.vue';
 
 import { useGlobalStore } from '@/stores/GlobalStore';
 import { useUserStore } from '@/stores/UserStore';
+import { useProductStore } from './stores/ProductStore';
 import AppLoader from '@/components/AppLoader.vue';
 
 const global = useGlobalStore();
 
 const userStore = useUserStore();
+const productStore = useProductStore();
 
-global.startLoading();
-
-onMounted(() => {
-  userStore.fetchUser();
+onMounted(async () => {
+  global.startLoading();
+  await Promise.all([userStore.fetchUser(), productStore.fetchProducts()]);
+  global.stopLoading();
 });
-
-global.stopLoading();
 </script>
 
 <template>
@@ -30,7 +30,7 @@ global.stopLoading();
   <main class="pt-17 h-screen">
     <RouterView />
   </main>
-  <AppLoader />
+  <!-- <AppLoader /> -->
 </template>
 
 <style>
