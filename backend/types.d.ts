@@ -42,3 +42,11 @@ declare global {
 }
 
 // JWT Related Types End
+
+export interface Product {
+  id: number;
+  name: string;
+  price: number;
+  value: string;
+  label: string;
+}

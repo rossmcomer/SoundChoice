@@ -13,6 +13,7 @@ const bookingsRouter = require('./controllers/bookings');
 const questionsRouter = require('./controllers/questionnaires');
 const adminRouter = require('./controllers/admin');
 const stripeRouter = require('./controllers/stripe');
+const productsRouter = require('./controllers/products');
 
 app.use(cookieParser());
 app.use(
@@ -30,6 +31,7 @@ app.use('/api/logout', logoutRouter);
 app.use('/api/bookings', bookingsRouter);
 app.use('/api/questions', questionsRouter);
 app.use('/api/stripe', stripeRouter);
+app.use('/api/products', productsRouter);
 app.use('/api/admin', adminRouter);
 
 const start = async () => {

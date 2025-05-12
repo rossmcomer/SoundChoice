@@ -8,7 +8,7 @@ const stripe = require('stripe')(STRIPE_SECRET);
 const router = require('express').Router();
 import { Request, Response } from 'express';
 import { prisma } from '../util/db';
-import { PRICE_LIST } from '../assets/priceList';
+import { PRODUCTS } from '../assets/PRODUCTS';
 import Stripe from 'stripe';
 const { tokenExtractor } = require('../util/middleware');
 
@@ -27,29 +27,31 @@ router.post(
       addUplights,
       addedHours,
     } = req.body;
+    
+    console.log(products)
 
     try {
       // Validate product IDs and build line items
-      const lineItems = products.map(
-        (product: { id: string; name: string; quantity: number }) => {
-          const unitPrice = PRICE_LIST[product.id];
-
-          if (!unitPrice) {
-            throw new Error(`Invalid product ID: ${product.id}`);
-          }
-
-          return {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: product.name,
-              },
-              unit_amount: Math.round(unitPrice / 2),
+      const lineItems = products.map((product: { id: number; label: string; price: number, quantity: number }) => {
+        const productInfo = PRODUCTS.find((p) => p.id === product.id);
+      
+        if (!productInfo || productInfo.price === undefined) {
+          throw new Error(`Invalid product ID: ${product.id}`);
+        }
+      
+        const unitPrice = productInfo.price;
+      
+        return {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: product.label,
             },
-            quantity: product.quantity,
-          };
-        },
-      );
+            unit_amount: Math.round(unitPrice / 2),
+          },
+          quantity: product.quantity,
+        };
+      });
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -57,7 +59,7 @@ router.post(
         mode: 'payment',
         success_url: `${DOMAIN_NAME}/successful-deposit`,
         cancel_url: `${DOMAIN_NAME}/cancelled-deposit`,
-        automatic_tax: { enabled: true },
+        automatic_tax: { enabled: false },
         metadata: {
           userId,
           eventDate,
@@ -97,8 +99,8 @@ router.post(
     try {
       // Validate product IDs and build line items
       const lineItems = products.map(
-        (product: { id: string; name: string; quantity: number }) => {
-          const unitPrice = PRICE_LIST[product.id];
+        (product: { id: number; label: string; quantity: number }) => {
+          const unitPrice = PRODUCTS[product.id].price;
 
           if (!unitPrice) {
             throw new Error(`Invalid product ID: ${product.id}`);
@@ -108,7 +110,7 @@ router.post(
             price_data: {
               currency: 'usd',
               product_data: {
-                name: product.name,
+                name: product.label,
               },
               unit_amount: Math.round(unitPrice / 2),
             },
@@ -123,7 +125,7 @@ router.post(
         mode: 'payment',
         success_url: `${DOMAIN_NAME}/successful-paid-in-full`,
         cancel_url: `${DOMAIN_NAME}/cancelled-pay-second-half`,
-        automatic_tax: { enabled: true },
+        automatic_tax: { enabled: false },
         metadata: {
           userId,
           bookingId,
