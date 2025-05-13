@@ -20,14 +20,6 @@ const user = computed(() => userStore.user);
 const productsStore = useProductStore();
 const products = computed(() => productsStore.products);
 
-watch(
-  products,
-  (val) => {
-    console.log('Fetched products:', val);
-  },
-  { immediate: true },
-);
-
 const date = ref<Date | null>(null);
 const eventType = ref<EventType | ''>('');
 const location = ref<string>('');

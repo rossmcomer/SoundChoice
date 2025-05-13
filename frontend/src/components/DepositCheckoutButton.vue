@@ -108,7 +108,7 @@ const checkoutDeposit = async () => {
       addedHours: additionalHours.value,
       addUplights: uplights.value,
     };
-    console.log(body, 'body')
+    console.log(body, 'body');
 
     const session = await checkoutService.checkoutDeposit(body as CheckoutRequestBody);
 

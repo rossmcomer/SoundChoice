@@ -4,5 +4,5 @@
       <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
       Your browser does not lighting the video tag.
     </video>
-    </div>
+  </div>
 </template>
