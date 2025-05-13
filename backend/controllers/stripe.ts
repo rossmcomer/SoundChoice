@@ -27,8 +27,6 @@ router.post(
       addUplights,
       addedHours,
     } = req.body;
-    
-    console.log(products)
 
     try {
       // Validate product IDs and build line items
@@ -87,44 +85,85 @@ router.post(
   async (req: Request, res: Response) => {
     const userId = req.decodedToken?.userId;
     const {
-      products,
       bookingId,
       eventDate,
       startTime,
       endTime,
       location,
       type,
+      addUplights,
+      addedHours,
     } = req.body;
 
     try {
-      // Validate product IDs and build line items
-      const lineItems = products.map(
-        (product: { id: number; label: string; quantity: number }) => {
-          const unitPrice = PRODUCTS[product.id].price;
+      // Step 1: Build products array from booking info
+      const products: {
+        id: number;
+        label: string;
+        price: number;
+        quantity: number;
+      }[] = [];
 
-          if (!unitPrice) {
-            throw new Error(`Invalid product ID: ${product.id}`);
-          }
+      // Add event type product (e.g., wedding, corporate, etc.)
+      const typeProduct = PRODUCTS.find((p) => p.value === type);
+      if (typeProduct) {
+        products.push({
+          id: typeProduct.id,
+          label: typeProduct.label,
+          price: typeProduct.price,
+          quantity: 1,
+        });
+      } else {
+        throw new Error(`Invalid event type: ${type}`);
+      }
 
-          return {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: product.label,
-              },
-              unit_amount: Math.round(unitPrice / 2),
+      // Add uplighting if applicable
+      if (addUplights) {
+        const uplightProduct = PRODUCTS.find((p) => p.value === 'uplights');
+        if (uplightProduct) {
+          products.push({
+            id: uplightProduct.id,
+            label: uplightProduct.label,
+            price: uplightProduct.price,
+            quantity: 1,
+          });
+        }
+      }
+
+      // Add added hours if applicable
+      if (addedHours && addedHours > 0) {
+        const addTimeProduct = PRODUCTS.find((p) => p.value === 'addTime');
+        if (addTimeProduct) {
+          products.push({
+            id: addTimeProduct.id,
+            label: addTimeProduct.label,
+            price: addTimeProduct.price,
+            quantity: addedHours,
+          });
+        }
+      }
+
+      // Step 2: Convert products to Stripe line_items
+      const lineItems = products.map((product) => {
+        return {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: product.label,
             },
-            quantity: product.quantity,
-          };
-        },
-      );
+            unit_amount: Math.round(product.price / 2), // remaining 50% balance
+          },
+          quantity: product.quantity,
+        };
+      });
 
+      // Step 3: Create Stripe session
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: lineItems,
         mode: 'payment',
         success_url: `${DOMAIN_NAME}/successful-paid-in-full`,
-        cancel_url: `${DOMAIN_NAME}/cancelled-pay-second-half`,
+        cancel_url: `${DOMAIN_NAME}/cancelled-second-payment`,
         automatic_tax: { enabled: false },
         metadata: {
           userId,
@@ -134,6 +173,8 @@ router.post(
           endTime,
           location,
           type,
+          addUplights,
+          addedHours,
           paymentType: 'remainingBalance',
         },
       });
@@ -143,7 +184,7 @@ router.post(
       console.error('Error creating checkout session:', error);
       res.status(500).json({ error: error.message });
     }
-  },
+  }
 );
 
 // Webhook that follows stripe payments
