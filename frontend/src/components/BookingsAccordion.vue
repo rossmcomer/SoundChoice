@@ -120,7 +120,7 @@ console.log(user);
             </div>
           </div>
 
-          <!-- <div class="mt-4">
+          <div class="mt-4">
             <h3 class="font-semibold mb-2">Questionnaire</h3>
             <form @submit.prevent="submitQuestionnaire(booking.id)">
               <div v-for="(question, qIndex) in getQuestions(booking.type)" :key="qIndex">
@@ -137,7 +137,7 @@ console.log(user);
                 Save
               </button>
             </form>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
