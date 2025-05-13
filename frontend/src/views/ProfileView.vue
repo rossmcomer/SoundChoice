@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import type { User, Booking, Payment } from '@/types';
 import { useUserStore } from '@/stores/UserStore';
 import { updateName, updateEmail, updatePhone, updatePassword } from '@/services/userService';
-import weddingQuestions from '@/assets/wedding-questionnaire.json';
-import nonWeddingQuestions from '@/assets/non-wedding-questionnaire.json';
-import questionnaireService from '@/services/questionnaireService';
 import BookingsAccordion from '@/components/BookingsAccordion.vue';
 
 const router = useRouter();
@@ -89,10 +85,7 @@ const handleLogout = async () => {
               />
             </div>
           </form> -->
-          <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-10">
-            Bookings
-          </div>
-          <BookingsAccordion :user="user"/>
+          <BookingsAccordion :user="user" />
         </div>
       </div>
       <div v-else class="flex flex-col place-items-center justify-center my-8">
