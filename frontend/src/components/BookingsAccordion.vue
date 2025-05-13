@@ -52,8 +52,6 @@ async function submitQuestionnaire(bookingId: string) {
     alert('Failed to save answers. Please try again.');
   }
 }
-
-console.log(user);
 </script>
 <template>
     <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-10">
@@ -64,7 +62,7 @@ console.log(user);
       <h2 :id="`accordion-heading-${index}`">
         <button
           type="button"
-          class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-white"
+          class="flex items-center justify-center w-full p-5 font-medium text-center text-[var(--black-soft)] border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200"
           :data-accordion-target="`#accordion-body-${index}`"
           aria-expanded="false"
           :aria-controls="`accordion-body-${index}`"
@@ -120,7 +118,7 @@ console.log(user);
             </div>
           </div>
 
-          <div class="mt-4">
+          <div v-if="answers[booking.id]" class="mt-4">
             <h3 class="font-semibold mb-2">Questionnaire</h3>
             <form @submit.prevent="submitQuestionnaire(booking.id)">
               <div v-for="(question, qIndex) in getQuestions(booking.type)" :key="qIndex">
