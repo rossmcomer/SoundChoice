@@ -35,7 +35,7 @@ router.post('/', async (req: Request, res: Response) => {
       const startTime = session.metadata?.startTime;
       const endTime = session.metadata?.endTime;
       const location = session.metadata?.location;
-      const addUplights = session.metadata?.addUplights;
+      const addUplights = session.metadata?.addUplights === 'true';
       const addedHours = session.metadata?.addedHours;
       const transactionId = session.payment_intent as string;
       const sessionAmount = session.amount_total
@@ -45,7 +45,9 @@ router.post('/', async (req: Request, res: Response) => {
 
       if (
         !userId ||
+        !type ||
         !paymentType ||
+        !bookingId ||
         !eventDate ||
         !startTime ||
         !endTime ||
@@ -69,7 +71,7 @@ router.post('/', async (req: Request, res: Response) => {
               location,
               totalAmount,
               addUplights,
-              addedHours,
+              addedHours: Number(addedHours),
               type,
               paymentStatus: 'depositReceived',
             },
@@ -97,7 +99,7 @@ router.post('/', async (req: Request, res: Response) => {
           // 3. Create new payment record
           const newPaymentRecord = await prisma.payment.create({
             data: {
-              bookingId: newBooking.bookingId,
+              bookingId: newBooking.id,
               amount: sessionAmount,
               deposit: true,
               method: 'stripe',
@@ -114,7 +116,7 @@ router.post('/', async (req: Request, res: Response) => {
           const newQuestionnaire = await prisma.questionnaire.create({
             data: {
               userId,
-              bookingId: newBooking.bookingId,
+              bookingId: newBooking.id,
               answers: {},
             },
           });
@@ -132,9 +134,9 @@ router.post('/', async (req: Request, res: Response) => {
           }
           // 1. Update payment status of booking
           const booking = await prisma.booking.update({
-            where: { bookingId },
+            where: { id: bookingId },
             data: {
-              paymentStatus: 'depositReceived',
+              paymentStatus: 'paidInFull',
             },
           });
 
@@ -146,7 +148,7 @@ router.post('/', async (req: Request, res: Response) => {
           // 2. Create new payment record
           const newPaymentRecord = await prisma.payment.create({
             data: {
-              bookingId,
+              bookingId: booking.id,
               amount: sessionAmount,
               deposit: false,
               method: 'stripe',

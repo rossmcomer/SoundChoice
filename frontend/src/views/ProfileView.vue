@@ -85,7 +85,7 @@ const handleLogout = async () => {
               />
             </div>
           </form> -->
-          <BookingsAccordion :user="user" />
+          <BookingsAccordion />
         </div>
       </div>
       <div v-else class="flex flex-col place-items-center justify-center my-8">

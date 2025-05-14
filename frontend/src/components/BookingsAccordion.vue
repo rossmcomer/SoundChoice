@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import type { User, CheckoutRequestBody } from '@/types';
 import { loadStripe } from '@stripe/stripe-js';
+import { initAccordions } from 'flowbite';
 import { onMounted, ref, computed } from 'vue';
 import questionnaireService from '@/services/questionnaireService';
 import weddingQuestions from '@/assets/wedding-questionnaire.json';
 import nonWeddingQuestions from '@/assets/non-wedding-questionnaire.json';
 import { useProductStore } from '@/stores/ProductStore';
+import { useUserStore } from '@/stores/UserStore';
 import checkoutService from '@/services/checkoutService';
 
-const { user } = defineProps<{ user: User | null }>();
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
 
 const productsStore = useProductStore();
 const products = computed(() => productsStore.products);
@@ -29,20 +32,26 @@ function getQuestions(type: string): string[] {
 }
 
 onMounted(() => {
-  if (!user || !user.bookings) return;
+  initAccordions();
 
-  user.bookings.forEach((booking) => {
+  if (!user || !user.value?.bookings) return;
+
+  user.value?.bookings.forEach((booking) => {
     const bookingId = booking.id;
     const questions = getQuestions(booking.type);
 
+    // Find matching questionnaire for this booking
+    const questionnaire = user.value?.questionnaires?.find((q) => q.bookingId === bookingId);
+    const savedAnswers = questionnaire?.answers || {};
+
+    // Initialize answers object if not present
     if (!answers.value[bookingId]) {
       answers.value[bookingId] = {};
     }
 
     questions.forEach((question) => {
-      if (!(question in answers.value[bookingId])) {
-        answers.value[bookingId][question] = '';
-      }
+      // Use saved answer if available, otherwise blank
+      answers.value[bookingId][question] = savedAnswers[question] || '';
     });
   });
 });
@@ -56,7 +65,7 @@ function formatPaymentStatus(status: string): string {
     case 'remainingPaymentFailed':
       return 'Remaining Payment Failed';
     case 'paidInFull':
-      return 'Paid in Full';
+      return 'Paid In Full';
     case 'depositFailed':
       return 'Deposit Failed';
     default:
@@ -137,7 +146,6 @@ const checkoutRemaining = async (
       addedHours,
       addUplights,
     };
-    console.log(body, 'body');
 
     const session = await checkoutService.checkoutRemainingBalance(body as CheckoutRequestBody);
 
@@ -155,10 +163,11 @@ const checkoutRemaining = async (
 
 async function submitQuestionnaire(bookingId: string) {
   const data = answers.value[bookingId];
-  const questionnaireId = user?.questionnaires?.find(q => q.bookingId === bookingId)?.id
+  const questionnaireId = user?.value?.questionnaires?.find((q) => q.bookingId === bookingId)?.id;
   if (!data || !questionnaireId) return;
   try {
     await questionnaireService.saveAnswers({ questionnaireId, answers: data });
+    await userStore.fetchUser();
     alert('Answers saved successfully!');
   } catch (error) {
     console.error('Failed to save answers:', error);
@@ -188,11 +197,14 @@ async function submitQuestionnaire(bookingId: string) {
             >{{ new Date(booking.eventDate).toLocaleDateString() }} --
             {{ products.find((p) => p.value === booking.type)?.label ?? '' }}</span
           >
-          <svg class="w-3 h-3 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 10 6">
-            <path
-              d="M10 5a1 1 0 01-.3.7 1 1 0 01-1.4 0L5 2.4 1.7 5.7A1 1 0 11.3 4.3l4-4a1 1 0 011.4 0l4 4A1 1 0 0110 5z"
-            />
-          </svg>
+          <div>
+            <!-- <div>{{ booking.questionnaire?.answers }}</div> -->
+            <svg class="w-3 h-3 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 10 6">
+              <path
+                d="M10 5a1 1 0 01-.3.7 1 1 0 01-1.4 0L5 2.4 1.7 5.7A1 1 0 11.3 4.3l4-4a1 1 0 011.4 0l4 4A1 1 0 0110 5z"
+              />
+            </svg>
+          </div>
         </button>
       </h2>
       <div
@@ -201,6 +213,7 @@ async function submitQuestionnaire(bookingId: string) {
         :aria-labelledby="`accordion-heading-${index}`"
       >
         <div class="p-5 !text-[var(--black-soft)]">
+          <p><b>Date:</b> {{ new Date(booking.eventDate).toLocaleDateString() }}</p>
           <p>
             <b>Start Time:</b>
             {{
@@ -219,7 +232,7 @@ async function submitQuestionnaire(bookingId: string) {
               })
             }}
           </p>
-          <p><b>Total Amount:</b> ${{ booking.totalAmount }}</p>
+          <p><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</p>
           <p><b>Type:</b> {{ getProductLabel(booking.type) }}</p>
           <p><b>Payment Status:</b> {{ formatPaymentStatus(booking.paymentStatus) }}</p>
 
@@ -233,6 +246,7 @@ async function submitQuestionnaire(bookingId: string) {
               class="pl-4 py-2 border-l-2 border-gray-500"
             >
               <p v-if="payment.deposit">Type: Deposit</p>
+              <p v-else>Type: Remaining Balance</p>
               <p>Amount: ${{ payment.amount }}</p>
               <p>Transaction ID: {{ payment.transactionId }}</p>
             </div>

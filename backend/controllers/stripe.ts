@@ -6,11 +6,8 @@ const {
 } = require('../util/config');
 const stripe = require('stripe')(STRIPE_SECRET);
 const router = require('express').Router();
-const express = require('express');
 import { Request, Response } from 'express';
-import { prisma } from '../util/db';
 import { PRODUCTS } from '../assets/PRODUCTS';
-import Stripe from 'stripe';
 const { tokenExtractor } = require('../util/middleware');
 
 router.post(
