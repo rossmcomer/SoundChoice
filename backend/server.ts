@@ -13,6 +13,7 @@ const bookingsRouter = require('./controllers/bookings');
 const questionsRouter = require('./controllers/questionnaires');
 const adminRouter = require('./controllers/admin');
 const stripeRouter = require('./controllers/stripe');
+const stripeWebhookRouter = require('./controllers/stripeWebhook');
 const productsRouter = require('./controllers/products');
 
 app.use(cookieParser());
@@ -22,6 +23,9 @@ app.use(
     credentials: true,
   }),
 );
+
+app.use('/api/stripe-webhook', express.raw({ type: 'application/json' }), stripeWebhookRouter);
+
 app.use(express.json());
 
 app.use('/api/users', usersRouter);

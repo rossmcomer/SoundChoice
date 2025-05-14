@@ -1,0 +1,50 @@
+{
+    "payment_method_types": ["card"],
+    "line_items": [
+      {
+        "price_data": {
+          "currency": "usd",
+          "product_data": {
+            "name": "Mitzvah"
+          },
+          "unit_amount": 0
+        },
+        "quantity": 1
+      },
+      {
+        "price_data": {
+          "currency": "usd",
+          "product_data": {
+            "name": "Added Hours"
+          },
+          "unit_amount": 7500
+        },
+        "quantity": 3
+      },
+      {
+        "price_data": {
+          "currency": "usd",
+          "product_data": {
+            "name": "Uplighting"
+          },
+          "unit_amount": 10000
+        },
+        "quantity": 1
+      }
+    ],
+    "mode": "payment",
+    "success_url": "https://example.com/success",
+    "cancel_url": "https://example.com/cancel",
+    "metadata": {
+      "userId": "db1b5ca6-8951-47a3-a14b-ae119adc551b",
+      "type": "barBatMitzvah",
+      "paymentType": "remainingBalance",
+      "eventDate": "2025-06-15",
+      "startTime": "2025-06-15T21:00:00Z",
+      "endTime": "2025-06-16T02:00:00Z",
+      "location": "NYC",
+      "addUplights": "true",
+      "addedHours": "3"
+    }
+  }
+  
