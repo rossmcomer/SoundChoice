@@ -18,6 +18,8 @@ export interface Booking {
   totalAmount: number;
   type: EventType;
   paymentStatus: PaymentStatus;
+  addUplights: boolean;
+  addedHours: number;
   payment?: Payment[];
   questionnaire?: Questionnaire;
 }
@@ -28,10 +30,12 @@ export interface Payment {
   amount: number;
   deposit: boolean;
   method: PaymentMethod;
+  transactionId: String;
 }
 
 export interface Questionnaire {
   id: string;
+  bookingId: string;
   answers: Record<string, any>;
   lastUpdated: string;
 }

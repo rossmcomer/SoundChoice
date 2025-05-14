@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import type { User } from '@/types';
-import { onMounted, ref } from 'vue';
+import type { User, CheckoutRequestBody } from '@/types';
+import { loadStripe } from '@stripe/stripe-js';
+import { onMounted, ref, computed } from 'vue';
 import questionnaireService from '@/services/questionnaireService';
 import weddingQuestions from '@/assets/wedding-questionnaire.json';
 import nonWeddingQuestions from '@/assets/non-wedding-questionnaire.json';
+import { useProductStore } from '@/stores/ProductStore';
+import checkoutService from '@/services/checkoutService';
 
 const { user } = defineProps<{ user: User | null }>();
+
+const productsStore = useProductStore();
+const products = computed(() => productsStore.products);
 
 const answers = ref<Record<string, Record<string, string>>>({});
 
@@ -41,11 +47,118 @@ onMounted(() => {
   });
 });
 
+function formatPaymentStatus(status: string): string {
+  switch (status) {
+    case 'unpaid':
+      return 'Unpaid';
+    case 'depositReceived':
+      return '50% Deposit Received';
+    case 'remainingPaymentFailed':
+      return 'Remaining Payment Failed';
+    case 'paidInFull':
+      return 'Paid in Full';
+    case 'depositFailed':
+      return 'Deposit Failed';
+    default:
+      return 'Unknown';
+  }
+}
+
+function getProductLabel(type: string): string {
+  const product = products.value.find((p) => p.value === type);
+  return product ? product.label : 'Unknown Type';
+}
+
+const checkoutRemaining = async (
+  bookingId: string,
+  eventDate: string,
+  startTime: string,
+  endTime: string,
+  location: string,
+  type: string,
+  addUplights: boolean,
+  addedHours: number,
+) => {
+  const stripe = await loadStripe(import.meta.env.VITE_STRIPE_KEY);
+
+  if (!stripe) {
+    console.error('Stripe failed to initialize');
+    return;
+  }
+
+  const PRODUCTS = [];
+
+  // Add main event type product
+  const mainProduct = products.value.find((p) => p.value === type);
+  if (mainProduct) {
+    PRODUCTS.push({
+      id: mainProduct.id,
+      label: mainProduct.label,
+      price: mainProduct.price,
+      quantity: 1,
+    });
+  }
+
+  // Add additional hours product if applicable
+  if (addedHours > 0) {
+    const addTimeProduct = products.value.find((p) => p.value === 'addTime');
+    if (addTimeProduct) {
+      PRODUCTS.push({
+        id: addTimeProduct.id,
+        label: addTimeProduct.label,
+        price: addTimeProduct.price,
+        quantity: addedHours,
+      });
+    }
+  }
+
+  // Add uplights product if selected
+  if (addUplights) {
+    const uplightProduct = products.value.find((p) => p.value === 'uplights');
+    if (uplightProduct) {
+      PRODUCTS.push({
+        id: uplightProduct.id,
+        label: uplightProduct.label,
+        price: uplightProduct.price,
+        quantity: 1,
+      });
+    }
+  }
+
+  try {
+    const body = {
+      products: PRODUCTS,
+      bookingId,
+      eventDate: new Date(eventDate),
+      startTime,
+      endTime,
+      type,
+      location,
+      addedHours,
+      addUplights,
+    };
+    console.log(body, 'body');
+
+    const session = await checkoutService.checkoutRemainingBalance(body as CheckoutRequestBody);
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.error(result.error.message);
+    }
+  } catch (error) {
+    console.error('Checkout error:', error);
+  }
+};
+
 async function submitQuestionnaire(bookingId: string) {
   const data = answers.value[bookingId];
-  if (!data) return;
+  const questionnaireId = user?.questionnaires?.find(q => q.bookingId === bookingId)?.id
+  if (!data || !questionnaireId) return;
   try {
-    await questionnaireService.saveAnswers({ bookingId, answers: data });
+    await questionnaireService.saveAnswers({ questionnaireId, answers: data });
     alert('Answers saved successfully!');
   } catch (error) {
     console.error('Failed to save answers:', error);
@@ -54,7 +167,9 @@ async function submitQuestionnaire(bookingId: string) {
 }
 </script>
 <template>
-  <div class="sm:text-2xl text-xl text-center font-bold text-gray-800 pt-10 mb-10">Bookings</div>
+  <div class="sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)] pt-10 mb-10">
+    Bookings
+  </div>
   <div
     v-if="user && user.bookings && user.bookings.length > 0"
     id="accordion-nested-parent"
@@ -64,13 +179,14 @@ async function submitQuestionnaire(bookingId: string) {
       <h2 :id="`accordion-heading-${index}`">
         <button
           type="button"
-          class="flex items-center justify-between w-full p-5 font-medium !text-[var(--black-soft)] border border-[rgb(34,34,34)] rounded-xl"
+          class="flex items-center justify-between w-full p-5 mb-2 font-medium !text-[var(--black-soft)] border-2 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent rounded-xl cursor-pointer"
           :data-accordion-target="`#accordion-body-${index}`"
           aria-expanded="false"
           :aria-controls="`accordion-body-${index}`"
         >
           <span
-            >{{ new Date(booking.eventDate).toLocaleDateString() }} @ {{ booking.location }}</span
+            >{{ new Date(booking.eventDate).toLocaleDateString() }} --
+            {{ products.find((p) => p.value === booking.type)?.label ?? '' }}</span
           >
           <svg class="w-3 h-3 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 10 6">
             <path
@@ -81,10 +197,10 @@ async function submitQuestionnaire(bookingId: string) {
       </h2>
       <div
         :id="`accordion-body-${index}`"
-        class="hidden"
+        class="hidden mb-2 border border-[rgb(34,34,34)] rounded-xl bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
         :aria-labelledby="`accordion-heading-${index}`"
       >
-        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+        <div class="p-5 !text-[var(--black-soft)]">
           <p>
             <b>Start Time:</b>
             {{
@@ -104,24 +220,44 @@ async function submitQuestionnaire(bookingId: string) {
             }}
           </p>
           <p><b>Total Amount:</b> ${{ booking.totalAmount }}</p>
-          <p><b>Type:</b> {{ booking.type }}</p>
-          <p><b>Payment Status:</b> {{ booking.paymentStatus }}</p>
+          <p><b>Type:</b> {{ getProductLabel(booking.type) }}</p>
+          <p><b>Payment Status:</b> {{ formatPaymentStatus(booking.paymentStatus) }}</p>
 
           <div v-if="booking.payment && booking.payment.length > 0">
-            <h3 class="mt-4 font-semibold">Payments</h3>
+            <h3 class="mt-4 font-bold text-[var(--black-soft)]">
+              Payments ({{ booking.payment.length }})
+            </h3>
             <div
               v-for="(payment, pIndex) in booking.payment"
               :key="pIndex"
-              class="pl-4 py-2 border-l-2 border-gray-300"
+              class="pl-4 py-2 border-l-2 border-gray-500"
             >
+              <p v-if="payment.deposit">Type: Deposit</p>
               <p>Amount: ${{ payment.amount }}</p>
-              <p>Deposit: {{ payment.deposit ? 'Yes' : 'No' }}</p>
-              <p>Method: {{ payment.method }}</p>
+              <p>Transaction ID: {{ payment.transactionId }}</p>
             </div>
+            <button
+              v-if="booking.paymentStatus === 'depositReceived'"
+              @click="
+                checkoutRemaining(
+                  booking.id,
+                  booking.eventDate,
+                  booking.startTime,
+                  booking.endTime,
+                  booking.location,
+                  booking.type,
+                  booking.addUplights,
+                  booking.addedHours,
+                )
+              "
+              class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 cursor-pointer"
+            >
+              Pay Remaining Balance
+            </button>
           </div>
 
           <div v-if="answers[booking.id]" class="mt-4">
-            <h3 class="font-semibold mb-2">Questionnaire</h3>
+            <h3 class="font-bold mb-2">Questionnaire</h3>
             <form @submit.prevent="submitQuestionnaire(booking.id)">
               <div v-for="(question, qIndex) in getQuestions(booking.type)" :key="qIndex">
                 <label :for="`q-${booking.id}-${qIndex}`">{{ question }}</label>
@@ -137,7 +273,7 @@ async function submitQuestionnaire(bookingId: string) {
                 type="submit"
                 class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-xs px-2 py-1 text-center md:text-sm md:px-4 md:py-2 sm:text-sm sm:px-2 sm:py-1"
               >
-                Save
+                Save Answers
               </button>
             </form>
           </div>

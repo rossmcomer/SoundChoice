@@ -1,16 +1,16 @@
 import axios from '@/util/apiClient';
 
-const baseUrl = '/questionnaire';
+const baseUrl = '/questions';
 
 export const saveAnswers = async ({
-  bookingId,
+  questionnaireId,
   answers,
 }: {
-  bookingId: string;
+  questionnaireId: string;
   answers: Record<string, string>;
 }) => {
   const response = await axios.patch(
-    `${baseUrl}/${bookingId}`,
+    `${baseUrl}/${questionnaireId}`,
     { answers: answers },
     {
       withCredentials: true,

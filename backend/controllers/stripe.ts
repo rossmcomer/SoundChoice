@@ -6,7 +6,7 @@ const {
 } = require('../util/config');
 const stripe = require('stripe')(STRIPE_SECRET);
 const router = require('express').Router();
-const express = require('express')
+const express = require('express');
 import { Request, Response } from 'express';
 import { prisma } from '../util/db';
 import { PRODUCTS } from '../assets/PRODUCTS';
@@ -31,26 +31,33 @@ router.post(
 
     try {
       // Validate product IDs and build line items
-      const lineItems = products.map((product: { id: number; label: string; price: number, quantity: number }) => {
-        const productInfo = PRODUCTS.find((p) => p.id === product.id);
-      
-        if (!productInfo || productInfo.price === undefined) {
-          throw new Error(`Invalid product ID: ${product.id}`);
-        }
-      
-        const unitPrice = productInfo.price;
-      
-        return {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: product.label,
+      const lineItems = products.map(
+        (product: {
+          id: number;
+          label: string;
+          price: number;
+          quantity: number;
+        }) => {
+          const productInfo = PRODUCTS.find((p) => p.id === product.id);
+
+          if (!productInfo || productInfo.price === undefined) {
+            throw new Error(`Invalid product ID: ${product.id}`);
+          }
+
+          const unitPrice = productInfo.price;
+
+          return {
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: product.label,
+              },
+              unit_amount: Math.round(unitPrice / 2),
             },
-            unit_amount: Math.round(unitPrice / 2),
-          },
-          quantity: product.quantity,
-        };
-      });
+            quantity: product.quantity,
+          };
+        },
+      );
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -185,7 +192,7 @@ router.post(
       console.error('Error creating checkout session:', error);
       res.status(500).json({ error: error.message });
     }
-  }
+  },
 );
 
 module.exports = router;

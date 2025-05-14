@@ -24,7 +24,11 @@ app.use(
   }),
 );
 
-app.use('/api/stripe-webhook', express.raw({ type: 'application/json' }), stripeWebhookRouter);
+app.use(
+  '/api/stripe-webhook',
+  express.raw({ type: 'application/json' }),
+  stripeWebhookRouter,
+);
 
 app.use(express.json());
 
