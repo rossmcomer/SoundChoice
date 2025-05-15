@@ -8,12 +8,17 @@ import animationData from '@/assets/GreenCheckmark.json';
       <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
       Your browser does not lighting the video tag.
     </video>
-    <Vue3Lottie
-      :animation-data="animationData"
-      :loop="false"
-      :autoplay="true"
-      :height="400"
-      :width="400"
-    />
-  </div>
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-full">
+      <Vue3Lottie
+        :animation-data="animationData"
+        :loop="false"
+        :autoplay="true"
+        :height="300"
+        :width="300"
+      />
+      <div class="text-[var(--black-soft)] text-center mt-4 px-4 max-w-lg">
+        Remaining payment successful. Please visit your profile to complete your questionnaire at least 1 month before your event.
+      </div>
+    </div>
+     </div>
 </template>
