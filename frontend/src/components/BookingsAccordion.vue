@@ -21,6 +21,7 @@ const timeZoneAbbr = useTimeZoneAbbr();
 
 const answers = ref<Record<string, Record<string, string>>>({});
 
+//Initialize answers for questionnaire
 function initializeAnswer(bookingId: string, question: string) {
   if (!answers.value[bookingId]) {
     answers.value[bookingId] = {};
@@ -59,6 +60,7 @@ onMounted(() => {
   });
 });
 
+// Format payment status for display on screen
 function formatPaymentStatus(status: string): string {
   switch (status) {
     case 'unpaid':
@@ -76,11 +78,13 @@ function formatPaymentStatus(status: string): string {
   }
 }
 
+// Get display label from products array
 function getProductLabel(type: string): string {
   const product = products.value.find((p) => p.value === type);
   return product ? product.label : 'Unknown Type';
 }
 
+// Check if questionnaire has blank answers
 function hasBlankAnswers(bookingId: string): boolean {
   const bookingAnswers = answers.value[bookingId];
   if (!bookingAnswers) return false;
@@ -88,12 +92,14 @@ function hasBlankAnswers(bookingId: string): boolean {
   return Object.values(bookingAnswers).some((answer) => answer === '');
 }
 
+//Resize textareas based on input
 function autoResize(event: Event) {
   const textarea = event.target as HTMLTextAreaElement;
   textarea.style.height = 'auto'; // Reset height
   textarea.style.height = `${textarea.scrollHeight}px`; // Set to fit content
 }
 
+// Redirect to Stripe for paying remaining balance
 const checkoutRemaining = async (
   bookingId: string,
   eventDate: string,
