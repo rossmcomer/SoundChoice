@@ -64,9 +64,9 @@ function formatPaymentStatus(status: string): string {
     case 'unpaid':
       return 'Unpaid';
     case 'depositReceived':
-      return '50% Deposit Received';
+      return '50% Deposit Received ✅';
     case 'remainingPaymentFailed':
-      return 'Remaining Payment Failed';
+      return 'Remaining Payment Failed ❌';
     case 'paidInFull':
       return 'Paid In Full ✅';
     case 'depositFailed':
@@ -210,22 +210,17 @@ async function submitQuestionnaire(bookingId: string) {
             >
             <div class="flex items-center">
               <div
-                v-if="hasBlankAnswers(booking.id) && booking.paymentStatus !== 'paidInFull'"
+                v-if="!hasBlankAnswers(booking.id) && booking.paymentStatus === 'paidInFull'"
+                class="flex items-center space-x-2 p-2 mr-2 text-green-700 transition-[var(--transition-default)]"
+              >
+                COMPLETE
+              </div>
+              <div
+                v-else
                 class="flex items-center space-x-2 p-2 mr-2 text-red-600 transition-[var(--transition-default)]"
               >
                 INCOMPLETE
               </div>
-              <div
-                v-else-if="hasBlankAnswers(booking.id) && booking.paymentStatus === 'paidInFull'"
-              >
-                Incomplete Questionnaire ❌
-              </div>
-              <div
-                v-else-if="!hasBlankAnswers(booking.id) && booking.paymentStatus !== 'paidInFull'"
-              >
-                Please Pay Remaining Balance ❌
-              </div>
-
               <svg class="w-3 h-3 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 10 6">
                 <path
                   d="M10 5a1 1 0 01-.3.7 1 1 0 01-1.4 0L5 2.4 1.7 5.7A1 1 0 11.3 4.3l4-4a1 1 0 011.4 0l4 4A1 1 0 0110 5z"
@@ -264,11 +259,14 @@ async function submitQuestionnaire(bookingId: string) {
             </p>
             <p><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</p>
             <p><b>Payment Status:</b> {{ formatPaymentStatus(booking.paymentStatus) }}</p>
-            <p v-if="booking.paymentStatus === 'depositReceived'" class="flex">
+            <p
+              v-if="booking.paymentStatus === 'depositReceived' || 'remainingPaymentFailed'"
+              class="flex"
+            >
               <b>Remaining Balance:</b>
               <span class="text-red-600">&nbsp${{ booking.totalAmount / 200 }}</span>
             </p>
-            <p v-if="booking.paymentStatus === 'paidInFull'"><b>Remaining Balance:</b> $0</p>
+            <p v-else-if="booking.paymentStatus === 'paidInFull'"><b>Remaining Balance:</b> $0</p>
 
             <div v-if="booking.payment && booking.payment.length > 0">
               <h3 class="mt-4 font-bold text-[var(--black-soft)]">
@@ -301,7 +299,7 @@ async function submitQuestionnaire(bookingId: string) {
                     booking.addedHours,
                   )
                 "
-                class="mt-4 bg-green-600 text-[var(--white-soft)] px-4 py-2 rounded-lg shadow-md hover:bg-green-700 cursor-pointer w-full sm:w-auto"
+                class="mt-4 bg-[#1ab458] text-[var(--black-soft)] stroke-1 px-4 py-2 rounded-lg shadow-md hover:bg-[#50a572] cursor-pointer w-full sm:w-auto"
               >
                 Pay Remaining Balance
               </button>
