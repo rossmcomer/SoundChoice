@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { User, CheckoutRequestBody } from '@/types';
+import type { CheckoutRequestBody, Booking } from '@/types';
 import { loadStripe } from '@stripe/stripe-js';
 import { initAccordions } from 'flowbite';
 import { onMounted, ref, computed } from 'vue';
@@ -68,7 +68,7 @@ function formatPaymentStatus(status: string): string {
     case 'remainingPaymentFailed':
       return 'Remaining Payment Failed';
     case 'paidInFull':
-      return 'Paid In Full';
+      return 'Paid In Full ✅';
     case 'depositFailed':
       return 'Deposit Failed';
     default:
@@ -79,6 +79,19 @@ function formatPaymentStatus(status: string): string {
 function getProductLabel(type: string): string {
   const product = products.value.find((p) => p.value === type);
   return product ? product.label : 'Unknown Type';
+}
+
+function hasBlankAnswers(bookingId: string): boolean {
+  const bookingAnswers = answers.value[bookingId];
+  if (!bookingAnswers) return false;
+
+  return Object.values(bookingAnswers).some(answer => answer === '');
+}
+
+function autoResize(event: Event) {
+  const textarea = event.target as HTMLTextAreaElement;
+  textarea.style.height = 'auto'; // Reset height
+  textarea.style.height = `${textarea.scrollHeight}px`; // Set to fit content
 }
 
 const checkoutRemaining = async (
@@ -191,12 +204,17 @@ async function submitQuestionnaire(bookingId: string) {
             aria-expanded="false"
             :aria-controls="`accordion-body-${index}`"
           >
-            <span
+            <span class="text-left"
               >{{ new Date(booking.eventDate).toLocaleDateString() }} --
               {{ products.find((p) => p.value === booking.type)?.label ?? '' }}</span
             >
-            <div>
-              <!-- <div>{{ booking.questionnaire?.answers }}</div> -->
+            <div class="flex items-center">
+                <div v-if="hasBlankAnswers(booking.id) && booking.paymentStatus !== 'paidInFull'" class="flex items-center space-x-2 p-2 mr-2 text-red-600 transition-[var(--transition-default)]">
+  This booking has problems that need addressing.
+</div>
+<div v-else-if="hasBlankAnswers(booking.id) && booking.paymentStatus === 'paidInFull'">Incomplete Questionnaire ❌</div>
+<div v-else-if="!hasBlankAnswers(booking.id) && booking.paymentStatus !== 'paidInFull'">Please Pay Remaining Balance ❌</div>
+
               <svg class="w-3 h-3 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 10 6">
                 <path
                   d="M10 5a1 1 0 01-.3.7 1 1 0 01-1.4 0L5 2.4 1.7 5.7A1 1 0 11.3 4.3l4-4a1 1 0 011.4 0l4 4A1 1 0 0110 5z"
@@ -235,8 +253,8 @@ async function submitQuestionnaire(bookingId: string) {
             </p>
             <p><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</p>
             <p><b>Payment Status:</b> {{ formatPaymentStatus(booking.paymentStatus) }}</p>
-            <p v-if="booking.paymentStatus === 'depositReceived'">
-              <b>Remaining Balance:</b> ${{ booking.totalAmount / 200 }}
+            <p v-if="booking.paymentStatus === 'depositReceived'" class="flex">
+              <b>Remaining Balance:</b> <p class="text-red-600">&nbsp${{ booking.totalAmount / 200 }}</p>
             </p>
             <p v-if="booking.paymentStatus === 'paidInFull'"><b>Remaining Balance:</b> $0</p>
 
@@ -271,33 +289,36 @@ async function submitQuestionnaire(bookingId: string) {
                     booking.addedHours,
                   )
                 "
-                class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 cursor-pointer"
+                class="mt-4 bg-green-600 text-[var(--white-soft)] px-4 py-2 rounded-lg shadow-md hover:bg-green-700 cursor-pointer w-full sm:w-auto"
               >
                 Pay Remaining Balance
               </button>
             </div>
 
             <div v-if="answers[booking.id]" class="mt-4">
-              <div class="mb-4 italic text-lg text-center">
+              <h3 class="font-bold text-center text-2xl mb-4">Questionnaire<span v-if="hasBlankAnswers(booking.id)">❌</span>
+  <span v-else>✅</span></h3>
+  <div class="mb-4 italic text-lg text-center">
                 <b>Important!</b> Please complete questionnaire one month before your event. If a
                 question doesn't apply to your event, please type 'N/A'. Questionnaire will show as
                 incomplete until every question is answered.
               </div>
-              <h3 class="font-bold text-center text-2xl mb-4">Questionnaire</h3>
+              
               <form @submit.prevent="submitQuestionnaire(booking.id)">
                 <div v-for="(question, qIndex) in getQuestions(booking.type)" :key="qIndex">
                   <label :for="`q-${booking.id}-${qIndex}`">{{ question }}</label>
-                  <input
-                    :id="`q-${booking.id}-${qIndex}`"
-                    v-model="answers[booking.id][question]"
-                    @focus="initializeAnswer(booking.id, question)"
-                    type="text"
-                    class="w-full mb-2 border rounded p-1"
-                  />
+                  <textarea
+  :id="`q-${booking.id}-${qIndex}`"
+  v-model="answers[booking.id][question]"
+  @focus="initializeAnswer(booking.id, question)"
+  @input="autoResize($event)"
+  rows="1"
+  class="w-full mb-2 border rounded p-1 resize-none overflow-hidden focus:ring-0 focus:outline-[2px] focus:outline-[var(--color6)]"
+></textarea>
                 </div>
                 <button
                   type="submit"
-                  class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-xs px-2 py-1 text-center md:text-sm md:px-4 md:py-2 sm:text-sm sm:px-2 sm:py-1"
+                  class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto"
                 >
                   Save Answers
                 </button>
