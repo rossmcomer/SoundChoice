@@ -85,7 +85,7 @@ function hasBlankAnswers(bookingId: string): boolean {
   const bookingAnswers = answers.value[bookingId];
   if (!bookingAnswers) return false;
 
-  return Object.values(bookingAnswers).some(answer => answer === '');
+  return Object.values(bookingAnswers).some((answer) => answer === '');
 }
 
 function autoResize(event: Event) {
@@ -209,11 +209,22 @@ async function submitQuestionnaire(bookingId: string) {
               {{ products.find((p) => p.value === booking.type)?.label ?? '' }}</span
             >
             <div class="flex items-center">
-                <div v-if="hasBlankAnswers(booking.id) && booking.paymentStatus !== 'paidInFull'" class="flex items-center space-x-2 p-2 mr-2 text-red-600 transition-[var(--transition-default)]">
-  This booking has problems that need addressing.
-</div>
-<div v-else-if="hasBlankAnswers(booking.id) && booking.paymentStatus === 'paidInFull'">Incomplete Questionnaire ❌</div>
-<div v-else-if="!hasBlankAnswers(booking.id) && booking.paymentStatus !== 'paidInFull'">Please Pay Remaining Balance ❌</div>
+              <div
+                v-if="hasBlankAnswers(booking.id) && booking.paymentStatus !== 'paidInFull'"
+                class="flex items-center space-x-2 p-2 mr-2 text-red-600 transition-[var(--transition-default)]"
+              >
+                INCOMPLETE
+              </div>
+              <div
+                v-else-if="hasBlankAnswers(booking.id) && booking.paymentStatus === 'paidInFull'"
+              >
+                Incomplete Questionnaire ❌
+              </div>
+              <div
+                v-else-if="!hasBlankAnswers(booking.id) && booking.paymentStatus !== 'paidInFull'"
+              >
+                Please Pay Remaining Balance ❌
+              </div>
 
               <svg class="w-3 h-3 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 10 6">
                 <path
@@ -254,7 +265,8 @@ async function submitQuestionnaire(bookingId: string) {
             <p><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</p>
             <p><b>Payment Status:</b> {{ formatPaymentStatus(booking.paymentStatus) }}</p>
             <p v-if="booking.paymentStatus === 'depositReceived'" class="flex">
-              <b>Remaining Balance:</b> <p class="text-red-600">&nbsp${{ booking.totalAmount / 200 }}</p>
+              <b>Remaining Balance:</b>
+              <span class="text-red-600">&nbsp${{ booking.totalAmount / 200 }}</span>
             </p>
             <p v-if="booking.paymentStatus === 'paidInFull'"><b>Remaining Balance:</b> $0</p>
 
@@ -296,25 +308,27 @@ async function submitQuestionnaire(bookingId: string) {
             </div>
 
             <div v-if="answers[booking.id]" class="mt-4">
-              <h3 class="font-bold text-center text-2xl mb-4">Questionnaire<span v-if="hasBlankAnswers(booking.id)">❌</span>
-  <span v-else>✅</span></h3>
-  <div class="mb-4 italic text-lg text-center">
+              <h3 class="font-bold text-center text-2xl mb-4">
+                Questionnaire<span v-if="hasBlankAnswers(booking.id)">❌</span>
+                <span v-else>✅</span>
+              </h3>
+              <div class="mb-4 italic text-lg text-center">
                 <b>Important!</b> Please complete questionnaire one month before your event. If a
                 question doesn't apply to your event, please type 'N/A'. Questionnaire will show as
                 incomplete until every question is answered.
               </div>
-              
+
               <form @submit.prevent="submitQuestionnaire(booking.id)">
                 <div v-for="(question, qIndex) in getQuestions(booking.type)" :key="qIndex">
                   <label :for="`q-${booking.id}-${qIndex}`">{{ question }}</label>
                   <textarea
-  :id="`q-${booking.id}-${qIndex}`"
-  v-model="answers[booking.id][question]"
-  @focus="initializeAnswer(booking.id, question)"
-  @input="autoResize($event)"
-  rows="1"
-  class="w-full mb-2 border rounded p-1 resize-none overflow-hidden focus:ring-0 focus:outline-[2px] focus:outline-[var(--color6)]"
-></textarea>
+                    :id="`q-${booking.id}-${qIndex}`"
+                    v-model="answers[booking.id][question]"
+                    @focus="initializeAnswer(booking.id, question)"
+                    @input="autoResize($event)"
+                    rows="1"
+                    class="w-full mb-2 border rounded p-1 resize-none overflow-hidden focus:ring-0 focus:outline-[2px] focus:outline-[var(--color6)]"
+                  ></textarea>
                 </div>
                 <button
                   type="submit"

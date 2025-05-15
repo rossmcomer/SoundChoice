@@ -16,7 +16,7 @@ import animationData from '@/assets/RedCanceled.json';
         :height="300"
         :width="300"
       />
-      <div class="text-[var(--black-soft)] text-center my-4 px-4 max-w-lg">
+      <div class="text-[var(--black-soft)] text-center my-4 px-4 max-w-lg font-medium">
         Remaining Payment Failed. Please visit your profile and try again.
       </div>
       <button

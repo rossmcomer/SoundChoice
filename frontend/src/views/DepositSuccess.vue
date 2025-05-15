@@ -16,7 +16,7 @@ import animationData from '@/assets/GreenCheckmark.json';
         :height="300"
         :width="300"
       />
-      <div class="text-[var(--black-soft)] text-center my-4 px-4 max-w-lg">
+      <div class="text-[var(--black-soft)] text-center my-4 px-4 max-w-lg font-medium">
         Deposit successful. Please visit your profile to complete your questionnaire and pay the
         remaining 50% of your total balance at least 1 month before your event.
       </div>
