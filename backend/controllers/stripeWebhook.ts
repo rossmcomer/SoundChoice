@@ -42,12 +42,11 @@ router.post('/', async (req: Request, res: Response) => {
         ? session.amount_total / 100
         : 0;
       const totalAmount = session.amount_total ? session.amount_total * 2 : 0;
-
+    
       if (
         !userId ||
         !type ||
         !paymentType ||
-        !bookingId ||
         !eventDate ||
         !startTime ||
         !endTime ||

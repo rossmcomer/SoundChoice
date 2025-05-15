@@ -7,6 +7,10 @@ import TestimonialsView from '../views/TestimonialsView.vue';
 import MediaView from '../views/MediaView.vue';
 import LoginView from '../views/LoginView.vue';
 import ProfileView from '../views/ProfileView.vue';
+import PaidInFullSuccess from '../views/PaidInFullSuccess.vue';
+import PaidInFullFailed from '../views/PaidInFullFailed.vue';
+import DepositSuccess from '../views/DepositSuccess.vue';
+import DepositFailed from '../views/DepositFailed.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +54,26 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+    },
+    {
+      path: '/successful-paid-in-full',
+      name: 'paidInFull',
+      component: PaidInFullSuccess,
+    },
+    {
+      path: '/cancelled-final-payment',
+      name: 'Paid In Full',
+      component: PaidInFullFailed,
+    },
+    {
+      path: '/successful-deposit',
+      name: 'Deposit Suceess',
+      component: DepositSuccess,
+    },
+    {
+      path: '/deposit-failed',
+      name: 'Deposit Failed',
+      component: DepositFailed,
     },
   ],
 });

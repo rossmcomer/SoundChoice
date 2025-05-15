@@ -9,12 +9,15 @@ import nonWeddingQuestions from '@/assets/non-wedding-questionnaire.json';
 import { useProductStore } from '@/stores/ProductStore';
 import { useUserStore } from '@/stores/UserStore';
 import checkoutService from '@/services/checkoutService';
+import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
 const productsStore = useProductStore();
 const products = computed(() => productsStore.products);
+
+const timeZoneAbbr = useTimeZoneAbbr();
 
 const answers = ref<Record<string, Record<string, string>>>({});
 
@@ -176,120 +179,130 @@ async function submitQuestionnaire(bookingId: string) {
 }
 </script>
 <template>
-  <div class="sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)] pt-10 mb-10">
-    Bookings
-  </div>
-  <div
-    v-if="user && user.bookings && user.bookings.length > 0"
-    id="accordion-nested-parent"
-    data-accordion="collapse"
-  >
-    <div v-for="(booking, index) in user.bookings" :key="booking.id">
-      <h2 :id="`accordion-heading-${index}`">
-        <button
-          type="button"
-          class="flex items-center justify-between w-full p-5 mb-2 font-medium !text-[var(--black-soft)] border-2 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent rounded-xl cursor-pointer"
-          :data-accordion-target="`#accordion-body-${index}`"
-          aria-expanded="false"
-          :aria-controls="`accordion-body-${index}`"
-        >
-          <span
-            >{{ new Date(booking.eventDate).toLocaleDateString() }} --
-            {{ products.find((p) => p.value === booking.type)?.label ?? '' }}</span
+  <div v-if="user && user.bookings && user.bookings.length > 0">
+    <div class="text-2xl text-center font-bold text-[var(--black-soft)] pt-10 mb-10">Bookings</div>
+    <div id="accordion-nested-parent" data-accordion="collapse">
+      <div v-for="(booking, index) in user.bookings" :key="booking.id">
+        <h2 :id="`accordion-heading-${index}`">
+          <button
+            type="button"
+            class="flex items-center justify-between w-full p-5 mb-2 font-medium !text-[var(--black-soft)] border-2 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent rounded-xl cursor-pointer"
+            :data-accordion-target="`#accordion-body-${index}`"
+            aria-expanded="false"
+            :aria-controls="`accordion-body-${index}`"
           >
-          <div>
-            <!-- <div>{{ booking.questionnaire?.answers }}</div> -->
-            <svg class="w-3 h-3 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 10 6">
-              <path
-                d="M10 5a1 1 0 01-.3.7 1 1 0 01-1.4 0L5 2.4 1.7 5.7A1 1 0 11.3 4.3l4-4a1 1 0 011.4 0l4 4A1 1 0 0110 5z"
-              />
-            </svg>
-          </div>
-        </button>
-      </h2>
-      <div
-        :id="`accordion-body-${index}`"
-        class="hidden mb-2 border border-[rgb(34,34,34)] rounded-xl bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
-        :aria-labelledby="`accordion-heading-${index}`"
-      >
-        <div class="p-5 !text-[var(--black-soft)]">
-          <p><b>Date:</b> {{ new Date(booking.eventDate).toLocaleDateString() }}</p>
-          <p>
-            <b>Start Time:</b>
-            {{
-              new Date(booking.startTime).toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-              })
-            }}
-          </p>
-          <p>
-            <b>End Time:</b>
-            {{
-              new Date(booking.endTime).toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-              })
-            }}
-          </p>
-          <p><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</p>
-          <p><b>Type:</b> {{ getProductLabel(booking.type) }}</p>
-          <p><b>Payment Status:</b> {{ formatPaymentStatus(booking.paymentStatus) }}</p>
-
-          <div v-if="booking.payment && booking.payment.length > 0">
-            <h3 class="mt-4 font-bold text-[var(--black-soft)]">
-              Payments ({{ booking.payment.length }})
-            </h3>
-            <div
-              v-for="(payment, pIndex) in booking.payment"
-              :key="pIndex"
-              class="pl-4 py-2 border-l-2 border-gray-500"
+            <span
+              >{{ new Date(booking.eventDate).toLocaleDateString() }} --
+              {{ products.find((p) => p.value === booking.type)?.label ?? '' }}</span
             >
-              <p v-if="payment.deposit">Type: Deposit</p>
-              <p v-else>Type: Remaining Balance</p>
-              <p>Amount: ${{ payment.amount }}</p>
-              <p>Transaction ID: {{ payment.transactionId }}</p>
-            </div>
-            <button
-              v-if="booking.paymentStatus === 'depositReceived'"
-              @click="
-                checkoutRemaining(
-                  booking.id,
-                  booking.eventDate,
-                  booking.startTime,
-                  booking.endTime,
-                  booking.location,
-                  booking.type,
-                  booking.addUplights,
-                  booking.addedHours,
-                )
-              "
-              class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 cursor-pointer"
-            >
-              Pay Remaining Balance
-            </button>
-          </div>
-
-          <div v-if="answers[booking.id]" class="mt-4">
-            <h3 class="font-bold mb-2">Questionnaire</h3>
-            <form @submit.prevent="submitQuestionnaire(booking.id)">
-              <div v-for="(question, qIndex) in getQuestions(booking.type)" :key="qIndex">
-                <label :for="`q-${booking.id}-${qIndex}`">{{ question }}</label>
-                <input
-                  :id="`q-${booking.id}-${qIndex}`"
-                  v-model="answers[booking.id][question]"
-                  @focus="initializeAnswer(booking.id, question)"
-                  type="text"
-                  class="w-full mb-2 border rounded p-1"
+            <div>
+              <!-- <div>{{ booking.questionnaire?.answers }}</div> -->
+              <svg class="w-3 h-3 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 10 6">
+                <path
+                  d="M10 5a1 1 0 01-.3.7 1 1 0 01-1.4 0L5 2.4 1.7 5.7A1 1 0 11.3 4.3l4-4a1 1 0 011.4 0l4 4A1 1 0 0110 5z"
                 />
+              </svg>
+            </div>
+          </button>
+        </h2>
+        <div
+          :id="`accordion-body-${index}`"
+          class="hidden mb-2 border border-[rgb(34,34,34)] rounded-xl bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+          :aria-labelledby="`accordion-heading-${index}`"
+        >
+          <div class="p-5 !text-[var(--black-soft)]">
+            <p><b>Date:</b> {{ new Date(booking.eventDate).toLocaleDateString() }}</p>
+            <p><b>Event Type:</b> {{ getProductLabel(booking.type) }}</p>
+            <p>
+              <b>Start Time:</b>
+              {{
+                new Date(booking.startTime).toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })
+              }}
+              {{ timeZoneAbbr }}
+            </p>
+            <p>
+              <b>End Time:</b>
+              {{
+                new Date(booking.endTime).toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })
+              }}
+              {{ timeZoneAbbr }}
+            </p>
+            <p><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</p>
+            <p><b>Payment Status:</b> {{ formatPaymentStatus(booking.paymentStatus) }}</p>
+            <p v-if="booking.paymentStatus === 'depositReceived'">
+              <b>Remaining Balance:</b> ${{ booking.totalAmount / 200 }}
+            </p>
+            <p v-if="booking.paymentStatus === 'paidInFull'"><b>Remaining Balance:</b> $0</p>
+
+            <div v-if="booking.payment && booking.payment.length > 0">
+              <h3 class="mt-4 font-bold text-[var(--black-soft)]">
+                Payments ({{ booking.payment.length }})
+              </h3>
+              <div
+                v-for="(payment, pIndex) in booking.payment"
+                :key="pIndex"
+                class="pl-4 py-2 border-l-2 border-gray-500"
+              >
+                <p v-if="payment.deposit">Type: Deposit</p>
+                <p v-else>Type: Remaining Balance</p>
+                <p>Amount: ${{ payment.amount }}</p>
+                <p>Transaction ID: {{ payment.transactionId }}</p>
+              </div>
+              <div v-if="booking.paymentStatus === 'depositReceived'" class="mt-2">
+                <b><i>Please pay remaining balance at least one month before your event.</i></b>
               </div>
               <button
-                type="submit"
-                class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-xs px-2 py-1 text-center md:text-sm md:px-4 md:py-2 sm:text-sm sm:px-2 sm:py-1"
+                v-if="booking.paymentStatus === 'depositReceived'"
+                @click="
+                  checkoutRemaining(
+                    booking.id,
+                    booking.eventDate,
+                    booking.startTime,
+                    booking.endTime,
+                    booking.location,
+                    booking.type,
+                    booking.addUplights,
+                    booking.addedHours,
+                  )
+                "
+                class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 cursor-pointer"
               >
-                Save Answers
+                Pay Remaining Balance
               </button>
-            </form>
+            </div>
+
+            <div v-if="answers[booking.id]" class="mt-4">
+              <div class="mb-4 italic text-lg text-center">
+                <b>Important!</b> Please complete questionnaire one month before your event. If a
+                question doesn't apply to your event, please type 'N/A'. Questionnaire will show as
+                incomplete until every question is answered.
+              </div>
+              <h3 class="font-bold text-center text-2xl mb-4">Questionnaire</h3>
+              <form @submit.prevent="submitQuestionnaire(booking.id)">
+                <div v-for="(question, qIndex) in getQuestions(booking.type)" :key="qIndex">
+                  <label :for="`q-${booking.id}-${qIndex}`">{{ question }}</label>
+                  <input
+                    :id="`q-${booking.id}-${qIndex}`"
+                    v-model="answers[booking.id][question]"
+                    @focus="initializeAnswer(booking.id, question)"
+                    type="text"
+                    class="w-full mb-2 border rounded p-1"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-xs px-2 py-1 text-center md:text-sm md:px-4 md:py-2 sm:text-sm sm:px-2 sm:py-1"
+                >
+                  Save Answers
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

@@ -61,7 +61,7 @@ router.post(
         line_items: lineItems,
         mode: 'payment',
         success_url: `${DOMAIN_NAME}/successful-deposit`,
-        cancel_url: `${DOMAIN_NAME}/cancelled-deposit`,
+        cancel_url: `${DOMAIN_NAME}/deposit-failed`,
         automatic_tax: { enabled: false },
         metadata: {
           userId,
@@ -168,7 +168,7 @@ router.post(
         line_items: lineItems,
         mode: 'payment',
         success_url: `${DOMAIN_NAME}/successful-paid-in-full`,
-        cancel_url: `${DOMAIN_NAME}/cancelled-second-payment`,
+        cancel_url: `${DOMAIN_NAME}/cancelled-final-payment`,
         automatic_tax: { enabled: false },
         metadata: {
           userId,
