@@ -2,6 +2,7 @@ const router = require('express').Router();
 import { Request, Response } from 'express';
 import { prisma } from '../util/db';
 const { tokenExtractor, requireAdmin } = require('../util/middleware');
+import { v4 as uuidv4 } from 'uuid';
 
 // GET all client e-mails from database
 router.get(
@@ -141,6 +142,39 @@ router.patch(
     } catch (error) {
       console.error('Error updating booking:', error);
       return res.status(500).json({ error: 'Failed to update booking' });
+    }
+  },
+);
+
+// POST /admin/add-payment
+router.post(
+  '/add-payment',
+  tokenExtractor,
+  requireAdmin,
+  async (req: Request, res: Response): Promise<Response> => {
+    const { bookingId, amount, deposit, method} = req.body;
+
+    if (!bookingId || !amount || !method) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    try {
+      const transactionId = uuidv4();
+      
+      const newPayment = await prisma.payment.create({
+        data: {
+          bookingId,
+          amount,
+          deposit,
+          method,
+          transactionId,
+        },
+      });
+
+      return res.status(201).json(newPayment);
+    } catch (error) {
+      console.error('Error adding payment:', error);
+      return res.status(500).json({ error: 'Failed to add payment' });
     }
   },
 );
