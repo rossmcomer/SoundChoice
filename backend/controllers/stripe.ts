@@ -182,6 +182,12 @@ router.post(
           addedHours,
           paymentType: 'remainingBalance',
         },
+        payment_intent_data: {
+          metadata: {
+            bookingId,
+            paymentType: 'remainingBalance',
+          },
+        },
       });
 
       res.json({ id: session.id });

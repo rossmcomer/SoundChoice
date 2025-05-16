@@ -11,6 +11,7 @@ import PaidInFullSuccess from '../views/PaidInFullSuccess.vue';
 import PaidInFullFailed from '../views/PaidInFullFailed.vue';
 import DepositSuccess from '../views/DepositSuccess.vue';
 import DepositFailed from '../views/DepositFailed.vue';
+import AdminView from '../views/AdminView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,6 +76,11 @@ const router = createRouter({
       name: 'Deposit Failed',
       component: DepositFailed,
     },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: AdminView
+    }
   ],
 });
 
