@@ -51,7 +51,7 @@ router.post('/', async (req: Request, res: Response) => {
         !startTime ||
         !endTime ||
         !location ||
-        !addUplights ||
+        addUplights == null||
         !addedHours
       ) {
         console.error('Missing metadata in session');
