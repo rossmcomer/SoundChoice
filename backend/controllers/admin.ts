@@ -62,10 +62,6 @@ router.get(
         },
       });
 
-      if (!bookings.length) {
-        return res.status(404).json({ error: 'No bookings found' });
-      }
-
       return res.status(200).json(bookings);
     } catch (error) {
       console.error(error);
@@ -86,11 +82,12 @@ router.get(
       // Fetch the booking using bookingId
       const booking = await prisma.booking.findUnique({
         where: {
-          bookingId: bookingId, // Find user by their email
+          id: bookingId, // Find user by their email
         },
         include: {
           payment: true,
           questionnaire: true,
+          user: true
         },
       });
 

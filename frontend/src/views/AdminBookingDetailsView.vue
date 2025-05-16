@@ -9,9 +9,11 @@ const booking = ref<any>(null);
 const fetchBooking = async () => {
   const id = route.params.bookingId as string;
   booking.value = await adminService.getBookingInfo(id);
+  console.log(booking.value)
 };
 
-onMounted(fetchBooking);
+onMounted(fetchBooking
+);
 </script>
 <template>
     <div class="p-4">
