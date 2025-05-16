@@ -12,6 +12,7 @@ import PaidInFullFailed from '../views/PaidInFullFailed.vue';
 import DepositSuccess from '../views/DepositSuccess.vue';
 import DepositFailed from '../views/DepositFailed.vue';
 import AdminView from '../views/AdminView.vue'
+import AdminBookingDetailsView from '../views/AdminBookingDetailsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +81,11 @@ const router = createRouter({
       path: '/admin',
       name: 'Admin',
       component: AdminView
+    },
+    {
+      path: '/admin/booking/:bookingId',
+      name: 'BookingDetails',
+      component: AdminBookingDetailsView,
     }
   ],
 });
