@@ -190,12 +190,14 @@ async function submitQuestionnaire(bookingId: string) {
   try {
     await questionnaireService.saveAnswers({ questionnaireId, answers: data });
     await userStore.fetchUser();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     alert('Answers saved successfully!');
   } catch (error) {
     console.error('Failed to save answers:', error);
     alert('Failed to save answers. Please try again.');
   }
 }
+
 </script>
 <template>
   <div v-if="user && user.bookings && user.bookings.length > 0">
@@ -266,7 +268,7 @@ async function submitQuestionnaire(bookingId: string) {
             <p><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</p>
             <p><b>Payment Status:</b> {{ formatPaymentStatus(booking.paymentStatus) }}</p>
             <p
-              v-if="booking.paymentStatus === 'depositReceived' || 'remainingPaymentFailed'"
+              v-if="booking.paymentStatus === 'depositReceived' || booking.paymentStatus === 'remainingPaymentFailed'"
               class="flex"
             >
               <b>Remaining Balance:</b>
