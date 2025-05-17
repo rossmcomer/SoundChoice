@@ -313,9 +313,9 @@ async function submitQuestionnaire(bookingId: string) {
               </button>
             </div>
 
-            <div v-if="answers[booking.id]" class="mt-4">
+            <div v-if="answers[booking.id]" class="mt-4 items-center flex flex-col">
               <h3 class="font-bold text-center text-2xl mb-4">
-                Questionnaire<span v-if="hasBlankAnswers(booking.id)">❌</span>
+                Questionnaire<span v-if="hasBlankAnswers(booking.id)">❌ </span>
                 <span v-else>✅</span>
               </h3>
               <div class="mb-4 italic text-lg text-center">
@@ -323,7 +323,9 @@ async function submitQuestionnaire(bookingId: string) {
                 question doesn't apply to your event, please type 'N/A'. Questionnaire will show as
                 incomplete until every question is answered.
               </div>
-
+              <button @click="submitQuestionnaire(booking.id)" class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto">
+                Save Answers
+              </button>
               <form @submit.prevent="submitQuestionnaire(booking.id)">
                 <div v-for="(question, qIndex) in getQuestions(booking.type)" :key="qIndex">
                   <label :for="`q-${booking.id}-${qIndex}`">{{ question }}</label>
@@ -336,12 +338,14 @@ async function submitQuestionnaire(bookingId: string) {
                     class="w-full mb-2 border rounded p-1 resize-none overflow-hidden focus:ring-0 focus:outline-[2px] focus:outline-[var(--color6)]"
                   ></textarea>
                 </div>
+                <div class="flex justify-center">
                 <button
                   type="submit"
                   class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto"
                 >
                   Save Answers
                 </button>
+              </div>
               </form>
             </div>
           </div>
