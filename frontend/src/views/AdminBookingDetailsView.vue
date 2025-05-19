@@ -4,6 +4,7 @@ import type { Booking, PaymentMethod } from '@/types';
 import { useRoute, useRouter } from 'vue-router';
 import adminService from '@/services/adminService';
 import { addPayment, getBookingInfo, updateBooking } from '@/services/adminService';
+import { useFormatPaymentStatus } from '@/composables/useFormatPaymentStatus';
 
 const route = useRoute();
 const router = useRouter();
@@ -54,7 +55,7 @@ const handleAddPayment = async () => {
 };
 </script>
 <template>
-  <div class="p-4">
+  <div class="p-4 text-[var(--black-soft)]">
     <button
       @click="goBack"
       class="mb-4 bg-gray-200 text-black px-4 py-2 rounded hover:bg-gray-300 transition cursor-pointer"
@@ -103,7 +104,7 @@ const handleAddPayment = async () => {
           </p>
           <p v-else-if="booking.paymentStatus === 'paidInFull'"><b>Remaining Balance:</b> $0</p>
         </li>
-        <li><b>Payment Status:</b> {{ booking.paymentStatus }}</li>
+        <li><b>Payment Status:</b> {{ useFormatPaymentStatus(booking.paymentStatus) }}</li>
         <li v-if="booking.payment">
           <strong>Payments ({{ booking.payment.length }})</strong>
           <ul>

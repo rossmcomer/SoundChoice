@@ -50,24 +50,13 @@ const addUnavailableDate = async () => {
   }
 };
 
-// Remove unavailable date (based on exact match from store)
-const removeUnavailableDate = async () => {
-  if (!date.value) return;
+// Remove unavailable date
+const removeUnavailableDate = async (id: string) => {
   loading.value = true;
   error.value = null;
 
   try {
-    const isoDate = toUTCDateString(date.value);
-    const match = availabilityStore.unavailableDates.find(
-      (d) => new Date(d.date).toISOString() === isoDate,
-    );
-
-    if (!match) {
-      error.value = 'Date is not marked as unavailable.';
-      return;
-    }
-
-    await adminService.removeAvailability(match.id);
+    await adminService.removeAvailability(id);
     await availabilityStore.fetchDates();
   } catch (err) {
     error.value = 'Failed to remove unavailable date.';
@@ -91,7 +80,6 @@ const removeUnavailableDate = async () => {
       no-today
     />
   </div>
-
   <div class="flex justify-center gap-4 my-4">
     <button
       class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg disabled:opacity-50 cursor-pointer"
@@ -100,13 +88,30 @@ const removeUnavailableDate = async () => {
     >
       Add Unavailable
     </button>
-    <button
-      class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg disabled:opacity-50 cursor-pointer"
-      @click="removeUnavailableDate"
-      :disabled="!date || loading"
-    >
-      Remove Unavailable
-    </button>
+    <li v-if="availabilityStore.unavailableDates.length">
+      <strong>Unavailable Dates:</strong>
+      <ul class="list-disc list-inside ml-4">
+        <li v-if="availabilityStore.unavailableDates.length">
+          <strong>Unavailable Dates:</strong>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li
+              v-for="(date, index) in availabilityStore.unavailableDates"
+              :key="index"
+              class="flex items-center gap-2"
+            >
+              {{ new Date(date.date).toLocaleDateString() }}
+              <button
+                class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded disabled:opacity-50 cursor-pointer"
+                @click="removeUnavailableDate(date.id)"
+                :disabled="loading"
+              >
+                Remove
+              </button>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </div>
 
   <div v-if="error" class="text-red-500 text-center mt-2">{{ error }}</div>
