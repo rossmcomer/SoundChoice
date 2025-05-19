@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import adminService from '@/services/adminService';
 import type { Booking } from '@/types';
 
-export const AdminStore = defineStore('admin', {
+export const AdminStore = defineStore('AdminStore', {
   state: () => ({
     clientEmails: [] as string[],
     bookings: [] as Booking[],

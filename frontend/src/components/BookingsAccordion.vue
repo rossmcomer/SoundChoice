@@ -176,10 +176,12 @@ async function submitQuestionnaire(bookingId: string) {
     await userStore.fetchUser();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const hasEmptyAnswers = Object.values(data).some(
-      (value) => value === '' || value === null || value === undefined
+      (value) => value === '' || value === null || value === undefined,
     );
     if (hasEmptyAnswers) {
-      toast.error('Answers saved successfully. You still have some questions that remain unanswered.');
+      toast.error(
+        'Answers saved successfully. You still have some questions that remain unanswered.',
+      );
     } else {
       toast.success('Answers saved successfully. Thank you for completing your questionnaire!');
     }
@@ -188,7 +190,6 @@ async function submitQuestionnaire(bookingId: string) {
     toast.error('Failed to save answers. Please try again.');
   }
 }
-
 </script>
 <template>
   <div v-if="user && user.bookings && user.bookings.length > 0">
@@ -259,7 +260,10 @@ async function submitQuestionnaire(bookingId: string) {
             <p><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</p>
             <p><b>Payment Status:</b> {{ useFormatPaymentStatus(booking.paymentStatus) }}</p>
             <p
-              v-if="booking.paymentStatus === 'depositReceived' || booking.paymentStatus === 'remainingPaymentFailed'"
+              v-if="
+                booking.paymentStatus === 'depositReceived' ||
+                booking.paymentStatus === 'remainingPaymentFailed'
+              "
               class="flex"
             >
               <b>Remaining Balance:</b>
@@ -314,7 +318,10 @@ async function submitQuestionnaire(bookingId: string) {
                 question doesn't apply to your event, please type 'N/A'. Questionnaire will show as
                 incomplete until every question is answered.
               </div>
-              <button @click="submitQuestionnaire(booking.id)" class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto">
+              <button
+                @click="submitQuestionnaire(booking.id)"
+                class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto"
+              >
                 Save Answers
               </button>
               <form @submit.prevent="submitQuestionnaire(booking.id)" class="w-full">
@@ -330,13 +337,13 @@ async function submitQuestionnaire(bookingId: string) {
                   ></textarea>
                 </div>
                 <div class="flex justify-center">
-                <button
-                  type="submit"
-                  class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto"
-                >
-                  Save Answers
-                </button>
-              </div>
+                  <button
+                    type="submit"
+                    class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto"
+                  >
+                    Save Answers
+                  </button>
+                </div>
               </form>
             </div>
           </div>

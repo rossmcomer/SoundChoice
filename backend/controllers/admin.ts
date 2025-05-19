@@ -62,6 +62,7 @@ router.get(
           },
           eventDate: true,
           location: true,
+          type: true,
         },
       });
 
@@ -90,7 +91,7 @@ router.get(
         include: {
           payment: true,
           questionnaire: true,
-          user: true
+          user: true,
         },
       });
 
@@ -134,7 +135,7 @@ router.patch(
 
     try {
       const updatedBooking = await prisma.booking.update({
-        where: { bookingId },
+        where: { id: bookingId },
         data: updateData,
       });
 
@@ -152,7 +153,7 @@ router.post(
   tokenExtractor,
   requireAdmin,
   async (req: Request, res: Response): Promise<Response> => {
-    const { bookingId, amount, deposit, method} = req.body;
+    const { bookingId, amount, deposit, method } = req.body;
 
     if (!bookingId || !amount || !method) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -160,7 +161,7 @@ router.post(
 
     try {
       const transactionId = uuidv4();
-      
+
       const newPayment = await prisma.payment.create({
         data: {
           bookingId,

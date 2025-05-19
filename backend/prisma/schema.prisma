@@ -82,6 +82,7 @@ enum PaymentMethod {
   stripe
   paypal
   cash
+  other
 }
 
 enum PaymentStatus {

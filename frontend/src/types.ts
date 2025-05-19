@@ -65,7 +65,7 @@ export type PaymentStatus =
   | 'remainingPaymentFailed'
   | 'paidInFull';
 
-export type PaymentMethod = 'stripe' | 'paypal' | 'cash';
+export type PaymentMethod = 'stripe' | 'paypal' | 'cash' | 'other';
 
 export interface ProductItem {
   id: number;

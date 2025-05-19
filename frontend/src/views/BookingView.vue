@@ -39,7 +39,7 @@ function parseTime(timeStr: string, baseDate: Date): Date {
     hours,
     minutes,
     0,
-    0
+    0,
   );
 }
 
@@ -54,7 +54,7 @@ function formatTime(date: Date): string {
 // Calculate end time based off of start time and additional hours
 watch([startTime, eventType, addHours, additionalHours, date], () => {
   if (!date.value) return;
-  
+
   const start = parseTime(startTime.value, date.value);
   let totalHours = 0;
 
