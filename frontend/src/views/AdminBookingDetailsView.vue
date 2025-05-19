@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import type { Booking } from '@/types';
+import { useRoute, useRouter } from 'vue-router';
 import adminService from '@/services/adminService';
 
 const route = useRoute();
-const booking = ref<any>(null);
+const router = useRouter();
+const booking = ref<Booking | null>(null);
 
 const fetchBooking = async () => {
   const id = route.params.bookingId as string;
   booking.value = await adminService.getBookingInfo(id);
-  console.log(booking.value)
+};
+
+const goBack = () => {
+  router.back();
 };
 
 onMounted(fetchBooking
@@ -17,6 +22,12 @@ onMounted(fetchBooking
 </script>
 <template>
     <div class="p-4">
+      <button
+      @click="goBack"
+      class="mb-4 bg-gray-200 text-black px-4 py-2 rounded hover:bg-gray-300 transition cursor-pointer"
+    >
+      ← Back
+    </button>
       <h2 class="text-xl font-bold mb-4">Booking Details</h2>
   
       <div v-if="booking">

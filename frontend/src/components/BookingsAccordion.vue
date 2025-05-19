@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CheckoutRequestBody, Booking } from '@/types';
+import type { CheckoutRequestBody } from '@/types';
 import { loadStripe } from '@stripe/stripe-js';
 import { initAccordions } from 'flowbite';
 import { onMounted, ref, computed } from 'vue';
@@ -10,6 +10,7 @@ import { useProductStore } from '@/stores/ProductStore';
 import { useUserStore } from '@/stores/UserStore';
 import checkoutService from '@/services/checkoutService';
 import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
+import { toast } from 'vue3-toastify';
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
@@ -191,10 +192,17 @@ async function submitQuestionnaire(bookingId: string) {
     await questionnaireService.saveAnswers({ questionnaireId, answers: data });
     await userStore.fetchUser();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    alert('Answers saved successfully!');
+    const hasEmptyAnswers = Object.values(data).some(
+      (value) => value === '' || value === null || value === undefined
+    );
+    if (hasEmptyAnswers) {
+      toast.error('Answers saved successfully. You still have some questions that remain unanswered.');
+    } else {
+      toast.success('Answers saved successfully. Thank you for completing your questionnaire!');
+    }
   } catch (error) {
     console.error('Failed to save answers:', error);
-    alert('Failed to save answers. Please try again.');
+    toast.error('Failed to save answers. Please try again.');
   }
 }
 

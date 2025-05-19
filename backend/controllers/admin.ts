@@ -50,6 +50,9 @@ router.get(
     try {
       // Fetch simplified booking info from the database
       const bookings = await prisma.booking.findMany({
+        orderBy: {
+          eventDate: 'asc',
+        },
         select: {
           id: true,
           user: {
