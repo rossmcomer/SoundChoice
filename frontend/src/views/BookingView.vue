@@ -30,11 +30,17 @@ const addHours = ref<boolean>(false);
 const additionalHours = ref<number>(1);
 const timeZoneAbbr = useTimeZoneAbbr();
 
-function parseTime(timeStr: string): Date {
+function parseTime(timeStr: string, baseDate: Date): Date {
   const [hours, minutes] = timeStr.split(':').map(Number);
-  const now = new Date();
-  now.setHours(hours, minutes, 0, 0);
-  return now;
+  return new Date(
+    baseDate.getFullYear(),
+    baseDate.getMonth(),
+    baseDate.getDate(),
+    hours,
+    minutes,
+    0,
+    0
+  );
 }
 
 function formatTime(date: Date): string {
@@ -46,8 +52,10 @@ function formatTime(date: Date): string {
 }
 
 // Calculate end time based off of start time and additional hours
-watch([startTime, eventType, addHours, additionalHours], () => {
-  const start = parseTime(startTime.value);
+watch([startTime, eventType, addHours, additionalHours, date], () => {
+  if (!date.value) return;
+  
+  const start = parseTime(startTime.value, date.value);
   let totalHours = 0;
 
   if (eventType.value === 'wedding') {

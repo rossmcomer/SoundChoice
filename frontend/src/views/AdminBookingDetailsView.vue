@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import type { Booking } from '@/types';
 import { useRoute, useRouter } from 'vue-router';
 import adminService from '@/services/adminService';
+import { getUTCISOString } from '@/composables/useUTCISOString'
 
 const route = useRoute();
 const router = useRouter();
@@ -33,13 +34,13 @@ onMounted(fetchBooking
       <div v-if="booking">
         <ul class="space-y-2">
           <li><strong>Name:</strong> {{ booking.user.name }}</li>
-          <li><strong>Date:</strong> {{ booking.eventDate }}</li>
+          <li><strong>Date:</strong> {{ new Date(booking.eventDate) }}</li>
           <li><strong>Location:</strong> {{ booking.location }}</li>
-          <li><strong>Start Time:</strong> {{ booking.startTime }}</li>
-          <li><strong>End Time:</strong> {{ booking.endTime }}</li>
+          <li><strong>Start Time:</strong> {{ new Date(booking.startTime) }}</li>
+          <li><strong>End Time:</strong> {{ new Date(booking.endTime) }}</li>
           <li><strong>Type:</strong> {{ booking.type }}</li>
   
-          <li v-if="booking.payment"><strong>Payment:</strong>
+          <li v-if="booking.payment"><strong>Payments:</strong>
             <ul>
               <li v-for="p in booking.payment" :key="p.id">
                 ${{ p.amount }} – {{ p.method }} – {{ p.deposit ? 'Deposit' : 'Balance' }}

@@ -11,6 +11,7 @@ import { useUserStore } from '@/stores/UserStore';
 import checkoutService from '@/services/checkoutService';
 import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 import { toast } from 'vue3-toastify';
+import { useFormatPaymentStatus } from '@/composables/useFormatPaymentStatus';
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
@@ -60,24 +61,6 @@ onMounted(() => {
     });
   });
 });
-
-// Format payment status for display on screen
-function formatPaymentStatus(status: string): string {
-  switch (status) {
-    case 'unpaid':
-      return 'Unpaid';
-    case 'depositReceived':
-      return '50% Deposit Received ✅';
-    case 'remainingPaymentFailed':
-      return 'Remaining Payment Failed ❌';
-    case 'paidInFull':
-      return 'Paid In Full ✅';
-    case 'depositFailed':
-      return 'Deposit Failed';
-    default:
-      return 'Unknown';
-  }
-}
 
 // Get display label from products array
 function getProductLabel(type: string): string {
@@ -274,7 +257,7 @@ async function submitQuestionnaire(bookingId: string) {
               {{ timeZoneAbbr }}
             </p>
             <p><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</p>
-            <p><b>Payment Status:</b> {{ formatPaymentStatus(booking.paymentStatus) }}</p>
+            <p><b>Payment Status:</b> {{ useFormatPaymentStatus(booking.paymentStatus) }}</p>
             <p
               v-if="booking.paymentStatus === 'depositReceived' || booking.paymentStatus === 'remainingPaymentFailed'"
               class="flex"
@@ -334,7 +317,7 @@ async function submitQuestionnaire(bookingId: string) {
               <button @click="submitQuestionnaire(booking.id)" class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto">
                 Save Answers
               </button>
-              <form @submit.prevent="submitQuestionnaire(booking.id)">
+              <form @submit.prevent="submitQuestionnaire(booking.id)" class="w-full">
                 <div v-for="(question, qIndex) in getQuestions(booking.type)" :key="qIndex">
                   <label :for="`q-${booking.id}-${qIndex}`">{{ question }}</label>
                   <textarea
