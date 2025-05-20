@@ -13,7 +13,7 @@ import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
 import CartTable from '@/components/CartTable.vue';
 import DepositCheckoutButton from '@/components/DepositCheckoutButton.vue';
 import { useProductStore } from '@/stores/ProductStore';
-import LocationSelector from '@/components/LocationSelector.vue'
+import LocationSelector from '@/components/LocationSelector.vue';
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
@@ -143,7 +143,7 @@ watch(eventType, (newType) => {
           </div>
           <div class="w-full h-full flex flex-1 flex-col items-center">
             <EventTypeDropdown class="flex-1" v-model:eventType="eventType" />
-            <LocationSelector v-model="location"/>
+            <LocationSelector v-model="location" />
             <EventTimeSelector
               class="flex-1"
               v-model:startTime="startTime"
@@ -170,14 +170,14 @@ watch(eventType, (newType) => {
           </div>
         </div>
         <div>
-      <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px] mt-4">
-        <b>Important:</b>
-      </h2>
-      <h2 class="text-[var(--black-soft)] text-justify italic w-[261px]">
-        Wedding pricing includes <b>5 hours</b> by default! If you would like to add additional
-        hours, please specify. The cost is $150 for each added hour.
-      </h2>
-    </div>
+          <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px] mt-4">
+            <b>Important:</b>
+          </h2>
+          <h2 class="text-[var(--black-soft)] text-justify italic w-[261px]">
+            Wedding pricing includes <b>5 hours</b> by default! If you would like to add additional
+            hours, please specify. The cost is $150 for each added hour.
+          </h2>
+        </div>
         <div class="flex flex-col items-center">
           <CartTable
             v-model:eventType="eventType"

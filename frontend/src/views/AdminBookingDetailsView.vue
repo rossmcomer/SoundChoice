@@ -6,6 +6,7 @@ import { addPayment, getBookingInfo, updateBooking } from '@/services/adminServi
 import { useFormatPaymentStatus } from '@/composables/useFormatPaymentStatus';
 import { useProductLabel } from '@/composables/useProductLabel';
 import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
+import { toast } from 'vue3-toastify';
 
 const route = useRoute();
 const router = useRouter();
@@ -44,11 +45,13 @@ const handleAddPayment = async () => {
     });
 
     await updateBooking(booking.value.id, { paymentStatus: 'paidInFull' });
+    toast.success('Succesfully added payment.');
 
     await fetchBooking(); // Refresh booking data
     amount.value = null; // Reset form
     method.value = 'cash';
   } catch (err) {
+    toast.error('Failed to add payment.');
     error.value = 'Failed to add payment.';
     console.error(err);
   } finally {
@@ -62,8 +65,8 @@ const handleAddPayment = async () => {
       <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    <div class="relative h-full z-10">
-      <div class="p-4 text-[var(--black-soft)]">
+    <div class="relative p-6 space-y-4 h-full z-10">
+      <div class="text-[var(--black-soft)]">
         <button
           @click="goBack"
           class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
@@ -85,7 +88,8 @@ const handleAddPayment = async () => {
                   minute: '2-digit',
                   hour12: true,
                 })
-              }} {{ useTimeZoneAbbr() }}
+              }}
+              {{ useTimeZoneAbbr() }}
             </li>
             <li>
               <strong>End Time:</strong>
@@ -95,7 +99,8 @@ const handleAddPayment = async () => {
                   minute: '2-digit',
                   hour12: true,
                 })
-              }} {{ useTimeZoneAbbr() }}
+              }}
+              {{ useTimeZoneAbbr() }}
             </li>
             <li><strong>Type:</strong> {{ useProductLabel(booking.type) }}</li>
             <li><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</li>
@@ -116,25 +121,25 @@ const handleAddPayment = async () => {
             <li v-if="booking.payment">
               <strong>Payments ({{ booking.payment.length }})</strong>
               <div class="overflow-x-auto max-w-full">
-              <table class="w-auto table-auto border border-gray-300 mt-4">
-  <thead class="bg-gray-100">
-    <tr>
-      <th class="px-4 py-2 text-left">$</th>
-      <th class="px-4 py-2 text-left">Method</th>
-      <th class="px-4 py-2 text-left">Transaction ID</th>
-      <th class="px-4 py-2 text-left">Type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="p in booking.payment" :key="p.id" class="border-t border-gray-200">
-      <td class="px-4 py-2">${{ p.amount }}</td>
-      <td class="px-4 py-2">{{ p.method }}</td>
-      <td class="px-4 py-2">{{ p.transactionId }}</td>
-      <td class="px-4 py-2">{{ p.deposit ? 'Deposit' : 'Remaining Balance' }}</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+                <table class="w-auto table-auto border border-gray-300 mt-4">
+                  <thead class="bg-gray-100">
+                    <tr>
+                      <th class="px-4 py-2 text-left">$</th>
+                      <th class="px-4 py-2 text-left">Method</th>
+                      <th class="px-4 py-2 text-left">Transaction ID</th>
+                      <th class="px-4 py-2 text-left">Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="p in booking.payment" :key="p.id" class="border-t border-gray-200">
+                      <td class="px-4 py-2">${{ p.amount }}</td>
+                      <td class="px-4 py-2">{{ p.method }}</td>
+                      <td class="px-4 py-2">{{ p.transactionId }}</td>
+                      <td class="px-4 py-2">{{ p.deposit ? 'Deposit' : 'Remaining Balance' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
               <div class="mt-6 border-t pt-4">
                 <h3 class="font-semibold mb-2">Add Payment</h3>
                 <div class="space-y-2">

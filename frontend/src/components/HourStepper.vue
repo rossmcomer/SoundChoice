@@ -40,7 +40,7 @@ function decrement() {
       @click="decrement"
       :class="[
         'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)] w-12 h-12',
-        'cursor-pointer'
+        'cursor-pointer',
       ]"
     >
       –

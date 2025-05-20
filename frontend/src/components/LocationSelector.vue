@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const location = defineModel<string>();
 </script>
-<template><div class="mb-2 flex-1 lg:mb-0 flex flex-col justify-center">
+<template>
+  <div class="mb-2 flex-1 lg:mb-0 flex flex-col justify-center">
     <label
       for="location-input"
       class="block mb-2 sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)]"

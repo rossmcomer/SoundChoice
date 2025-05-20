@@ -13,6 +13,10 @@ import DepositSuccess from '../views/DepositSuccess.vue';
 import DepositFailed from '../views/DepositFailed.vue';
 import AdminView from '../views/AdminView.vue';
 import AdminBookingDetailsView from '../views/AdminBookingDetailsView.vue';
+import userService from '@/services/userService';
+import AdminAvailabilityView from '@/views/AdminAvailabilityView.vue';
+import AdminBookingsListView from '@/views/AdminBookingsListView.vue';
+import AdminEmailListView from '@/views/AdminEmailListView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -81,13 +85,49 @@ const router = createRouter({
       path: '/admin',
       name: 'Admin',
       component: AdminView,
+      meta: { requiresAdmin: true },
+    },
+    {
+      path: '/admin/email-list',
+      name: 'AdminEmailList',
+      component: AdminEmailListView,
+      meta: { requiresAdmin: true },
+    },
+    {
+      path: '/admin/bookings-list',
+      name: 'AdminBookingsList',
+      component: AdminBookingsListView,
+      meta: { requiresAdmin: true },
+    },
+    {
+      path: '/admin/availability',
+      name: 'AdminAvailability',
+      component: AdminAvailabilityView,
+      meta: { requiresAdmin: true },
     },
     {
       path: '/admin/booking/:bookingId',
-      name: 'BookingDetails',
+      name: 'AdminBookingDetails',
       component: AdminBookingDetailsView,
+      meta: { requiresAdmin: true },
     },
   ],
+});
+
+router.beforeEach(async (to, from, next) => {
+  const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin);
+  if (requiresAdmin) {
+    try {
+      const user = await userService.getUserData();
+      if (user?.role !== 'admin') {
+        return next('/');
+      }
+    } catch (err) {
+      console.error('Access check failed:', err);
+      return next('/');
+    }
+  }
+  next();
 });
 
 export default router;

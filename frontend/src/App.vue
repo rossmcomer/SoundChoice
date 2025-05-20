@@ -6,7 +6,6 @@ import NavBar from './components/NavBar.vue';
 import { useGlobalStore } from '@/stores/GlobalStore';
 import { useUserStore } from '@/stores/UserStore';
 import { useProductStore } from './stores/ProductStore';
-import AppLoader from '@/components/AppLoader.vue';
 
 const global = useGlobalStore();
 
@@ -30,7 +29,6 @@ onMounted(async () => {
   <main class="pt-17 h-screen">
     <RouterView />
   </main>
-  <!-- <AppLoader /> -->
 </template>
 
 <style>
