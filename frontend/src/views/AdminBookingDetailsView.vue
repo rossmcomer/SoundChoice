@@ -115,11 +115,26 @@ const handleAddPayment = async () => {
             <li><b>Payment Status:</b> {{ useFormatPaymentStatus(booking.paymentStatus) }}</li>
             <li v-if="booking.payment">
               <strong>Payments ({{ booking.payment.length }})</strong>
-              <ul>
-                <li v-for="p in booking.payment" :key="p.id">
-                  ${{ p.amount }} – {{ p.method }} - {{ p.transactionId }} – {{ p.deposit ? 'Deposit' : 'Balance' }}
-                </li>
-              </ul>
+              <div class="overflow-x-auto max-w-full">
+              <table class="w-auto table-auto border border-gray-300 mt-4">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="px-4 py-2 text-left">$</th>
+      <th class="px-4 py-2 text-left">Method</th>
+      <th class="px-4 py-2 text-left">Transaction ID</th>
+      <th class="px-4 py-2 text-left">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="p in booking.payment" :key="p.id" class="border-t border-gray-200">
+      <td class="px-4 py-2">${{ p.amount }}</td>
+      <td class="px-4 py-2">{{ p.method }}</td>
+      <td class="px-4 py-2">{{ p.transactionId }}</td>
+      <td class="px-4 py-2">{{ p.deposit ? 'Deposit' : 'Remaining Balance' }}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
               <div class="mt-6 border-t pt-4">
                 <h3 class="font-semibold mb-2">Add Payment</h3>
                 <div class="space-y-2">
