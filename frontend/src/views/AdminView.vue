@@ -5,20 +5,13 @@ import { storeToRefs } from 'pinia';
 import { AdminStore } from '@/stores/AdminStore';
 import userService from '@/services/userService';
 import AdminDateSelector from '@/components/AdminDateSelector.vue';
-import { useProductStore } from '@/stores/ProductStore';
+import { useProductLabel } from '@/composables/useProductLabel';
 import { toast } from 'vue3-toastify';
 
 const router = useRouter();
 const adminStore = AdminStore();
 const { clientEmails, bookings } = storeToRefs(adminStore);
 
-const productsStore = useProductStore();
-const products = computed(() => productsStore.products);
-
-function productLabel(type: string): string {
-  const product = products.value.find((p) => p.value === type);
-  return product?.label ?? 'Unknown';
-}
 const checkAdminAccess = async () => {
   try {
     const user = await userService.getUserData();
@@ -49,7 +42,7 @@ onMounted(() => {
       <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Admin</h1>
       </div>
-      <div class="p-4 space-y-4">
+      <div class="p-4 space-y-4 text-[var(--black-soft)]">
         <button
           @click="adminStore.fetchClientEmails"
           class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
@@ -74,7 +67,7 @@ onMounted(() => {
           >
             <div class="text-black font-medium">
               {{ new Date(booking.eventDate).toLocaleDateString() }} -
-              {{ productLabel(booking.type) }} – {{ booking.location }}
+              {{ useProductLabel(booking.type) }} – {{ booking.location }}
             </div>
             <button
               @click="viewBooking(booking.id)"

@@ -67,29 +67,28 @@ const removeUnavailableDate = async (id: string) => {
 };
 </script>
 <template>
-  <div class="flex justify-center">
-    <VueDatePicker
-      class="shadow-lg"
-      v-model="date"
-      :min-date="today"
-      :disabled-dates="availabilityStore.unavailableDates.map((d) => new Date(d.date))"
-      inline
-      auto-apply
-      dark
-      :enable-time-picker="false"
-      no-today
-    />
-  </div>
-  <div class="flex justify-center gap-4 my-4">
-    <button
-      class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg disabled:opacity-50 cursor-pointer"
-      @click="addUnavailableDate"
-      :disabled="!date || loading"
-    >
-      Add Unavailable
-    </button>
-    <li v-if="availabilityStore.unavailableDates.length">
-      <strong>Unavailable Dates:</strong>
+  <div class="flex items-center justify-center flex-wrap">
+    <div class="flex flex-col items-center gap-4">
+      <VueDatePicker
+        class="shadow-lg"
+        v-model="date"
+        :min-date="today"
+        :disabled-dates="availabilityStore.unavailableDates.map((d) => new Date(d.date))"
+        inline
+        auto-apply
+        dark
+        :enable-time-picker="false"
+        no-today
+      />
+      <button
+        class="bg-red-600 hover:bg-red-700 text-[var(--white-soft)] px-4 py-2 rounded-lg disabled:opacity-50 cursor-pointer"
+        @click="addUnavailableDate"
+        :disabled="!date || loading"
+      >
+        Add Unavailable
+      </button>
+    </div>
+    <div class="flex flex-col items-center justify-center gap-4 my-4 mx-auto">
       <ul class="list-disc list-inside ml-4">
         <li v-if="availabilityStore.unavailableDates.length">
           <strong>Unavailable Dates:</strong>
@@ -111,9 +110,8 @@ const removeUnavailableDate = async (id: string) => {
           </ul>
         </li>
       </ul>
-    </li>
+    </div>
   </div>
-
   <div v-if="error" class="text-red-500 text-center mt-2">{{ error }}</div>
 </template>
 <style>
