@@ -1,53 +1,57 @@
 <script setup lang="ts">
 import { watch } from 'vue';
-import type { EventType } from '@/types';
 
-const eventType = defineModel<EventType | ''>('eventType');
-const additionalHours = defineModel<number>('additionalHours');
 const addHours = defineModel<boolean>('addHours');
+const totalHours = defineModel<number>('totalHours');
+const eventType = defineModel<string>('eventType');
+const additionalHours = defineModel<number>('additionalHours');
 
-watch(addHours, (newVal) => {
-  if (!newVal) {
-    additionalHours.value = 0;
+// Handle logic on totalHours change
+watch(totalHours, (val) => {
+  const hours = val!; // assert val is not undefined
+  if (eventType.value === 'wedding') {
+    if (hours < 5) totalHours.value = 5;
+    addHours.value = hours > 5;
+    additionalHours.value = Math.max(0, hours - 5);
+  } else {
+    addHours.value = true;
+    additionalHours.value = hours;
   }
 });
 
+// Adjust increment/decrement
 function increment() {
-  additionalHours.value = (additionalHours.value ?? 1) + 1;
+  totalHours.value!++;
 }
 
 function decrement() {
-  if ((additionalHours.value ?? 1) > 1) {
-    additionalHours.value!--;
+  if (eventType.value === 'wedding' && totalHours.value! > 5) {
+    totalHours.value!--;
+  } else if (eventType.value !== 'wedding' && totalHours.value! > 1) {
+    totalHours.value!--;
   }
 }
 </script>
+
 <template>
   <div class="flex items-center justify-between gap-2 mt-2">
     <button
       type="button"
       @click="decrement"
-      :disabled="!addHours"
       :class="[
-        eventType !== 'wedding' ? 'w-12 h-12' : 'w-8 h-8',
-        'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
-        addHours ? 'cursor-pointer' : 'cursor-not-allowed',
+        'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)] w-12 h-12',
+        'cursor-pointer'
       ]"
     >
       –
     </button>
     <span class="text-lg font-semibold text-[var(--black-soft)]">
-      {{ additionalHours ?? 1 }} hour{{ (additionalHours ?? 1) != 1 ? 's' : '' }}
+      {{ totalHours }} hour{{ totalHours !== 1 ? 's' : '' }}
     </span>
     <button
       type="button"
       @click="increment"
-      :disabled="!addHours"
-      :class="[
-        eventType !== 'wedding' ? 'w-12 h-12' : 'w-8 h-8',
-        'rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)]',
-        addHours ? 'cursor-pointer' : 'cursor-not-allowed',
-      ]"
+      class="rounded-lg text-xl font-bold pb-1 shadow-md bg-[var(--black-soft)] text-[var(--white-soft)] w-12 h-12 cursor-pointer"
     >
       +
     </button>

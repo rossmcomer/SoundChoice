@@ -17,7 +17,7 @@
             <img
               class="relative z-10 w-full h-auto rounded-sm shadow-lg border-2 border-black"
               src="@/assets/profile-pic.png"
-              alt="DJ Kyle Photo"
+              alt="Durango Colorado DJ Kyle Photo"
             />
           </div>
           <div

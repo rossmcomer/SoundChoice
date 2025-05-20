@@ -38,7 +38,7 @@ const selectedEventLabel = computed(() => {
 </script>
 <template>
   <div
-    class="flex flex-col items-center mt-8 min-w-[310px] border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 p-4 bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent max-w-xl"
+    class="flex flex-col items-center mt-4 min-w-[310px] border-2 border-[rgb(34,34,34)] rounded-xl shadow-lg text-gray-800 p-4 bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent max-w-xl"
   >
     <h2 class="text-2xl font-bold text-center mb-4 text-[var(--black-soft)]">Cost Summary</h2>
 

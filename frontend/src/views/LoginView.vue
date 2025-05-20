@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
 import { createAccount } from '@/services/userService';
 import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
 
 const router = useRouter();
 
@@ -32,13 +33,13 @@ const handleLogin = async () => {
     router.push('/');
   } catch (err) {
     console.error(err);
-    alert('Failed to login');
+    toast.error('Failed to login');
   }
 };
 
 const handleSignUpSubmit = async () => {
   if (signUpForm.value.password !== signUpForm.value.confirmPassword) {
-    alert('Passwords do not match');
+    toast.error('Passwords do not match');
     return;
   }
 
@@ -52,7 +53,7 @@ const handleSignUpSubmit = async () => {
     showModal.value = false;
   } catch (err) {
     console.error(err);
-    alert('Failed to create account');
+    toast.error('Failed to create account');
   }
 };
 </script>

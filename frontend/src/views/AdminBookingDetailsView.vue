@@ -64,7 +64,7 @@ const handleAddPayment = async () => {
       <div class="p-4 text-[var(--black-soft)]">
         <button
           @click="goBack"
-          class="mb-4 bg-transparent text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 transition cursor-pointer"
+          class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
         >
           ← Back
         </button>

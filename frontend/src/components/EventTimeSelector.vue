@@ -4,7 +4,7 @@ const timeZoneAbbr = defineModel<string>('timeZoneAbbr');
 </script>
 
 <template>
-  <form class="mx-auto">
+  <form class="mx-auto flex flex-col justify-end">
     <div class="w-full flex flex-col items-center">
       <div class="flex flex-col items-center">
         <label
@@ -12,7 +12,7 @@ const timeZoneAbbr = defineModel<string>('timeZoneAbbr');
           class="block mb-2 sm:text-2xl text-xl font-bold text-[var(--black-soft)] text-center"
           >Start Time <span v-if="timeZoneAbbr">({{ timeZoneAbbr }})</span>:</label
         >
-        <div class="relative shadow-md w-[190px] mb-2">
+        <div class="relative shadow-md w-[190px] mb-2 lg:mb-0">
           <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3 pointer-events-none">
             <svg
               class="w-5 h-5 text-[var(--color6)]"

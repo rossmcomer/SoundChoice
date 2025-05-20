@@ -1,4 +1,4 @@
-export const getUTCISOString = (date: Date, time: string): string => {
+export const useUTCISOString = (date: Date, time: string): string => {
   const [hours, minutes] = time.split(':').map(Number);
 
   const localDateTime = new Date(
@@ -14,4 +14,4 @@ export const getUTCISOString = (date: Date, time: string): string => {
   return localDateTime.toISOString(); // UTC ISO string
 };
 
-export default getUTCISOString;
+export default useUTCISOString;

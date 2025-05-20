@@ -13,6 +13,7 @@ import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
 import CartTable from '@/components/CartTable.vue';
 import DepositCheckoutButton from '@/components/DepositCheckoutButton.vue';
 import { useProductStore } from '@/stores/ProductStore';
+import LocationSelector from '@/components/LocationSelector.vue'
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
@@ -26,9 +27,10 @@ const location = ref<string>('');
 const startTime = ref<string>('12:00');
 const endTime = ref<string>('-');
 const uplights = ref<boolean>(false);
-const addHours = ref<boolean>(false);
-const additionalHours = ref<number>(1);
+const addHours = ref<boolean>(true);
+const additionalHours = ref<number>(0);
 const timeZoneAbbr = useTimeZoneAbbr();
+const totalHours = ref<number>(1);
 
 function parseTime(timeStr: string, baseDate: Date): Date {
   const [hours, minutes] = timeStr.split(':').map(Number);
@@ -74,7 +76,10 @@ watch([startTime, eventType, addHours, additionalHours, date], () => {
 
 // Require user to declare total hours if eventType is not a wedding
 watch(eventType, (newType) => {
-  if (newType !== 'wedding') {
+  if (newType === 'wedding') {
+    totalHours.value = 5;
+  } else {
+    totalHours.value = 1;
     addHours.value = true;
   }
 });
@@ -138,54 +143,41 @@ watch(eventType, (newType) => {
           </div>
           <div class="w-full h-full flex flex-1 flex-col items-center">
             <EventTypeDropdown class="flex-1" v-model:eventType="eventType" />
-            <div :class="['mb-2 flex-1', { 'lg:mb-0': eventType !== 'wedding' }]">
-              <label
-                for="location-input"
-                class="block mb-2 sm:text-2xl text-xl text-center font-bold text-[var(--black-soft)]"
-              >
-                Event Location:
-              </label>
-              <input
-                type="text"
-                id="location-input"
-                v-model="location"
-                placeholder="Venue Address"
-                class="bg-[var(--black-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--color6)] text-[var(--white-soft)] text-sm rounded-lg block h-[48px] w-[190px] p-2.5"
-              />
-            </div>
+            <LocationSelector v-model="location"/>
             <EventTimeSelector
               class="flex-1"
               v-model:startTime="startTime"
               v-model:timeZoneAbbr="timeZoneAbbr"
             />
-            <EndTimeDisplay
-              v-if="eventType === 'wedding'"
-              class="flex-1"
-              v-model:timeZoneAbbr="timeZoneAbbr"
-              v-model:endTime="endTime"
-            />
           </div>
           <div class="w-full h-full flex flex-col items-center">
             <AdditionalHours
-              :class="eventType === 'wedding' ? 'flex-3' : 'flex-1'"
+              class="flex-1"
               v-model:eventType="eventType"
               v-model:addHours="addHours"
               v-model:additionalHours="additionalHours"
+              v-model:totalHours="totalHours"
             />
             <EndTimeDisplay
-              v-if="eventType !== 'wedding'"
               class="flex-1"
               v-model:timeZoneAbbr="timeZoneAbbr"
               v-model:endTime="endTime"
             />
-
             <UplightingSelector
-              class="flex-1 flex flex-col"
-              :class="eventType === 'wedding' ? 'justify-end' : 'justify-start'"
+              class="flex-1 flex flex-col justify-end"
               v-model:uplights="uplights"
             />
           </div>
         </div>
+        <div>
+      <h2 class="text-xl text-center text-[var(--black-soft)] italic w-[261px] mt-4">
+        <b>Important:</b>
+      </h2>
+      <h2 class="text-[var(--black-soft)] text-justify italic w-[261px]">
+        Wedding pricing includes <b>5 hours</b> by default! If you would like to add additional
+        hours, please specify. The cost is $150 for each added hour.
+      </h2>
+    </div>
         <div class="flex flex-col items-center">
           <CartTable
             v-model:eventType="eventType"

@@ -29,9 +29,6 @@ onMounted(() => {
       no-today
     ></VueDatePicker>
   </div>
-  <div class="sm:text-sm text-center pt-1 text-gray-800">
-    Date not available? Please contact us!
-  </div>
 </template>
 <style>
 .dp__main {

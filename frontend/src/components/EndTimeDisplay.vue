@@ -3,7 +3,7 @@ const timeZoneAbbr = defineModel<string>('timeZoneAbbr');
 const endTime = defineModel<string>('endTime');
 </script>
 <template>
-  <div class="text-center">
+  <div class="text-center flex flex-col justify-center">
     <div class="sm:text-2xl text-xl font-bold text-[var(--black-soft)] mb-2">
       End Time ({{ timeZoneAbbr }}):
     </div>

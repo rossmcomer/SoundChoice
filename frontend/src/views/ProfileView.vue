@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/UserStore';
 import { updateName, updateEmail, updatePhone, updatePassword } from '@/services/userService';
 import BookingsAccordion from '@/components/BookingsAccordion.vue';
+import { toast } from 'vue3-toastify';
 
 const router = useRouter();
 
@@ -16,7 +17,7 @@ const handleLogout = async () => {
     router.push('/login-sign-up');
   } catch (err) {
     console.error('Logout failed:', err);
-    alert('Failed to log out');
+    toast.error('Failed to log out');
   }
 };
 </script>
