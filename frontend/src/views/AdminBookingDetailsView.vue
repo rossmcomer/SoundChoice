@@ -5,10 +5,12 @@ import { useRoute, useRouter } from 'vue-router';
 import { addPayment, getBookingInfo, updateBooking } from '@/services/adminService';
 import { useFormatPaymentStatus } from '@/composables/useFormatPaymentStatus';
 import { useProductLabel } from '@/composables/useProductLabel';
+import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 
 const route = useRoute();
 const router = useRouter();
 const booking = ref<Booking | null>(null);
+const timeZoneAbbr = useTimeZoneAbbr();
 
 //Payment editing refs
 const amount = ref<number | null>(null);
@@ -83,7 +85,7 @@ const handleAddPayment = async () => {
                   minute: '2-digit',
                   hour12: true,
                 })
-              }}
+              }} {{ useTimeZoneAbbr() }}
             </li>
             <li>
               <strong>End Time:</strong>
@@ -93,7 +95,7 @@ const handleAddPayment = async () => {
                   minute: '2-digit',
                   hour12: true,
                 })
-              }}
+              }} {{ useTimeZoneAbbr() }}
             </li>
             <li><strong>Type:</strong> {{ useProductLabel(booking.type) }}</li>
             <li><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</li>
