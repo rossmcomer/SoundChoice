@@ -1,11 +1,12 @@
 import nodemailer from 'nodemailer';
+const { SMTP_USER, SMTP_PASS } = require('../util/config');
 
 export async function sendResetEmail(email: string, resetLink: string) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+      user: SMTP_USER,
+      pass: SMTP_PASS,
     },
   });
 

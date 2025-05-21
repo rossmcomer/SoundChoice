@@ -6,6 +6,7 @@ import bcryptjs from 'bcryptjs';
 import crypto from 'crypto';
 import { sendResetEmail } from '../util/email';
 const { tokenExtractor } = require('../util/middleware');
+const { DOMAIN_NAME } = require('../util/config');
 
 // Email regex to validate format
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -278,9 +279,9 @@ router.post('/forgot-password', async (req: Request, res: Response) => {
     },
   });
 
-  const resetLink = `http://yourfrontend.com/reset-password?token=${token}`;
+  const resetLink = `${DOMAIN_NAME}/reset-password?token=${token}`;
 
-  // Send email (use Nodemailer or your preferred method)
+  // Send email
   await sendResetEmail(email, resetLink);
 
   return res.json({ message: 'Reset link sent' });
@@ -289,7 +290,9 @@ router.post('/forgot-password', async (req: Request, res: Response) => {
 router.post('/reset-password', async (req: Request, res: Response) => {
   const { token, newPassword } = req.body;
 
-  const record = await prisma.passwordResetToken.findUnique({ where: { token } });
+  const record = await prisma.passwordResetToken.findUnique({
+    where: { token },
+  });
 
   if (!record || record.expiresAt < new Date()) {
     return res.status(400).json({ error: 'Invalid or expired token' });

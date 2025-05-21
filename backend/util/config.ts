@@ -11,4 +11,6 @@ module.exports = {
   DEV_WEBHOOK_SECRET: process.env.DEV_WEBHOOK_SECRET,
   PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
   PAYPAL_SECRET: process.env.PAYPAL_SECRET,
+  SMTP_USER: process.env.SMTP_USER,
+  SMTP_PASS: process.env.SMTP_PASS,
 };
