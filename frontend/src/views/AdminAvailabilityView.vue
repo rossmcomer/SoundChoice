@@ -45,8 +45,8 @@ const addUnavailableDate = async () => {
     });
 
     toast.success('Successfully added unavailable date.');
-
-    await availabilityStore.fetchDates(); // Refresh store
+    await availabilityStore.fetchDates();
+    date.value = null;
   } catch (err) {
     toast.error('Failed to add unavailable date.');
     error.value = 'Failed to add unavailable date.';
