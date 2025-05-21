@@ -20,6 +20,17 @@ export const getUserData = async () => {
   return response.data;
 };
 
+//Handle Forgot Password
+export const handleForgotPassword = async (email: string) => {
+  try {
+    await axios.post(`${baseUrl}/forgot-password`, { email });
+    alert('Check your email for a reset link.');
+  } catch (err: any) {
+    console.error(err);
+    alert(err.response?.data?.error || 'Something went wrong');
+  }
+}
+
 // PATCH user name
 export const updateName = async (name: string) => {
   const response = await axios.patch(
@@ -71,6 +82,7 @@ export const updatePassword = async (currentPassword: string, newPassword: strin
 export default {
   createAccount,
   getUserData,
+  handleForgotPassword,
   updateName,
   updateEmail,
   updatePhone,
