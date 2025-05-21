@@ -4,6 +4,7 @@ import { AdminStore } from '@/stores/AdminStore';
 import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import { toast } from 'vue3-toastify';
+import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
 const adminStore = AdminStore();
 const { clientEmails } = storeToRefs(adminStore);
@@ -15,6 +16,7 @@ const goBack = () => {
   router.back();
 };
 
+//Copy email list to clipboard
 const copyEmails = async () => {
   if (!emailListRef.value) return;
   const text = emailListRef.value.innerText;
@@ -34,11 +36,7 @@ onMounted(() => {
 
 <template>
   <div class="relative h-full">
-    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
-      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-
+    <BackgroundVideoDefault />
     <div class="p-6 space-y-4 text-[var(--black-soft)] z-10 relative">
       <button
         @click="goBack"

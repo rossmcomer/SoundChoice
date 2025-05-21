@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import { submitNewPassword } from '@/services/userService';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
+import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
 const router = useRouter();
 
@@ -31,10 +32,7 @@ const onSubmit = async () => {
 
 <template>
   <div class="relative h-full">
-    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
-      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <BackgroundVideoDefault />
     <div class="relative h-full z-10">
       <div class="flex flex-col items-center mt-40">
         <form

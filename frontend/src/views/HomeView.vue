@@ -2,7 +2,7 @@
 import { onMounted, ref, computed } from 'vue';
 import { initFlowbite } from 'flowbite';
 import { useUserStore } from '@/stores/UserStore';
-import BackgroundVideo from '@/components/BackgroundVideo.vue';
+import BackgroundVideoHome from '@/components/BackgroundVideoHome.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -22,7 +22,7 @@ function handleLogout() {
 
 <template>
   <div class="relative h-full overflow-hidden">
-    <BackgroundVideo />
+    <BackgroundVideoHome />
     <div class="w-full flex justify-center py-[2vh]">
       <a
         class="relative z-10 w-[150px]"

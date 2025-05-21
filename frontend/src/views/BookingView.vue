@@ -14,6 +14,7 @@ import CartTable from '@/components/CartTable.vue';
 import DepositCheckoutButton from '@/components/DepositCheckoutButton.vue';
 import { useProductStore } from '@/stores/ProductStore';
 import LocationSelector from '@/components/LocationSelector.vue';
+import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
@@ -87,10 +88,7 @@ watch(eventType, (newType) => {
 
 <template>
   <div v-if="!user" class="relative h-full">
-    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
-      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <BackgroundVideoDefault />
     <div class="relative h-full z-10">
       <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Booking</h1>
@@ -125,10 +123,7 @@ watch(eventType, (newType) => {
     </div>
   </div>
   <div v-else class="relative h-full">
-    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
-      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <BackgroundVideoDefault />
     <div class="relative h-full z-10">
       <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Booking</h1>

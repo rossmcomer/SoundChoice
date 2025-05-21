@@ -5,3 +5,8 @@
 #app {
   min-width: 344px;
 }
+
+.Toastify__toast {
+  background-color: #333 !important;
+  color: var(--white-soft) !important;
+}

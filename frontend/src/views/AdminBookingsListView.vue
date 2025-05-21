@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia';
 import { AdminStore } from '@/stores/AdminStore';
 import { useProductLabel } from '@/composables/useProductLabel';
 import { onMounted } from 'vue';
+import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
 const adminStore = AdminStore();
 const { bookings } = storeToRefs(adminStore);
@@ -24,10 +25,7 @@ const goBack = () => {
 
 <template>
   <div class="relative h-full">
-    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
-      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <BackgroundVideoDefault />
     <div class="relative z-10 p-6 space-y-4 text-[var(--black-soft)]">
       <button
         @click="goBack"

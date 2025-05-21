@@ -7,6 +7,7 @@ import { useFormatPaymentStatus } from '@/composables/useFormatPaymentStatus';
 import { useProductLabel } from '@/composables/useProductLabel';
 import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
 import { toast } from 'vue3-toastify';
+import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -84,10 +85,7 @@ const copyQuestionnaire = async () => {
 </script>
 <template>
   <div class="relative h-full">
-    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
-      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <BackgroundVideoDefault />
     <div class="relative p-6 space-y-4 h-full z-10">
       <div class="text-[var(--black-soft)]">
         <button

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
 const pricingPlans = ref([
   {
@@ -58,10 +59,7 @@ const pricingPlans = ref([
 </script>
 <template>
   <div class="relative min-h-full">
-    <video class="fixed inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline>
-      <source src="@/assets/movies/movie2-loop.mp4" type="video/mp4" />
-      Your browser does not lighting the video tag.
-    </video>
+    <BackgroundVideoDefault />
     <div class="relative h-full z-10">
       <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Pricing</h1>
