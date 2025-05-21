@@ -36,8 +36,8 @@ const onSubmit = async () => {
       Your browser does not support the video tag.
     </video>
     <div class="relative h-full z-10">
-      <div class="flex flex-col items-center">
-        <form @submit.prevent="onSubmit" class="max-w-sm flex flex-col justify-center pt-17">
+      <div class="flex flex-col items-center mt-40">
+        <form @submit.prevent="onSubmit" class="max-w-sm min-w-[250px] flex flex-col justify-center pt-17">
           <div class="relative z-50 mb-5 group">
             <input
               v-model="newPassword"

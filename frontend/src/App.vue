@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
-import NavBar from './components/NavBar.vue';
-import Footer from './components/Footer.vue';
+import NavBar from '@/components/NavBar.vue';
+import Footer from '@/components/Footer.vue';
+import { useRoute } from 'vue-router';
 
 import { useGlobalStore } from '@/stores/GlobalStore';
 import { useUserStore } from '@/stores/UserStore';
 import { useProductStore } from './stores/ProductStore';
+
+const route = useRoute();
 
 const global = useGlobalStore();
 
@@ -31,7 +34,7 @@ onMounted(async () => {
     <main class="flex-grow pt-17">
       <RouterView />
     </main>
-    <Footer />
+    <Footer v-if="!route.path.startsWith('/admin')" />
   </div>
 </template>
 

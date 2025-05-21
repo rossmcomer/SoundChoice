@@ -11,7 +11,6 @@ import { toast } from 'vue3-toastify';
 const route = useRoute();
 const router = useRouter();
 const booking = ref<Booking | null>(null);
-const timeZoneAbbr = useTimeZoneAbbr();
 const questionnaireRef = ref<HTMLElement | null>(null);
 
 //Payment editing refs
@@ -63,11 +62,20 @@ const handleAddPayment = async () => {
 const copyQuestionnaire = async () => {
   if (!questionnaireRef.value) return;
 
-  const text = questionnaireRef.value.innerText;
+  const html = Array.from(questionnaireRef.value.querySelectorAll('div'))
+    .map((el) => {
+      const question = el.querySelector('strong')?.innerText || '';
+      const answer = el.innerText.replace(question, '').trim();
+      return `<p><strong>${question}</strong> ${answer}</p>`;
+    })
+    .join('');
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const data = [new ClipboardItem({ 'text/html': blob })];
 
   try {
-    await navigator.clipboard.writeText(text);
-    toast.success('Questionnaire copied to clipboard');
+    await navigator.clipboard.write(data);
+    toast.success('Questionnaire copied to clipboard.');
   } catch (err) {
     toast.error('Failed to copy');
     console.error(err);
@@ -187,11 +195,11 @@ const copyQuestionnaire = async () => {
                 </div>
               </div>
             </li>
-            <li v-if="booking.questionnaire" class="text-2xl" ref="questionnaireRef">
-              <strong>Questionnaire:</strong
+            <li v-if="booking.questionnaire" class="text-2xl mt-6 border-t pt-4" ref="questionnaireRef">
+              <strong>Questionnaire: </strong
               ><button
                 @click="copyQuestionnaire"
-                class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
+                class="text-md bg-gray-200 text-[var(--black-soft)] px-2 pb-1 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
               >
                 Copy
               </button>
