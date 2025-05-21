@@ -23,6 +23,12 @@ const handleLogout = async () => {
     toast.error('Failed to log out');
   }
 };
+
+const formatPhone = (phone: string) => {
+  const digits = phone.replace(/\D/g, ''); // Remove non-digit characters
+  if (digits.length !== 10) return phone; // Return original if not 10 digits
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+};
 </script>
 <template>
   <div class="relative h-full">
@@ -40,7 +46,7 @@ const handleLogout = async () => {
             <div class="text-[var(--black-soft)]">
               <p><b>Name:</b> {{ user.name }}</p>
               <p><b>Email:</b> {{ user.email }}</p>
-              <p><b>Phone:</b> {{ user.phone }}</p>
+              <p><b>Phone:</b> {{ formatPhone(user.phone) }}</p>
             </div>
             <div class="flex items-center">
               <button

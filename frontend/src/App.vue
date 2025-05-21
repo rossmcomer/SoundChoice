@@ -34,7 +34,7 @@ onMounted(async () => {
     <main class="flex-grow pt-17">
       <RouterView />
     </main>
-    <Footer v-if="!route.path.startsWith('/admin')" />
+    <Footer v-if="route.path !== '/' && !route.path.startsWith('/admin')" />
   </div>
 </template>
 
