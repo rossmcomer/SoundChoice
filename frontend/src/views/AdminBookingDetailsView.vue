@@ -12,6 +12,7 @@ const route = useRoute();
 const router = useRouter();
 const booking = ref<Booking | null>(null);
 const timeZoneAbbr = useTimeZoneAbbr();
+const questionnaireRef = ref<HTMLElement | null>(null);
 
 //Payment editing refs
 const amount = ref<number | null>(null);
@@ -56,6 +57,20 @@ const handleAddPayment = async () => {
     console.error(err);
   } finally {
     submitting.value = false;
+  }
+};
+
+const copyQuestionnaire = async () => {
+  if (!questionnaireRef.value) return;
+
+  const text = questionnaireRef.value.innerText;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    toast.success('Questionnaire copied to clipboard');
+  } catch (err) {
+    toast.error('Failed to copy');
+    console.error(err);
   }
 };
 </script>
@@ -172,14 +187,21 @@ const handleAddPayment = async () => {
                 </div>
               </div>
             </li>
-            <li v-if="booking.questionnaire" class="text-2xl">
-              <strong>Questionnaire:</strong>
-              <div class="text-lg">
-                <p v-for="(answer, question) in booking.questionnaire.answers" :key="question">
-                  <strong>{{ question }}:</strong> {{ answer }}
-                </p>
-              </div>
-            </li>
+            <li v-if="booking.questionnaire" class="text-2xl" ref="questionnaireRef">
+  <strong>Questionnaire:</strong><button
+  @click="copyQuestionnaire"
+  class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
+>
+  Copy
+</button>
+  <div
+    v-for="(answer, question) in booking.questionnaire.answers"
+    :key="question"
+    class="text-lg"
+  >
+    <strong>{{ question }}:</strong> {{ answer }}
+</div>
+</li>
           </ul>
         </div>
         <div v-else>Loading booking...</div>

@@ -29,6 +29,7 @@ const handleLogin = async () => {
       email: loginForm.value.email,
       password: loginForm.value.password,
     });
+    toast.success('Successfully logged in.');
     router.push('/');
   } catch (err) {
     console.error(err);
@@ -50,6 +51,7 @@ const handleSignUpSubmit = async () => {
       phone: signUpForm.value.phone,
     });
     showModal.value = false;
+    toast.success('Successfully created account.');
   } catch (err) {
     console.error(err);
     toast.error('Failed to create account');
@@ -198,7 +200,7 @@ const handleSignUpSubmit = async () => {
                     required
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-gray-800 peer"
                     placeholder=" "
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    pattern="^(\d{10}|\d{3}-\d{3}-\d{4})$"
                   />
                   <label
                     for="phone"
