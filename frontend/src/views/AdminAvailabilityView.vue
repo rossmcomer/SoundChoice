@@ -114,7 +114,7 @@ const goBack = () => {
           </button>
         </div>
         <div class="flex flex-col items-center justify-center gap-4 my-4 mx-auto">
-            <h2 class="text-3xl font-bold text-center">Remove Unavailability</h2>
+          <h2 class="text-3xl font-bold text-center">Remove Unavailability</h2>
           <div v-if="availabilityStore.unavailableDates.length" class="text-center">
             <strong>Unavailable Dates:</strong>
             <ul class="list-disc list-inside ml-4 space-y-2">

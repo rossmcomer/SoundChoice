@@ -4,6 +4,7 @@ import { useUserStore } from '@/stores/UserStore';
 import { createAccount } from '@/services/userService';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
+import ForgotPasswordForm from './ForgotPasswordForm.vue';
 
 const router = useRouter();
 
@@ -14,7 +15,7 @@ const loginForm = ref({
   password: '',
 });
 
-const showModal = ref(false);
+const showSignUpModal = ref(false);
 const signUpForm = ref({
   email: '',
   password: '',
@@ -23,14 +24,19 @@ const signUpForm = ref({
   phone: '',
 });
 
+const showForgotPasswordModal = ref(false);
+
 const handleLogin = async () => {
   try {
     await userStore.loginUser({
       email: loginForm.value.email,
       password: loginForm.value.password,
     });
-    toast.success('Successfully logged in.');
     router.push('/');
+    setTimeout(() => {
+      toast.success('Successfully logged in.');
+    }, 1000)
+    
   } catch (err) {
     console.error(err);
     toast.error('Failed to login');
@@ -50,7 +56,7 @@ const handleSignUpSubmit = async () => {
       name: signUpForm.value.name,
       phone: signUpForm.value.phone,
     });
-    showModal.value = false;
+    showSignUpModal.value = false;
     toast.success('Successfully created account.');
   } catch (err) {
     console.error(err);
@@ -113,18 +119,27 @@ const handleSignUpSubmit = async () => {
           Submit
         </button>
         <div class="text-sm text-gray-500 flex mt-4">
-          <div>( Don't have an account?&nbsp;</div>
-          <a
-            class="cursor-pointer text-blue-800 text-md font-medium hover:scale-105"
-            @click="showModal = true"
-            >Sign up!</a
-          >
-          <div>&nbsp)</div>
-
+          <div class="flex items-center">
+            <div class="flex">
+              <div>( Don't have an account?&nbsp;</div>
+              <a
+                class="cursor-pointer text-blue-800 text-md font-medium hover:scale-105"
+                @click="showSignUpModal = true"
+                >Sign up!</a
+              >
+              <div>&nbsp)</div>
+            </div>
+            <div
+              class="text-xs text-blue-800 text-lef cursor-pointer hover:scale-105"
+              @click="showForgotPasswordModal = true"
+            >
+              &nbspForgot password?
+            </div>
+          </div>
           <div
-            v-if="showModal"
+            v-if="showSignUpModal"
             class="fixed inset-0 bg-[rgba(34,34,34,0.7)] flex items-center justify-center z-50"
-            @click.self="showModal = false"
+            @click.self="showSignUpModal = false"
           >
             <div
               class="relative bg-white rounded-lg p-6 w-full max-w-md border-[rgb(34,34,34)] border-2"
@@ -215,6 +230,18 @@ const handleSignUpSubmit = async () => {
                   Submit
                 </button>
               </form>
+            </div>
+          </div>
+          <div
+            v-if="showForgotPasswordModal"
+            class="fixed inset-0 bg-[rgba(34,34,34,0.7)] flex items-center justify-center z-50"
+            @click.self="showForgotPasswordModal = false"
+          >
+            <div
+              class="relative bg-white rounded-lg p-6 w-full max-w-md border-[rgb(34,34,34)] border-2"
+            >
+              <h1 class="text-center text-xl p-4 text-[var(--color6)]">Reset Password</h1>
+              <ForgotPasswordForm @close="showForgotPasswordModal = false" />
             </div>
           </div>
         </div>

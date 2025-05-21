@@ -18,7 +18,7 @@ import animationData from '@/assets/GreenCheckmark.json';
       />
       <div class="text-[var(--black-soft)] text-center my-4 px-4 max-w-lg font-medium">
         Remaining payment successful. Please visit your profile to complete your questionnaire at
-        least 1 month before your event.  Thank you and see you soon!
+        least 1 month before your event. Thank you and see you soon!
       </div>
       <button
         type="button"

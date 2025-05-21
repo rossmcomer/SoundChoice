@@ -24,12 +24,19 @@ export const getUserData = async () => {
 export const handleForgotPassword = async (email: string) => {
   try {
     await axios.post(`${baseUrl}/forgot-password`, { email });
-    alert('Check your email for a reset link.');
   } catch (err: any) {
     console.error(err);
-    alert(err.response?.data?.error || 'Something went wrong');
   }
-}
+};
+
+//Submit New Password
+export const submitNewPassword = async (token: string, newPassword: string) => {
+  try {
+    await axios.post(`${baseUrl}/reset-password`, { token, newPassword });
+  } catch (err: any) {
+    console.error(err);
+  }
+};
 
 // PATCH user name
 export const updateName = async (name: string) => {

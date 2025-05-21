@@ -17,6 +17,7 @@ import userService from '@/services/userService';
 import AdminAvailabilityView from '@/views/AdminAvailabilityView.vue';
 import AdminBookingsListView from '@/views/AdminBookingsListView.vue';
 import AdminEmailListView from '@/views/AdminEmailListView.vue';
+import ResetPasswordView from '@/views/ResetPasswordView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +81,11 @@ const router = createRouter({
       path: '/deposit-failed',
       name: 'Deposit Failed',
       component: DepositFailed,
+    },
+    {
+      path: '/reset-password',
+      name: 'ResetPassword',
+      component: ResetPasswordView,
     },
     {
       path: '/admin',

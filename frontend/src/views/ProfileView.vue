@@ -15,6 +15,10 @@ const handleLogout = async () => {
   try {
     await userStore.logoutUser();
     router.push('/login-sign-up');
+    setTimeout(() => {
+      toast.error('Successfully logged out.');
+    }, 1000)
+    
   } catch (err) {
     console.error('Logout failed:', err);
     toast.error('Failed to log out');
