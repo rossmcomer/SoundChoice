@@ -195,7 +195,11 @@ const copyQuestionnaire = async () => {
                 </div>
               </div>
             </li>
-            <li v-if="booking.questionnaire" class="text-2xl mt-6 border-t pt-4" ref="questionnaireRef">
+            <li
+              v-if="booking.questionnaire"
+              class="text-2xl mt-6 border-t pt-4"
+              ref="questionnaireRef"
+            >
               <strong>Questionnaire: </strong
               ><button
                 @click="copyQuestionnaire"

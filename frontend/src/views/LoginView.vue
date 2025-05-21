@@ -35,8 +35,7 @@ const handleLogin = async () => {
     router.push('/');
     setTimeout(() => {
       toast.success('Successfully logged in.');
-    }, 1000)
-    
+    }, 1000);
   } catch (err) {
     console.error(err);
     toast.error('Failed to login');

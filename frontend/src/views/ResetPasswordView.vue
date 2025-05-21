@@ -22,7 +22,7 @@ const onSubmit = async () => {
     router.push('/login-sign-up');
     setTimeout(() => {
       toast.success('Password reset successful. You can now log in.');
-    }, 1000)
+    }, 1000);
   } catch (err: any) {
     toast.error(err.response?.data?.error || 'Something went wrong');
   }
@@ -37,7 +37,10 @@ const onSubmit = async () => {
     </video>
     <div class="relative h-full z-10">
       <div class="flex flex-col items-center mt-40">
-        <form @submit.prevent="onSubmit" class="max-w-sm min-w-[250px] flex flex-col justify-center pt-17">
+        <form
+          @submit.prevent="onSubmit"
+          class="max-w-sm min-w-[250px] flex flex-col justify-center pt-17"
+        >
           <div class="relative z-50 mb-5 group">
             <input
               v-model="newPassword"
