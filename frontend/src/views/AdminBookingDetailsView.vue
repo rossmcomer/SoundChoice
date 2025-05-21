@@ -182,7 +182,6 @@ const handleAddPayment = async () => {
             </li>
           </ul>
         </div>
-
         <div v-else>Loading booking...</div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
 import { createAccount } from '@/services/userService';
 import { useRouter } from 'vue-router';
@@ -8,7 +8,6 @@ import { toast } from 'vue3-toastify';
 const router = useRouter();
 
 const userStore = useUserStore();
-const user = computed(() => userStore.user);
 
 const loginForm = ref({
   email: '',
