@@ -116,14 +116,13 @@ router.patch(
   requireAdmin,
   async (req: Request, res: Response): Promise<Response> => {
     const { bookingId } = req.params;
-    const { startTime, endTime, location, type, paymentStatus } = req.body;
+    const { startTime, endTime, location, paymentStatus } = req.body;
 
     // Build a dynamic update object
     const updateData: any = {};
     if (startTime) updateData.startTime = new Date(startTime);
     if (endTime) updateData.endTime = new Date(endTime);
     if (location) updateData.location = location;
-    if (type) updateData.type = type;
     if (paymentStatus) updateData.paymentStatus = paymentStatus;
 
     // Prevent empty update

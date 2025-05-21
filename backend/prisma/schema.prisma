@@ -92,3 +92,9 @@ enum PaymentStatus {
   paidInFull
   depositFailed
 }
+
+model PasswordResetToken {
+  token      String   @id
+  email      String
+  expiresAt  DateTime
+}
