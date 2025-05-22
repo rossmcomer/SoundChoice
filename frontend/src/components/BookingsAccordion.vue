@@ -307,18 +307,18 @@ async function submitQuestionnaire(bookingId: string) {
               </button>
             </div>
             <div v-if="answers[booking.id]" class="mt-4 items-center flex flex-col">
-              <h3 class="font-bold text-center text-2xl mb-4">
+              <h3 class="font-bold text-center text-2xl mb-2">
                 Questionnaire<span v-if="hasBlankAnswers(booking.id)">❌ </span>
                 <span v-else>✅</span>
               </h3>
-              <div class="mb-4 italic text-lg text-center">
+              <div class="mb-2 italic text-lg text-center">
                 <b>Important!</b> Please complete questionnaire one month before your event. If a
                 question doesn't apply to your event, please type 'N/A'. If any answers remain blank, 
                 questionnaire will show as incomplete.
               </div>
               <button
                 @click="submitQuestionnaire(booking.id)"
-                class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto"
+                class="my-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto"
               >
                 Save Answers
               </button>
