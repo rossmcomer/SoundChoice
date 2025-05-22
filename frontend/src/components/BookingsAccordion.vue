@@ -301,12 +301,11 @@ async function submitQuestionnaire(bookingId: string) {
                     booking.addedHours,
                   )
                 "
-                class="my-2 bg-[#1ab458] text-[var(--black-soft)] stroke-1 px-4 py-2 rounded-lg shadow-md hover:bg-[#50a572] cursor-pointer w-full sm:w-auto"
+                class="my-2 bg-[#1ab458] text-[var(--black-soft)] font-medium stroke-1 px-4 py-2 rounded-lg shadow-md hover:bg-[#50a572] cursor-pointer w-full sm:w-auto"
               >
                 Pay Remaining Balance
               </button>
             </div>
-
             <div v-if="answers[booking.id]" class="mt-4 items-center flex flex-col">
               <h3 class="font-bold text-center text-2xl mb-4">
                 Questionnaire<span v-if="hasBlankAnswers(booking.id)">❌ </span>
