@@ -34,11 +34,19 @@ const additionalHours = ref<number>(0);
 const timeZoneAbbr = getTimeZoneAbbr();
 const totalHours = ref<number>(1);
 
+// Initial endTime = startTime + 1 hour
+if (startTime.value) {
+  const initialStart = parseTime(startTime.value, new Date());
+  const initialEnd = new Date(initialStart);
+  initialEnd.setHours(initialEnd.getHours() + 1);
+  endTime.value = formatTime(initialEnd);
+}
+
 // Calculate end time based off of start time and additional hours
 watch([startTime, eventType, addHours, additionalHours, date], () => {
-  if (!date.value) return;
+  const baseDate = date.value ?? new Date();
 
-  const start = parseTime(startTime.value, date.value);
+  const start = parseTime(startTime.value, baseDate);
   let totalHours = 0;
 
   if (eventType.value === 'wedding') {
@@ -60,8 +68,9 @@ watch(eventType, (newType) => {
   if (newType === 'wedding') {
     totalHours.value = 5;
   } else {
-    totalHours.value = 1;
     addHours.value = true;
+    totalHours.value = 1;
+    additionalHours.value = 1;
   }
 });
 </script>
