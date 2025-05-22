@@ -8,13 +8,14 @@ import EventTypeDropdown from '@/components/EventTypeDropdown.vue';
 import EventTimeSelector from '@/components/EventTimeSelector.vue';
 import UplightingSelector from '@/components/UplightingSelector.vue';
 import AdditionalHours from '@/components/AdditionalHours.vue';
-import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
+import { getTimeZoneAbbr } from '@/util/time';
 import EndTimeDisplay from '@/components/EndTimeDisplay.vue';
 import CartTable from '@/components/CartTable.vue';
 import DepositCheckoutButton from '@/components/DepositCheckoutButton.vue';
 import { useProductStore } from '@/stores/ProductStore';
 import LocationSelector from '@/components/LocationSelector.vue';
 import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
+import { parseTime, formatTime } from '@/util/time';
 
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
@@ -30,29 +31,8 @@ const endTime = ref<string>('-');
 const uplights = ref<boolean>(false);
 const addHours = ref<boolean>(true);
 const additionalHours = ref<number>(0);
-const timeZoneAbbr = useTimeZoneAbbr();
+const timeZoneAbbr = getTimeZoneAbbr();
 const totalHours = ref<number>(1);
-
-function parseTime(timeStr: string, baseDate: Date): Date {
-  const [hours, minutes] = timeStr.split(':').map(Number);
-  return new Date(
-    baseDate.getFullYear(),
-    baseDate.getMonth(),
-    baseDate.getDate(),
-    hours,
-    minutes,
-    0,
-    0,
-  );
-}
-
-function formatTime(date: Date): string {
-  return date.toLocaleTimeString([], {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  });
-}
 
 // Calculate end time based off of start time and additional hours
 watch([startTime, eventType, addHours, additionalHours, date], () => {

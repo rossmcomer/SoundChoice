@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { addPayment, getBookingInfo, updateBooking } from '@/services/adminService';
 import { useFormatPaymentStatus } from '@/composables/useFormatPaymentStatus';
 import { useProductLabel } from '@/composables/useProductLabel';
-import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
+import { getTimeZoneAbbr } from '@/util/time';
 import { toast } from 'vue3-toastify';
 import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
@@ -110,7 +110,7 @@ const copyQuestionnaire = async () => {
                   hour12: true,
                 })
               }}
-              {{ useTimeZoneAbbr() }}
+              {{ getTimeZoneAbbr() }}
             </li>
             <li>
               <strong>End Time:</strong>
@@ -121,7 +121,7 @@ const copyQuestionnaire = async () => {
                   hour12: true,
                 })
               }}
-              {{ useTimeZoneAbbr() }}
+              {{ getTimeZoneAbbr() }}
             </li>
             <li><strong>Type:</strong> {{ useProductLabel(booking.type) }}</li>
             <li><b>Total Amount:</b> ${{ booking.totalAmount / 100 }}</li>

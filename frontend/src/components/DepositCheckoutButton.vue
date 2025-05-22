@@ -5,6 +5,7 @@ import type { EventType, CheckoutRequestBody } from '@/types';
 import useUTCISOString from '@/composables/useUTCISOString';
 import { toast } from 'vue3-toastify';
 import type { Product } from '@/types';
+import { convertTo24Hour } from '@/util/time';
 
 const eventType = defineModel<EventType | ''>('eventType');
 const additionalHours = defineModel<number>('additionalHours');
@@ -15,23 +16,6 @@ const startTime = defineModel<string>('startTime');
 const endTime = defineModel<string>('endTime');
 const date = defineModel<Date | null>('date');
 const { products } = defineProps<{ products: Product[] }>();
-
-// Convert startTime and endTime to 24-hour format
-const convertTo24Hour = (time12h: string): string => {
-  const trimmed = time12h.trim();
-  const match = trimmed.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
-  if (!match) {
-    throw new Error(`Invalid time format: ${time12h}`);
-  }
-
-  let [_, hours, minutes, period] = match;
-  let hour = parseInt(hours, 10);
-
-  if (period.toUpperCase() === 'PM' && hour < 12) hour += 12;
-  if (period.toUpperCase() === 'AM' && hour === 12) hour = 0;
-
-  return `${hour.toString().padStart(2, '0')}:${minutes}`;
-};
 
 const checkoutDeposit = async () => {
   const stripe = await loadStripe(import.meta.env.VITE_STRIPE_KEY);

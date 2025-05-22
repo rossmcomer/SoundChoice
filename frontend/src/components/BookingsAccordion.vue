@@ -9,7 +9,7 @@ import nonWeddingQuestions from '@/assets/non-wedding-questionnaire.json';
 import { useProductStore } from '@/stores/ProductStore';
 import { useUserStore } from '@/stores/UserStore';
 import checkoutService from '@/services/checkoutService';
-import { useTimeZoneAbbr } from '@/composables/useTimeZoneAbbr';
+import { getTimeZoneAbbr } from '@/util/time';
 import { toast } from 'vue3-toastify';
 import { useFormatPaymentStatus } from '@/composables/useFormatPaymentStatus';
 
@@ -19,7 +19,7 @@ const user = computed(() => userStore.user);
 const productsStore = useProductStore();
 const products = computed(() => productsStore.products);
 
-const timeZoneAbbr = useTimeZoneAbbr();
+const timeZoneAbbr = getTimeZoneAbbr();
 
 const answers = ref<Record<string, Record<string, string>>>({});
 

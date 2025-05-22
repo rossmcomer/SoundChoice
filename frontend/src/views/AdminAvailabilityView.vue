@@ -7,6 +7,7 @@ import adminService from '@/services/adminService';
 import { toast } from 'vue3-toastify';
 import { useRouter } from 'vue-router';
 import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
+import { toUTCDateString } from '@/util/time';
 
 const availabilityStore = useAvailabilityStore();
 const router = useRouter();
@@ -19,13 +20,6 @@ const error = ref<string | null>(null);
 onMounted(() => {
   availabilityStore.fetchDates();
 });
-
-// Convert local date to UTC ISO (at midnight)
-function toUTCDateString(d: Date): string {
-  const localMidnight = new Date(d);
-  localMidnight.setHours(0, 0, 0, 0); // Local midnight
-  return localMidnight.toISOString();
-}
 
 // Add unavailable date
 const addUnavailableDate = async () => {
