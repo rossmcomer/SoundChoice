@@ -21,8 +21,7 @@ const convertTo24Hour = (time12h: string): string => {
   const trimmed = time12h.trim();
   const match = trimmed.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
   if (!match) {
-    console.error('Invalid time format:', time12h);
-    return '';
+    throw new Error(`Invalid time format: ${time12h}`);
   }
 
   let [_, hours, minutes, period] = match;
