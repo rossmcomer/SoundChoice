@@ -22,12 +22,7 @@ export function convertTo24Hour(time12h: string): string {
 /** Returns a Date object using base date + HH:mm */
 export function parseTime(timeStr: string, baseDate: Date): Date {
   const [hours, minutes] = timeStr.split(':').map(Number);
-  return new Date(
-    baseDate.getFullYear(), 
-    baseDate.getMonth(), 
-    baseDate.getDate(), 
-    hours, 
-    minutes);
+  return new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate(), hours, minutes);
 }
 
 /** Combines date + time to a UTC ISO string */

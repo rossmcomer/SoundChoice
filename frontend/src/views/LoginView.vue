@@ -25,6 +25,8 @@ const signUpForm = ref({
   phone: '',
 });
 
+const agreedToPrivacyPolicy = ref(false);
+
 const showForgotPasswordModal = ref(false);
 
 const handleLogin = async () => {
@@ -48,6 +50,8 @@ const handleSignUpSubmit = async () => {
     toast.error('Passwords do not match');
     return;
   }
+
+  if (!agreedToPrivacyPolicy.value) return;
 
   try {
     await createAccount({
@@ -219,6 +223,12 @@ const handleSignUpSubmit = async () => {
                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                     >Phone (123-456-7890)</label
                   >
+                </div>
+                <div class="relative z-50 mb-5 group">
+                  <input type="checkbox" id="agree" v-model="agreedToPrivacyPolicy" required />
+                  <label for="agree">
+                    I agree to the <a href="/privacy-policy" target="_blank">Privacy Policy</a>.
+                  </label>
                 </div>
                 <button
                   type="submit"
