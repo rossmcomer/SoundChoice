@@ -270,9 +270,8 @@ async function submitQuestionnaire(bookingId: string) {
               <span class="text-red-600">&nbsp${{ booking.totalAmount / 200 }}</span>
             </p>
             <p v-else-if="booking.paymentStatus === 'paidInFull'"><b>Remaining Balance:</b> $0</p>
-
-            <div v-if="booking.payment && booking.payment.length > 0">
-              <h3 class="mt-4 font-bold text-[var(--black-soft)]">
+            <div v-if="booking.payment && booking.payment.length > 0" class="mt-4 py-4 border-b border-t">
+              <h3 class="font-bold text-[var(--black-soft)]">
                 Payments ({{ booking.payment.length }})
               </h3>
               <div
@@ -285,7 +284,7 @@ async function submitQuestionnaire(bookingId: string) {
                 <p>Amount: ${{ payment.amount }}</p>
                 <p>Transaction ID: {{ payment.transactionId }}</p>
               </div>
-              <div v-if="booking.paymentStatus === 'depositReceived'" class="mt-2">
+              <div v-if="booking.paymentStatus === 'depositReceived'">
                 <b><i>Please pay remaining balance at least one month before your event.</i></b>
               </div>
               <button
@@ -302,7 +301,7 @@ async function submitQuestionnaire(bookingId: string) {
                     booking.addedHours,
                   )
                 "
-                class="mt-4 bg-[#1ab458] text-[var(--black-soft)] stroke-1 px-4 py-2 rounded-lg shadow-md hover:bg-[#50a572] cursor-pointer w-full sm:w-auto"
+                class="my-2 bg-[#1ab458] text-[var(--black-soft)] stroke-1 px-4 py-2 rounded-lg shadow-md hover:bg-[#50a572] cursor-pointer w-full sm:w-auto"
               >
                 Pay Remaining Balance
               </button>
@@ -315,8 +314,8 @@ async function submitQuestionnaire(bookingId: string) {
               </h3>
               <div class="mb-4 italic text-lg text-center">
                 <b>Important!</b> Please complete questionnaire one month before your event. If a
-                question doesn't apply to your event, please type 'N/A'. Questionnaire will show as
-                incomplete until every question is answered.
+                question doesn't apply to your event, please type 'N/A'. If any answers remain blank, 
+                questionnaire will show as incomplete.
               </div>
               <button
                 @click="submitQuestionnaire(booking.id)"
