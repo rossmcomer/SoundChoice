@@ -50,7 +50,7 @@ router.post(
         data: {
           email: email.toLowerCase(),
           name,
-          phone,
+          phone: phone.replace(/\D/g, ''),
           password: hashedPassword,
         },
       });
