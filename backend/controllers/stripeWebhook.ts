@@ -9,6 +9,7 @@ const router = require('express').Router();
 import { Request, Response } from 'express';
 import { prisma } from '../util/db';
 import Stripe from 'stripe';
+import { createGoogleCalendarEvent } from '../util/googleCalendar';
 
 // Webhook that follows stripe payments
 router.post('/', async (req: Request, res: Response) => {
@@ -124,6 +125,16 @@ router.post('/', async (req: Request, res: Response) => {
             console.error('Error creating questionnaire');
             return res.status(404).send('Booking not found');
           }
+
+          const eventData = {
+            startTime,
+            endTime,
+            summary: `DJ ${type} event at ${location}`,
+            description: `Booked for ${eventDate}`,
+          };
+
+          await createGoogleCalendarEvent(eventData);
+
         } else if (paymentType === 'remainingBalance') {
           if (!bookingId) {
             console.error(
