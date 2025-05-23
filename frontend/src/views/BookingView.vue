@@ -30,7 +30,7 @@ const startTime = ref<string>('12:00');
 const endTime = ref<string>('-');
 const uplights = ref<boolean>(false);
 const addHours = ref<boolean>(true);
-const additionalHours = ref<number>(0);
+const additionalHours = ref<number>(1);
 const timeZoneAbbr = getTimeZoneAbbr();
 const totalHours = ref<number>(1);
 
