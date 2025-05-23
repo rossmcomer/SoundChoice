@@ -24,5 +24,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-  assetsInclude: ['**/*.m4v']
+  assetsInclude: ['**/*.m4v'],
+  server: {
+    allowedHosts: true, // <-- allow all hosts (use with caution in production)
+    host: true,          // <-- important to allow external IPs like ngrok
+    port: 5173           // or whatever port your frontend is on
+  }
 })

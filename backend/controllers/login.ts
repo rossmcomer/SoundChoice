@@ -8,6 +8,7 @@ import { prisma } from '../util/db';
 // Login user
 router.post('/', async (req: Request, res: Response): Promise<Response> => {
   const { email, password } = req.body;
+  console.log(email, 'email')
 
   try {
     // Find user by username (case-insensitive)

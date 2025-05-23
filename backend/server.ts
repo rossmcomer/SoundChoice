@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const { PORT, DOMAIN_NAME, DOMAIN_NAME_DEV } = require('./util/config');
+const { PORT, DOMAIN_NAME, DOMAIN_NAME_DEV, NGROK_DOMAIN } = require('./util/config');
 const { connectToDatabase } = require('./util/db.ts');
 import { oauth2Client } from './util/googleCalendar';
 import { Request, Response } from 'express';
@@ -21,7 +21,7 @@ const productsRouter = require('./controllers/products');
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [DOMAIN_NAME, DOMAIN_NAME_DEV],
+    origin: [DOMAIN_NAME, DOMAIN_NAME_DEV, NGROK_DOMAIN],
     credentials: true,
   }),
 );

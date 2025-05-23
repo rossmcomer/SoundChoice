@@ -32,7 +32,7 @@ export const handleForgotPassword = async (email: string) => {
 //Submit New Password
 export const submitNewPassword = async (token: string, newPassword: string) => {
   try {
-    await axios.post(`${baseUrl}/reset-password`, { token, newPassword });
+    await axios.patch(`${baseUrl}/reset-password`, { token, newPassword });
   } catch (err: any) {
     console.error(err);
   }
