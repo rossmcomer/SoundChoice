@@ -270,7 +270,10 @@ async function submitQuestionnaire(bookingId: string) {
               <span class="text-red-600">&nbsp${{ booking.totalAmount / 200 }}</span>
             </p>
             <p v-else-if="booking.paymentStatus === 'paidInFull'"><b>Remaining Balance:</b> $0</p>
-            <div v-if="booking.payment && booking.payment.length > 0" class="mt-4 py-4 border-b border-t">
+            <div
+              v-if="booking.payment && booking.payment.length > 0"
+              class="mt-4 py-4 border-b border-t"
+            >
               <h3 class="font-bold text-[var(--black-soft)]">
                 Payments ({{ booking.payment.length }})
               </h3>
@@ -313,8 +316,8 @@ async function submitQuestionnaire(bookingId: string) {
               </h3>
               <div class="mb-2 italic text-lg text-center">
                 <b>Important!</b> Please complete questionnaire one month before your event. If a
-                question doesn't apply to your event, please type 'N/A'. If any answers remain blank, 
-                questionnaire will show as incomplete.
+                question doesn't apply to your event, please type 'N/A'. If any answers remain
+                blank, questionnaire will show as incomplete.
               </div>
               <button
                 @click="submitQuestionnaire(booking.id)"

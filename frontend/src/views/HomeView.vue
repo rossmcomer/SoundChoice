@@ -14,6 +14,17 @@ onMounted(() => {
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
+const showOverlay = ref(true);
+const promoVideo = ref<HTMLVideoElement | null>(null);
+
+function playWithSound() {
+  if (promoVideo.value) {
+    promoVideo.value.muted = false;
+    promoVideo.value.play();
+    showOverlay.value = false;
+  }
+}
+
 function handleLogout() {
   userStore.logoutUser();
   router.push('/login-sign-up');
@@ -33,17 +44,30 @@ function handleLogout() {
           src="https://d13ns7kbjmbjip.cloudfront.net/For_Your_Website/TK-badge_AsSeen.png"
       /></a>
     </div>
-    <div class="h-full flex flex-col place-items-center justify-start md:pt-0 relative z-10 sm:mt-10 md:mt-0 mt-15">
-      <video
-        class="w-4/5 h-auto max-w-2xl rounded-xl shadow-lg mb-8 border-3 border-[rgb(34,34,34)]"
-        autoplay
-        muted
-        controls
-      >
-        <source src="@/assets/Promo-video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <div
+      class="h-full flex flex-col place-items-center justify-start md:pt-0 relative z-10 sm:mt-10 md:mt-0 mt-15"
+    >
+      <div class="relative w-4/5 h-auto max-w-2xl mb-8">
+        <video
+          ref="promoVideo"
+          class="rounded-xl shadow-lg border-3 border-[rgb(34,34,34)] w-full"
+          muted
+          controls
+        >
+          <source src="@/assets/Promo-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
+        <div
+          v-if="showOverlay"
+          class="absolute inset-0 bg-black/50 flex items-center justify-center cursor-pointer rounded-xl z-20"
+          @click="playWithSound"
+        >
+          <button class="text-[var(--white-soft)] text-xl bg-blue-600 px-4 py-2 rounded-lg shadow-lg cursor-pointer hover:translate-0.5 animate-bounce">
+            ▶ Get Started With Our Welcome Video!
+          </button>
+        </div>
+      </div>
       <button
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"
