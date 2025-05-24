@@ -23,9 +23,9 @@ function handleLogout() {
 <template>
   <div class="relative h-full overflow-hidden">
     <BackgroundVideoHome />
-    <div class="w-full flex justify-center py-[2vh]">
+    <div class="w-full flex justify-left p-[2vh]">
       <a
-        class="relative z-10 w-[150px]"
+        class="relative z-10 w-[100px]"
         target="_blank"
         href="https://www.theknot.com/marketplace/redirect-2087136?utm_source=vendor_website&utm_medium=banner&utm_term=232778f0-9067-40ac-8bff-f57d64cca8a1&utm_campaign=vendor_badge_assets"
         ><img
@@ -33,7 +33,7 @@ function handleLogout() {
           src="https://d13ns7kbjmbjip.cloudfront.net/For_Your_Website/TK-badge_AsSeen.png"
       /></a>
     </div>
-    <div class="h-full flex flex-col place-items-center justify-start md:pt-0 relative z-10">
+    <div class="h-full flex flex-col place-items-center justify-start md:pt-0 relative z-10 sm:mt-10 md:mt-0 mt-15">
       <video
         class="w-4/5 h-auto max-w-2xl rounded-xl shadow-lg mb-8 border-3 border-[rgb(34,34,34)]"
         autoplay
