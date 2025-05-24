@@ -63,7 +63,7 @@ function handleLogout() {
           class="absolute inset-0 bg-black/50 flex items-center justify-center cursor-pointer rounded-xl z-20"
           @click="playWithSound"
         >
-          <button class="text-[var(--white-soft)] text-xl bg-blue-600 px-4 py-2 rounded-lg shadow-lg cursor-pointer hover:translate-0.5 animate-bounce">
+          <button class="text-[var(--white-soft)] sm:text-xl text-xs bg-blue-600 px-4 py-2 rounded-lg shadow-lg cursor-pointer hover:translate-0.5 animate-bounce">
             ▶ Get Started With Our Welcome Video!
           </button>
         </div>
