@@ -114,13 +114,14 @@ const goBack = () => {
               required
             />
           </div>
-
-          <button
-            type="submit"
-            class="px-4 py-2 bg-green-600 text-white rounded cursor-pointer hover:bg-green-700 transition"
-          >
-            Add Testimonial
-          </button>
+          <div class="flex justify-center">
+            <button
+              type="submit"
+              class="px-4 py-2 bg-green-600 text-white rounded cursor-pointer hover:bg-green-700 transition"
+            >
+              Add Testimonial
+            </button>
+          </div>
         </form>
         <h2 class="text-3xl font-bold mb-4 text-center">
           Testimonials ({{ testimonials.length }})

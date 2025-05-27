@@ -177,6 +177,7 @@ const copyQuestionnaire = async () => {
                     <select v-model="method" class="border rounded px-2 py-1 cursor-pointer">
                       <option>cash</option>
                       <option>paypal</option>
+                      <option>venmo</option>
                       <option>other</option>
                     </select>
                   </div>

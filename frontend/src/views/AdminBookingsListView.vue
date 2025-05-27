@@ -3,12 +3,20 @@ import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { AdminStore } from '@/stores/AdminStore';
 import { useProductLabel } from '@/composables/useProductLabel';
-import { onMounted } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
 const adminStore = AdminStore();
 const { bookings } = storeToRefs(adminStore);
 const router = useRouter();
+
+const showFutureOnly = ref(false);
+
+const filteredBookings = computed(() => {
+  if (!showFutureOnly.value) return bookings.value;
+  const today = new Date().setHours(0, 0, 0, 0);
+  return bookings.value.filter((booking) => new Date(booking.eventDate).getTime() >= today);
+});
 
 onMounted(async () => {
   await adminStore.fetchBookings();
@@ -33,10 +41,19 @@ const goBack = () => {
       >
         ← Back
       </button>
-      <h2 class="text-3xl font-bold mb-4 text-center">All Bookings</h2>
-      <ul v-if="bookings.length" class="space-y-2">
+      <h2 v-if="!showFutureOnly" class="text-3xl font-bold mb-4 text-center">All Bookings</h2>
+      <h2 v-else class="text-3xl font-bold mb-4 text-center">Future Bookings</h2>
+      <div class="flex justify-center">
+        <button
+          @click="showFutureOnly = !showFutureOnly"
+          class="mb-4 bg-green-500 text-[var(--white-soft)] px-4 py-2 rounded hover:bg-green-600 transition cursor-pointer"
+        >
+          {{ showFutureOnly ? 'Show All Bookings' : 'Show Upcoming Only' }}
+        </button>
+      </div>
+      <ul v-if="filteredBookings.length" class="space-y-2">
         <li
-          v-for="booking in bookings"
+          v-for="booking in filteredBookings"
           :key="booking.id"
           class="flex justify-between items-center p-4 border-2 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent rounded-xl"
         >
@@ -52,7 +69,7 @@ const goBack = () => {
           </button>
         </li>
       </ul>
-      <div v-else>Loading or no bookings available...</div>
+      <div v-else>No bookings available.</div>
     </div>
   </div>
 </template>

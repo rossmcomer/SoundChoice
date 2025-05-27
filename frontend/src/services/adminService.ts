@@ -43,7 +43,7 @@ export const addPayment = async (paymentData: {
   bookingId: string;
   amount: number;
   deposit: boolean;
-  method: 'stripe' | 'paypal' | 'cash' | 'other';
+  method: 'stripe' | 'paypal' | 'cash' | 'venmo' | 'other';
 }) => {
   const response = await axios.post(`${baseUrl}/add-payment`, paymentData, {
     withCredentials: true,
