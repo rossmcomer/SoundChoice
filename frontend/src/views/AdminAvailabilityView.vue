@@ -69,6 +69,28 @@ const removeUnavailableDate = async (id: string) => {
   }
 };
 
+const removePastUnavailableDates = async () => {
+  loading.value = true;
+  error.value = null;
+  try {
+    const now = new Date().setHours(0, 0, 0, 0);
+    const pastDates = availabilityStore.unavailableDates.filter(
+      (d) => new Date(d.date).getTime() < now,
+    );
+
+    await Promise.all(pastDates.map((date) => adminService.removeAvailability(date.id)));
+
+    toast.success('Removed all past unavailable dates.');
+    await availabilityStore.fetchDates();
+  } catch (err) {
+    toast.error('Failed to remove past dates.');
+    error.value = 'Failed to remove past dates.';
+    console.error(err);
+  } finally {
+    loading.value = false;
+  }
+};
+
 const goBack = () => {
   router.back();
 };
@@ -107,6 +129,13 @@ const goBack = () => {
         </div>
         <div class="flex flex-col items-center justify-center gap-4 my-4 mx-auto">
           <h2 class="text-3xl font-bold text-center">Remove Unavailability</h2>
+          <button
+            @click="removePastUnavailableDates"
+            class="mt-2 cursor-pointer bg-yellow-600 hover:bg-yellow-700 text-[var(--white-soft)] px-4 py-2 rounded-lg disabled:opacity-50"
+            :disabled="loading"
+          >
+            Remove All Past Dates
+          </button>
           <div v-if="availabilityStore.unavailableDates.length" class="text-center">
             <strong>Unavailable Dates:</strong>
             <ul class="list-disc list-inside ml-4 space-y-2">
