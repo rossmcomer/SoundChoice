@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 import NavBar from '@/components/NavBar.vue';
-import Footer from '@/components/Footer.vue';
+import FooterView from '@/components/Footer.vue';
 import { useRoute } from 'vue-router';
 
 import { useGlobalStore } from '@/stores/GlobalStore';
@@ -47,8 +47,7 @@ onMounted(async () => {
         </Transition>
       </router-view>
     </main>
-
-    <Footer v-if="route.path !== '/' && !route.path.startsWith('/admin')" />
+    <FooterView v-if="route.path !== '/' && !route.path.startsWith('/admin')" />
   </div>
 </template>
 

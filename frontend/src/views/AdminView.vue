@@ -32,6 +32,12 @@ const router = useRouter();
         >
           Edit Availability
         </button>
+        <button
+          @click="router.push('/admin/testimonials')"
+          class="bg-purple-500 hover:bg-purple-600 text-[var(--white-soft)] px-4 py-2 rounded cursor-pointer shadow-md"
+        >
+          Edit Testimonials
+        </button>
       </div>
     </div>
   </div>

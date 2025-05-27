@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 
 import testimonialService from '@/services/testimonialService';
 
-export const useTestimonialStore = defineStore('TestimonialStore', () => {
+export const TestimonialStore = defineStore('TestimonialStore', () => {
   const testimonials = ref<Testimonial[]>([]);
 
   const fetchTestimonials = async () => {

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import adminService from '@/services/adminService';
 import type { Booking } from '@/types';
+import testimonialService from '@/services/testimonialService';
 
 export const AdminStore = defineStore('AdminStore', {
   state: () => ({

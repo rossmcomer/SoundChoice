@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useTestimonialStore } from '@/stores/TestimonialStore';
+import { TestimonialStore } from '@/stores/TestimonialStore';
 import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
-const testimonialStore = useTestimonialStore();
+const testimonialStore = TestimonialStore();
 const { testimonials, fetchTestimonials } = testimonialStore;
 
 onMounted(() => {
