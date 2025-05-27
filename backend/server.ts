@@ -17,6 +17,7 @@ const adminRouter = require('./controllers/admin');
 const stripeRouter = require('./controllers/stripe');
 const stripeWebhookRouter = require('./controllers/stripeWebhook');
 const productsRouter = require('./controllers/products');
+const testimonialsRouter = require('./controllers/testimonials')
 
 app.use(cookieParser());
 app.use(
@@ -42,6 +43,7 @@ app.use('/api/bookings', bookingsRouter);
 app.use('/api/questions', questionsRouter);
 app.use('/api/stripe', stripeRouter);
 app.use('/api/products', productsRouter);
+app.use('/api/testimonials', testimonialsRouter);
 app.use('/api/admin', adminRouter);
 
 app.get('/auth/google', (req: Request, res: Response) => {

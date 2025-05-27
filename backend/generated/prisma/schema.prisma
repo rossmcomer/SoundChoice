@@ -98,3 +98,11 @@ model PasswordResetToken {
   email     String
   expiresAt DateTime
 }
+
+model Testimonial {
+  id         String  @id @default(uuid())
+  stars      Decimal
+  starsLabel String
+  message    String
+  author     String
+}
