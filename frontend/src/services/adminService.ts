@@ -97,5 +97,5 @@ export default {
   addUnavailability,
   removeAvailability,
   addTestimonial,
-  removeTestimonial
+  removeTestimonial,
 };

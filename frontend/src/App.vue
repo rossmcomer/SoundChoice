@@ -32,18 +32,20 @@ onMounted(async () => {
     </header>
 
     <main class="flex-grow pt-17">
-      <Transition
-        name="fade"
-        enter-active-class="transition-opacity duration-300"
-        leave-active-class="transition-opacity duration-300"
-        enter-from-class="opacity-0"
-        enter-to-class="opacity-100"
-        leave-from-class="opacity-100"
-        leave-to-class="opacity-0"
-        mode="out-in"
-      >
-        <RouterView :key="$route.fullPath" />
-      </Transition>
+      <router-view v-slot="{ Component }">
+        <Transition
+          name="fade"
+          enter-active-class="transition-opacity duration-300"
+          leave-active-class="transition-opacity duration-300"
+          enter-from-class="opacity-0"
+          enter-to-class="opacity-100"
+          leave-from-class="opacity-100"
+          leave-to-class="opacity-0"
+          mode="out-in"
+        >
+          <component :is="Component" :key="$route.fullPath" />
+        </Transition>
+      </router-view>
     </main>
 
     <Footer v-if="route.path !== '/' && !route.path.startsWith('/admin')" />

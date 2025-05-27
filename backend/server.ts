@@ -2,7 +2,12 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const { PORT, DOMAIN_NAME, DOMAIN_NAME_DEV, NGROK_DOMAIN } = require('./util/config');
+const {
+  PORT,
+  DOMAIN_NAME,
+  DOMAIN_NAME_DEV,
+  NGROK_DOMAIN,
+} = require('./util/config');
 const { connectToDatabase } = require('./util/db.ts');
 import { oauth2Client } from './util/googleCalendar';
 import { Request, Response } from 'express';
@@ -17,7 +22,7 @@ const adminRouter = require('./controllers/admin');
 const stripeRouter = require('./controllers/stripe');
 const stripeWebhookRouter = require('./controllers/stripeWebhook');
 const productsRouter = require('./controllers/products');
-const testimonialsRouter = require('./controllers/testimonials')
+const testimonialsRouter = require('./controllers/testimonials');
 
 app.use(cookieParser());
 app.use(

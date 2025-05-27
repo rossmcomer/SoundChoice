@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import { testimonials } from '@/assets/testimonials';
+import { onMounted } from 'vue';
+import { useTestimonialStore } from '@/stores/TestimonialStore';
 import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
+
+const testimonialStore = useTestimonialStore();
+const { testimonials, fetchTestimonials } = testimonialStore;
+
+onMounted(() => {
+  fetchTestimonials();
+});
 </script>
 <template>
   <div class="relative h-full">

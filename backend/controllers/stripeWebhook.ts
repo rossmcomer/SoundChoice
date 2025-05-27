@@ -134,7 +134,6 @@ router.post('/', async (req: Request, res: Response) => {
           };
 
           await createGoogleCalendarEvent(eventData);
-
         } else if (paymentType === 'remainingBalance') {
           if (!bookingId) {
             console.error(

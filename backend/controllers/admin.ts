@@ -252,33 +252,36 @@ router.delete(
 );
 
 // POST to create new testimonial
-router.post('/testimonials', 
-tokenExtractor,
-requireAdmin, async (req: Request, res: Response): Promise<Response> => {
-  const { stars, starsLabel, message, author } = req.body;
+router.post(
+  '/testimonials',
+  tokenExtractor,
+  requireAdmin,
+  async (req: Request, res: Response): Promise<Response> => {
+    const { stars, starsLabel, message, author } = req.body;
 
-  if (!stars || !starsLabel || !message || !author) {
-    return res
-      .status(400)
-      .json({ error: 'Missing required fields' });
-  }
+    if (!stars || !starsLabel || !message || !author) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
 
-  try {
-    const newTestimonial = await prisma.testimonial.create({
-      data: {
-        stars,
-        starsLabel,
-        message,
-        author
-      },
-    });
+    try {
+      const newTestimonial = await prisma.testimonial.create({
+        data: {
+          stars,
+          starsLabel,
+          message,
+          author,
+        },
+      });
 
-    return res.status(201).json(newTestimonial);
-  } catch (error) {
-    console.error('Error creating new testimonial:', error);
-    return res.status(500).json({ error: 'Failed to create new testimonial' });
-  }
-});
+      return res.status(201).json(newTestimonial);
+    } catch (error) {
+      console.error('Error creating new testimonial:', error);
+      return res
+        .status(500)
+        .json({ error: 'Failed to create new testimonial' });
+    }
+  },
+);
 
 // DELETE to remove a testimonial by its ID
 router.delete(
@@ -314,9 +317,7 @@ router.delete(
         .json({ message: 'Testimonial removed successfully' });
     } catch (error) {
       console.error(error);
-      return res
-        .status(500)
-        .json({ error: 'Failed to remove testimonial' });
+      return res.status(500).json({ error: 'Failed to remove testimonial' });
     }
   },
 );
