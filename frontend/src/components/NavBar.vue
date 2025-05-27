@@ -4,6 +4,7 @@ import SCLogoPhones from '@/assets/SoundChoice-Logo/SC-Logo-Small.png';
 import SCLogoText from '@/assets/SoundChoice-Logo/SC-Logo-Text-Only.png';
 import { useUserStore } from '@/stores/UserStore';
 
+// Hamburger menu toggler
 const isOpen = ref(false);
 const toggleMenu = () => {
   isOpen.value = !isOpen.value;
