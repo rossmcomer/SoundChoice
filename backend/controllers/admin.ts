@@ -183,7 +183,7 @@ router.post(
 router.post(
   '/add-unavailability',
   tokenExtractor,
-  requireAdmin, // Ensure the user is an admin before proceeding
+  requireAdmin,
   async (req: Request, res: Response): Promise<Response> => {
     const { date, startTime, endTime } = req.body; // Get date and availability status from the request body
 
@@ -247,6 +247,76 @@ router.delete(
       return res
         .status(500)
         .json({ error: 'Failed to remove availability entry' });
+    }
+  },
+);
+
+// POST to create new testimonial
+router.post('/testimonials', 
+tokenExtractor,
+requireAdmin, async (req: Request, res: Response): Promise<Response> => {
+  const { stars, starsLabel, message, author } = req.body;
+
+  if (!stars || !starsLabel || !message || !author) {
+    return res
+      .status(400)
+      .json({ error: 'Missing required fields' });
+  }
+
+  try {
+    const newTestimonial = await prisma.testimonial.create({
+      data: {
+        stars,
+        starsLabel,
+        message,
+        author
+      },
+    });
+
+    return res.status(201).json(newTestimonial);
+  } catch (error) {
+    console.error('Error creating new testimonial:', error);
+    return res.status(500).json({ error: 'Failed to create new testimonial' });
+  }
+});
+
+// DELETE to remove a testimonial by its ID
+router.delete(
+  '/testimonials/:id',
+  tokenExtractor,
+  requireAdmin,
+  async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params; // Get the testimonial ID from the URL parameter
+
+    try {
+      // Check if the testimonial exists
+      const testimonial = await prisma.testimonial.findUnique({
+        where: {
+          id: id, // Convert the ID to an integer
+        },
+      });
+
+      // If the entry doesn't exist, return a 404 error
+      if (!testimonial) {
+        return res.status(404).json({ error: 'Testimonial not found' });
+      }
+
+      // Delete the testimonial
+      await prisma.testimonial.delete({
+        where: {
+          id: id,
+        },
+      });
+
+      // Return success response
+      return res
+        .status(200)
+        .json({ message: 'Testimonial removed successfully' });
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ error: 'Failed to remove testimonial' });
     }
   },
 );

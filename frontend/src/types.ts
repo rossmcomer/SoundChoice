@@ -48,6 +48,14 @@ export interface Availability {
   endTime: string;
 }
 
+export interface Testimonial {
+  id: string;
+  stars: number;
+  starsLabel: string;
+  message: string;
+  author: string;
+}
+
 export interface Product {
   id: number;
   name: string;

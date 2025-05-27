@@ -69,6 +69,25 @@ export const removeAvailability = async (id: string) => {
   return response.data;
 };
 
+export const addTestimonial = async (data: {
+  stars: Number;
+  starsLabel: String;
+  message: String;
+  author: String;
+}) => {
+  const response = await axios.post(`${baseUrl}/testimonials`, data, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+export const removeTestimonial = async (id: string) => {
+  const response = await axios.delete(`${baseUrl}/testimonials/${id}`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
 export default {
   getClientEmails,
   getAllBookings,
@@ -77,4 +96,6 @@ export default {
   addPayment,
   addUnavailability,
   removeAvailability,
+  addTestimonial,
+  removeTestimonial
 };
