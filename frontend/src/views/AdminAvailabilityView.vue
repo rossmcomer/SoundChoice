@@ -113,9 +113,9 @@ const goBack = () => {
               <li
                 v-for="(date, index) in availabilityStore.unavailableDates"
                 :key="index"
-                class="flex items-center gap-2"
+                class="flex items-center justify-between gap-2"
               >
-                {{ new Date(date.date).toLocaleDateString() }}
+                <div>{{ new Date(date.date).toLocaleDateString() }}</div>
                 <button
                   class="bg-red-600 hover:bg-red-700 text-[var(--white-soft)] px-3 py-1 rounded disabled:opacity-50 cursor-pointer"
                   @click="removeUnavailableDate(date.id)"
