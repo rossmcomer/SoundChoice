@@ -9,8 +9,8 @@ export const useTestimonialStore = defineStore('TestimonialStore', () => {
 
   const fetchTestimonials = async () => {
     try {
-      const testimonials = await testimonialService.getTestimonials();
-      testimonials.value = testimonials;
+      const response = await testimonialService.getTestimonials();
+      testimonials.value = response;
     } catch (err) {
       console.error('Failed to fetch unavailable dates:', err);
     }
