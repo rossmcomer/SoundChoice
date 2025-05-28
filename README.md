@@ -1,1 +1,1 @@
-# iCite
+# SoundChoice DJ Services Booking App

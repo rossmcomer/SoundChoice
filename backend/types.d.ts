@@ -8,20 +8,11 @@ export type Booking = Prisma.Booking;
 export type Payment = Prisma.Payment;
 export type Questionnaire = Prisma.Questionnaire;
 export type Availability = Prisma.Availability;
+export type Testimonial = Prisma.Testimonial;
+export type PaymentMethod = Prisma.PaymentMethod;
 
-export type PaymentMethod = 'stripe' | 'paypal';
-export type PaymentStatus =
-  | 'unpaid'
-  | 'depositReceived'
-  | 'remainingPaymentFailed'
-  | 'paidInFull'
-  | 'depositFailed';
-export type EventType =
-  | 'wedding'
-  | 'corporate'
-  | 'birthday'
-  | 'barBatMitzvah'
-  | 'other';
+export type PaymentStatus = Prisma.PaymentStatus;
+export type EventType = Prisma.EventType;
 
 // PRISMA Related Types End
 
