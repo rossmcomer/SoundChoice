@@ -48,7 +48,7 @@ onMounted(() => {
       <h2 class="text-3xl font-bold mb-2">Email List:</h2>
       <button
         @click="copyEmails"
-        class="text-2xl bg-gray-200 text-[var(--black-soft)] px-2 pb-1 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
+        class="bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
       >
         Copy
       </button>

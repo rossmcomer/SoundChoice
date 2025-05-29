@@ -201,9 +201,10 @@ async function submitQuestionnaire(bookingId: string) {
             type="button"
             class="flex items-center justify-between w-full p-5 font-medium !text-[var(--black-soft)] border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent cursor-pointer"
             :class="{
-    'rounded-t-xl': index === 0,
-    'rounded-b-xl': index === user.bookings.length - 1
-  }"
+        'rounded-t-xl': index === 0,
+        'rounded-b-xl': index === user.bookings.length - 1,
+        'border-b-0': index !== user.bookings.length - 1
+      }"
             :data-accordion-target="`#accordion-body-${index}`"
             aria-expanded="false"
             :aria-controls="`accordion-body-${index}`"

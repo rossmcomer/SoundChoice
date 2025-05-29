@@ -46,16 +46,21 @@ const goBack = () => {
       <div class="flex justify-center">
         <button
           @click="showFutureOnly = !showFutureOnly"
-          class="mb-4 bg-green-500 text-[var(--white-soft)] px-4 py-2 rounded hover:bg-green-600 transition cursor-pointer"
+          class="mb-4 bg-gray-200 hover:bg-gray-300 border-2 border-[var(--black-soft)] text-[var(--black-soft)] px-4 py-2 rounded transition cursor-pointer"
         >
           {{ showFutureOnly ? 'Show All Bookings' : 'Show Upcoming Only' }}
         </button>
       </div>
-      <ul v-if="filteredBookings.length" class="space-y-2">
+      <ul v-if="filteredBookings.length">
         <li
-          v-for="booking in filteredBookings"
+          v-for="(booking, index) in filteredBookings"
           :key="booking.id"
-          class="flex justify-between items-center p-4 border-2 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent rounded-xl"
+          class="flex justify-between items-center p-4 border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+          :class="{
+    'rounded-t-xl': index === 0,
+    'rounded-b-xl': index === filteredBookings.length - 1,
+    'border-b-0': index !== filteredBookings.length - 1
+  }"
         >
           <div class="text-black font-medium">
             {{ new Date(booking.eventDate).toLocaleDateString() }} -
