@@ -61,6 +61,15 @@ const handleSignUpSubmit = async () => {
       phone: signUpForm.value.phone,
     });
     showSignUpModal.value = false;
+
+    signUpForm.value = {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      name: '',
+      phone: '',
+    };
+    
     toast.success('Successfully created account.');
   } catch (err) {
     console.error(err);
