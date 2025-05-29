@@ -202,7 +202,6 @@ async function submitQuestionnaire(bookingId: string) {
             class="flex items-center justify-between w-full p-5 font-medium !text-[var(--black-soft)] border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent cursor-pointer"
             :class="{
               'rounded-t-xl': index === 0,
-              'rounded-b-xl': index === user.bookings.length - 1,
               'border-b-0': index !== user.bookings.length - 1,
             }"
             :data-accordion-target="`#accordion-body-${index}`"
@@ -236,7 +235,12 @@ async function submitQuestionnaire(bookingId: string) {
         </h2>
         <div
           :id="`accordion-body-${index}`"
-          class="hidden mb-2 border border-[rgb(34,34,34)] rounded-b-xl bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+          class="hidden border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+          :class="{
+              'border-b-0': index !== user.bookings.length - 1,
+              'border-t-0': index === user.bookings.length - 1,
+              'rounded-b-xl': index === user.bookings.length - 1,
+            }"
           :aria-labelledby="`accordion-heading-${index}`"
         >
           <div class="p-5 !text-[var(--black-soft)]">
@@ -326,7 +330,7 @@ async function submitQuestionnaire(bookingId: string) {
               </div>
               <button
                 @click="submitQuestionnaire(booking.id)"
-                class="my-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto"
+                class="my-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center px-4 py-2 w-full sm:w-auto"
               >
                 Save Answers
               </button>
@@ -345,7 +349,7 @@ async function submitQuestionnaire(bookingId: string) {
                 <div class="flex justify-center">
                   <button
                     type="submit"
-                    class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center text-sm px-4 py-2 w-full sm:w-auto"
+                    class="mt-2 btnMain focus:ring-4 shadow-md focus:outline-none font-medium rounded-lg text-center px-4 py-2 w-full sm:w-auto"
                   >
                     Save Answers
                   </button>
