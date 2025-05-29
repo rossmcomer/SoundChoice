@@ -199,7 +199,11 @@ async function submitQuestionnaire(bookingId: string) {
         <h2 :id="`accordion-heading-${index}`">
           <button
             type="button"
-            class="flex items-center justify-between w-full p-5 mb-2 font-medium !text-[var(--black-soft)] border-2 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent rounded-xl cursor-pointer"
+            class="flex items-center justify-between w-full p-5 font-medium !text-[var(--black-soft)] border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent cursor-pointer"
+            :class="{
+    'rounded-t-xl': index === 0,
+    'rounded-b-xl': index === user.bookings.length - 1
+  }"
             :data-accordion-target="`#accordion-body-${index}`"
             aria-expanded="false"
             :aria-controls="`accordion-body-${index}`"
@@ -231,7 +235,7 @@ async function submitQuestionnaire(bookingId: string) {
         </h2>
         <div
           :id="`accordion-body-${index}`"
-          class="hidden mb-2 border border-[rgb(34,34,34)] rounded-xl bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
+          class="hidden mb-2 border border-[rgb(34,34,34)] rounded-b-xl bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
           :aria-labelledby="`accordion-heading-${index}`"
         >
           <div class="p-5 !text-[var(--black-soft)]">

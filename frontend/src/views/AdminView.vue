@@ -16,25 +16,25 @@ const router = useRouter();
       >
         <button
           @click="router.push(`/admin/email-list`)"
-          class="bg-blue-500 hover:bg-blue-600 text-[var(--white-soft)] px-4 py-2 rounded cursor-pointer shadow-md"
+          class="bg-[var(--grey-soft)] hover:bg-[var(--black-soft)] text-[var(--white-soft)] px-4 py-2 rounded cursor-pointer shadow-md"
         >
           Email List
         </button>
         <button
           @click="router.push('/admin/bookings-list')"
-          class="bg-green-500 hover:bg-green-600 text-[var(--white-soft)] px-4 py-2 rounded cursor-pointer shadow-md"
+          class="bg-[var(--grey-soft)] hover:bg-[var(--black-soft)] text-[var(--white-soft)] px-4 py-2 rounded cursor-pointer shadow-md"
         >
           Bookings List
         </button>
         <button
           @click="router.push('/admin/availability')"
-          class="bg-red-500 hover:bg-red-600 text-[var(--white-soft)] px-4 py-2 rounded cursor-pointer shadow-md"
+          class="bg-[var(--grey-soft)] hover:bg-[var(--black-soft)] text-[var(--white-soft)] px-4 py-2 rounded cursor-pointer shadow-md"
         >
           Edit Availability
         </button>
         <button
           @click="router.push('/admin/testimonials')"
-          class="bg-purple-500 hover:bg-purple-600 text-[var(--white-soft)] px-4 py-2 rounded cursor-pointer shadow-md"
+          class="bg-[var(--grey-soft)] hover:bg-[var(--black-soft)] text-[var(--white-soft)] px-4 py-2 rounded cursor-pointer shadow-md"
         >
           Edit Testimonials
         </button>
