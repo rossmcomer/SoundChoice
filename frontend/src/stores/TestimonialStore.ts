@@ -1,10 +1,9 @@
 import type { Testimonial } from '@/types';
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-
 import testimonialService from '@/services/testimonialService';
 
-export const TestimonialStore = defineStore('TestimonialStore', () => {
+export const useTestimonialStore = defineStore('TestimonialStore', () => {
   const testimonials = ref<Testimonial[]>([]);
 
   const fetchTestimonials = async () => {

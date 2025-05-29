@@ -1,19 +1,23 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { TestimonialStore } from '@/stores/TestimonialStore';
+import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useTestimonialStore } from '@/stores/TestimonialStore';
 import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 
-const testimonialStore = TestimonialStore();
-const { testimonials, fetchTestimonials } = testimonialStore;
+const testimonialStore = useTestimonialStore();
+const { testimonials } = storeToRefs(testimonialStore);
 
-onMounted(() => {
-  fetchTestimonials();
+const loading = ref(true);
+
+onMounted(async () => {
+  await testimonialStore.fetchTestimonials();
+  loading.value = false;
 });
 </script>
 <template>
   <div class="relative h-full">
     <BackgroundVideoDefault />
-    <div class="relative flex flex-col h-full z-10">
+    <div v-if="!loading" class="relative flex flex-col h-full z-10">
       <div class="flex justify-center pb-7 pt-17">
         <h1 class="text-6xl">Testimonials</h1>
       </div>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import { TestimonialStore } from '@/stores/TestimonialStore';
+import { useTestimonialStore } from '@/stores/TestimonialStore';
 import { onMounted, ref } from 'vue';
 import BackgroundVideoDefault from '@/components/BackgroundVideoDefault.vue';
 import adminService from '@/services/adminService';
 import { toast } from 'vue3-toastify';
 
-const testimonialStore = TestimonialStore();
+const testimonialStore = useTestimonialStore();
 const { testimonials } = storeToRefs(testimonialStore);
 const router = useRouter();
 
