@@ -23,6 +23,9 @@ const timeZoneAbbr = getTimeZoneAbbr();
 
 const answers = ref<Record<string, Record<string, string>>>({});
 
+// Tracks which accordion element is expanded
+const expandedIndex = ref<number | null>(null);
+
 //Initialize answers for questionnaire
 function initializeAnswer(bookingId: string, question: string) {
   if (!answers.value[bookingId]) {
@@ -199,10 +202,12 @@ async function submitQuestionnaire(bookingId: string) {
         <h2 :id="`accordion-heading-${index}`">
           <button
             type="button"
+            @click="expandedIndex = expandedIndex === index ? null : index"
             class="flex items-center justify-between w-full p-5 font-medium !text-[var(--black-soft)] border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent cursor-pointer"
             :class="{
               'rounded-t-xl': index === 0,
               'border-b-0': index !== user.bookings.length - 1,
+              'rounded-b-xl': index === user.bookings.length - 1 && expandedIndex !== index,
             }"
             :data-accordion-target="`#accordion-body-${index}`"
             aria-expanded="false"
@@ -237,10 +242,10 @@ async function submitQuestionnaire(bookingId: string) {
           :id="`accordion-body-${index}`"
           class="hidden border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
           :class="{
-              'border-b-0': index !== user.bookings.length - 1,
-              'border-t-0': index === user.bookings.length - 1,
-              'rounded-b-xl': index === user.bookings.length - 1,
-            }"
+            'border-b-0': index !== user.bookings.length - 1,
+            'border-t-0': index === user.bookings.length - 1,
+            'rounded-b-xl': index === user.bookings.length - 1,
+          }"
           :aria-labelledby="`accordion-heading-${index}`"
         >
           <div class="p-5 !text-[var(--black-soft)]">
