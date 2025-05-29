@@ -94,7 +94,7 @@ function handleLogout() {
       </button>
       <div
         id="dropdown"
-        class="z-10 hidden divide-y divide-[var(--divider-medium)] rounded-lg shadow-md w-44"
+        class="z-20 hidden divide-y divide-[var(--divider-medium)] rounded-lg shadow-md w-44"
         style="background-color: var(--black-soft); color: var(--color6)"
       >
         <ul class="py-2 text-sm text-center" aria-labelledby="dropdownDefaultButton">
