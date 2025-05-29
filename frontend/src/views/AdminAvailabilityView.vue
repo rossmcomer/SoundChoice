@@ -101,7 +101,7 @@ const goBack = () => {
     <div class="relative z-10 p-6 space-y-4">
       <button
         @click="goBack"
-        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
+        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
       >
         ← Back
       </button>
@@ -131,7 +131,7 @@ const goBack = () => {
           <h2 class="text-3xl font-bold text-center">Remove Unavailability</h2>
           <button
             @click="removePastUnavailableDates"
-            class="mt-2 cursor-pointer bg-yellow-600 hover:bg-yellow-700 text-[var(--white-soft)] px-4 py-2 rounded-lg disabled:opacity-50"
+            class="mt-2 cursor-pointer bg-red-600 hover:bg-red-700 text-[var(--white-soft)] px-4 py-2 rounded-lg disabled:opacity-50"
             :disabled="loading"
           >
             Remove All Past Dates

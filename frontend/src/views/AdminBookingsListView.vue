@@ -37,7 +37,7 @@ const goBack = () => {
     <div class="relative z-10 p-6 space-y-4 text-[var(--black-soft)]">
       <button
         @click="goBack"
-        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
+        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
       >
         ← Back
       </button>
@@ -46,7 +46,7 @@ const goBack = () => {
       <div class="flex justify-center">
         <button
           @click="showFutureOnly = !showFutureOnly"
-          class="mb-4 bg-gray-200 hover:bg-gray-300 border-2 border-[var(--black-soft)] text-[var(--black-soft)] px-4 py-2 rounded transition cursor-pointer"
+          class="mb-4 bg-gray-200 hover:bg-gray-300 border border-[var(--black-soft)] text-[var(--black-soft)] px-4 py-2 rounded transition cursor-pointer"
         >
           {{ showFutureOnly ? 'Show All Bookings' : 'Show Upcoming Only' }}
         </button>

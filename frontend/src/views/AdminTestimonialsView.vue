@@ -11,8 +11,11 @@ const testimonialStore = useTestimonialStore();
 const { testimonials } = storeToRefs(testimonialStore);
 const router = useRouter();
 
+const loading = ref(true);
+
 onMounted(async () => {
   await testimonialStore.fetchTestimonials();
+  loading.value = false;
 });
 
 const newTestimonial = ref({
@@ -61,7 +64,7 @@ const goBack = () => {
     <div class="relative z-10 p-6 space-y-4 text-[var(--black-soft)]">
       <button
         @click="goBack"
-        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
+        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
       >
         ← Back
       </button>
@@ -127,7 +130,7 @@ const goBack = () => {
           Testimonials ({{ testimonials.length }})
         </h2>
         <!-- Testimonials List -->
-        <ul v-if="testimonials.length" class="space-y-2">
+        <ul v-if="testimonials.length && !loading" class="space-y-2">
           <li
             v-for="testimonial in testimonials"
             :key="testimonial.id"
