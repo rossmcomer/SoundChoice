@@ -64,7 +64,7 @@ function handleLogout() {
           @click="playWithSound"
         >
           <button
-            class="text-[var(--white-soft)] sm:text-xl text-xs bg-blue-600 px-4 py-2 rounded-lg shadow-lg cursor-pointer hover:translate-0.5 animate-bounce"
+            class="text-[var(--black-soft)] sm:text-xl text-xs bg-[var(--color6)] px-4 py-2 rounded-lg shadow-lg cursor-pointer hover:translate-0.5 animate-bounce"
           >
             ▶ Get Started With Our Welcome Video!
           </button>
