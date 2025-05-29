@@ -57,10 +57,10 @@ const goBack = () => {
           :key="booking.id"
           class="flex justify-between items-center p-4 border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent"
           :class="{
-    'rounded-t-xl': index === 0,
-    'rounded-b-xl': index === filteredBookings.length - 1,
-    'border-b-0': index !== filteredBookings.length - 1
-  }"
+            'rounded-t-xl': index === 0,
+            'rounded-b-xl': index === filteredBookings.length - 1,
+            'border-b-0': index !== filteredBookings.length - 1,
+          }"
         >
           <div class="text-black font-medium">
             {{ new Date(booking.eventDate).toLocaleDateString() }} -

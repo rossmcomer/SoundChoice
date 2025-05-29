@@ -75,10 +75,10 @@ const pricingPlans = ref([
               <div
                 class="relative z-10 mb-10 overflow-hidden rounded-[10px] border-[rgb(34,34,34)] border-2 border-stroke py-10 px-8 shadow-lg sm:p-12 lg:py-10 lg:px-6 xl:p-[50px] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent md:h-[90%]"
               >
-                <span class="mb-3 block text-lg font-bold" style="color: var(--black-soft)">{{
+                <span class="mb-3 block text-lg font-bold text-[var(--black-soft)]">{{
                   plan.name
                 }}</span>
-                <h2 class="mb-5 text-[42px] font-bold" style="color: var(--black-soft)">
+                <h2 class="mb-5 text-[42px] font-bold text-[var(--black-soft)]">
                   <span>{{ plan.price }}</span>
                   <span
                     class="text-base font-medium text-body-color dark:text-dark-6"

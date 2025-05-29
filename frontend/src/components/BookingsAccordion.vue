@@ -201,10 +201,10 @@ async function submitQuestionnaire(bookingId: string) {
             type="button"
             class="flex items-center justify-between w-full p-5 font-medium !text-[var(--black-soft)] border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent cursor-pointer"
             :class="{
-        'rounded-t-xl': index === 0,
-        'rounded-b-xl': index === user.bookings.length - 1,
-        'border-b-0': index !== user.bookings.length - 1
-      }"
+              'rounded-t-xl': index === 0,
+              'rounded-b-xl': index === user.bookings.length - 1,
+              'border-b-0': index !== user.bookings.length - 1,
+            }"
             :data-accordion-target="`#accordion-body-${index}`"
             aria-expanded="false"
             :aria-controls="`accordion-body-${index}`"
@@ -309,7 +309,7 @@ async function submitQuestionnaire(bookingId: string) {
                     booking.addedHours,
                   )
                 "
-                class="my-2 bg-[#1ab458] text-[var(--black-soft)] font-medium stroke-1 px-4 py-2 rounded-lg shadow-md hover:bg-[#50a572] cursor-pointer w-full sm:w-auto"
+                class="my-2 btnMain font-medium stroke-1 px-4 py-2 rounded-lg shadow-md cursor-pointer w-full sm:w-auto"
               >
                 Pay Remaining Balance
               </button>

@@ -69,7 +69,7 @@ const handleSignUpSubmit = async () => {
       name: '',
       phone: '',
     };
-    
+
     toast.success('Successfully created account.');
   } catch (err) {
     console.error(err);
