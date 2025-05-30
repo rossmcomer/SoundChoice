@@ -90,7 +90,7 @@ const copyQuestionnaire = async () => {
       <div class="text-[var(--black-soft)]">
         <button
           @click="goBack"
-          class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
+          class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer min-w-[82px]"
         >
           ← Back
         </button>
@@ -185,7 +185,7 @@ const copyQuestionnaire = async () => {
                     <button
                       :disabled="submitting"
                       @click="handleAddPayment"
-                      class="bg-green-600 cursor-pointer text-[var(--white-soft)] px-4 py-2 rounded-lg hover:bg-green-700"
+                      class="btnMain font-medium cursor-pointer text-[var(--white-soft)] shadow-md px-4 py-2 rounded-lg"
                     >
                       Add Payment
                     </button>

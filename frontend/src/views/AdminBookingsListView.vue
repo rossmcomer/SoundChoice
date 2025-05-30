@@ -37,7 +37,7 @@ const goBack = () => {
     <div class="relative z-10 p-6 space-y-4 text-[var(--black-soft)]">
       <button
         @click="goBack"
-        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
+        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer min-w-[82px]"
       >
         ← Back
       </button>
@@ -68,7 +68,7 @@ const goBack = () => {
           </div>
           <button
             @click="viewBooking(booking.id)"
-            class="cursor-pointer btnMain flex justify-center items-center w-4/5 sm:w-auto focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-2 py-1 text-center sm:text-sm sm:px-4 sm:py-2"
+            class="cursor-pointer ml-2 bg-gray-200 hover:bg-gray-300 border border-[var(--black-soft)] flex justify-center items-center focus:outline-none font-medium rounded text-sm px-2 py-1 text-center sm:text-sm sm:px-4 sm:py-2 min-w-[96px]"
           >
             View Details
           </button>

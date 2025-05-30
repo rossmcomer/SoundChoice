@@ -101,7 +101,7 @@ const goBack = () => {
     <div class="relative z-10 p-6 space-y-4">
       <button
         @click="goBack"
-        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
+        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer min-w-[82px]"
       >
         ← Back
       </button>
@@ -120,7 +120,7 @@ const goBack = () => {
             no-today
           />
           <button
-            class="bg-green-600 hover:bg-green-700 text-[var(--white-soft)] px-4 py-2 rounded-lg disabled:opacity-50 cursor-pointer"
+            class="btnMain text-[var(--white-soft)] px-4 py-2 rounded-lg disabled:opacity-50 cursor-pointer font-medium"
             @click="addUnavailableDate"
             :disabled="!date || loading"
           >
@@ -131,7 +131,7 @@ const goBack = () => {
           <h2 class="text-3xl font-bold text-center">Remove Unavailability</h2>
           <button
             @click="removePastUnavailableDates"
-            class="mt-2 cursor-pointer bg-red-600 hover:bg-red-700 text-[var(--white-soft)] px-4 py-2 rounded-lg disabled:opacity-50"
+            class="mt-2 cursor-pointer btnMain text-[var(--white-soft)] px-4 py-2 rounded-lg disabled:opacity-50 shadow-md font-medium"
             :disabled="loading"
           >
             Remove All Past Dates
@@ -146,7 +146,7 @@ const goBack = () => {
               >
                 <div>{{ new Date(date.date).toLocaleDateString() }}</div>
                 <button
-                  class="bg-red-600 hover:bg-red-700 text-[var(--white-soft)] px-3 py-1 rounded disabled:opacity-50 cursor-pointer"
+                  class="btnMain text-[var(--white-soft)] px-3 py-1 rounded disabled:opacity-50 cursor-pointer shadow-md font-medium"
                   @click="removeUnavailableDate(date.id)"
                   :disabled="loading"
                 >

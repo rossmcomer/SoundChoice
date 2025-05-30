@@ -40,15 +40,15 @@ onMounted(() => {
     <div class="p-6 space-y-4 text-[var(--black-soft)] z-10 relative">
       <button
         @click="goBack"
-        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
+        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer min-w-[82px]"
       >
         ← Back
       </button>
 
-      <h2 class="text-3xl font-bold mb-2">Email List:</h2>
+      <h2 class="text-3xl font-bold mb-4">Email List:</h2>
       <button
         @click="copyEmails"
-        class="bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border-2 border-[var(--black-soft)] transition cursor-pointer"
+        class="bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer min-w-[82px]"
       >
         Copy
       </button>
