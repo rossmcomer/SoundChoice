@@ -64,7 +64,7 @@ const goBack = () => {
     <div class="relative z-10 p-6 space-y-4 text-[var(--black-soft)]">
       <button
         @click="goBack"
-        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
+        class="mb-4 bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer min-w-[82px]"
       >
         ← Back
       </button>
@@ -77,7 +77,7 @@ const goBack = () => {
           <h3 class="text-2xl text-center font-bold">Add New Testimonial</h3>
 
           <div>
-            <label class="block mb-1 font-medium">Stars (0–5)</label>
+            <label class="block mb-1 font-medium">Stars</label>
             <input
               type="number"
               step="0.1"
@@ -120,7 +120,7 @@ const goBack = () => {
           <div class="flex justify-center">
             <button
               type="submit"
-              class="px-4 py-2 bg-green-600 text-white rounded cursor-pointer hover:bg-green-700 transition"
+              class="px-4 py-2 btnMain rounded-lg cursor-pointer transition font-medium shdaow-md sm:w-auto w-full"
             >
               Add Testimonial
             </button>
@@ -134,7 +134,7 @@ const goBack = () => {
           <li
             v-for="testimonial in testimonials"
             :key="testimonial.id"
-            class="flex justify-between items-start p-4 border-2 border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent rounded-xl"
+            class="flex justify-between items-start p-4 border border-[rgb(34,34,34)] bg-gradient-to-b from-[rgba(136,136,136,0.3)] to-transparent rounded-xl"
           >
             <div class="text-black space-y-1">
               <div>
@@ -156,9 +156,9 @@ const goBack = () => {
             </div>
             <button
               @click="removeTestimonial(testimonial.id)"
-              class="ml-4 px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 cursor-pointer h-fit"
+              class="ml-4 px-4 py-2 btnMain font-medium shadow-md rounded-lg cursor-pointer h-fit min-w-[82px]"
             >
-              Delete
+              Remove
             </button>
           </li>
         </ul>

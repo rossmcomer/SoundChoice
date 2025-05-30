@@ -138,7 +138,7 @@ const goBack = () => {
           </button>
           <div v-if="availabilityStore.unavailableDates.length" class="text-center">
             <strong>Unavailable Dates:</strong>
-            <ul class="list-disc list-inside ml-4 space-y-2">
+            <ul class="list-disc list-inside ml-4 space-y-2 mt-2">
               <li
                 v-for="(date, index) in availabilityStore.unavailableDates"
                 :key="index"
