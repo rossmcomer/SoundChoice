@@ -194,18 +194,16 @@ const copyQuestionnaire = async () => {
                 </div>
               </div>
             </li>
-            <li
-              v-if="booking.questionnaire"
-              class="text-2xl mt-6 border-t pt-4"
-              ref="questionnaireRef"
-            >
-              <strong>Questionnaire: </strong
-              ><button
-                @click="copyQuestionnaire"
-                class="text-md bg-gray-200 text-[var(--black-soft)] px-2 pb-1 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
-              >
-                Copy
-              </button>
+            <li v-if="booking.questionnaire" class="mt-6 border-t pt-4" ref="questionnaireRef">
+              <div class="flex">
+                <div class="text-2xl mr-2"><strong>Questionnaire: </strong></div>
+                <button
+                  @click="copyQuestionnaire"
+                  class="bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
+                >
+                  Copy
+                </button>
+              </div>
               <div
                 v-for="(answer, question) in booking.questionnaire.answers"
                 :key="question"
