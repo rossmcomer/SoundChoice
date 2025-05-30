@@ -199,7 +199,7 @@ const copyQuestionnaire = async () => {
                 <div class="text-2xl mr-2"><strong>Questionnaire: </strong></div>
                 <button
                   @click="copyQuestionnaire"
-                  class="bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer"
+                  class="btnMain shadow-md px-4 py-2 rounded-lg font-medium transition cursor-pointer min-w-[82px]"
                 >
                   Copy
                 </button>

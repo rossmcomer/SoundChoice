@@ -44,15 +44,16 @@ onMounted(() => {
       >
         ← Back
       </button>
-
-      <h2 class="text-3xl font-bold mb-4">Email List:</h2>
-      <button
-        @click="copyEmails"
-        class="bg-gray-200 text-[var(--black-soft)] px-4 py-2 rounded hover:bg-gray-300 border border-[var(--black-soft)] transition cursor-pointer min-w-[82px]"
-      >
-        Copy
-      </button>
-      <ul v-if="clientEmails.length" ref="emailListRef" class="text-lg space-y-1">
+      <div class="flex items-center mb-4">
+        <h2 class="text-2xl font-medium mr-2">Email List:</h2>
+        <button
+          @click="copyEmails"
+          class="btnMain font-medium shadow-md px-4 py-2 rounded-lg transition cursor-pointer min-w-[82px]"
+        >
+          Copy
+        </button>
+      </div>
+      <ul v-if="clientEmails.length" ref="emailListRef" class="text-md space-y-1">
         <li v-for="(email, index) in clientEmails" :key="index">{{ email }}</li>
       </ul>
     </div>
