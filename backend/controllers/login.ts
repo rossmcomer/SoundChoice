@@ -25,7 +25,7 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
     const passwordCorrect = await bcryptjs.compare(password, user.password);
 
     if (!passwordCorrect) {
-      return res.status(401).json({ error: 'Invalid username or password' });
+      return res.status(401).json({ error: 'Invalid password' });
     }
 
     // Delete all password reset tokens for this user

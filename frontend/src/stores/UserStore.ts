@@ -15,11 +15,10 @@ export const useUserStore = defineStore('UserStore', () => {
     try {
       await loginService.login({ email, password });
       const data = await userService.getUserData();
-      console.log(data, 'data');
       user.value = data;
-    } catch (err) {
-      console.error('Login failed:', err);
-      throw err;
+    } catch (err: any) {
+      const message = err?.response?.data?.error || err?.response?.data?.message || 'Login failed';
+      throw new Error(message);
     }
   };
 

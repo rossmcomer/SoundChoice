@@ -39,9 +39,21 @@ const handleLogin = async () => {
     setTimeout(() => {
       toast.success('Successfully logged in.');
     }, 1000);
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
-    toast.error('Failed to login');
+
+    const errorMessage = err.message;
+
+    if (errorMessage.toLowerCase().includes('user not found')) {
+      toast.error('User with this email does not exist.');
+    } else if (
+      errorMessage.toLowerCase().includes('invalid password') ||
+      errorMessage.toLowerCase().includes('wrong password')
+    ) {
+      toast.error('Incorrect password. Please try again.');
+    } else {
+      toast.error('Failed to login. Please try again.');
+    }
   }
 };
 
@@ -60,6 +72,7 @@ const handleSignUpSubmit = async () => {
       name: signUpForm.value.name,
       phone: signUpForm.value.phone,
     });
+
     showSignUpModal.value = false;
 
     signUpForm.value = {
@@ -71,9 +84,22 @@ const handleSignUpSubmit = async () => {
     };
 
     toast.success('Successfully created account.');
-  } catch (err) {
-    console.error(err);
-    toast.error('Failed to create account');
+  } catch (error: any) {
+    if (error.response && error.response.status === 409) {
+      const errorMessage = error.response.data.error;
+
+      if (errorMessage === 'Email already in use') {
+        toast.error('This email is already in use. Please try another one.');
+      } else if (errorMessage === 'Email registered but not verified') {
+        toast.warning('This email is registered but not verified. Please check your inbox.');
+      } else {
+        toast.error('An account creation error occurred.');
+      }
+    } else {
+      toast.error('Something went wrong. Please try again later.');
+    }
+
+    console.error(error);
   }
 };
 </script>
