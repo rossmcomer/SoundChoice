@@ -28,6 +28,13 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
 
+    // Delete all password reset tokens for this user
+    await prisma.passwordResetToken.deleteMany({
+      where: {
+        email: email.toLowerCase(),
+      },
+    });
+
     // Create token payload
     const userForToken = {
       userId: user.id,

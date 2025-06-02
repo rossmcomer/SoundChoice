@@ -89,7 +89,7 @@ router.post(
       const verificationUrl = `${DOMAIN_NAME}/verify-email?token=${verificationToken}`;
       await sendVerificationEmail(email, verificationUrl);
 
-      console.log('New user created, verification email sent');
+      console.log(`New user created, ${newUser}, verification email sent`);
       return res
         .status(201)
         .json({ message: 'Account created. Please verify your email.' });
