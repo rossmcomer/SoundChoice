@@ -46,17 +46,21 @@ router.post(
         } else {
           // User exists but is not verified
           // Check if token expired
-          if (existingUser.verificationTokenExpires && existingUser.verificationTokenExpires > new Date()) {
+          if (
+            existingUser.verificationTokenExpires &&
+            existingUser.verificationTokenExpires > new Date()
+          ) {
             // Token still valid, ask user to verify or resend email
             return res.status(409).json({
-              error: 'Email is already registered but not verified. Please check your email for verification link or request a new one.'
+              error:
+                'Email is already registered but not verified. Please check your email for verification link or request a new one.',
             });
           } else {
             // Token expired
-      
+
             // Delete the old user, then create new one
             await prisma.user.delete({ where: { id: existingUser.id } });
-      
+
             // Continue below to create new user as normal
           }
         }
@@ -67,8 +71,7 @@ router.post(
 
       // Generate verification token
       const verificationToken = crypto.randomBytes(32).toString('hex');
-      const verificationTokenExpires= addHours(new Date(), 24); // Token valid for 24 hours
-
+      const verificationTokenExpires = addHours(new Date(), 24); // Token valid for 24 hours
 
       // Create a new user
       const newUser: User = await prisma.user.create({
@@ -87,7 +90,9 @@ router.post(
       await sendVerificationEmail(email, verificationUrl);
 
       console.log('New user created, verification email sent');
-      return res.status(201).json({ message: 'Account created. Please verify your email.' });
+      return res
+        .status(201)
+        .json({ message: 'Account created. Please verify your email.' });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: 'Failed to create user' });
@@ -109,8 +114,14 @@ router.get('/verify-email', async (req: Request, res: Response) => {
     },
   });
 
-  if (!user || !user.verificationTokenExpiry || new Date() > user.verificationTokenExpiry) {
-    return res.status(400).json({ error: 'Invalid or expired verification token' });
+  if (
+    !user ||
+    !user.verificationTokenExpiry ||
+    new Date() > user.verificationTokenExpiry
+  ) {
+    return res
+      .status(400)
+      .json({ error: 'Invalid or expired verification token' });
   }
 
   await prisma.user.update({
@@ -132,7 +143,9 @@ router.post('/resend-verification', async (req: Request, res: Response) => {
   const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user || user.isVerified) {
-    return res.status(400).json({ error: 'Invalid request or already verified' });
+    return res
+      .status(400)
+      .json({ error: 'Invalid request or already verified' });
   }
 
   const verificationToken = crypto.randomBytes(32).toString('hex');

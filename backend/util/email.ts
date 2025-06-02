@@ -10,7 +10,6 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function sendResetEmail(email: string, resetLink: string) {
-
   return transporter.sendMail({
     from: `SoundChoice Support <${SMTP_USER}>`,
     to: email,
@@ -19,8 +18,10 @@ export async function sendResetEmail(email: string, resetLink: string) {
   });
 }
 
-export async function sendVerificationEmail(to: string, verificationUrl: string) {
-
+export async function sendVerificationEmail(
+  to: string,
+  verificationUrl: string,
+) {
   return transporter.sendMail({
     from: `SoundChoice Support <${SMTP_USER}>`,
     to,
