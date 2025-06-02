@@ -15,15 +15,18 @@ datasource db {
 }
 
 model User {
-  id             String          @id @default(uuid())
-  email          String          @unique
-  name           String
-  phone          String
-  password       String
-  role           String          @default("client")
-  createdAt      DateTime        @default(now())
-  bookings       Booking[]
-  questionnaires Questionnaire[]
+  id                      String          @id @default(uuid())
+  email                   String          @unique
+  name                    String
+  phone                   String
+  password                String
+  isVerified              Boolean         @default(false)
+  verificationToken       String?         @unique
+  verificationTokenExpiry DateTime?
+  role                    String          @default("client")
+  createdAt               DateTime        @default(now())
+  bookings                Booking[]
+  questionnaires          Questionnaire[]
 }
 
 model Booking {

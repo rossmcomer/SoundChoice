@@ -20,6 +20,9 @@ model User {
   name     String
   phone    String
   password String
+  isVerified              Boolean  @default(false)
+  verificationToken       String?  @unique
+  verificationTokenExpiry DateTime?
   role     String   @default("client")
   createdAt DateTime @default(now())
   bookings Booking[]

@@ -123,6 +123,9 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   phone: 'phone',
   password: 'password',
+  isVerified: 'isVerified',
+  verificationToken: 'verificationToken',
+  verificationTokenExpiry: 'verificationTokenExpiry',
   role: 'role',
   createdAt: 'createdAt'
 };
@@ -191,6 +194,11 @@ exports.Prisma.JsonNullValueInput = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 exports.Prisma.JsonNullValueFilter = {

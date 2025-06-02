@@ -7,6 +7,7 @@ import crypto from 'crypto';
 import { sendResetEmail } from '../util/email';
 const { tokenExtractor } = require('../util/middleware');
 const { DOMAIN_NAME } = require('../util/config');
+import { addHours } from 'date-fns';
 
 // Email regex to validate format
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -45,6 +46,11 @@ router.post(
       // Hash the password before saving
       const hashedPassword = await bcryptjs.hash(password, 10);
 
+      // Generate verification token
+      const verificationToken = crypto.randomBytes(32).toString('hex');
+      const verificationTokenExpires= = addHours(new Date(), 24); // Token valid for 24 hours
+
+
       // Create a new user
       const newUser: User = await prisma.user.create({
         data: {
@@ -52,8 +58,15 @@ router.post(
           name,
           phone: phone.replace(/\D/g, ''),
           password: hashedPassword,
+          verificationToken,
+          verificationTokenExpires,
+          isVerified: false,
         },
       });
+
+      const verificationUrl = `${DOMAIN_NAME}/verify-email?token=${verificationToken}`;
+      await sendVerificationEmail(email, verificationUrl);
+
       console.log('New user successfully created');
       return res.status(201).json(newUser);
     } catch (error) {
@@ -122,9 +135,13 @@ router.post('/forgot-password', async (req: Request, res: Response) => {
   const resetLink = `${DOMAIN_NAME}/reset-password?token=${token}`;
 
   // Send email
-  await sendResetEmail(email, resetLink);
-
-  return res.json({ message: 'Reset link sent' });
+  try {
+    await sendResetEmail(email, resetLink);
+    return res.json({ message: 'Reset link sent' });
+  } catch (error) {
+    console.error('Email send failed:', error);
+    return res.status(500).json({ error: 'Failed to send reset email' });
+  }
 });
 
 // Change password
