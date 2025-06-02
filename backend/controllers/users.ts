@@ -40,7 +40,26 @@ router.post(
       });
 
       if (existingUser) {
-        return res.status(409).json({ error: 'Email is already in use' }); // Notify user of conflict
+        if (existingUser.isVerified) {
+          // Email already verified, reject signup
+          return res.status(409).json({ error: 'Email is already in use' });
+        } else {
+          // User exists but is not verified
+          // Check if token expired
+          if (existingUser.verificationTokenExpires && existingUser.verificationTokenExpires > new Date()) {
+            // Token still valid, ask user to verify or resend email
+            return res.status(409).json({
+              error: 'Email is already registered but not verified. Please check your email for verification link or request a new one.'
+            });
+          } else {
+            // Token expired
+      
+            // Delete the old user, then create new one
+            await prisma.user.delete({ where: { id: existingUser.id } });
+      
+            // Continue below to create new user as normal
+          }
+        }
       }
 
       // Hash the password before saving

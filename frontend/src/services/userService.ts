@@ -1,4 +1,5 @@
 import axios from '@/util/apiClient';
+import { toast } from 'vue3-toastify';
 
 const baseUrl = '/users';
 
@@ -9,9 +10,28 @@ export const createAccount = async (userData: {
   phone: string;
   password: string;
 }) => {
-  const response = await axios.post(`${baseUrl}/create-account`, userData);
-  return response.data;
+  try {
+    const response = await axios.post(`${baseUrl}/create-account`, userData);
+    return response.data;
+  } catch (error: any) {
+    if (error.response && error.response.status === 409) {
+      const errorMessage = error.response.data.error;
+
+      // Display toast based on the error message
+      if (errorMessage === 'Email already in use') {
+        toast.error('This email is already in use. Please try another one.');
+      } else if (errorMessage === 'Email registered but not verified') {
+        toast.warning('This email is registered but not verified. Please check your inbox.');
+      } else {
+        toast.error('An account creation error occurred.');
+      }
+    } else {
+      toast.error('Something went wrong. Please try again later.');
+    }
+    throw error; // Re-throw the error if needed
+  }
 };
+
 // Pull user info
 export const getUserData = async () => {
   const response = await axios.get(baseUrl, {
