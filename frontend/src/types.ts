@@ -4,6 +4,9 @@ export interface User {
   email: string;
   phone: string;
   role: 'client' | 'admin';
+  isVerified: Boolean;
+  verificationToken?: String;
+  verificationTokenExpires?: Date;
   createdAt: string;
   bookings?: Booking[];
   questionnaires?: Questionnaire[];
