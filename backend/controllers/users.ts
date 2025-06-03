@@ -52,8 +52,7 @@ router.post(
           ) {
             // Token still valid, ask user to verify or resend email
             return res.status(409).json({
-              error:
-                'Email is already registered but not verified. Please check your email for verification link or request a new one.',
+              error: 'Email registered but not verified',
             });
           } else {
             // Token expired
@@ -71,7 +70,7 @@ router.post(
 
       // Generate verification token
       const verificationToken = crypto.randomBytes(32).toString('hex');
-      const verificationTokenExpires = addHours(new Date(), 24); // Token valid for 24 hours
+      const verificationTokenExpires = addHours(new Date(), 1);
 
       // Create a new user
       const newUser: User = await prisma.user.create({
@@ -86,10 +85,10 @@ router.post(
         },
       });
 
-      const verificationUrl = `${DOMAIN_NAME}/verify-email?token=${verificationToken}`;
+      const verificationUrl = `${DOMAIN_NAME}/verify-email?token=${verificationToken}&email=${encodeURIComponent(email)}`;
+
       await sendVerificationEmail(email, verificationUrl);
 
-      console.log(`New user created, ${newUser}, verification email sent`);
       return res
         .status(201)
         .json({ message: 'Account created. Please verify your email.' });
@@ -140,7 +139,9 @@ router.get('/verify-email', async (req: Request, res: Response) => {
 router.post('/resend-verification', async (req: Request, res: Response) => {
   const { email } = req.body;
 
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await prisma.user.findUnique({
+    where: { email: email.toLowerCase() },
+  });
 
   if (!user || user.isVerified) {
     return res
@@ -159,7 +160,8 @@ router.post('/resend-verification', async (req: Request, res: Response) => {
     },
   });
 
-  const verificationUrl = `${DOMAIN_NAME}/verify-email?token=${verificationToken}`;
+  const verificationUrl = `${DOMAIN_NAME}/verify-email?token=${verificationToken}&email=${encodeURIComponent(email)}`;
+
   await sendVerificationEmail(email, verificationUrl);
 
   return res.json({ message: 'Verification email resent' });

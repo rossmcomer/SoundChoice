@@ -83,7 +83,7 @@ const handleSignUpSubmit = async () => {
       phone: '',
     };
 
-    toast.success('Successfully created account.');
+    toast.success('Successfully created account.  Check your e-mail for a verification link.');
   } catch (error: any) {
     if (error.response && error.response.status === 409) {
       const errorMessage = error.response.data.error;
@@ -91,7 +91,9 @@ const handleSignUpSubmit = async () => {
       if (errorMessage === 'Email already in use') {
         toast.error('This email is already in use. Please try another one.');
       } else if (errorMessage === 'Email registered but not verified') {
-        toast.warning('This email is registered but not verified. Please check your inbox.');
+        toast.warning(
+          'This email is registered but not verified. Please check your e-mail for a verification link.',
+        );
       } else {
         toast.error('An account creation error occurred.');
       }

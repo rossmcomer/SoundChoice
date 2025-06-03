@@ -13,6 +13,20 @@ export const createAccount = async (userData: {
   return response.data;
 };
 
+export const verifyEmail = async (token: string) => {
+  const response = await axios.get(`${baseUrl}/verify-email`, {
+    params: { token },
+  });
+  return response.data;
+};
+
+export const resendVerificationEmail = async (email: string) => {
+  const response = await axios.post(`${baseUrl}/resend-verification`, {
+    email,
+  });
+  return response.data;
+};
+
 // Pull user info
 export const getUserData = async () => {
   const response = await axios.get(baseUrl, {
@@ -89,6 +103,8 @@ export const updatePassword = async (currentPassword: string, newPassword: strin
 
 export default {
   createAccount,
+  verifyEmail,
+  resendVerificationEmail,
   getUserData,
   handleForgotPassword,
   updateName,

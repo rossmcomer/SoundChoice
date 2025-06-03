@@ -20,6 +20,7 @@ import AdminEmailListView from '@/views/AdminEmailListView.vue';
 import ResetPasswordView from '@/views/ResetPasswordView.vue';
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue';
 import AdminTestimonialsView from '@/views/AdminTestimonialsView.vue';
+import VerifyEmailView from '@/views/VerifyEmailView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,6 +64,11 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+    },
+    {
+      path: '/verify-email',
+      name: 'VerifyEmail',
+      component: VerifyEmailView,
     },
     {
       path: '/successful-paid-in-full',

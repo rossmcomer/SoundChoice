@@ -22,7 +22,7 @@ model User {
   password String
   isVerified              Boolean  @default(false)
   verificationToken       String?  @unique
-  verificationTokenExpiry DateTime?
+  verificationTokenExpires DateTime?
   role     String   @default("client")
   createdAt DateTime @default(now())
   bookings Booking[]

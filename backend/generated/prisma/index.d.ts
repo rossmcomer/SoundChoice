@@ -1668,7 +1668,7 @@ export namespace Prisma {
     password: string | null;
     isVerified: boolean | null;
     verificationToken: string | null;
-    verificationTokenExpiry: Date | null;
+    verificationTokenExpires: Date | null;
     role: string | null;
     createdAt: Date | null;
   };
@@ -1681,7 +1681,7 @@ export namespace Prisma {
     password: string | null;
     isVerified: boolean | null;
     verificationToken: string | null;
-    verificationTokenExpiry: Date | null;
+    verificationTokenExpires: Date | null;
     role: string | null;
     createdAt: Date | null;
   };
@@ -1694,7 +1694,7 @@ export namespace Prisma {
     password: number;
     isVerified: number;
     verificationToken: number;
-    verificationTokenExpiry: number;
+    verificationTokenExpires: number;
     role: number;
     createdAt: number;
     _all: number;
@@ -1708,7 +1708,7 @@ export namespace Prisma {
     password?: true;
     isVerified?: true;
     verificationToken?: true;
-    verificationTokenExpiry?: true;
+    verificationTokenExpires?: true;
     role?: true;
     createdAt?: true;
   };
@@ -1721,7 +1721,7 @@ export namespace Prisma {
     password?: true;
     isVerified?: true;
     verificationToken?: true;
-    verificationTokenExpiry?: true;
+    verificationTokenExpires?: true;
     role?: true;
     createdAt?: true;
   };
@@ -1734,7 +1734,7 @@ export namespace Prisma {
     password?: true;
     isVerified?: true;
     verificationToken?: true;
-    verificationTokenExpiry?: true;
+    verificationTokenExpires?: true;
     role?: true;
     createdAt?: true;
     _all?: true;
@@ -1823,7 +1823,7 @@ export namespace Prisma {
     password: string;
     isVerified: boolean;
     verificationToken: string | null;
-    verificationTokenExpiry: Date | null;
+    verificationTokenExpires: Date | null;
     role: string;
     createdAt: Date;
     _count: UserCountAggregateOutputType | null;
@@ -1854,7 +1854,7 @@ export namespace Prisma {
       password?: boolean;
       isVerified?: boolean;
       verificationToken?: boolean;
-      verificationTokenExpiry?: boolean;
+      verificationTokenExpires?: boolean;
       role?: boolean;
       createdAt?: boolean;
       bookings?: boolean | User$bookingsArgs<ExtArgs>;
@@ -1875,7 +1875,7 @@ export namespace Prisma {
       password?: boolean;
       isVerified?: boolean;
       verificationToken?: boolean;
-      verificationTokenExpiry?: boolean;
+      verificationTokenExpires?: boolean;
       role?: boolean;
       createdAt?: boolean;
     },
@@ -1893,7 +1893,7 @@ export namespace Prisma {
       password?: boolean;
       isVerified?: boolean;
       verificationToken?: boolean;
-      verificationTokenExpiry?: boolean;
+      verificationTokenExpires?: boolean;
       role?: boolean;
       createdAt?: boolean;
     },
@@ -1908,7 +1908,7 @@ export namespace Prisma {
     password?: boolean;
     isVerified?: boolean;
     verificationToken?: boolean;
-    verificationTokenExpiry?: boolean;
+    verificationTokenExpires?: boolean;
     role?: boolean;
     createdAt?: boolean;
   };
@@ -1923,7 +1923,7 @@ export namespace Prisma {
     | 'password'
     | 'isVerified'
     | 'verificationToken'
-    | 'verificationTokenExpiry'
+    | 'verificationTokenExpires'
     | 'role'
     | 'createdAt',
     ExtArgs['result']['user']
@@ -1959,7 +1959,7 @@ export namespace Prisma {
         password: string;
         isVerified: boolean;
         verificationToken: string | null;
-        verificationTokenExpiry: Date | null;
+        verificationTokenExpires: Date | null;
         role: string;
         createdAt: Date;
       },
@@ -2576,7 +2576,7 @@ export namespace Prisma {
     readonly password: FieldRef<'User', 'String'>;
     readonly isVerified: FieldRef<'User', 'Boolean'>;
     readonly verificationToken: FieldRef<'User', 'String'>;
-    readonly verificationTokenExpiry: FieldRef<'User', 'DateTime'>;
+    readonly verificationTokenExpires: FieldRef<'User', 'DateTime'>;
     readonly role: FieldRef<'User', 'String'>;
     readonly createdAt: FieldRef<'User', 'DateTime'>;
   }
@@ -10993,7 +10993,7 @@ export namespace Prisma {
     password: 'password';
     isVerified: 'isVerified';
     verificationToken: 'verificationToken';
-    verificationTokenExpiry: 'verificationTokenExpiry';
+    verificationTokenExpires: 'verificationTokenExpires';
     role: 'role';
     createdAt: 'createdAt';
   };
@@ -11275,7 +11275,7 @@ export namespace Prisma {
     password?: StringFilter<'User'> | string;
     isVerified?: BoolFilter<'User'> | boolean;
     verificationToken?: StringNullableFilter<'User'> | string | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | DateTimeNullableFilter<'User'>
       | Date
       | string
@@ -11294,7 +11294,7 @@ export namespace Prisma {
     password?: SortOrder;
     isVerified?: SortOrder;
     verificationToken?: SortOrderInput | SortOrder;
-    verificationTokenExpiry?: SortOrderInput | SortOrder;
+    verificationTokenExpires?: SortOrderInput | SortOrder;
     role?: SortOrder;
     createdAt?: SortOrder;
     bookings?: BookingOrderByRelationAggregateInput;
@@ -11313,7 +11313,7 @@ export namespace Prisma {
       phone?: StringFilter<'User'> | string;
       password?: StringFilter<'User'> | string;
       isVerified?: BoolFilter<'User'> | boolean;
-      verificationTokenExpiry?:
+      verificationTokenExpires?:
         | DateTimeNullableFilter<'User'>
         | Date
         | string
@@ -11334,7 +11334,7 @@ export namespace Prisma {
     password?: SortOrder;
     isVerified?: SortOrder;
     verificationToken?: SortOrderInput | SortOrder;
-    verificationTokenExpiry?: SortOrderInput | SortOrder;
+    verificationTokenExpires?: SortOrderInput | SortOrder;
     role?: SortOrder;
     createdAt?: SortOrder;
     _count?: UserCountOrderByAggregateInput;
@@ -11360,7 +11360,7 @@ export namespace Prisma {
       | StringNullableWithAggregatesFilter<'User'>
       | string
       | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | DateTimeNullableWithAggregatesFilter<'User'>
       | Date
       | string
@@ -11803,7 +11803,7 @@ export namespace Prisma {
     password: string;
     isVerified?: boolean;
     verificationToken?: string | null;
-    verificationTokenExpiry?: Date | string | null;
+    verificationTokenExpires?: Date | string | null;
     role?: string;
     createdAt?: Date | string;
     bookings?: BookingCreateNestedManyWithoutUserInput;
@@ -11818,7 +11818,7 @@ export namespace Prisma {
     password: string;
     isVerified?: boolean;
     verificationToken?: string | null;
-    verificationTokenExpiry?: Date | string | null;
+    verificationTokenExpires?: Date | string | null;
     role?: string;
     createdAt?: Date | string;
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput;
@@ -11836,7 +11836,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
@@ -11858,7 +11858,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
@@ -11877,7 +11877,7 @@ export namespace Prisma {
     password: string;
     isVerified?: boolean;
     verificationToken?: string | null;
-    verificationTokenExpiry?: Date | string | null;
+    verificationTokenExpires?: Date | string | null;
     role?: string;
     createdAt?: Date | string;
   };
@@ -11893,7 +11893,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
@@ -11913,7 +11913,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
@@ -12408,7 +12408,7 @@ export namespace Prisma {
     password?: SortOrder;
     isVerified?: SortOrder;
     verificationToken?: SortOrder;
-    verificationTokenExpiry?: SortOrder;
+    verificationTokenExpires?: SortOrder;
     role?: SortOrder;
     createdAt?: SortOrder;
   };
@@ -12421,7 +12421,7 @@ export namespace Prisma {
     password?: SortOrder;
     isVerified?: SortOrder;
     verificationToken?: SortOrder;
-    verificationTokenExpiry?: SortOrder;
+    verificationTokenExpires?: SortOrder;
     role?: SortOrder;
     createdAt?: SortOrder;
   };
@@ -12434,7 +12434,7 @@ export namespace Prisma {
     password?: SortOrder;
     isVerified?: SortOrder;
     verificationToken?: SortOrder;
-    verificationTokenExpiry?: SortOrder;
+    verificationTokenExpires?: SortOrder;
     role?: SortOrder;
     createdAt?: SortOrder;
   };
@@ -14107,7 +14107,7 @@ export namespace Prisma {
     password: string;
     isVerified?: boolean;
     verificationToken?: string | null;
-    verificationTokenExpiry?: Date | string | null;
+    verificationTokenExpires?: Date | string | null;
     role?: string;
     createdAt?: Date | string;
     questionnaires?: QuestionnaireCreateNestedManyWithoutUserInput;
@@ -14121,7 +14121,7 @@ export namespace Prisma {
     password: string;
     isVerified?: boolean;
     verificationToken?: string | null;
-    verificationTokenExpiry?: Date | string | null;
+    verificationTokenExpires?: Date | string | null;
     role?: string;
     createdAt?: Date | string;
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutUserInput;
@@ -14217,7 +14217,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
@@ -14238,7 +14238,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
@@ -14422,7 +14422,7 @@ export namespace Prisma {
     password: string;
     isVerified?: boolean;
     verificationToken?: string | null;
-    verificationTokenExpiry?: Date | string | null;
+    verificationTokenExpires?: Date | string | null;
     role?: string;
     createdAt?: Date | string;
     bookings?: BookingCreateNestedManyWithoutUserInput;
@@ -14436,7 +14436,7 @@ export namespace Prisma {
     password: string;
     isVerified?: boolean;
     verificationToken?: string | null;
-    verificationTokenExpiry?: Date | string | null;
+    verificationTokenExpires?: Date | string | null;
     role?: string;
     createdAt?: Date | string;
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput;
@@ -14519,7 +14519,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
@@ -14540,7 +14540,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
-    verificationTokenExpiry?:
+    verificationTokenExpires?:
       | NullableDateTimeFieldUpdateOperationsInput
       | Date
       | string
