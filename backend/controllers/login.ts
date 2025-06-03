@@ -21,6 +21,10 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
       return res.status(403).json({ error: 'User not found.' });
     }
 
+    if (!user.isVerified) {
+      return res.status(403).json({ error: 'Email not verified' });
+    }
+
     // Validate password
     const passwordCorrect = await bcryptjs.compare(password, user.password);
 

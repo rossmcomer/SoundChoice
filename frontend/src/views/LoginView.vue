@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
-import { createAccount } from '@/services/userService';
+import { createAccount, resendVerificationEmail } from '@/services/userService';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import ForgotPasswordForm from '@/components/ForgotPasswordForm.vue';
@@ -15,6 +15,9 @@ const loginForm = ref({
   email: '',
   password: '',
 });
+
+const emailNotVerified = ref(false);
+const unverifiedEmail = ref('');
 
 const showSignUpModal = ref(false);
 const signUpForm = ref({
@@ -42,16 +45,24 @@ const handleLogin = async () => {
   } catch (err: any) {
     console.error(err);
 
-    const errorMessage = err.message;
+    const errorMessage = err.message.toLowerCase();
 
-    if (errorMessage.toLowerCase().includes('user not found')) {
+    if (errorMessage.includes('user not found')) {
       toast.error('User with this email does not exist.');
     } else if (
-      errorMessage.toLowerCase().includes('invalid password') ||
-      errorMessage.toLowerCase().includes('wrong password')
+      errorMessage.includes('invalid password') ||
+      errorMessage.includes('wrong password')
     ) {
       toast.error('Incorrect password. Please try again.');
+    } else if (errorMessage.includes('email not verified')) {
+      emailNotVerified.value = true;
+      unverifiedEmail.value = loginForm.value.email;
+      toast.error(
+        'Your email has not been verified. Please check your inbox or resend the verification email.',
+      );
     } else {
+      emailNotVerified.value = false;
+      unverifiedEmail.value = '';
       toast.error('Failed to login. Please try again.');
     }
   }
@@ -101,6 +112,17 @@ const handleSignUpSubmit = async () => {
       toast.error('Something went wrong. Please try again later.');
     }
 
+    console.error(error);
+  }
+};
+
+const handleResendVerificationEmail = async () => {
+  try {
+    await resendVerificationEmail(unverifiedEmail.value);
+    toast.success('Verification email resent. Please check your inbox.');
+    emailNotVerified.value = false;
+  } catch (error) {
+    toast.error('Failed to resend verification email. Please try again later.');
     console.error(error);
   }
 };
@@ -156,6 +178,14 @@ const handleSignUpSubmit = async () => {
         >
           Submit
         </button>
+        <div v-if="emailNotVerified" class="mt-4 text-sm">
+          <span
+            class="text-blue-800 hover:underline cursor-pointer"
+            @click="handleResendVerificationEmail"
+          >
+            Resend verification email
+          </span>
+        </div>
         <div class="text-sm text-gray-500 flex mt-4">
           <div class="flex items-center">
             <div class="flex">

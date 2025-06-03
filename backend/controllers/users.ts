@@ -5,7 +5,10 @@ import { prisma } from '../util/db';
 import bcryptjs from 'bcryptjs';
 import crypto from 'crypto';
 import { sendResetEmail, sendVerificationEmail } from '../util/email';
-const { tokenExtractor } = require('../util/middleware');
+const {
+  tokenExtractor,
+  resendVerificationLimiter,
+} = require('../util/middleware');
 const { DOMAIN_NAME } = require('../util/config');
 import { addHours } from 'date-fns';
 
@@ -136,36 +139,40 @@ router.get('/verify-email', async (req: Request, res: Response) => {
 });
 
 // Resend email verification
-router.post('/resend-verification', async (req: Request, res: Response) => {
-  const { email } = req.body;
+router.post(
+  '/resend-verification',
+  resendVerificationLimiter,
+  async (req: Request, res: Response) => {
+    const { email } = req.body;
 
-  const user = await prisma.user.findUnique({
-    where: { email: email.toLowerCase() },
-  });
+    const user = await prisma.user.findUnique({
+      where: { email: email.toLowerCase() },
+    });
 
-  if (!user || user.isVerified) {
-    return res
-      .status(400)
-      .json({ error: 'Invalid request or already verified' });
-  }
+    if (!user || user.isVerified) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid request or already verified' });
+    }
 
-  const verificationToken = crypto.randomBytes(32).toString('hex');
-  const verificationTokenExpiry = addHours(new Date(), 1);
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationTokenExpiry = addHours(new Date(), 1);
 
-  await prisma.user.update({
-    where: { id: user.id },
-    data: {
-      verificationToken,
-      verificationTokenExpiry,
-    },
-  });
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        verificationToken,
+        verificationTokenExpiry,
+      },
+    });
 
-  const verificationUrl = `${DOMAIN_NAME}/verify-email?token=${verificationToken}&email=${encodeURIComponent(email)}`;
+    const verificationUrl = `${DOMAIN_NAME}/verify-email?token=${verificationToken}&email=${encodeURIComponent(email)}`;
 
-  await sendVerificationEmail(email, verificationUrl);
+    await sendVerificationEmail(email, verificationUrl);
 
-  return res.json({ message: 'Verification email resent' });
-});
+    return res.json({ message: 'Verification email resent' });
+  },
+);
 
 // GET all info about a user and their bookings, payments, questionnaire answers
 router.get(

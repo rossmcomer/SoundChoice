@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { DecodedToken } from '../types';
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('./config');
+import rateLimit from 'express-rate-limit';
 
 const tokenExtractor = (
   req: Request,
@@ -32,4 +33,15 @@ const requireAdmin = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-module.exports = { tokenExtractor, requireAdmin };
+// Rate limiter: Max 3 requests per hour per IP
+const resendVerificationLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 3, // limit each IP to 3 requests per windowMs
+  message: {
+    error: 'Too many verification requests. Please try again later.',
+  },
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+module.exports = { tokenExtractor, requireAdmin, resendVerificationLimiter };
