@@ -42,9 +42,9 @@ const formatPhone = (phone: string) => {
         <div class="sm:max-w-4/5 sm:w-2xl w-full px-4">
           <div class="flex justify-between">
             <div class="text-[var(--black-soft)]">
-              <p><b>Name:</b> {{ user.name }}</p>
-              <p><b>Email:</b> {{ user.email }}</p>
-              <p><b>Phone:</b> {{ formatPhone(user.phone) }}</p>
+              <div class="flex"><p class="min-w-[50px]"><b>Name:</b></p> {{ user.name }}</div>
+              <div class="flex"><p class="min-w-[50px]"><b>Email:</b></p> {{ user.email }}</div>
+              <div class="flex"><p class="min-w-[50px]"><b>Phone:</b></p> {{ formatPhone(user.phone) }}</div>
             </div>
             <div class="flex items-center">
               <button
