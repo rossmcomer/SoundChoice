@@ -46,8 +46,8 @@ const handleResend = async () => {
   try {
     await resendVerificationEmail(email.value);
     toast.success('Verification email resent.');
-  } catch (err) {
-    toast.error('Failed to resend verification email.');
+  } catch (error: any) {
+    toast.error(error.response.data.error);
   }
 };
 </script>

@@ -118,8 +118,8 @@ router.get('/verify-email', async (req: Request, res: Response) => {
 
   if (
     !user ||
-    !user.verificationTokenExpiry ||
-    new Date() > user.verificationTokenExpiry
+    !user.verificationTokenExpires ||
+    new Date() > user.verificationTokenExpires
   ) {
     return res
       .status(400)
@@ -156,13 +156,13 @@ router.post(
     }
 
     const verificationToken = crypto.randomBytes(32).toString('hex');
-    const verificationTokenExpiry = addHours(new Date(), 1);
+    const verificationTokenExpires = addHours(new Date(), 1);
 
     await prisma.user.update({
       where: { id: user.id },
       data: {
         verificationToken,
-        verificationTokenExpiry,
+        verificationTokenExpires,
       },
     });
 
