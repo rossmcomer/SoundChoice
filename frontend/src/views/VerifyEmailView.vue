@@ -53,21 +53,21 @@ const handleResend = async () => {
 </script>
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen">
-    <h1 class="text-2xl font-bold mb-4">Verifying your email...</h1>
-    <p v-if="status === 'success'" class="text-[var(--black-soft)]">
+    <h1 class="text-2xl font-bold mb-4">Verifying your email</h1>
+    <p v-if="status === 'success'" class="text-[var(--black-soft)] text-center">
       Email verified successfully. You can now log in.
     </p>
-    <div v-else-if="status === 'error'" class="text-red-600 space-y-4">
+    <div v-else-if="status === 'error'" class="text-[var(--black-soft)] text-center space-y-4 flex flex-col">
       <p>Verification failed. The token may be invalid or expired.</p>
       <button
         @click="handleResend"
-        class="text-blue-600 underline hover:text-blue-800"
+        class="text-blue-600 underline hover:text-blue-800 cursor-pointer"
         :disabled="!email"
       >
         Resend verification email
       </button>
     </div>
 
-    <p v-else class="text-gray-500">Please wait...</p>
+    <p v-else class="text-gray-500">Please wait</p>
   </div>
 </template>

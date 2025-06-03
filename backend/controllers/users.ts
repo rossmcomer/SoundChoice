@@ -131,7 +131,7 @@ router.get('/verify-email', async (req: Request, res: Response) => {
     data: {
       isVerified: true,
       verificationToken: null,
-      verificationTokenExpiry: null,
+      verificationTokenExpires: null,
     },
   });
 
