@@ -40,7 +40,7 @@ function handleLogout() {
         target="_blank"
         href="https://www.theknot.com/marketplace/redirect-2087136?utm_source=vendor_website&utm_medium=banner&utm_term=232778f0-9067-40ac-8bff-f57d64cca8a1&utm_campaign=vendor_badge_assets"
         ><img
-          alt="As Seen on The Knot"
+          alt="As Seen on The Knot Wedding DJ"
           src="https://d13ns7kbjmbjip.cloudfront.net/For_Your_Website/TK-badge_AsSeen.png"
       /></a>
     </div>

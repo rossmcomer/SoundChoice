@@ -18,8 +18,8 @@ const user = computed(() => userStore.user);
   <nav class="fixed w-full z-20 top-0 start-0 min-w-[344px] shadow-lg">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <router-link to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img :src="SCLogoPhones" class="h-8" alt="SoundChoice Logo" />
-        <img :src="SCLogoText" class="h-8" alt="SoundChoice Logo" />
+        <img :src="SCLogoPhones" class="h-8" alt="SoundChoice DJ Logo" />
+        <img :src="SCLogoText" class="h-8" alt="SoundChoice DJ Logo" />
       </router-link>
       <div class="flex md:order-2 space-x-2 md:space-x-0 rtl:space-x-reverse">
         <button
