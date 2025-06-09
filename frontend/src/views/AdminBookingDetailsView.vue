@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import type { Booking, PaymentMethod } from '@/types';
 import { useRoute, useRouter } from 'vue-router';
 import { addPayment, getBookingInfo, updateBooking } from '@/services/adminService';
@@ -15,7 +15,9 @@ const booking = ref<Booking | null>(null);
 const questionnaireRef = ref<HTMLElement | null>(null);
 
 //Payment editing refs
-const amount = ref<number | null>(null);
+const amount = computed(() => {
+  return booking.value ? booking.value.totalAmount / 2 : null;
+});
 const method = ref<PaymentMethod>('cash');
 const submitting = ref(false);
 const error = ref<string | null>(null);
@@ -49,7 +51,6 @@ const handleAddPayment = async () => {
     toast.success('Succesfully added payment.');
 
     await fetchBooking(); // Refresh booking data
-    amount.value = null; // Reset form
     method.value = 'cash';
   } catch (err) {
     toast.error('Failed to add payment.');
@@ -161,16 +162,17 @@ const copyQuestionnaire = async () => {
                   </tbody>
                 </table>
               </div>
-              <div class="mt-6 border-t pt-4">
+              <div v-if="
+                  booking.paymentStatus === 'depositReceived' ||
+                  booking.paymentStatus === 'remainingPaymentFailed'
+                " class="mt-6 border-t pt-4">
                 <h3 class="font-semibold mb-2">Add Payment</h3>
                 <div class="space-y-2">
                   <div>
                     <label>Amount: </label>
-                    <input
-                      v-model.number="amount"
-                      type="number"
-                      class="border rounded px-2 py-1 w-32"
-                    />
+                    <div class="px-2 py-1 w-32 border rounded bg-gray-100">
+                      ${{ amount ? (amount / 100).toFixed(2) : '0.00' }}
+                    </div>
                   </div>
                   <div>
                     <label>Method: </label>
