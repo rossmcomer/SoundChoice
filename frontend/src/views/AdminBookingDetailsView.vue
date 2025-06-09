@@ -16,7 +16,7 @@ const questionnaireRef = ref<HTMLElement | null>(null);
 
 //Payment editing refs
 const amount = computed(() => {
-  return booking.value ? booking.value.totalAmount / 2 : null;
+  return booking.value ? booking.value.totalAmount / 200 : null;
 });
 const method = ref<PaymentMethod>('cash');
 const submitting = ref(false);
@@ -162,10 +162,13 @@ const copyQuestionnaire = async () => {
                   </tbody>
                 </table>
               </div>
-              <div v-if="
+              <div
+                v-if="
                   booking.paymentStatus === 'depositReceived' ||
                   booking.paymentStatus === 'remainingPaymentFailed'
-                " class="mt-6 border-t pt-4">
+                "
+                class="mt-6 border-t pt-4"
+              >
                 <h3 class="font-semibold mb-2">Add Payment</h3>
                 <div class="space-y-2">
                   <div>
