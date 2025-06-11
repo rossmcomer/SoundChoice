@@ -10,7 +10,7 @@ const {
 } = require('./util/config');
 const { connectToDatabase } = require('./util/db.ts');
 import { oauth2Client } from './util/googleCalendar';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import csurf from 'csurf';
 
 const usersRouter = require('./controllers/users');
@@ -24,6 +24,7 @@ const stripeRouter = require('./controllers/stripe');
 const stripeWebhookRouter = require('./controllers/stripeWebhook');
 const productsRouter = require('./controllers/products');
 const testimonialsRouter = require('./controllers/testimonials');
+const csrfRouter = require('./controllers/csrf');
 
 app.use(cookieParser());
 app.use(
@@ -61,6 +62,7 @@ app.use('/api/stripe', stripeRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/testimonials', testimonialsRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/csrf-token', csrfRouter);
 
 app.get('/auth/google', (req: Request, res: Response) => {
   const url = oauth2Client.generateAuthUrl({
@@ -87,6 +89,14 @@ app.get('/api/auth/google/callback', async (req: Request, res: Response) => {
     console.error('Auth error:', err);
     res.status(500).send('Authentication failed');
   }
+});
+
+//CSRF Error Handler
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  if (err.code === 'EBADCSRFTOKEN') {
+    return res.status(403).json({ error: 'Invalid CSRF token' });
+  }
+  next(err);
 });
 
 const start = async () => {
