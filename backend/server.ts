@@ -11,6 +11,7 @@ const {
 const { connectToDatabase } = require('./util/db.ts');
 import { oauth2Client } from './util/googleCalendar';
 import { Request, Response } from 'express';
+import csurf from 'csurf';
 
 const usersRouter = require('./controllers/users');
 const availabilityRouter = require('./controllers/availability');
@@ -31,6 +32,16 @@ app.use(
     credentials: true,
   }),
 );
+
+const csrfProtection = csurf({
+  cookie: {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  },
+});
+
+app.use(csrfProtection);
 
 app.use(
   '/api/stripe-webhook',
