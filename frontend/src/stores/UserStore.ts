@@ -2,10 +2,12 @@ import type { User } from '@/types';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
+import axios from '@/util/apiClient';
 
 import userService from '@/services/userService';
 import loginService from '@/services/loginService';
 import logoutService from '@/services/logoutService';
+import { fetchCsrfToken } from '@/services/csrfService';
 
 export const useUserStore = defineStore('UserStore', () => {
   const router = useRouter();
@@ -14,6 +16,10 @@ export const useUserStore = defineStore('UserStore', () => {
   const loginUser = async ({ email, password }: { email: string; password: string }) => {
     try {
       await loginService.login({ email, password });
+
+      const csrfToken = await fetchCsrfToken();
+      axios.defaults.headers.common['x-csrf-token'] = csrfToken;
+
       const data = await userService.getUserData();
       user.value = data;
     } catch (err: any) {
@@ -26,6 +32,10 @@ export const useUserStore = defineStore('UserStore', () => {
     try {
       await logoutService.logout();
       user.value = null;
+
+      // 🔐 Remove CSRF token from axios headers
+      delete axios.defaults.headers.common['x-csrf-token'];
+
       router.push('/');
     } catch (err) {
       console.error('Logout failed:', err);

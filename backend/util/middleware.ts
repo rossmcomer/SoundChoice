@@ -45,11 +45,21 @@ const resendVerificationLimiter = rateLimit({
 });
 
 //CSRF Error Handler
-const csrfErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+const csrfErrorHandler = (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   if (err.code === 'EBADCSRFTOKEN') {
     return res.status(403).json({ error: 'Invalid CSRF token' });
   }
   next(err);
 };
 
-module.exports = { tokenExtractor, requireAdmin, resendVerificationLimiter, csrfErrorHandler };
+module.exports = {
+  tokenExtractor,
+  requireAdmin,
+  resendVerificationLimiter,
+  csrfErrorHandler,
+};
