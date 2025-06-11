@@ -10,8 +10,9 @@ const {
 } = require('./util/config');
 const { connectToDatabase } = require('./util/db.ts');
 import { oauth2Client } from './util/googleCalendar';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import csurf from 'csurf';
+const { csrfErrorHandler } = require('./util/middleware');
 
 const usersRouter = require('./controllers/users');
 const availabilityRouter = require('./controllers/availability');
@@ -91,13 +92,7 @@ app.get('/api/auth/google/callback', async (req: Request, res: Response) => {
   }
 });
 
-//CSRF Error Handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  if (err.code === 'EBADCSRFTOKEN') {
-    return res.status(403).json({ error: 'Invalid CSRF token' });
-  }
-  next(err);
-});
+app.use(csrfErrorHandler);
 
 const start = async () => {
   await connectToDatabase();
