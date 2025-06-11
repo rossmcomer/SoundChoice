@@ -32,7 +32,7 @@ const goBack = () => {
   router.back();
 };
 
-onMounted(fetchBooking);
+onMounted(fetchBooking)
 
 const handleAddPayment = async () => {
   if (!booking.value || amount.value === null || !method.value) return;
