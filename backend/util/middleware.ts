@@ -45,7 +45,7 @@ const resendVerificationLimiter = rateLimit({
 });
 
 //CSRF Error Handler
-export const csrfErrorHandler = (
+const csrfErrorHandler = (
   err: any,
   req: Request,
   res: Response,

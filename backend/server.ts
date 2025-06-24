@@ -12,7 +12,7 @@ const { connectToDatabase } = require('./util/db.ts');
 import { oauth2Client } from './util/googleCalendar';
 import { Request, Response } from 'express';
 import csurf from 'csurf';
-import { csrfErrorHandler } from './util/middleware';
+const { csrfErrorHandler } = require('./util/middleware');
 
 const usersRouter = require('./controllers/users');
 const availabilityRouter = require('./controllers/availability');
