@@ -8,3 +8,5 @@ router.get('/', (req: Request, res: Response) => {
   });
   res.status(200).json({ csrfToken: req.csrfToken() });
 });
+
+module.exports = router;
