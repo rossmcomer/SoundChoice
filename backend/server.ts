@@ -35,6 +35,14 @@ app.use(
   }),
 );
 
+app.use(
+  '/api/stripe-webhook',
+  express.raw({ type: 'application/json' }),
+  stripeWebhookRouter,
+);
+
+app.use(express.json());
+
 const csrfProtection = csurf({
   cookie: {
     httpOnly: true,
@@ -44,14 +52,6 @@ const csrfProtection = csurf({
 });
 
 app.use(csrfProtection);
-
-app.use(
-  '/api/stripe-webhook',
-  express.raw({ type: 'application/json' }),
-  stripeWebhookRouter,
-);
-
-app.use(express.json());
 
 app.use('/api/users', usersRouter);
 app.use('/api/availability', availabilityRouter);
