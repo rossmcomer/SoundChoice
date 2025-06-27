@@ -10,7 +10,7 @@ const {
 } = require('./util/config');
 const { connectToDatabase } = require('./util/db.ts');
 import { oauth2Client } from './util/googleCalendar';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import csurf from 'csurf';
 const { csrfErrorHandler } = require('./util/middleware');
 
@@ -51,7 +51,12 @@ const csrfProtection = csurf({
   },
 });
 
-app.use(csrfProtection);
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (req.path === '/api/stripe-webhook') {
+    return next(); // 🚫 Skip CSRF for Stripe webhook
+  }
+  return csrfProtection(req, res, next); // ✅ Apply CSRF to all other routes
+});
 
 app.use('/api/users', usersRouter);
 app.use('/api/availability', availabilityRouter);
