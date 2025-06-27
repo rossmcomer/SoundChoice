@@ -52,8 +52,8 @@ const csrfProtection = csurf({
 });
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  if (req.path === '/api/stripe-webhook') {
-    return next(); // 🚫 Skip CSRF for Stripe webhook
+  if (req.originalUrl.startsWith('/api/stripe-webhook')) {
+    return next(); // Skip CSRF for Stripe webhook
   }
   return csrfProtection(req, res, next); // ✅ Apply CSRF to all other routes
 });
