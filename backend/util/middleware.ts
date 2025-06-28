@@ -52,6 +52,7 @@ const csrfErrorHandler = (
   next: NextFunction,
 ) => {
   if (err.code === 'EBADCSRFTOKEN') {
+    console.error('Invalid CSRF token');
     return res.status(403).json({ error: 'Invalid CSRF token' });
   }
   next(err);

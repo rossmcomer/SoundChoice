@@ -8,14 +8,28 @@ import { createPinia } from 'pinia';
 
 import App from '@/App.vue';
 import router from '@/router';
+import { fetchCsrfToken } from '@/services/csrfService';
+import axios from '@/util/apiClient';
 
-const app = createApp(App);
+async function initApp() {
+  try {
+    const csrfToken = await fetchCsrfToken();
+    axios.defaults.headers.common['x-csrf-token'] = csrfToken;
+    console.log('✅ CSRF token set');
+  } catch (err) {
+    console.error('❌ Failed to fetch CSRF token:', err);
+  }
 
-app.use(createPinia());
-app.use(router);
-app.use(Vue3Toastify, {
-  autoClose: 3000,
-  position: 'top-center',
-} as ToastContainerOptions);
+  const app = createApp(App);
 
-app.mount('#app');
+  app.use(createPinia());
+  app.use(router);
+  app.use(Vue3Toastify, {
+    autoClose: 3000,
+    position: 'top-center',
+  } as ToastContainerOptions);
+
+  app.mount('#app');
+}
+
+initApp();
