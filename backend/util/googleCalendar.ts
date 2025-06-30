@@ -1,45 +1,38 @@
 import { google } from 'googleapis';
-const {
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
-  GOOGLE_REDIRECT_URI,
-  GOOGLE_REFRESH_TOKEN,
-} = require('../util/config');
+import { GoogleAuth } from 'google-auth-library';
+import path from 'path';
 
-export const oauth2Client = new google.auth.OAuth2(
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
-  GOOGLE_REDIRECT_URI,
-);
+// Load your service account key JSON
+const SERVICE_ACCOUNT_KEY_PATH = path.join(__dirname, '../util/service-account.json'); // Adjust path as needed
 
-oauth2Client.setCredentials({
-  refresh_token: GOOGLE_REFRESH_TOKEN,
+// Create GoogleAuth instance with required scope
+const auth = new GoogleAuth({
+  keyFile: SERVICE_ACCOUNT_KEY_PATH,
+  scopes: ['https://www.googleapis.com/auth/calendar'],
 });
 
-export const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+// Create the calendar client using the service account
+export const calendar = google.calendar({ version: 'v3', auth });
 
 export async function createGoogleCalendarEvent(eventData: {
-  startTime: string; // ISO
-  endTime: string; // ISO
+  startTime: string; // ISO 8601
+  endTime: string; // ISO 8601
   summary?: string;
   description?: string;
 }) {
   const event = {
     summary: eventData.summary || 'New Booking',
     description: eventData.description || 'Client booked through Stripe',
-    start: {
-      dateTime: eventData.startTime,
-    },
-    end: {
-      dateTime: eventData.endTime,
-    },
+    start: { dateTime: eventData.startTime },
+    end: { dateTime: eventData.endTime },
   };
 
   try {
     const res = await calendar.events.insert({
-      calendarId: 'primary',
+      calendarId: 'primary', // this must be a calendar that shared access with the service account
       requestBody: event,
     });
+
     console.log('Google Calendar event created:', res.data.htmlLink);
   } catch (error) {
     console.error('Error creating Google Calendar event:', error);

@@ -9,7 +9,6 @@ const {
   NGROK_DOMAIN,
 } = require('./util/config');
 const { connectToDatabase } = require('./util/db.ts');
-import { oauth2Client } from './util/googleCalendar';
 import { Request, Response, NextFunction } from 'express';
 import csurf from 'csurf';
 const { csrfErrorHandler } = require('./util/middleware');
@@ -70,33 +69,6 @@ app.use('/api/products', productsRouter);
 app.use('/api/testimonials', testimonialsRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/csrf-token', csrfRouter);
-
-app.get('/auth/google', (req: Request, res: Response) => {
-  const url = oauth2Client.generateAuthUrl({
-    access_type: 'offline',
-    prompt: 'consent',
-    scope: ['https://www.googleapis.com/auth/calendar'],
-  });
-  res.redirect(url);
-});
-
-app.get('/api/auth/google/callback', async (req: Request, res: Response) => {
-  const { code } = req.query;
-  if (!code) return res.status(400).send('No code provided');
-
-  try {
-    const { tokens } = await oauth2Client.getToken(code as string);
-    oauth2Client.setCredentials(tokens);
-
-    console.log('Access Token:', tokens.access_token);
-    console.log('Refresh Token:', tokens.refresh_token); // ✅ Save this securely
-
-    res.send('Google Calendar auth successful. You can close this window.');
-  } catch (err) {
-    console.error('Auth error:', err);
-    res.status(500).send('Authentication failed');
-  }
-});
 
 app.use(csrfErrorHandler);
 
