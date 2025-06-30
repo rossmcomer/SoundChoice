@@ -2,13 +2,13 @@ import { google } from 'googleapis';
 import { GoogleAuth } from 'google-auth-library';
 import path from 'path';
 
-// Load your service account key JSON
-const SERVICE_ACCOUNT_KEY_PATH = path.join(__dirname, '../util/service-account.json'); // Adjust path as needed
+// Load service account key JSON
+const SERVICE_ACCOUNT_KEY_PATH = path.join(__dirname, '../googlejsonkey.json');
 
 // Create GoogleAuth instance with required scope
 const auth = new GoogleAuth({
   keyFile: SERVICE_ACCOUNT_KEY_PATH,
-  scopes: ['https://www.googleapis.com/auth/calendar'],
+  scopes: ['https://www.googleapis.com/auth/calendar.events'],
 });
 
 // Create the calendar client using the service account
@@ -29,7 +29,7 @@ export async function createGoogleCalendarEvent(eventData: {
 
   try {
     const res = await calendar.events.insert({
-      calendarId: 'primary', // this must be a calendar that shared access with the service account
+      calendarId: 'rcomeruw@gmail.com', // this must be a calendar that shared access with the service account
       requestBody: event,
     });
 
