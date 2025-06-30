@@ -130,7 +130,7 @@ router.post('/', async (req: Request, res: Response) => {
             startTime,
             endTime,
             summary: `DJ ${type} event at ${location}`,
-            description: `Booked for ${eventDate}`,
+            description: `Booked for DJ ${type} event at ${location}`,
           };
 
           await createGoogleCalendarEvent(eventData);

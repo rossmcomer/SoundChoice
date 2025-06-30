@@ -16,8 +16,9 @@ const questionnaireRef = ref<HTMLElement | null>(null);
 
 //Payment editing refs
 const amount = computed(() => {
-  return booking.value ? booking.value.totalAmount / 200 : null;
+  return booking.value ? booking.value.totalAmount / 2 : null;
 });
+console.log(amount)
 const method = ref<PaymentMethod>('cash');
 const submitting = ref(false);
 const error = ref<string | null>(null);
@@ -42,7 +43,7 @@ const handleAddPayment = async () => {
   try {
     await addPayment({
       bookingId: booking.value.id,
-      amount: amount.value,
+      amount: amount.value / 100,
       deposit: false,
       method: method.value,
     });
