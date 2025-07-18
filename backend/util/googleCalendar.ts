@@ -1,3 +1,6 @@
+const {
+  CALENDAR_EMAIL,
+} = require('../util/config');
 import { google } from 'googleapis';
 import { GoogleAuth } from 'google-auth-library';
 import path from 'path';
@@ -29,7 +32,7 @@ export async function createGoogleCalendarEvent(eventData: {
 
   try {
     const res = await calendar.events.insert({
-      calendarId: 'rcomeruw@gmail.com', // this must be a calendar that shared access with the service account
+      calendarId: `${CALENDAR_EMAIL}`, // this must be a calendar that shared access with the service account
       requestBody: event,
     });
 
