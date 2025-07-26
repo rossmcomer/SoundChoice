@@ -15,4 +15,5 @@ module.exports = {
   SMTP_PASS: process.env.SMTP_PASS,
   NGROK_DOMAIN: process.env.NGROK_DOMAIN,
   CALENDAR_EMAIL: process.env.CALENDAR_EMAIL,
+  DEV_STRIPE_SECRET: process.env.DEV_STRIPE_SECRET,
 };
