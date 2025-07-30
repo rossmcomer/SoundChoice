@@ -23,9 +23,33 @@ onMounted(() => {
     referrals.forEach(el => el.remove())
   }
 
+  const normalizeFeedItemHeights = () => {
+  const feedItems = document.querySelectorAll<HTMLElement>('.feed-item');
+  if (!feedItems.length) return;
+
+  let maxHeight = 0;
+
+  // Reset any previously set heights
+  feedItems.forEach(item => {
+    item.style.height = 'auto';
+  });
+
+  // Find max height
+  feedItems.forEach(item => {
+    const height = item.offsetHeight;
+    if (height > maxHeight) maxHeight = height;
+  });
+
+  // Apply max height to all
+  feedItems.forEach(item => {
+    item.style.height = `${maxHeight}px`;
+  });
+};
+
   const runInitialCleanup = () => {
     removeReferralHeadings()
     removeAccountName()
+    normalizeFeedItemHeights()
   }
 
   // Observe DOM changes since Juicer injects dynamically
@@ -61,20 +85,16 @@ onMounted(() => {
 </template>
 
 <style>
-.juicer-feed {
-  font-family: ;
-}
 .feed-item {
-  height: 700px !important;
   border-radius: 4px !important;
+  background-color: var(--white-soft) !important;
 }
 
 .j-text{
-  display: flex !important;
-  flex-direction: column !important;
+  height: 100% !important;
 } 
 
 .j-meta {
-  height:100% !important;
+  height:24px !important;
 }
 </style>
