@@ -23,33 +23,10 @@ onMounted(() => {
     referrals.forEach(el => el.remove())
   }
 
-  const normalizeFeedItemHeights = () => {
-  const feedItems = document.querySelectorAll<HTMLElement>('.feed-item');
-  if (!feedItems.length) return;
-
-  let maxHeight = 0;
-
-  // Reset any previously set heights
-  feedItems.forEach(item => {
-    item.style.height = 'auto';
-  });
-
-  // Find max height
-  feedItems.forEach(item => {
-    const height = item.offsetHeight;
-    if (height > maxHeight) maxHeight = height;
-  });
-
-  // Apply max height to all
-  feedItems.forEach(item => {
-    item.style.height = `${maxHeight}px`;
-  });
-};
-
   const runInitialCleanup = () => {
     removeReferralHeadings()
     removeAccountName()
-    normalizeFeedItemHeights()
+    // normalizeFeedItemHeights()
   }
 
   // Observe DOM changes since Juicer injects dynamically
@@ -85,7 +62,12 @@ onMounted(() => {
 </template>
 
 <style>
+.juicer-feed {
+  overflow: hidden !important;
+}
+
 .feed-item {
+  height: 750px !important;
   border-radius: 4px !important;
   background-color: var(--white-soft) !important;
 }
