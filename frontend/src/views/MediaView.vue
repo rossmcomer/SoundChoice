@@ -12,6 +12,30 @@ onMounted(() => {
     script.defer = true
     document.body.appendChild(script)
   }
+
+  const removeReferralHeadings = () => {
+    const referrals = document.querySelectorAll('h1.referral')
+    referrals.forEach(el => el.remove())
+  }
+
+  const removeAccountName = () => {
+    const referrals = document.querySelectorAll('.j-poster h3')
+    referrals.forEach(el => el.remove())
+  }
+
+  // Observe DOM changes since Juicer injects dynamically
+  const observer = new MutationObserver(() => {
+    removeReferralHeadings()
+    removeAccountName()
+  })
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  })
+
+  // Initial check (in case content is already loaded)
+  setTimeout(removeReferralHeadings, 3000)
 })
 </script>
 
@@ -25,12 +49,14 @@ onMounted(() => {
       <div class="flex flex-col items-center p-4 sm:p-10">
         <!-- Juicer Feed Embed -->
         <ul class="juicer-feed" data-feed-id="soundchoice-dj">
-          <h1 class="title">Loading feed...</h1>
         </ul>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style>
+.feed-item {
+  height: 700px !important
+}
 </style>

@@ -1,10 +1,10 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
+import fs from 'fs'
 
 export default defineConfig({
   plugins: [
@@ -28,6 +28,10 @@ export default defineConfig({
   server: {
     allowedHosts: true, // <-- allow all hosts (use with caution in production)
     host: true,          // <-- important to allow external IPs like ngrok
-    port: 5173           // or whatever port your frontend is on
+    port: 5173,           // or whatever port your frontend is on
+    https: {
+      key: fs.readFileSync('./certs/localhost-key.pem'),
+      cert: fs.readFileSync('./certs/localhost.pem'),
+    },
   }
 })
