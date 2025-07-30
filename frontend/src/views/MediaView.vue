@@ -23,6 +23,11 @@ onMounted(() => {
     referrals.forEach(el => el.remove())
   }
 
+  const runInitialCleanup = () => {
+    removeReferralHeadings()
+    removeAccountName()
+  }
+
   // Observe DOM changes since Juicer injects dynamically
   const observer = new MutationObserver(() => {
     removeReferralHeadings()
@@ -35,7 +40,7 @@ onMounted(() => {
   })
 
   // Initial check (in case content is already loaded)
-  setTimeout(removeReferralHeadings, 3000)
+  setTimeout(runInitialCleanup, 3000)
 })
 </script>
 
@@ -56,7 +61,20 @@ onMounted(() => {
 </template>
 
 <style>
+.juicer-feed {
+  font-family: ;
+}
 .feed-item {
-  height: 700px !important
+  height: 700px !important;
+  border-radius: 4px !important;
+}
+
+.j-text{
+  display: flex !important;
+  flex-direction: column !important;
+} 
+
+.j-meta {
+  height:100% !important;
 }
 </style>
