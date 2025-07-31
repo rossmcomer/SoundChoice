@@ -18,20 +18,13 @@ onMounted(() => {
     referrals.forEach(el => el.remove())
   }
 
-  const removeAccountName = () => {
-    const referrals = document.querySelectorAll('.j-poster h3')
-    referrals.forEach(el => el.remove())
-  }
-
   const runLayoutCleanup = () => {
     removeReferralHeadings()
-    removeAccountName()
   }
 
   // Observe DOM changes since Juicer injects dynamically
   const observer = new MutationObserver(() => {
     removeReferralHeadings()
-    removeAccountName()
   })
 
   observer.observe(document.body, {
