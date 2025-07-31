@@ -70,13 +70,22 @@ onMounted(() => {
   height: 750px !important;
   border-radius: 4px !important;
   background-color: var(--white-soft) !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
-.j-text{
-  height: 100% !important;
-} 
+.j-text {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
+}
 
 .j-meta {
   height:24px !important;
+  margin-top: auto !important;
+}
+
+.j-social {
+  color: var(--black-soft) !important;
 }
 </style>
