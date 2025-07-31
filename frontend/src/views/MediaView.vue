@@ -81,16 +81,39 @@ onMounted(() => {
   min-height: 56px !important;
 }
 
-/* .j-image {
-  max-height: ;
-} */
-
 .j-meta {
-  height:24px !important;
   margin-top: auto !important;
 }
 
 .j-social {
   color: var(--black-soft) !important;
+}
+
+.j-post-overlay {
+  border-radius: 10px !important;
+}
+
+.j-overlay-text {
+  flex-grow: 1 !important;
+  min-height: 450px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.j-overlay-content {
+  border-radius: 10px !important;
+}
+
+.media-preview {
+  max-height: 570px !important;
+}
+
+.image-post {
+  display:flex !important;
+  flex-direction: column !important;
+}
+
+.j-bottom {
+  margin-top: auto !important;
 }
 </style>
