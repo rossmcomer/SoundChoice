@@ -23,10 +23,9 @@ onMounted(() => {
     referrals.forEach(el => el.remove())
   }
 
-  const runInitialCleanup = () => {
+  const runLayoutCleanup = () => {
     removeReferralHeadings()
     removeAccountName()
-    // normalizeFeedItemHeights()
   }
 
   // Observe DOM changes since Juicer injects dynamically
@@ -41,7 +40,7 @@ onMounted(() => {
   })
 
   // Initial check (in case content is already loaded)
-  setTimeout(runInitialCleanup, 3000)
+  setTimeout(runLayoutCleanup, 3000)
 })
 </script>
 
@@ -67,11 +66,16 @@ onMounted(() => {
 }
 
 .feed-item {
-  height: 750px !important;
-  border-radius: 4px !important;
+  min-height: 750px !important;
+  border-radius: 10px !important;
   background-color: var(--white-soft) !important;
+  border-color: rgb(34, 34, 34);
+  border: solid !important;
+  border-width: 2px;
   display: flex !important;
   flex-direction: column !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
 }
 
 .j-text {
@@ -79,6 +83,14 @@ onMounted(() => {
   flex-direction: column !important;
   flex-grow: 1 !important;
 }
+
+.j-poster {
+  min-height: 56px !important;
+}
+
+/* .j-image {
+  max-height: ;
+} */
 
 .j-meta {
   height:24px !important;
