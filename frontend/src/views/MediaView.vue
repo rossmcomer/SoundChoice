@@ -113,4 +113,7 @@ onMounted(() => {
   flex-direction: column !important;
 }
 
+.j-bottom {
+  margin-top: auto !important;
+}
 </style>
