@@ -6,6 +6,7 @@ const {
   PORT,
   DOMAIN_NAME,
   DOMAIN_NAME_DEV,
+  DOMAIN_NAME_SECURE,
   NGROK_DOMAIN,
 } = require('./util/config');
 const { connectToDatabase } = require('./util/db.ts');
@@ -29,7 +30,7 @@ const csrfRouter = require('./controllers/csrf');
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [DOMAIN_NAME, DOMAIN_NAME_DEV, NGROK_DOMAIN],
+    origin: [DOMAIN_NAME, DOMAIN_NAME_DEV, DOMAIN_NAME_SECURE, NGROK_DOMAIN],
     credentials: true,
   }),
 );
