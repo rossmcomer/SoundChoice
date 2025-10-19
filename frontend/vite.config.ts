@@ -27,11 +27,12 @@ export default defineConfig({
   assetsInclude: ['**/*.m4v'],
   server: {
     allowedHosts: true, // <-- allow all hosts (use with caution in production)
-    host: true,          // <-- important to allow external IPs like ngrok
-    port: 5173,           // or whatever port your frontend is on
-    https: {
-      key: fs.readFileSync('./certs/localhost-key.pem'),
-      cert: fs.readFileSync('./certs/localhost.pem'),
-    },
+    host: true,          
+    port: 5173,           
+    // https: 
+    // {
+    //   key: fs.readFileSync('./certs/localhost-key.pem'),
+    //   cert: fs.readFileSync('./certs/localhost.pem'),
+    // },
   }
 })
