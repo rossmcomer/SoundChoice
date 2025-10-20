@@ -8,4 +8,6 @@ RUN npm ci --omit=dev
   
 COPY . .
 
+RUN npm run build
+
 CMD ["npm", "start"]
