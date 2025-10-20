@@ -16,6 +16,6 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"],
-    "lib": ["es2022", "dom"] 
+    "lib": ["es6", "dom"] 
   }
 }

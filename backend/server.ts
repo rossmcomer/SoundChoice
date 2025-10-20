@@ -9,7 +9,7 @@ const {
   DOMAIN_NAME_DEV_SECURE,
   NGROK_DOMAIN,
 } = require('./util/config');
-const { connectToDatabase } = require('./util/db.ts');
+const { connectToDatabase } = require('./util/db');
 import { Request, Response, NextFunction } from 'express';
 import csurf from 'csurf';
 const { csrfErrorHandler } = require('./util/middleware');
