@@ -4,9 +4,10 @@ const {
 import { google } from 'googleapis';
 import { GoogleAuth } from 'google-auth-library';
 import path from 'path';
+const { GOOGLE_SERVICE_ACCT_JSON } = require('./config');
 
 // Load service account key JSON
-const SERVICE_ACCOUNT_KEY_PATH = path.join(__dirname, '../googlejsonkey.json');
+const SERVICE_ACCOUNT_KEY_PATH = path.join(__dirname, GOOGLE_SERVICE_ACCT_JSON);
 
 // Create GoogleAuth instance with required scope
 const auth = new GoogleAuth({
