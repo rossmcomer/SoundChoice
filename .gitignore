@@ -1,3 +1,6 @@
 TODOLIST.txt
 ngrok.yml
 /certs/
+nginx.conf
+soundchoice-kp.pem
+db-backup.backup
