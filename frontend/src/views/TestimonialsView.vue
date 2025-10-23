@@ -13,6 +13,8 @@ onMounted(async () => {
   await testimonialStore.fetchTestimonials();
   loading.value = false;
 });
+
+
 </script>
 <template>
   <div class="relative h-full">
@@ -37,7 +39,7 @@ onMounted(async () => {
           coverflow-effect-slide-shadows="false"
           coverflow-effect-scale="0.8"
           autoplay-delay="3000"
-          autoplay-disable-on-interaction="false"
+          autoplay-disable-on-interaction="true"
           loop="true"
           style="--swiper-theme-color: var(--black-soft); --swiper-pagination-bottom: 8%"
         >
